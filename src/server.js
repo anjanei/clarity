@@ -1,3 +1,4 @@
+import { networkInterfaces } from 'node:os';
 import express from 'express';
 import { config, paths } from './config.js';
 import { trialsRouter } from './routes/trials.js';
@@ -53,8 +54,22 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ error: 'server_error', message: err.message });
 });
 
-app.listen(config.port, () => {
-  console.log(`fdaapproval listening on http://localhost:${config.port}`);
+app.listen(config.port, config.host, () => {
+  console.log(`fdaapproval listening on http://${config.host}:${config.port}`);
+  if (config.host === '0.0.0.0') {
+    // Reachable from the network, and there is no auth on these routes.
+    for (const address of lanAddresses()) {
+      console.log(`  http://${address}:${config.port}`);
+    }
+    console.log('  ! bound to all interfaces — no authentication on /api routes');
+  }
   if (!config.paperclip.apiKey) console.warn('  ! PAPERCLIP_API_KEY is not set');
   if (!config.anthropic.apiKey) console.warn('  ! ANTHROPIC_API_KEY is not set');
 });
+
+function lanAddresses() {
+  return Object.values(networkInterfaces())
+    .flat()
+    .filter((nic) => nic && nic.family === 'IPv4' && !nic.internal)
+    .map((nic) => nic.address);
+}
