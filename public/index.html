@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FDA Approval Review — clinical trial success assessment</title>
+    <meta
+      name="description"
+      content="Select a clinical trial and evaluate its therapeutic under the lens of an FDA approver."
+    />
+    <link rel="stylesheet" href="/dist/app.css" />
+  </head>
+  <body class="h-full">
+    <div class="mx-auto flex min-h-full max-w-[1600px] flex-col px-4 sm:px-6 lg:px-8">
+      <header class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 py-5">
+        <div>
+          <h1 class="text-lg font-semibold tracking-tight text-slate-900">FDA Approval Review</h1>
+          <p class="mt-0.5 text-sm text-slate-500">
+            Clinical trial catalog from Paperclip · rubric scoring by Claude
+          </p>
+        </div>
+        <div id="health" class="flex flex-wrap items-center gap-2 text-xs"></div>
+      </header>
+
+      <main class="grid flex-1 grid-cols-1 gap-6 py-6 lg:grid-cols-[minmax(340px,420px)_1fr]">
+        <!-- Trial catalog -->
+        <aside class="flex min-h-0 flex-col gap-3">
+          <div class="card card-pad space-y-3">
+            <div>
+              <label for="search" class="label">Search catalog</label>
+              <input
+                id="search"
+                type="search"
+                class="field mt-1.5"
+                placeholder="Therapeutic, sponsor, indication, NCT id…"
+                autocomplete="off"
+              />
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label for="filter-phase" class="label">Phase</label>
+                <select id="filter-phase" class="field mt-1.5"><option value="">Any</option></select>
+              </div>
+              <div>
+                <label for="filter-area" class="label">Area</label>
+                <select id="filter-area" class="field mt-1.5"><option value="">Any</option></select>
+              </div>
+            </div>
+            <p id="catalog-meta" class="text-xs text-slate-500"></p>
+          </div>
+
+          <div class="card flex min-h-0 flex-1 flex-col overflow-hidden">
+            <div
+              id="trial-list"
+              role="listbox"
+              aria-label="Clinical trials"
+              class="min-h-0 flex-1 overflow-y-auto"
+              tabindex="0"
+            ></div>
+          </div>
+        </aside>
+
+        <!-- Review panel -->
+        <section id="panel" class="min-w-0">
+          <div id="empty-state" class="card card-pad flex h-full min-h-[420px] flex-col items-center justify-center text-center">
+            <div class="flex size-11 items-center justify-center rounded-full bg-accent-50 text-accent-700">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="size-5">
+                <path d="M9 3h6l1 3H8l1-3Z" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M6 6h12v13a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6Z" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M9.5 12.5h5M9.5 16h3" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h2 class="mt-4 text-base font-semibold text-slate-900">Select a clinical trial</h2>
+            <p class="mt-1.5 max-w-sm text-sm text-slate-500">
+              Pick a trial from the catalog, then run the review. Evidence is retrieved from trial
+              registries, FDA review documents and the primary literature, then scored against a
+              six-dimension approvability rubric.
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="border-t border-slate-200 py-4 text-xs text-slate-400">
+        Generated assessments are decision support, not regulatory advice.
+      </footer>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "fdaapproval",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Evaluate clinical trial programs under the lens of an FDA approver, using Paperclip for evidence and Claude for rubric scoring.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "concurrently -k -n css,server -c magenta,cyan \"npm:dev:css\" \"npm:dev:server\"",
+    "dev:css": "tailwindcss -i ./public/app.css -o ./public/dist/app.css --watch",
+    "dev:server": "node --watch src/server.js",
+    "build:css": "tailwindcss -i ./public/app.css -o ./public/dist/app.css --minify",
+    "catalog": "node src/catalog/build.js",
+    "catalog:add": "node src/catalog/add.js",
+    "probe": "node src/scripts/probe.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.70.0",
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "concurrently": "^9.1.0"
+  }
+}

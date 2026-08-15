@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env.local
+
+# Generated Tailwind bundle
+public/dist/
+
+# Generated catalog + cached evaluations
+data/trials.json
+data/evaluations/
+data/probe/
+
+*.log
+.DS_Store

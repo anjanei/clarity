@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  /* Single accent: a muted regulatory blue. */
+  --color-accent-50: oklch(0.972 0.014 253);
+  --color-accent-100: oklch(0.936 0.03 253);
+  --color-accent-200: oklch(0.878 0.055 253);
+  --color-accent-400: oklch(0.68 0.11 253);
+  --color-accent-600: oklch(0.52 0.13 253);
+  --color-accent-700: oklch(0.44 0.115 253);
+  --color-accent-900: oklch(0.29 0.075 253);
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+}
+
+/* --- primitives ------------------------------------------------------- */
+
+.card {
+  @apply rounded-xl border border-slate-200 bg-white;
+}
+
+.card-pad {
+  @apply p-5 sm:p-6;
+}
+
+.label {
+  @apply block text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500;
+}
+
+.field {
+  @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900
+         placeholder:text-slate-400 focus:border-accent-600 focus:outline-none
+         focus:ring-2 focus:ring-accent-600/15;
+}
+
+/* Button variants are self-contained: Tailwind v4 cannot @apply a custom class. */
+.btn,
+.btn-primary,
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium
+         transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.btn-primary {
+  @apply bg-accent-700 text-white hover:bg-accent-900;
+}
+
+.btn-ghost {
+  @apply border border-slate-300 bg-white text-slate-700 hover:bg-slate-50;
+}
+
+.chip,
+.chip-neutral {
+  @apply inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-xs font-medium;
+}
+
+.chip-neutral {
+  @apply border-slate-200 bg-slate-100 text-slate-600;
+}
+
+/* --- trial list ------------------------------------------------------- */
+
+.trial-item {
+  @apply w-full cursor-pointer border-b border-slate-100 px-4 py-3 text-left transition-colors
+         last:border-b-0 hover:bg-slate-50 focus:bg-slate-50 focus:outline-none;
+}
+
+.trial-item[aria-selected="true"] {
+  @apply bg-accent-50 hover:bg-accent-50;
+  box-shadow: inset 3px 0 0 0 var(--color-accent-700);
+}
+
+/* --- report ----------------------------------------------------------- */
+
+.score-track {
+  @apply flex gap-1;
+}
+
+.score-pip {
+  @apply h-1.5 flex-1 rounded-full bg-slate-200;
+}
+
+.score-pip[data-on="true"] {
+  @apply bg-accent-600;
+}
+
+/* Reveal report sections without a layout shift. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.25s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+}
