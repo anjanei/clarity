@@ -463,7 +463,7 @@ export const DIMENSIONS = [
   {
     id: 'disease_context_mechanism',
     label: 'Disease Context & Mechanism',
-    weight: 0.000,
+    weight: 0.05,
     focus:
       'Unmet medical need, disease natural history, biological rationale, ' +
       'mechanism of action, literature support, and differentiation from ' +
@@ -548,7 +548,7 @@ export const DIMENSIONS = [
   {
     id: 'immunogenicity',
     label: 'Immunogenicity',
-    weight: 0.10,
+    weight: 0.05,
     focus:
       'Anti-drug, anti-capsid, anti-transgene, or cellular immune responses; neutralising ' +
       'antibody incidence and titre; impact on exposure, efficacy and safety; assay validation; ' +
