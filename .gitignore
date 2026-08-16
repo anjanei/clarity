@@ -9,6 +9,7 @@ node_modules/
 # data/trials.json
 # data/evaluations/
 # data/probe/
+data/traces/
 
 *.log
 .DS_Store

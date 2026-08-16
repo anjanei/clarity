@@ -5,6 +5,7 @@ import { gatherEvidence } from '../paperclip/queries.js';
 import { reviewSchema } from './schema.js';
 import { DIMENSIONS, RUBRIC_VERSION, renderRubric, weightedScore } from './rubric.js';
 import { config } from '../config.js';
+import { captureTraceArtifact, traceEvent, traceStage } from './trace.js';
 
 /**
  * Stable across every trial, so it sits behind the cache breakpoint and is
@@ -57,6 +58,16 @@ function clampInt(value, min, max, fallback) {
   return Math.min(max, Math.max(min, n));
 }
 
+function mergeUsage(...usages) {
+  const total = {};
+  for (const usage of usages) {
+    for (const [key, value] of Object.entries(usage || {})) {
+      if (typeof value === 'number') total[key] = (total[key] || 0) + value;
+    }
+  }
+  return total;
+}
+
 /** Enforce the bounds the JSON-schema layer cannot express. */
 function normalizeReview(review) {
   const prob = review.probabilityOfTrialSuccess || {};
@@ -102,13 +113,21 @@ function normalizeReview(review) {
  * Full pipeline for one trial: retrieve evidence from Paperclip, then score it
  * with Claude against the rubric.
  */
-export async function evaluateTrial(trial, { onStep, deepRead = true } = {}) {
+export async function evaluateTrial(trial, { onStep, deepRead = true, trace } = {}) {
+  traceEvent(trace, 'evaluation_started', { phase: trial.phase });
   onStep?.({ stage: 'evidence', message: 'Retrieving evidence from Paperclip' });
-  const bundle = await gatherEvidence(trial, {
-    deepRead,
-    onStep: (step) =>
-      onStep?.({ stage: 'evidence', message: `${step.label} — ${step.source}` }),
-  });
+  const bundle = await traceStage(
+    trace,
+    'paperclip_evidence',
+    () => gatherEvidence(trial, {
+      deepRead,
+      trace,
+      onStep: (step) =>
+        onStep?.({ stage: 'evidence', message: `${step.label} — ${step.source}` }),
+    }),
+    { phase: trial.phase },
+  );
+  captureTraceArtifact(trace, 'evidenceBundle', bundle, { stats: bundle.stats, phase: bundle.phase });
 
   if (!bundle.stats.sectionsWithContent) {
     throw new Error(
@@ -121,7 +140,17 @@ export async function evaluateTrial(trial, { onStep, deepRead = true } = {}) {
     stage: 'dossier',
     message: `Organizing ${bundle.stats.sectionsWithContent} evidence sections into the CLARITY dossier`,
   });
-  const dossier = await synthesizeEvidenceDossier(trial, bundle, { onStep });
+  const dossier = await traceStage(
+    trace,
+    'clarity_dossier',
+    () => synthesizeEvidenceDossier(trial, bundle, { onStep, trace }),
+    { activeDomains: bundle.domains.length },
+  );
+  captureTraceArtifact(trace, 'dossier', dossier, {
+    phase: dossier.phase,
+    domains: dossier.domains.map(({ domainId, status }) => ({ domainId, status })),
+    usage: dossier.usage,
+  });
 
   onStep?.({
     stage: 'review',
@@ -146,15 +175,27 @@ export async function evaluateTrial(trial, { onStep, deepRead = true } = {}) {
       'completes clinical trials, with your reasoning for the anchor and each adjustment.',
   ].join('\n');
 
-  const { data, usage, model } = await structuredCall({
-    system: SYSTEM_PROMPT,
-    userContent,
-    schema: reviewSchema,
-    effort: config.anthropic.evalEffort,
-    maxTokens: 32000,
-  });
+  const { data, usage: reviewUsage, model } = await traceStage(
+    trace,
+    'rubric_review',
+    () => structuredCall({
+      system: SYSTEM_PROMPT,
+      userContent,
+      schema: reviewSchema,
+      effort: config.anthropic.evalEffort,
+      maxTokens: 32000,
+      trace,
+      traceLabel: 'rubric_review',
+    }),
+  );
 
   const review = normalizeReview(data);
+  captureTraceArtifact(trace, 'review', review, {
+    weightedRubricScore: review.weightedRubricScore,
+    criteria: review.criteria.map(({ id, score, evidenceStrength }) => ({ id, score, evidenceStrength })),
+  });
+  const usage = mergeUsage(dossier.usage, reviewUsage);
+  traceEvent(trace, 'evaluation_completed', { usage });
 
   return {
     trial,
@@ -178,6 +219,10 @@ export async function evaluateTrial(trial, { onStep, deepRead = true } = {}) {
       model,
       effort: config.anthropic.evalEffort,
       usage,
+      usageByStage: {
+        dossier: dossier.usage,
+        rubricReview: reviewUsage,
+      },
       evaluatedAt: new Date().toISOString(),
     },
   };

@@ -1,0 +1,1396 @@
+{
+  "trial": {
+    "trialId": "NCT07549698",
+    "therapeuticName": "CTX112",
+    "sponsor": "CRISPR Therapeutics AG",
+    "phase": "Phase 1/2",
+    "startDate": "2026-06",
+    "registry": "ClinicalTrials.gov",
+    "condition": "Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura",
+    "modality": "Cell therapy",
+    "title": "Safety and Preliminary Efficacy of CTX112 in Adult Participants With Relapsed/Refractory Hematologic Autoimmune Disease",
+    "therapeuticArea": "Immunology & Inflammation",
+    "therapeuticDescription": "",
+    "overallStatus": "RECRUITING",
+    "studyType": "INTERVENTIONAL",
+    "registryProducts": [
+      "CTX112"
+    ],
+    "registryEnriched": true,
+    "addedManuallyAt": "2026-08-16T01:43:11.064Z"
+  },
+  "review": {
+    "therapeuticName": "CTX112",
+    "trialId": "NCT07549698",
+    "reviewerSummary": "CTX112 is a cell therapy in Phase 1/2 development by CRISPR Therapeutics for relapsed/refractory warm autoimmune hemolytic anemia (WAIHA) and immune thrombocytopenia (ITP), addressing a substantial unmet need in populations failing conventional immunosuppression. The trial (NCT07549698) is an open-label, single-arm study that began recruitment in June 2026. The central question is whether CTX112 can achieve meaningful and durable disease control with an acceptable safety profile in these heavily pre-treated populations. At present, the program is at an early stage with no published efficacy data, detailed mechanism disclosure, or clinical safety characterization publicly available. The disease rationale is sound and the therapeutic landscape justifies development, but the absence of mechanistic detail and any clinical evidence substantially constrains confidence in near-term success. Regulatory advancement will depend critically on the strength of Phase 1/2 safety and preliminary efficacy signals and on transparent disclosure of the product's CRISPR-based modification strategy.",
+    "probabilityOfTrialSuccess": {
+      "pointEstimate": 28,
+      "low": 15,
+      "high": 42,
+      "basis": "Base rate for Phase 1/2 cell therapies in autoimmune indication reaching approvable submission: ~25–30% (anchored on CAR-T in autoimmune hemolytic anemia and similar allogeneic cell therapies; see Fraietta et al., NEJM 2018 on tisagenlecleucel; Frey et al., Blood Adv 2021 on CAR-T in AIHA; regulatory precedent NCT06231368, NCT07530380). Adjustment: +0 (no adjustment) for open-label single-arm design typical of early cell therapy but limiting regulatory weight; −2 for complete absence of public mechanism disclosure and preclinical data, creating uncharacterised risk in a modality where off-target or persistent effects are material concerns; −0 (no adjustment) for indication appropriateness (relapsed/refractory WAIHA/ITP is a recognized unmet need with accepted regulatory precedents); +0 (no adjustment) for sponsor CRISPR Therapeutics' track record in gene therapy, as the CTX112 program details remain opaque and prior approvals (e.g., Casgevy for SCD/beta-thal) do not reduce early-stage cell-therapy risk; −2 for lack of any interim or preliminary safety or efficacy readout from the trial, limiting ability to assess feasibility; −1 for combined WAIHA/ITP indication requiring distinct efficacy endpoints and potential for unequal drug performance across indications, complicating regulatory path. Resulting estimate: 28% (range 15–42%)."
+    },
+    "confidence": {
+      "level": "low",
+      "rationale": "The evidence bundle is severely limited: there are no Phase 1/2 clinical results, no published mechanism of action, no preclinical pharmacology or nonclinical toxicology, no manufacturing or CMC data, and only a basic trial registry record. The disease and therapeutic landscape are well characterized from published literature, but CTX112-specific data—which is the core of regulatory decision-making—is entirely absent. Confidence rests on general knowledge of cell-therapy modality development and regulatory precedents for CAR-T in autoimmune disease, not on program-specific evidence. This is appropriate for a Phase 1/2 program in early recruitment, but it means any probability estimate carries substantial epistemic uncertainty and should be treated as a placeholder pending interim data disclosure."
+    },
+    "criteria": [
+      {
+        "id": "disease_context_mechanism",
+        "score": 4,
+        "evidenceStrength": "moderate",
+        "assessment": "WAIHA and ITP are well-established autoimmune cytopenias with clear pathophysiology: loss of immune tolerance, polyclonal autoreactive B and T cells, defective regulatory T-cell and B-regulatory-cell compartments, and IgG-mediated destruction of blood cells. Incidence and prevalence are documented (WAIHA 0.8–3 per 10⁵/year, ~17 per 100,000 prevalence); unmet need is substantial, with <50% of patients achieving sustained remission on standard care (corticosteroids, rituximab, splenectomy). The indication is appropriate for cell therapy targeting immune dysregulation. However, the specific mechanism by which CTX112 corrects immune tolerance—whether through CRISPR-modified autologous or allogeneic cells, transgene insertion, epigenetic modification, or other means—is not disclosed in any public source. This is a material gap for regulatory review, even in Phase 1.",
+        "supportingFindings": [
+          {
+            "finding": "WAIHA accounts for 60–70% of autoimmune hemolytic anemias, incidence 0.8–3 per 10⁵/year, prevalence ~17 per 100,000.",
+            "source": "Rituximab Use in Warm and Cold AIHA (PMC7763062); New Insights in Autoimmune Hemolytic Anemia (PMC7759854)"
+          },
+          {
+            "finding": "WAIHA pathophysiology involves IgG autoantibodies (IgG1, IgG3) targeting RBC surface antigens (Rh proteins, band 3, band 4.1, glycophorin A), loss of immune tolerance, Th1/Th17 activation, and defective Tregs.",
+            "source": "Immunotherapy Treatments of Warm AIHA (PMC3784078); New Insights (PMC7759854)"
+          },
+          {
+            "finding": "ITP driven by anti-platelet IgG autoantibodies, impaired megakaryopoiesis, defective Tregs and Bregs, activated autoreactive T and B cells.",
+            "source": "Innovative strategies for ITP treatment (PMC13188697)"
+          },
+          {
+            "finding": "Standard therapies achieve sustained remission in <50% of WAIHA patients, indicating substantial unmet need in relapsed/refractory populations.",
+            "source": "New Insights in Autoimmune Hemolytic Anemia (PMC7759854)"
+          },
+          {
+            "finding": "Evans syndrome (concurrent AIHA and ITP) is recognized as severe manifestation with higher mortality.",
+            "source": "Autoimmune Hemolysis: A Journey through Time (PMC4678316)"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "Mechanism of action for CTX112 not disclosed in any public source, including trial registry, FDA guidance, or peer-reviewed literature. Specific cell type, CRISPR modification strategy, transgene target (if applicable), and ex vivo/in vivo mechanism remain unknown.",
+            "severity": "critical",
+            "source": "Absence of public disclosure; NCT07549698 registry record does not detail mechanism"
+          },
+          {
+            "concern": "Preclinical pharmacology, nonclinical toxicology, and biodistribution data for CTX112 not accessible. Off-target modification risk, chromosomal integration safety, and in vivo expansion kinetics uncharacterized.",
+            "severity": "major",
+            "source": "Absence of public IB or regulatory briefing package"
+          },
+          {
+            "concern": "Combined WAIHA and ITP indication requires demonstration of distinct efficacy in both populations, potentially complicating trial design and regulatory path if drug performs unequally across indications.",
+            "severity": "major",
+            "source": "Inferred from trial title and study design; NCT07549698 includes both indications but design details unavailable"
+          }
+        ],
+        "informationGaps": [
+          "CTX112 specific mechanism of action (CRISPR modification strategy, cell type, transgene target, modification location)",
+          "Preclinical pharmacology, nonclinical safety, and off-target modification risk assessment",
+          "In vivo biodistribution and cellular persistence kinetics",
+          "Manufacturing process, cell dose, formulation, stability data",
+          "Phase 1/2 trial design details: dose-escalation cohorts, dose-limiting toxicity thresholds, sample size, primary and secondary endpoints",
+          "Interim or preliminary efficacy and safety data from NCT07549698 enrollment to date",
+          "Proposed regulatory strategy (expedited pathway eligibility, adaptive trial design)",
+          "Comparator arm strategy, if any, for efficacy assessment"
+        ],
+        "label": "Disease Context & Mechanism",
+        "weight": 0
+      },
+      {
+        "id": "efficacy_clinical_evidence",
+        "score": 1,
+        "evidenceStrength": "absent",
+        "assessment": "No efficacy data for CTX112 are available in the public domain. The trial (NCT07549698) is Phase 1/2, open-label, single-arm, and currently recruiting (as of June 2026). No interim results, preliminary signal, or published efficacy outcomes have been disclosed. This is appropriate for a program in very early development, but it means efficacy is entirely uncharacterized. The trial design (open-label, single-arm) is typical for early-phase cell-therapy safety assessment but would need to be augmented with controlled efficacy data to support a substantial-evidence-of-effectiveness finding for approval.",
+        "supportingFindings": [],
+        "concerns": [
+          {
+            "concern": "Phase 1/2 trial has no published or disclosed interim efficacy results. Single-arm, open-label design cannot provide controlled efficacy evidence; efficacy assessment will depend on uncontrolled clinical observations and biomarker improvements.",
+            "severity": "critical",
+            "source": "NCT07549698 status: recruiting; no published results available"
+          },
+          {
+            "concern": "No defined primary efficacy endpoint disclosed. For WAIHA, accepted endpoints include hemoglobin response, transfusion avoidance, and hemolysis marker improvement; for ITP, platelet count response. Trial design does not clarify which endpoint(s) will be primary or how they will be measured.",
+            "severity": "major",
+            "source": "Inferred from absence of public protocol summary; NCT07549698 does not specify endpoints"
+          },
+          {
+            "concern": "Single-arm design in a relapsed/refractory population with high baseline disease activity creates risk of uncontrolled placebo effect or natural disease variability being misattributed to CTX112 efficacy. Historical control arm or concurrent comparator would strengthen evidence.",
+            "severity": "major",
+            "source": "Regulatory precedent for cell therapies and single-arm trial limitations (FDA Guidance on Single Arm Trials)"
+          }
+        ],
+        "informationGaps": [
+          "Primary and secondary efficacy endpoints for NCT07549698 (hemoglobin response criteria, platelet count thresholds, transfusion independence definition)",
+          "Sample size and statistical power calculation for efficacy assessment",
+          "Planned interim efficacy analysis or futility stopping rule",
+          "Historical control or external benchmark for uncontrolled arm efficacy assessment",
+          "Responder definition and proportion of responders expected based on preclinical or comparative data",
+          "Durability of efficacy response (follow-up duration, relapse rates)",
+          "Efficacy in WAIHA versus ITP cohorts separately (whether combined or stratified analysis planned)"
+        ],
+        "label": "Efficacy & Clinical Evidence",
+        "weight": 0.22
+      },
+      {
+        "id": "safety",
+        "score": 1,
+        "evidenceStrength": "absent",
+        "assessment": "No safety data for CTX112 are available in the public domain. The trial is in early recruitment with no published adverse-event reports, laboratory findings, or safety signals disclosed. For a cell therapy product in hematologic autoimmune disease—a population often heavily pre-treated with immunosuppression—safety is a critical regulatory concern. Cell therapies can carry risks of cytokine release syndrome (CRS), immune effector cell-associated neurotoxicity syndrome (ICANS), off-target immune activation, and persistent cellular effects. The open-label, single-arm trial design suggests a dose-escalation phase to establish safety; however, without any interim data, safety is entirely uncharacterized.",
+        "supportingFindings": [],
+        "concerns": [
+          {
+            "concern": "No acute safety data from Phase 1/2 trial disclosed. Adverse events by system organ class, serious adverse events, dose-limiting toxicity observations, and maximum tolerated dose (if applicable) are unknown.",
+            "severity": "critical",
+            "source": "NCT07549698 has no published results"
+          },
+          {
+            "concern": "Cell therapy-specific toxicity risks (CRS, ICANS, off-target immune activation, cytokine storm) are uncharacterized for CTX112. Expected toxicity profile and mitigation strategy unknown.",
+            "severity": "critical",
+            "source": "Absence of IB or preclinical toxicology data"
+          },
+          {
+            "concern": "Target population is heavily pre-treated, often with prior rituximab, splenectomy, and/or other immunomodulators. Baseline immune dysfunction and tolerance to prior therapies may increase unpredictable toxicity risk or complicate tolerability assessment.",
+            "severity": "major",
+            "source": "Trial indication: relapsed/refractory disease; inferred from clinical context"
+          },
+          {
+            "concern": "Combined WAIHA and ITP population may have heterogeneous safety profiles. If CTX112 causes distinct toxicities in WAIHA versus ITP, single-arm design may not capture organ-system signals specific to one indication.",
+            "severity": "major",
+            "source": "Trial design includes both indications; NCT07549698 does not stratify safety reporting"
+          }
+        ],
+        "informationGaps": [
+          "Acute safety data: adverse events by SOC, serious adverse events, DLT observations, MTD determination",
+          "Cell therapy-specific toxicity characterization (CRS/ICANS incidence, cytokine kinetics, immune activation markers)",
+          "Baseline hematologic and organ function parameters at trial enrollment",
+          "Laboratory monitoring plan and frequency (CBC, liver/kidney function, coagulation studies)",
+          "Safety stopping rules and protocol-specified maximum toxicity thresholds",
+          "Pharmacokinetic/pharmacodynamic biomarkers correlating safety with dose and cell persistence",
+          "Safety in special populations (age, comorbidity, prior therapy intensity)",
+          "Long-term safety follow-up duration and adverse-event tracking plan"
+        ],
+        "label": "Safety & Tolerability",
+        "weight": 0.2
+      },
+      {
+        "id": "long_term_genetic_risk",
+        "score": 1,
+        "evidenceStrength": "absent",
+        "assessment": "For cell therapies incorporating CRISPR modifications, long-term genetic risk is a critical regulatory consideration. CTX112's specific modification strategy, integration method, and off-target activity potential are not disclosed in any public source. If CTX112 uses ex vivo CRISPR-modified autologous or allogeneic cells (e.g., CAR-T with CRISPR-mediated edits), integration-site risk, clonal expansion, and insertional oncogenesis are material concerns. If it is a non-integrating approach or does not use CRISPR for cell modification, the genetic-risk profile differs substantially. Without disclosure of mechanism, genetic risk cannot be assessed.",
+        "supportingFindings": [],
+        "concerns": [
+          {
+            "concern": "CRISPR modification strategy for CTX112 not disclosed. If integrating approach is used, off-target modification, clonal dominance, and insertional oncogenesis risk are uncharacterized.",
+            "severity": "critical",
+            "source": "Absence of public mechanism disclosure or IB"
+          },
+          {
+            "concern": "Long-term follow-up duration and malignancy surveillance plan unknown. Regulatory precedent for CRISPR therapies (e.g., Casgevy) includes 15-year prospective follow-up; CTX112 follow-up plan and duration not specified.",
+            "severity": "major",
+            "source": "Inferred from CRISPR regulatory precedent; NCT07549698 does not disclose follow-up duration"
+          },
+          {
+            "concern": "If CTX112 is an integrating gene therapy or cell therapy with persistent clonal populations, genomic stability, karyotype monitoring, and copy-number assessment may be required. Strategy unknown.",
+            "severity": "major",
+            "source": "Inferred from modality (cell therapy, potential CRISPR integration); no public data available"
+          }
+        ],
+        "informationGaps": [
+          "CRISPR modification strategy: target gene, integration method (viral vector, ribonucleoprotein, other), off-target editing risk assessment",
+          "Nonclinical genotoxicity and clonal dominance studies",
+          "Long-term follow-up protocol for malignancy surveillance (duration, monitoring schedule, assay strategy)",
+          "Karyotype and copy-number monitoring plans for CTX112-treated cells",
+          "Published or regulatory guidance on long-term genetic risk for CRISPR cell therapies in hematologic autoimmune disease"
+        ],
+        "label": "Long-Term Genetic Risk",
+        "weight": 0.1
+      },
+      {
+        "id": "biodistribution_pharmacology",
+        "score": 1,
+        "evidenceStrength": "absent",
+        "assessment": "Biodistribution and in vivo pharmacology of CTX112 cells are not characterized in any public source. For a cell therapy, understanding where CTX112 cells localize, how long they persist, their expansion kinetics, and how they engage with target immune populations are essential for efficacy and safety interpretation. Target tissues in autoimmune hemolytic anemia and ITP include lymphoid organs (spleen, lymph nodes), bone marrow, and circulating immune cells. Without biodistribution and pharmacokinetic data, the relationship between cell dose, tissue exposure, and clinical response is unknown.",
+        "supportingFindings": [],
+        "concerns": [
+          {
+            "concern": "In vivo biodistribution of CTX112 cells not characterized. Localization to spleen, lymph nodes, bone marrow, and other lymphoid tissues unknown; ectopic trafficking and off-target tissue deposition uncharacterized.",
+            "severity": "critical",
+            "source": "Absence of preclinical or clinical biodistribution data"
+          },
+          {
+            "concern": "Cellular expansion and persistence kinetics in peripheral blood and tissues unknown. Duration of therapeutic effect, saturation kinetics, and re-dosing requirements uncharacterized.",
+            "severity": "major",
+            "source": "Absence of clinical pharmacokinetic data from Phase 1/2 trial"
+          },
+          {
+            "concern": "Biomarker assays for CTX112 persistence, proliferation, and functional engagement (e.g., CAR-T expansion, cytokine production, target-cell killing) not disclosed. Lack of PD biomarkers complicates efficacy and safety interpretation.",
+            "severity": "major",
+            "source": "Inferred from modality; no public assay validation or PD strategy disclosed"
+          }
+        ],
+        "informationGaps": [
+          "In vivo biodistribution: tissue localization, kinetics (spleen, lymph nodes, bone marrow, blood)",
+          "Cellular expansion and persistence kinetics: proliferation rate, doubling time, plateau kinetics",
+          "Flow-cytometry or molecular assays for CTX112 enumeration and phenotyping in blood and tissues",
+          "Transgene or CRISPR-specific biomarkers for cell tracking and functional assessment",
+          "Correlation of CTX112 expansion/persistence with disease response (hemoglobin, platelet count recovery)",
+          "Comparison of biodistribution to other approved cell therapies (CAR-T, autologous products)"
+        ],
+        "label": "Biodistribution & Pharmacology",
+        "weight": 0.1
+      },
+      {
+        "id": "immunogenicity",
+        "score": 1,
+        "evidenceStrength": "absent",
+        "assessment": "Immunogenicity data for CTX112 are not available in the public domain. For cell therapies, both anti-drug responses (against the cell product itself, surface engineered antigen, or co-expressed transgenes) and host rejection responses are regulatory concerns. If CTX112 is an allogeneic product, host-versus-graft or graft-versus-host immune responses are material. If it is autologous with CRISPR modification, anti-CRISPR or anti-transgene immunity may arise. Anti-drug antibody assays, T-cell response characterization, and correlation of immunogenicity with loss of efficacy or adverse events are standard in cell-therapy development but have not been disclosed for CTX112.",
+        "supportingFindings": [],
+        "concerns": [
+          {
+            "concern": "No immunogenicity data disclosed for CTX112. Anti-drug antibody incidence, titre, kinetics, and clinical correlation with efficacy loss or adverse events are unknown.",
+            "severity": "critical",
+            "source": "Absence of clinical or assay-validation data"
+          },
+          {
+            "concern": "If CTX112 is allogeneic, host immune rejection risk and graft-versus-host responses are uncharacterized. Immunosuppression requirements and duration unknown.",
+            "severity": "major",
+            "source": "Inferred from modality; mechanism not disclosed"
+          },
+          {
+            "concern": "Baseline immunogenicity risk in relapsed/refractory population: patients often have prior exposure to rituximab, other immunosuppressants, and potentially allogeneic products (transfusions). Prior sensitization may increase immunogenicity risk.",
+            "severity": "major",
+            "source": "Inferred from trial population (relapsed/refractory); prior therapy history not disclosed"
+          }
+        ],
+        "informationGaps": [
+          "Anti-drug antibody (ADA) assay validation: platform (ELISA, MSD, other), assay strategy (tiered), positive-control development",
+          "ADA incidence, titre, kinetics in Phase 1/2 subjects",
+          "Neutralizing antibody (nAb) characterization and correlation with efficacy loss",
+          "T-cell immunogenicity: CD4+ and CD8+ response characterization (intracellular cytokine staining, tetramer, other)",
+          "Hypersensitivity and infusion-reaction risk assessment and monitoring plan",
+          "If allogeneic: HLA matching strategy, immunosuppression requirements and duration",
+          "Re-dosing feasibility and impact of prior immunization on repeat-dose response"
+        ],
+        "label": "Immunogenicity",
+        "weight": 0.1
+      },
+      {
+        "id": "manufacturability",
+        "score": 1,
+        "evidenceStrength": "absent",
+        "assessment": "No manufacturing, process, quality control, or CMC data for CTX112 are available in the public domain. For a cell therapy, establishing a robust, scalable manufacturing process with defined critical quality attributes (CQAs), assay validation, and comparability across production lots is essential for regulatory approval. Cell viability, potency, purity, identity, sterility, and endotoxin are standard parameters. CRISPR-modified products may require additional characterization of off-target modifications, integration sites, or clonal composition. The absence of any public CMC information is consistent with early-stage development but represents a material uncharacterised risk.",
+        "supportingFindings": [],
+        "concerns": [
+          {
+            "concern": "No manufacturing process or scale-up strategy disclosed for CTX112. Process definition, in-process controls, and commercial manufacturing plan unknown.",
+            "severity": "critical",
+            "source": "Absence of CMC data in public sources"
+          },
+          {
+            "concern": "Potency assay validation status unknown. For cell therapies, potency assays are critical regulatory requirements; CTX112 assay strategy and validation data not disclosed.",
+            "severity": "critical",
+            "source": "Absence of quality control/potency assay data"
+          },
+          {
+            "concern": "Quality control acceptance criteria, release specifications, and stability data not disclosed. Shelf-life, storage conditions (temperature, cryopreservation), and stability-indicating assays unknown.",
+            "severity": "major",
+            "source": "Absence of CMC stability package"
+          }
+        ],
+        "informationGaps": [
+          "Manufacturing process design: cell source (autologous vs. allogeneic), isolation, expansion, CRISPR modification (if applicable), formulation",
+          "Process validation and scale-up strategy to commercial scale",
+          "Critical quality attributes (CQAs) and critical process parameters (CPPs)",
+          "In-process control parameters and acceptance ranges",
+          "Potency assay platform and validation (specificity, sensitivity, reproducibility, acceptance criteria)",
+          "Identity, purity, viability assays and specifications",
+          "Sterility, endotoxin, mycoplasma testing",
+          "Stability studies (real-time and accelerated) under proposed storage conditions",
+          "Batch release criteria and manufacturing timelines",
+          "Facility readiness and cGMP compliance status"
+        ],
+        "label": "Manufacturability & CMC",
+        "weight": 0.1
+      },
+      {
+        "id": "pkpd_dosing",
+        "score": 1,
+        "evidenceStrength": "absent",
+        "assessment": "Pharmacokinetic and pharmacodynamic characterization of CTX112, as well as dose and regimen justification, are not available in the public domain. For a cell therapy, PK typically refers to cellular expansion, persistence, and trafficking kinetics, while PD encompasses functional engagement with target immune populations and correlation with clinical response. No dose-response studies, exposure–response relationships, or dose-escalation data have been disclosed for CTX112. Without this information, the chosen cell dose and treatment regimen cannot be assessed for scientific or regulatory validity.",
+        "supportingFindings": [],
+        "concerns": [
+          {
+            "concern": "No PK data for CTX112: cellular expansion kinetics, persistence, half-life, accumulation (if repeated dosing), and tissue distribution are unknown.",
+            "severity": "critical",
+            "source": "Absence of clinical PK data from Phase 1/2 trial"
+          },
+          {
+            "concern": "No PD biomarkers disclosed: functional engagement assays (autoreactive B-cell depletion, Treg expansion, cytokine response), disease-response biomarkers, and PK/PD correlation are uncharacterized.",
+            "severity": "critical",
+            "source": "Absence of clinical PD strategy data"
+          },
+          {
+            "concern": "Dose selection and regimen (single dose vs. repeated dosing, cell number, expansion culture methodology) not justified. Dose-response relationship unknown.",
+            "severity": "critical",
+            "source": "Inferred from absence of dose-escalation or exposure–response analysis"
+          }
+        ],
+        "informationGaps": [
+          "Cellular expansion and persistence kinetics: peak number, half-life, plateau kinetics",
+          "Biomarker kinetics: autoreactive B-cell or T-cell subset changes, Treg expansion, inflammatory cytokine trajectory",
+          "Exposure–response analysis: correlation of CTX112 cell number or persistence with disease response (hemoglobin, platelet count)",
+          "Dose-escalation data: dose-limiting toxicity, maximum tolerated dose, recommended Phase 2 dose",
+          "Population PK/PD: age, comorbidity, prior therapy effect on CTX112 exposure and response",
+          "Drug–drug interactions: concomitant immunosuppression or other therapies affecting CTX112 persistence or function",
+          "Special populations: pediatric, renal/hepatic impairment (if applicable)"
+        ],
+        "label": "PK/PD & Dosing",
+        "weight": 0.08
+      },
+      {
+        "id": "trial_design_regulatory",
+        "score": 2,
+        "evidenceStrength": "weak",
+        "assessment": "CTX112 Phase 1/2 trial (NCT07549698) is registered as open-label, single-arm, recruiting. This design is typical for early-phase cell-therapy safety assessment in rare, heavily pre-treated populations and aligns with regulatory precedent (e.g., CAR-T therapies in hematologic malignancies and autoimmune disease). However, the open-label, single-arm design is a significant limitation for efficacy assessment; FDA regulatory guidance and recent precedents for cell therapies in autoimmune disease increasingly expect controlled efficacy data or at minimum robust external-control comparisons. The trial's detailed design parameters (randomization, stratification, statistical analysis, interim analysis strategy, blinding of outcome assessors) are not disclosed, and feasibility and enrolment risks are uncharacterised. Efficacy endpoints and control-arm strategy are unknown.",
+        "supportingFindings": [
+          {
+            "finding": "Phase 1/2 trial design is open-label, single-arm, consistent with early-phase cell therapy development precedent (e.g., CNCT19 for AIHA, NCT06231368).",
+            "source": "NCT07549698 registry record; regulatory precedent from CAR-T trials in autoimmune disease"
+          },
+          {
+            "finding": "Regulatory precedent supports open-label, dose-escalation trials for safety in rare, pre-treated populations when efficacy signal is first established ex vivo or in mechanistic studies.",
+            "source": "FDA Guidance on Early Oncology Clinical Trials and Related First-in-Human Trials; cell-therapy precedents"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "Single-arm, open-label design cannot provide controlled efficacy evidence. FDA expects either a control arm (randomized) or robust external-control/historical-control benchmark for efficacy claims. Without concurrent or historical controls, uncontrolled bias and placebo effect risk are high.",
+            "severity": "major",
+            "source": "FDA Guidance on Single-Arm Trials; precedent from recent CAR-T and gene-therapy approvals"
+          },
+          {
+            "concern": "No blinding of outcome assessors disclosed. For subjective endpoints (clinical bleeding, bruising, transfusion requirement assessment), lack of blinding introduces detection bias, particularly problematic in small, heavily treated populations.",
+            "severity": "major",
+            "source": "Inferred from open-label design; trial protocol not available"
+          },
+          {
+            "concern": "Enrolment feasibility in relapsed/refractory WAIHA and ITP is high risk. Target population is small; patients often have complex comorbidities and poor performance status after multiple prior therapies. Trial timeline and completion risk unknown.",
+            "severity": "major",
+            "source": "Inferred from rare disease epidemiology and typical relapsed/refractory trial enrollment challenges"
+          },
+          {
+            "concern": "Combined WAIHA and ITP indication in single trial complicates efficacy assessment. Two disease processes with distinct pathophysiology and clinical endpoints may respond differently to CTX112. Separate efficacy analysis by indication required but design not disclosed.",
+            "severity": "major",
+            "source": "Trial title combines both indications; separate efficacy endpoints and power calculations not disclosed"
+          }
+        ],
+        "informationGaps": [
+          "Detailed trial protocol: inclusion/exclusion criteria, stratification by indication (WAIHA vs. ITP), baseline disease severity criteria",
+          "Sample size and power calculation for safety and preliminary efficacy in each indication",
+          "Primary and secondary efficacy endpoints: hemoglobin response (WAIHA), platelet response (ITP), durability, transfusion independence",
+          "Dose-escalation design: cohort sizes, DLT definition, mTPI or BOIN methodology",
+          "Statistical analysis plan: primary analysis population, multiplicity correction, interim efficacy/futility rules",
+          "External control or historical control arm strategy for efficacy comparison",
+          "Efficacy responder definition and planned responder proportion based on preclinical or comparative data",
+          "Trial timeline, target enrollment, and projected interim/final analysis dates",
+          "Comparator strategy if efficacy arm is planned (standard care, rituximab re-challenge, observation)",
+          "Geographic distribution and US enrollment proportion"
+        ],
+        "label": "Trial Design & Regulatory Strategy",
+        "weight": 0.07
+      },
+      {
+        "id": "trial_integrity_governance",
+        "score": 2,
+        "evidenceStrength": "weak",
+        "assessment": "No specific trial integrity, governance, or operational data for NCT07549698 are available in the public domain. Trial-registry information confirms CRISPR Therapeutics as sponsor and June 2026 as start date, but GCP compliance, protocol adherence, data safety monitoring, ethics approval, and audit history are not disclosed. For a Phase 1/2 cell therapy in a vulnerable population (relapsed/refractory hematologic disease), governance and operational reliability are material regulatory concerns. Given the phase and indication, institutional review board (IRB) oversight, data safety monitoring board (DSMB) charter, and conflict-of-interest management are expected but not confirmed in public records.",
+        "supportingFindings": [
+          {
+            "finding": "Trial sponsor: CRISPR Therapeutics AG (established company with prior regulatory experience in gene therapy, e.g., Casgevy approval).",
+            "source": "NCT07549698 registry record"
+          },
+          {
+            "finding": "Trial status: recruiting, registered June 2026, suggesting active operational conduct.",
+            "source": "NCT07549698 registry record"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No GCP compliance or monitoring data disclosed. Protocol adherence, deviations, violations, and site inspections unknown. Risk of undetected conduct or data-integrity issues in early-phase trial.",
+            "severity": "major",
+            "source": "Absence of public inspection reports or GCP audit data"
+          },
+          {
+            "concern": "Data Safety Monitoring Board charter, meeting minutes, and stopping rules not disclosed. For cell therapy with potential for CRS or other serious toxicities, robust DSMB oversight is critical.",
+            "severity": "major",
+            "source": "Inferred from modality and early-phase requirement; NCT07549698 DSMB charter not public"
+          },
+          {
+            "concern": "Investigator conflict-of-interest disclosures and financial relationships with sponsor unknown. CRISPR Therapeutics employees or equity holders serving as principal investigators or site investigators create bias risk.",
+            "severity": "major",
+            "source": "Inferred from sponsor-conducted trial; financial disclosures not public"
+          }
+        ],
+        "informationGaps": [
+          "Ethics approval documents and IRB oversight records",
+          "Data Safety Monitoring Board charter and stopping rules",
+          "GCP compliance inspections and findings (if any)",
+          "Protocol deviations and serious violations reported to date",
+          "Financial relationships between CRISPR Therapeutics and trial investigators (honoraria, equity, consulting agreements)",
+          "Conflict-of-interest declarations and management plans",
+          "Source data verification audits and frequency",
+          "Site qualification and training records",
+          "Pharmacovigilance and adverse-event reporting procedures"
+        ],
+        "label": "Trial Integrity, Governance & Operational Infrastructure",
+        "weight": 0.03
+      }
+    ],
+    "keyDrivers": [
+      {
+        "driver": "Absence of disclosed mechanism of action for CTX112 and any preclinical safety/pharmacology data",
+        "direction": "decreases",
+        "weight": "high"
+      },
+      {
+        "driver": "Zero interim clinical efficacy or safety data from early recruitment phase; trial too nascent to assess feasibility or preliminary signal",
+        "direction": "decreases",
+        "weight": "high"
+      },
+      {
+        "driver": "Substantial unmet medical need in relapsed/refractory WAIHA and ITP populations; prior therapies fail in >50% of patients",
+        "direction": "increases",
+        "weight": "moderate"
+      },
+      {
+        "driver": "Open-label, single-arm trial design standard for early cell-therapy development but insufficient for controlled efficacy evidence without external control",
+        "direction": "decreases",
+        "weight": "moderate"
+      },
+      {
+        "driver": "Combined WAIHA/ITP indication requires dual efficacy endpoints and may reveal unequal drug performance, complicating regulatory path",
+        "direction": "decreases",
+        "weight": "moderate"
+      },
+      {
+        "driver": "CRISPR Therapeutics' prior regulatory success in gene therapy (Casgevy) provides organizational competency but does not de-risk early-stage cell-therapy development or unknown mechanism",
+        "direction": "increases",
+        "weight": "low"
+      }
+    ],
+    "redFlags": [
+      {
+        "flag": "CTX112 mechanism of action is not disclosed in any public source (registry, regulatory guidance, peer-reviewed publication)",
+        "why": "Regulatory review of any therapeutic product requires understanding of proposed mechanism to assess target engagement, off-target risk, and benefit–risk. For a CRISPR cell therapy, undisclosed mechanism creates unquantifiable risk of off-target modification, clonal dominance, or integration-site toxicity. FDA will require detailed IB and mechanistic justification before advancing to Phase 2 or submission. Continued lack of disclosure may trigger Type B meeting deficiency or denial of expedited pathway."
+      },
+      {
+        "flag": "Phase 1/2 trial is open-label, single-arm, with no disclosed efficacy control arm or external control strategy",
+        "why": "FDA expects substantial evidence of effectiveness from adequate and well-controlled investigations. Single-arm, uncontrolled trials in small, heavily pre-treated populations are vulnerable to bias and placebo effect. Without a concurrent control arm or robust external/historical control benchmark with pre-specified efficacy criteria, any Phase 2 efficacy claim will face heightened regulatory scrutiny and potential CRL. Recent CAR-T and gene-therapy approvals (e.g., exagamglogene autotemcel, Casgevy) included controlled efficacy data or very large single-arm datasets with pre-specified statistical thresholds."
+      },
+      {
+        "flag": "Combined WAIHA and ITP indication without disclosed separate efficacy analysis or stratification by disease",
+        "why": "WAIHA and ITP have distinct pathophysiology, clinical endpoints, and disease-response mechanisms. If CTX112 efficacy diverges significantly between indications (e.g., effective in WAIHA but not ITP), a single efficacy claim for 'hematologic autoimmune disease' will be questioned. Separate efficacy endpoints, sample size, and statistical power for each indication are standard regulatory expectations. Pooled efficacy claims without stratified analysis may result in incomplete-response letter (ICL) for one indication."
+      }
+    ],
+    "deRiskingActions": [
+      {
+        "action": "Immediately disclose CTX112 mechanism of action, including: cell source (autologous vs. allogeneic), CRISPR modification target(s), ex vivo modification methodology, expected functional outcome (e.g., CAR expression, Treg-promoting transgene, autoreactive B-cell depletion), and off-target modification risk assessment.",
+        "addresses": "disease_context_mechanism",
+        "priority": "immediate"
+      },
+      {
+        "action": "Publish or file with FDA a comprehensive Investigator's Brochure (IB) containing: preclinical pharmacology (target engagement, dose–response in vitro), nonclinical toxicology (GLP safety, genotoxicity, off-target analysis), biodistribution and PK from animal models, manufacturing process description, CMC release specs, and preclinical efficacy proof-of-concept in syngeneic or humanized animal models of WAIHA or ITP.",
+        "addresses": "efficacy_clinical_evidence",
+        "priority": "immediate"
+      },
+      {
+        "action": "Conduct interim futility and safety analysis of Phase 1 dose-escalation cohorts (target: 10–15 subjects dosed) and disclose: dose-limiting toxicity events, adverse events by SOC, any CRS/ICANS cases, maximum tolerated dose (if defined), and preliminary biomarker data (CAR expansion, disease markers: hemoglobin, platelet count, hemolysis markers). Target interim report to FDA or publication within 12 months.",
+        "addresses": "safety",
+        "priority": "near-term"
+      },
+      {
+        "action": "Revise trial protocol to include pre-specified primary efficacy endpoints separately for WAIHA and ITP cohorts, with sample size and power calculation (target: ≥80% power) for each indication. Define efficacy responder criteria based on disease-accepted endpoints (WAIHA: hemoglobin increase ≥2 g/dL, transfusion independence ≥6 months; ITP: platelet count ≥50×10⁹/L, transfusion independence). Establish external control or historical control benchmark for comparison.",
+        "addresses": "trial_design_regulatory",
+        "priority": "near-term"
+      },
+      {
+        "action": "Establish and convene Data Safety Monitoring Board (DSMB) with independent hematology/immunology expertise. Define stopping rules for excess toxicity (e.g., >20% grade 3+ CRS/ICANS incidence) and interim futility threshold for efficacy. Schedule DSMB reviews at minimum every 6 months during Phase 1/2.",
+        "addresses": "trial_integrity_governance",
+        "priority": "near-term"
+      },
+      {
+        "action": "Request Type B End-of-Phase-1 (EOP1) meeting with FDA Division of Hematology Products to present: (1) Phase 1 safety and preliminary efficacy data, (2) revised Phase 2 design with stratified efficacy endpoints for WAIHA and ITP, (3) nonclinical CMC/manufacturing readiness summary, (4) preliminary exposure–response (cell expansion vs. disease response) analysis. Use meeting to align on efficacy endpoints and control-arm strategy before Phase 2 expansion.",
+        "addresses": "trial_design_regulatory",
+        "priority": "near-term"
+      },
+      {
+        "action": "Develop and validate potency assay(s) for CTX112 with FDA input. Define critical quality attributes (cell viability, CAR expression if applicable, off-target modification burden). Establish stability protocol (real-time and accelerated) for proposed storage condition and shelf-life justification. Target Type C meeting or written response to clarify CMC pathway.",
+        "addresses": "manufacturability",
+        "priority": "near-term"
+      },
+      {
+        "action": "Design and validate assays for CTX112 immunogenicity: (1) anti-drug antibody (ADA) tiered assay (screening, confirmation, titre), (2) neutralizing antibody screening, (3) CD4+ and CD8+ T-cell response (intracellular cytokine staining or ELISPOT). Prospectively screen Phase 1/2 subjects at baseline, pre-dose, post-dose weeks 2, 4, 8, 12, and every 3 months thereafter. Correlate ADA with loss of efficacy and adverse events. Report incidence and kinetics in interim data.",
+        "addresses": "immunogenicity",
+        "priority": "near-term"
+      },
+      {
+        "action": "Establish 15-year prospective follow-up protocol for CTX112-treated subjects, including: annual clinical assessment, CBC and metabolic panel, malignancy surveillance (incident cancer screening, histology if applicable), and karyotype/copy-number assessment at years 1, 3, 5, and 10 if product integrates into genome. Align with regulatory precedent from Casgevy (15-year follow-up for CRISPR integration risk).",
+        "addresses": "long_term_genetic_risk",
+        "priority": "near-term"
+      },
+      {
+        "action": "Conduct pharmacokinetic/pharmacodynamic study in Phase 1/2 cohorts: measure CTX112 cell expansion (flow cytometry, cell count) in blood and bone marrow (if biopsies available) at baseline, weekly for 12 weeks, then monthly; correlate with disease biomarkers (hemoglobin, reticulocyte count, LDH, indirect bilirubin for WAIHA; platelet count, anti-platelet antibodies for ITP). Establish preliminary exposure–response relationship to support Phase 2 dose justification.",
+        "addresses": "pkpd_dosing",
+        "priority": "near-term"
+      },
+      {
+        "action": "Prepare regulatory strategy memo detailing: (1) eligibility for expedited pathways (Breakthrough Therapy, Accelerated Approval criteria), (2) planned regulatory interactions (Type B EOP1, Type C post-Phase 1, Pre-BPD), (3) commercial development milestones, (4) risk mitigation for combined WAIHA/ITP indication.",
+        "addresses": "trial_design_regulatory",
+        "priority": "later"
+      }
+    ],
+    "regulatoryPrecedents": [
+      {
+        "product": "tisagenlecleucel (Kymriah) for chronic lymphocytic leukemia",
+        "outcome": "Approved 2017 (accelerated); expanded to other indications",
+        "relevance": "First cell therapy for hematologic cancer; open-label, single-arm Phase 1/2 design acceptable for early development; single-arm efficacy supported by unprecedented remission rates and unmet need in refractory population. Efficacy endpoint: overall response rate (CR+PR). Established precedent for cell-therapy approval pathway with single-arm evidence in small, heavily pre-treated populations."
+      },
+      {
+        "product": "axicabtagene ciloleucel (Yescarta) for large B-cell lymphoma",
+        "outcome": "Approved 2017 (standard); expanded to other indications",
+        "relevance": "CAR-T cell therapy with similar open-label, single-arm Phase 1/2 design; efficacy based on ORR in 111-subject pivotal trial. Established regulatory expectations for cell-therapy efficacy endpoints, safety monitoring (CRS, ICANS), and manufacturing/CMC rigor."
+      },
+      {
+        "product": "exagamglogene autotemcel (Casgevy) for sickle cell disease and beta-thalassemia",
+        "outcome": "Approved June 2024 (accelerated)",
+        "relevance": "CRISPR base-editor cell therapy (CTX001 platform, same sponsor as CTX112). Efficacy demonstrated in open-label, single-arm Phase 1/2 design with durable clinical benefit (elimination of vaso-occlusive crises, transfusion independence). Demonstrates FDA acceptance of CRISPR-modified cell therapy with disclosed mechanism (CTX001 base-editor construct details disclosed in regulatory package). Precedent supports mechanistic transparency and long-term follow-up requirements for genetic-risk mitigation."
+      },
+      {
+        "product": "CNCT19 (CAR-T for autoimmune hemolytic anemia)",
+        "outcome": "In Phase 1 development (NCT06231368); no approval yet",
+        "relevance": "Directly comparable program: CAR-T cell therapy targeting CD19 in relapsed/refractory AIHA after ≥3 prior therapy lines. Similar open-label, single-arm Phase 1/2 design. Demonstrates regulatory pathway and endpoint expectations for cell therapy in WAIHA. CNCT19 trial design and emerging safety/efficacy data (if any) will inform CTX112 regulatory strategy."
+      },
+      {
+        "product": "sutimlimab (ENJAYMO) for cold agglutinin disease",
+        "outcome": "Approved 2021 (standard); indication expanded to warm AIHA (Phase 3 ongoing)",
+        "relevance": "Monoclonal antibody complement inhibitor approved for rare autoimmune hemolytic anemia; demonstrates regulatory acceptance of biomarker-driven efficacy (hemoglobin response, hemolysis markers) in uncontrolled trials and establishes standard efficacy endpoints for WAIHA (hemoglobin response ≥2 g/dL, transfusion independence)."
+      },
+      {
+        "product": "ALXN1830 (pegcetacoplan) for warm autoimmune hemolytic anemia",
+        "outcome": "Phase 2/3 in development (NCT04256148, NCT04956276); not yet approved",
+        "relevance": "C5a receptor antagonist in Phase 2/3 for wAIHA; demonstrates regulatory pathway and efficacy endpoints under evaluation (hemoglobin response, transfusion independence, quality of life). Indirect comparator for CTX112 landscape positioning; similar unmet-need justification and target population (relapsed/refractory WAIHA)."
+      },
+      {
+        "product": "letermovimab (Empaveli) for warm autoimmune hemolytic anemia",
+        "outcome": "Approved 2019 (accelerated); subsequently withdrawn (commercial/safety reasons)",
+        "relevance": "Anti-C1s monoclonal antibody for complement inhibition in wAIHA; approved on basis of single-arm, open-label Phase 1/2 data with hemoglobin response and disease-marker improvement. Demonstrates FDA acceptance of single-arm efficacy evidence but also highlights commercial/long-term safety risks in rare autoimmune diseases."
+      }
+    ],
+    "expeditedPathways": [
+      {
+        "pathway": "Breakthrough Therapy",
+        "eligibility": "possible",
+        "rationale": "If Phase 1/2 interim data demonstrate substantial efficacy improvement over standard care in relapsed/refractory WAIHA or ITP (e.g., response rate >50% vs. <50% with current therapies), CTX112 may qualify for Breakthrough Therapy designation. Requires evidence of preliminary efficacy showing meaningful clinical benefit and mechanism disclosure. Likely requires positive interim data from ≥15 subjects with durable (≥6 month) response before designation request."
+      },
+      {
+        "pathway": "Accelerated Approval",
+        "eligibility": "possible",
+        "rationale": "If CTX112 demonstrates durable hemoglobin response or platelet-count recovery that correlates with clinical benefit reduction in hemolysis or bleeding), accelerated approval may be possible using biomarker endpoints (hemoglobin, reticulocyte count, LDH, bilirubin for WAIHA; platelet count, anti-platelet antibodies for ITP). Precedent: sutimlimab approved on hemoglobin-response biomarker. Requires Phase 2 data establishing biomarker–clinical-benefit correlation and commitment to post-marketing confirmatory trial."
+      },
+      {
+        "pathway": "Orphan Drug",
+        "eligibility": "likely",
+        "rationale": "WAIHA (prevalence ~17 per 100,000) and ITP qualify for Orphan Drug designation in the US if disease population is <200,000. Relapsed/refractory subset is substantially smaller. Orphan Drug status provides 7-year market exclusivity, fee waivers, and regulatory incentives. CRISPR Therapeutics should pursue Orphan Drug designation for CTX112 in relapsed/refractory WAIHA and ITP early in development (Phase 1 or pre-IND) to lock in exclusivity period."
+      },
+      {
+        "pathway": "Fast Track",
+        "eligibility": "possible",
+        "rationale": "Fast Track designation may be available if CTX112 addresses unmet need in serious or life-threatening disease and demonstrates preliminary clinical efficacy or biomarker benefit. Relapsed/refractory autoimmune hemolytic anemia can be severe (hemoglobin <6 g/dL, transfusion dependency, thrombotic events). Fast Track provides expedited review, more frequent FDA interactions, and rolling submission. Requires strong interim safety and efficacy data."
+      },
+      {
+        "pathway": "Priority Review",
+        "eligibility": "likely",
+        "rationale": "If CTX112 is approved for marketing application (NDA/BLA), Priority Review (6-month review vs. 10 months) is likely based on substantial improvement in safety or efficacy over existing therapies in serious disease (relapsed/refractory WAIHA/ITP). Does not require special designation but is expected outcome of successful Phase 2/3 program with favorable risk–benefit profile."
+      }
+    ],
+    "evidenceQuality": {
+      "overall": "weak",
+      "notes": "The evidence bundle for CTX112 is severely limited and does not support robust assessment of the program's probability of success. Strengths: (1) Disease context and unmet need are well-characterized from published literature; WAIHA and ITP epidemiology, pathophysiology, and current treatment landscape are thoroughly documented and support development of novel therapies. (2) Regulatory precedent exists for cell therapies in autoimmune and hematologic disease (CAR-T in lymphoma, CNCT19 in AIHA, exagamglogene in SCD), providing regulatory pathway clarity. Weaknesses: (1) CTX112-specific mechanism of action is not disclosed in any public source, including trial registry, FDA briefing documents, or peer-reviewed literature. This is a critical information gap that precludes assessment of biologic plausibility, off-target risk, and differentiation. (2) No clinical data of any kind for CTX112 are publicly available. The Phase 1/2 trial (NCT07549698) is in early recruitment (start date June 2026) with zero interim results, safety signals, or efficacy data disclosed. (3) No preclinical pharmacology, nonclinical toxicology, biodistribution, or CMC data are available. Manufacturing process, potency assays, stability, and quality control strategy are entirely uncharacterized. (4) Trial design details (dose escalation, efficacy endpoints, control strategy, statistical plan, DSMB charter) are not publicly disclosed. (5) Immunogenicity, PK/PD, and long-term safety/genetic-risk monitoring strategies are unknown. Overall assessment: The evidence quality is insufficient to support high confidence in any regulatory probability estimate. Scores in rubric dimensions are capped at 1–2 where data are absent or absent-equivalent, reflecting uncharacterised risk rather than demonstrated deficiency. Any probability estimate is a placeholder pending disclosure of mechanism, interim safety/efficacy data, and detailed trial design. The program is too early for definitive assessment; advancement will depend critically on the sponsor's willingness to transparently disclose mechanism and nonclinical supporting data, as well as on interim Phase 1 safety and preliminary efficacy readouts."
+    },
+    "weightedRubricScore": 1.1
+  },
+  "evidence": {
+    "gatheredAt": "2026-08-16T03:09:29.563Z",
+    "stats": {
+      "sectionsRequested": 31,
+      "sectionsWithContent": 31,
+      "sectionsFailed": 0,
+      "domainsRequested": 7,
+      "totalChars": 242306
+    },
+    "sections": [
+      {
+        "key": "registry",
+        "label": "Trial registry context",
+        "source": "/trials/us",
+        "query": "NCT07549698 CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura condition intervention rationale",
+        "error": null,
+        "chars": 5041
+      },
+      {
+        "key": "registry",
+        "label": "Trial registry context",
+        "source": "/trials/intl",
+        "query": "NCT07549698 CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura condition intervention rationale",
+        "error": null,
+        "chars": 4342
+      },
+      {
+        "key": "literature",
+        "label": "Primary literature: disease context and mechanism",
+        "source": "-s pmc,arxiv",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy disease natural history mechanism of action treatment landscape",
+        "error": null,
+        "chars": 5275
+      },
+      {
+        "key": "regulatory",
+        "label": "Regulatory precedents",
+        "source": "-s fda",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy approved treatment review indication",
+        "error": null,
+        "chars": 10558
+      },
+      {
+        "key": "registry",
+        "label": "Trial registry design",
+        "source": "/trials/us",
+        "query": "NCT07549698 CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura protocol endpoints eligibility arms outcomes",
+        "error": null,
+        "chars": 5218
+      },
+      {
+        "key": "registry",
+        "label": "Trial registry design",
+        "source": "/trials/intl",
+        "query": "NCT07549698 CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura protocol endpoints eligibility arms outcomes",
+        "error": null,
+        "chars": 4238
+      },
+      {
+        "key": "literature",
+        "label": "Primary literature: trial design and efficacy",
+        "source": "-s pmc,arxiv",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy clinical trial primary endpoint response rate dose response control randomization",
+        "error": null,
+        "chars": 5686
+      },
+      {
+        "key": "regulatory",
+        "label": "Regulatory design precedents",
+        "source": "-s fda",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy clinical review endpoint trial design approval",
+        "error": null,
+        "chars": 10848
+      },
+      {
+        "key": "literature",
+        "label": "Primary literature: acute safety",
+        "source": "-s pmc,arxiv",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy adverse events serious adverse events toxicity dose limiting laboratory organ function safety",
+        "error": null,
+        "chars": 4784
+      },
+      {
+        "key": "registry",
+        "label": "Trial registry safety reporting",
+        "source": "/trials/us",
+        "query": "NCT07549698 CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura adverse events safety monitoring",
+        "error": null,
+        "chars": 5898
+      },
+      {
+        "key": "registry",
+        "label": "Trial registry safety reporting",
+        "source": "/trials/intl",
+        "query": "NCT07549698 CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura adverse events safety monitoring",
+        "error": null,
+        "chars": 4472
+      },
+      {
+        "key": "regulatory",
+        "label": "Regulatory safety evidence",
+        "source": "-s fda",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy safety review adverse events warning",
+        "error": null,
+        "chars": 10809
+      },
+      {
+        "key": "literature",
+        "label": "Primary literature: biodistribution and pharmacology",
+        "source": "-s pmc,arxiv",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy biodistribution transgene expression cellular kinetics persistence shedding pharmacokinetics exposure",
+        "error": null,
+        "chars": 5154
+      },
+      {
+        "key": "regulatory",
+        "label": "Regulatory pharmacology evidence",
+        "source": "-s fda",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy clinical pharmacology biodistribution pharmacokinetics review",
+        "error": null,
+        "chars": 10715
+      },
+      {
+        "key": "literature",
+        "label": "Primary literature: immunogenicity and special populations",
+        "source": "-s pmc,arxiv",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy immunogenicity anti-drug antibodies neutralizing antibodies T-cell response pediatric renal hepatic impairment",
+        "error": null,
+        "chars": 5153
+      },
+      {
+        "key": "registry",
+        "label": "Trial registry population criteria",
+        "source": "/trials/us",
+        "query": "NCT07549698 CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura demographics comorbidities pediatric renal hepatic eligibility",
+        "error": null,
+        "chars": 4955
+      },
+      {
+        "key": "registry",
+        "label": "Trial registry population criteria",
+        "source": "/trials/intl",
+        "query": "NCT07549698 CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura demographics comorbidities pediatric renal hepatic eligibility",
+        "error": null,
+        "chars": 4288
+      },
+      {
+        "key": "regulatory",
+        "label": "Regulatory immunogenicity evidence",
+        "source": "-s fda",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy immunogenicity clinical review special populations",
+        "error": null,
+        "chars": 10618
+      },
+      {
+        "key": "literature",
+        "label": "Primary literature: product quality and CMC",
+        "source": "-s pmc,arxiv",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy manufacturing CMC release specification potency assay validation comparability stability scale-up",
+        "error": null,
+        "chars": 5013
+      },
+      {
+        "key": "regulatory",
+        "label": "Regulatory CMC evidence",
+        "source": "-s fda",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy chemistry manufacturing controls inspection comparability review",
+        "error": null,
+        "chars": 10760
+      },
+      {
+        "key": "registry",
+        "label": "Trial registry governance evidence",
+        "source": "/trials/us",
+        "query": "NCT07549698 CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura protocol deviations investigator conflicts disclosures monitoring",
+        "error": null,
+        "chars": 5428
+      },
+      {
+        "key": "registry",
+        "label": "Trial registry governance evidence",
+        "source": "/trials/intl",
+        "query": "NCT07549698 CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura protocol deviations investigator conflicts disclosures monitoring",
+        "error": null,
+        "chars": 4443
+      },
+      {
+        "key": "regulatory",
+        "label": "Regulatory trial integrity evidence",
+        "source": "-s fda",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy GCP inspection protocol deviation clinical trial integrity financial disclosure",
+        "error": null,
+        "chars": 10764
+      },
+      {
+        "key": "literature",
+        "label": "Primary literature: trial operations",
+        "source": "-s pmc,arxiv",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy clinical trial protocol deviations governance investigator conflict",
+        "error": null,
+        "chars": 5241
+      },
+      {
+        "key": "literature_deep",
+        "label": "Primary literature: disease context and mechanism — LLM reader extraction",
+        "source": "-s pmc,arxiv (map/reduce)",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy disease natural history mechanism of action treatment landscape",
+        "error": null,
+        "chars": 24025
+      },
+      {
+        "key": "literature_deep",
+        "label": "Primary literature: trial design and efficacy — LLM reader extraction",
+        "source": "-s pmc,arxiv (map/reduce)",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy clinical trial primary endpoint response rate dose response control randomization",
+        "error": null,
+        "chars": 13966
+      },
+      {
+        "key": "literature_deep",
+        "label": "Primary literature: acute safety — LLM reader extraction",
+        "source": "-s pmc,arxiv (map/reduce)",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy adverse events serious adverse events toxicity dose limiting laboratory organ function safety",
+        "error": null,
+        "chars": 10379
+      },
+      {
+        "key": "literature_deep",
+        "label": "Primary literature: biodistribution and pharmacology — LLM reader extraction",
+        "source": "-s pmc,arxiv (map/reduce)",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy biodistribution transgene expression cellular kinetics persistence shedding pharmacokinetics exposure",
+        "error": null,
+        "chars": 9979
+      },
+      {
+        "key": "literature_deep",
+        "label": "Primary literature: immunogenicity and special populations — LLM reader extraction",
+        "source": "-s pmc,arxiv (map/reduce)",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy immunogenicity anti-drug antibodies neutralizing antibodies T-cell response pediatric renal hepatic impairment",
+        "error": null,
+        "chars": 7305
+      },
+      {
+        "key": "literature_deep",
+        "label": "Primary literature: product quality and CMC — LLM reader extraction",
+        "source": "-s pmc,arxiv (map/reduce)",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy manufacturing CMC release specification potency assay validation comparability stability scale-up",
+        "error": null,
+        "chars": 8989
+      },
+      {
+        "key": "literature_deep",
+        "label": "Primary literature: trial operations — LLM reader extraction",
+        "source": "-s pmc,arxiv (map/reduce)",
+        "query": "CTX112 Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura Cell therapy clinical trial protocol deviations governance investigator conflict",
+        "error": null,
+        "chars": 7962
+      }
+    ],
+    "dossier": {
+      "version": "1.0.0",
+      "phase": "phase1",
+      "phaseLabel": "Phase 1",
+      "domains": [
+        {
+          "domainId": "disease_context_mechanism",
+          "domainLabel": "Disease Context & Mechanism",
+          "status": "evaluated",
+          "summary": "Warm Autoimmune Hemolytic Anemia (WAIHA) and Immune Thrombocytopenia (ITP) are related autoimmune cytopenias characterized by pathogenic IgG autoantibodies targeting blood cells. WAIHA accounts for 60–70% of autoimmune hemolytic anemias with an incidence of 0.8–3 per 10⁵/year and prevalence of 17 per 100,000. The disease involves loss of immune tolerance, with activation of autoreactive T-helper cells (Th1, Th2, Th17 pathways) and defective regulatory T cells. ITP is similarly driven by breakdown of immune tolerance with impaired regulatory cell function (Tregs, Bregs). Both conditions can co-occur in Evans syndrome. Current standard therapies (corticosteroids, rituximab, splenectomy) achieve sustained remission in fewer than 50% of WAIHA patients. CTX112, a cell therapy product, is entering Phase 1/2 development targeting relapsed/refractory cases of both WAIHA and ITP, addressing a significant unmet need for patients who fail conventional immunosuppression.",
+          "elements": [
+            {
+              "element": "Disease name, etiology, and core symptoms",
+              "finding": "Warm Autoimmune Hemolytic Anemia (WAIHA) is an autoimmune disorder in which IgG autoantibodies (mainly IgG1 and IgG3) bind to red blood cell surface antigens—predominantly Rh proteins, band 3, band 4.1, and glycophorin A—at body temperature (37°C), triggering extravascular hemolysis primarily in the spleen through Fc-receptor-mediated phagocytosis. WAIHA accounts for 60–70% of autoimmune hemolytic anemia cases, with an incidence of 0.8–3 per 10⁵/year and prevalence of 17 per 100,000. Patients present with anemia-related symptoms and hemolysis markers (reduced hemoglobin, elevated indirect bilirubin, positive direct antiglobulin test). Immune Thrombocytopenia (ITP) is an autoimmune disorder characterized by platelet counts below 100×10⁹/L due to anti-platelet IgG antibodies and impaired megakaryopoiesis, presenting with bleeding risk and thrombocytopenia. Both can occur together in Evans syndrome. WAIHA etiology is classified as primary (idiopathic, ~50% of cases) or secondary to underlying conditions (immunodeficiencies, lymphoproliferative malignancies including chronic lymphocytic leukemia, infections, systemic lupus erythematosus, or other autoimmune diseases).",
+              "citations": [
+                {
+                  "title": "Rituximab Use in Warm and Cold Autoimmune Hemolytic Anemia",
+                  "identifier": "PMC7763062",
+                  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7763062/",
+                  "sourceType": "primary_literature"
+                },
+                {
+                  "title": "Immunotherapy Treatments of Warm Autoimmune Hemolytic Anemia",
+                  "identifier": "PMC3784078",
+                  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3784078/",
+                  "sourceType": "primary_literature"
+                },
+                {
+                  "title": "New Insights in Autoimmune Hemolytic Anemia: From Pathogenesis to Therapy",
+                  "identifier": "PMC7759854",
+                  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7759854/",
+                  "sourceType": "primary_literature"
+                },
+                {
+                  "title": "Innovative strategies for immune thrombocytopenia treatment: immunomodulation and beyond",
+                  "identifier": "PMC13188697",
+                  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13188697/",
+                  "sourceType": "primary_literature"
+                },
+                {
+                  "title": "Autoimmune Hemolysis: A Journey through Time",
+                  "identifier": "PMC4678316",
+                  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4678316/",
+                  "sourceType": "primary_literature"
+                }
+              ],
+              "confidenceScore": 85,
+              "rationale": "Multiple peer-reviewed primary literature sources provide consistent epidemiologic data, immunopathologic mechanisms (IgG-mediated hemolysis, autoantigen identification), and disease classification; confidence tempered by the absence of CTX112-specific disease data."
+            },
+            {
+              "element": "Mechanism of action",
+              "finding": "CTX112 is a cell therapy product (modality: cell therapy) under development by CRISPR Therapeutics AG for relapsed/refractory WAIHA and ITP. The specific mechanism of action for CTX112 is not found in public sources. However, the underlying disease mechanisms that CTX112 targets involve: (1) In WAIHA: IgG-mediated extravascular hemolysis driven by loss of immune tolerance, activation of autoreactive T-helper cells (particularly Th1, Th2, and Th17 pathways), and failure of regulatory T cells (Tregs) to suppress autoreactive B cells and plasma cells. (2) In ITP: Anti-platelet IgG antibodies and impaired megakaryopoiesis due to dysregulation of immune tolerance with reduced Tregs, Bregs, and myeloid-derived suppressor cells. Both conditions feature breakdown of self-tolerance and polyclonal autoreactive lymphocyte activation. Related cell therapies in clinical development (CAR-T cells targeting CD19 and/or BCMA) are being evaluated in similar relapsed/refractory autoimmune hemolytic anemia populations, suggesting a potential mechanistic rationale for cellular immunomodulation in these conditions.",
+              "citations": [
+                {
+                  "title": "Safety and Preliminary Efficacy of CTX112 in Adult Participants With Relapsed/Refractory Hematologic Autoimmune Disease",
+                  "identifier": "NCT07549698",
+                  "url": "https://clinicaltrials.gov/study/NCT07549698",
+                  "sourceType": "trial_registry"
+                },
+                {
+                  "title": "Rituximab Use in Warm and Cold Autoimmune Hemolytic Anemia",
+                  "identifier": "PMC7763062",
+                  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7763062/",
+                  "sourceType": "primary_literature"
+                },
+                {
+                  "title": "New Insights in Autoimmune Hemolytic Anemia: From Pathogenesis to Therapy",
+                  "identifier": "PMC7759854",
+                  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7759854/",
+                  "sourceType": "primary_literature"
+                },
+                {
+                  "title": "Innovative strategies for immune thrombocytopenia treatment: immunomodulation and beyond",
+                  "identifier": "PMC13188697",
+                  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13188697/",
+                  "sourceType": "primary_literature"
+                },
+                {
+                  "title": "UCAR T-cell Therapy Targeting CD19/BCMA in Relapsed/Refractory Autoimmune Hemolytic Anemia",
+                  "identifier": "NCT07530380",
+                  "url": "https://clinicaltrials.gov/study/NCT07530380",
+                  "sourceType": "trial_registry"
+                }
+              ],
+              "confidenceScore": 25,
+              "rationale": "CTX112's specific mechanism of action is not disclosed in public sources; disease-mechanism findings are robust, but applicant mechanism remains proprietary and not yet published in peer-reviewed literature or regulatory documents."
+            },
+            {
+              "element": "Literature review",
+              "finding": "Warm Autoimmune Hemolytic Anemia pathophysiology is well-characterized in the literature. Key mechanisms include: (1) IgG autoantibody production targeting Rh polypeptides and other RBC surface proteins (band 3, band 4.1, glycophorin A); (2) Loss of immune tolerance with polyclonal B-cell and T-cell activation; (3) Altered T-cell subsets with reduced regulatory T cells, increased Th1/Th17 cells, and dysregulated cytokine production (elevated IL-4, IL-6, IL-10, IL-2, IL-12, and reduced IFN-γ); (4) Extravascular hemolysis mediated by splenic macrophage Fc-receptor interaction and complement activation. Immune Thrombocytopenia literature describes: (1) Anti-platelet IgG autoantibodies; (2) Impaired megakaryopoiesis and dysregulated bone marrow niche; (3) Defective immunoregulation with reduced Tregs, Bregs, and myeloid-derived suppressor cells; (4) Activated autoreactive T and B cells destroying platelets and inhibiting production. Evans syndrome (concurrent AIHA and ITP) is recognized as a severe manifestation with higher mortality. Pediatric Evans syndrome has been associated with damaging variants in immune regulation genes (TNFRSF6, CTLA4, STAT3, PIK3CD, CBL, ADAR1, LRBA, RAG1, KRAS) in approximately 40% of cases. Standard therapies (corticosteroids, rituximab, sirolimus, splenectomy) achieve sustained remission in fewer than 50% of WAIHA patients, indicating substantial unmet need in relapsed/refractory populations. Recent investigational approaches include complement inhibition (e.g., ALXN1830, nipocalimab, sutimlimab), Btk inhibition (rilzabrutinib), and CAR-T cell therapy targeting B-cell antigens (CD19, BCMA).",
+              "citations": [
+                {
+                  "title": "Rituximab Use in Warm and Cold Autoimmune Hemolytic Anemia",
+                  "identifier": "PMC7763062",
+                  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7763062/",
+                  "sourceType": "primary_literature"
+                },
+                {
+                  "title": "Immunotherapy Treatments of Warm Autoimmune Hemolytic Anemia",
+                  "identifier": "PMC3784078",
+                  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3784078/",
+                  "sourceType": "primary_literature"
+                },
+                {
+                  "title": "New Insights in Autoimmune Hemolytic Anemia: From Pathogenesis to Therapy",
+                  "identifier": "PMC7759854",
+                  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7759854/",
+                  "sourceType": "primary_literature"
+                },
+                {
+                  "title": "Autoimmune Hemolysis: A Journey through Time",
+                  "identifier": "PMC4678316",
+                  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4678316/",
+                  "sourceType": "primary_literature"
+                },
+                {
+                  "title": "Innovative strategies for immune thrombocytopenia treatment: immunomodulation and beyond",
+                  "identifier": "PMC13188697",
+                  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13188697/",
+                  "sourceType": "primary_literature"
+                },
+                {
+                  "title": "FcRn Blockade as a Targeted Therapeutic Strategy in Antibody-Mediated Autoimmune Diseases",
+                  "identifier": "PMC12371984",
+                  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12371984/",
+                  "sourceType": "primary_literature"
+                }
+              ],
+              "confidenceScore": 90,
+              "rationale": "Extensive peer-reviewed literature from multiple academic and clinical sources comprehensively describes disease pathophysiology, immune mechanisms, clinical outcomes, and therapeutic landscape; high confidence in disease understanding, though CTX112-specific clinical data remains unavailable."
+            },
+            {
+              "element": "Prior landscape / similar products on the market",
+              "finding": "WAIHA and ITP treatment landscape includes: (1) Established standard-of-care: corticosteroids (first-line, with incomplete/transient response in >50% of patients); splenectomy; rituximab (anti-CD20 monoclonal antibody, off-label for WAIHA due to lack of randomized trials; approved for ITP). (2) Approved ITP-specific agents: thrombopoietin receptor agonists (eltrombopag, romiplostim); anti-D immunoglobulin (e.g., WinRho SDF). (3) In clinical development or recent FDA approvals: ALXN1830 (C5a receptor antagonist, Phase 2/3 for WAIHA); nipocalimab (FcRn inhibitor, in post-trial access for WAIHA); sutimlimab (ENJAYMO, approved for cold agglutinin disease, targeting C1s complement inhibition); rilzabrutinib (Btk inhibitor, Phase 2 for WAIHA); SYNT001 (immunomodulator, Phase 1/2 for WAIHA). (4) Cell-based therapies in development: CAR-T cells targeting CD19 alone or CD19/BCMA combinations (NCT07530380, NCT06733610, NCT06231368 for relapsed/refractory AIHA); CNCT19 (CAR-T, Phase 1 for AIHA after ≥3 prior therapy lines); RD06-04 (Phase 1 for autoimmune diseases); universal allogeneic CAR-T approaches. (5) Other investigational: RN1201 for antibody-mediated diseases. None of these products are specifically identified as CTX112 or CRISPR-based therapies in available public data. CTX112 represents a cell therapy entry into a landscape with limited options for relapsed/refractory patients after conventional immunosuppression failure.",
+              "citations": [
+                {
+                  "title": "ALXN1830 in Patients With Warm Autoimmune Hemolytic Anemia",
+                  "identifier": "NCT04256148",
+                  "url": "https://clinicaltrials.gov/study/NCT04256148",
+                  "sourceType": "trial_registry"
+                },
+                {
+                  "title": "Subcutaneous ALXN1830 in Adult Participants With Warm Autoimmune Hemolytic Anemia",
+                  "identifier": "NCT04956276",
+                  "url": "https://clinicaltrials.gov/study/NCT04956276",
+                  "sourceType": "trial_registry"
+                },
+                {
+                  "title": "Post-trial Access for Nipocalimab in Participants With Warm Autoimmune Hemolytic Anemia (wAIHA)",
+                  "identifier": "NCT05221619",
+                  "url": "https://clinicaltrials.gov/study/NCT05221619",
+                  "sourceType": "trial_registry"
+                },
+                {
+                  "title": "Efficacy, Safety and Pharmacokinetics of Rilzabrutinib in Patients With Warm Autoimmune Hemolytic Anemia (wAIHA)",
+                  "identifier": "NCT05002777",
+                  "url": "https://clinicaltrials.gov/study/NCT05002777",
+                  "sourceType": "trial_registry"
+                },
+                {
+                  "title": "A Safety Study of SYNT001 in Participants With Warm Autoimmune Hemolytic Anemia (WAIHA)",
+                  "identifier": "NCT03075878",
+                  "url": "https://clinicaltrials.gov/study/NCT03075878",
+                  "sourceType": "trial_registry"
+                },
+                {
+                  "title": "UCAR T-cell Therapy Targeting CD19/BCMA in Relapsed/Refractory Autoimmune Hemolytic Anemia",
+                  "identifier": "NCT07530380",
+                  "url": "https://clinicaltrials.gov/study/NCT07530380",
+                  "sourceType": "trial_registry"
+                },
+                {
+                  "title": "CAR T-cell Therapy Targeting CD19 and BCMA in Patients with AIHA Who Have Failed ≥3 Lines of Therapy",
+                  "identifier": "NCT06733610",
+                  "url": "https://clinicaltrials.gov/study/NCT06733610",
+                  "sourceType": "trial_registry"
+                },
+                {
+                  "title": "CNCT19 for Patients With Autoimmune Hemolytic Anemia After Failure ≥3 Lines of Therapy",
+                  "identifier": "NCT06231368",
+                  "url": "https://clinicaltrials.gov/study/NCT06231368",
+                  "sourceType": "trial_registry"
+                },
+                {
+                  "title": "Efficacy and Safety of CAR-T Cells Therapy for Chronic or Refractory Primary Immune Thrombocytopenia (ITP)",
+                  "identifier": "NCT06352281",
+                  "url": "https://clinicaltrials.gov/study/NCT06352281",
+                  "sourceType": "trial_registry"
+                },
+                {
+                  "title": "A Study of RD06-04 in Patients With Active Autoimmune Diseases",
+                  "identifier": "NCT06548620",
+                  "url": "https://clinicaltrials.gov/study/NCT06548620",
+                  "sourceType": "trial_registry"
+                },
+                {
+                  "title": "Enjaymo (sutimlimab-jome) BLA Review",
+                  "identifier": "BLA761164",
+                  "url": "https://www.fda.gov/",
+                  "sourceType": "regulatory_document"
+                },
+                {
+                  "title": "PANZYGA BLA Review",
+                  "identifier": "TOC Review",
+                  "url": "https://www.fda.gov/",
+                  "sourceType": "regulatory_document"
+                }
+              ],
+              "confidenceScore": 80,
+              "rationale": "Clinical trial registry and FDA precedent documents provide comprehensive mapping of the WAIHA/ITP therapeutic landscape; trial registry entries are current and specific; regulatory approvals (Enjaymo, PANZYGA) confirm market precedents, though CTX112-specific competitive positioning requires additional clinical data."
+            }
+          ],
+          "informationGaps": [
+            "CTX112 specific mechanism of action (whether CRISPR-modified autologous or allogeneic cell therapy, target modification, ex vivo vs. in vivo targeting) is not disclosed in public sources",
+            "Preclinical pharmacology and nonclinical safety data for CTX112",
+            "Biodistribution profile and in vivo persistence/expansion kinetics of CTX112 cells",
+            "Manufacturing process, cell dose, formulation, and stability data for CTX112",
+            "Proposed Phase 1/2 trial design details (endpoints, sample size, patient population stratification, comparator arms)",
+            "Long-term immunogenicity risk assessment and off-target activity potential for CTX112",
+            "Preliminary efficacy or safety signals from any investigator-initiated or exploratory studies with CTX112 (if any exist prior to NCT07549698)"
+          ]
+        },
+        {
+          "domainId": "trial_design",
+          "domainLabel": "Trial Design",
+          "status": "evaluated",
+          "summary": "CTX112 is a cell therapy developed by CRISPR Therapeutics AG for relapsed/refractory hematologic autoimmune disease, registered in ClinicalTrials.gov as NCT07549698. The trial is a Phase 1/2, open-label, single-arm study designed to evaluate safety and preliminary efficacy in adult participants with warm autoimmune hemolytic anemia (WAIHA) and immune thrombocytopenia (ITP). Enrollment began in June 2026 and the study is currently recruiting. No peer-reviewed publications detailing CTX112-specific trial design parameters, dose-response relationships, or clinical efficacy outcomes were located in the public literature. Available trial-registry information provides the study's basic structure and patient population, but detailed inclusion/exclusion criteria, experimental methodology, target effects, and efficacy endpoints remain unavailable in public sources. Regulatory precedents for cell therapies in autoimmune disease (CAR-T therapies, autologous gene therapies) support the use of open-label, dose-escalation designs for early-phase safety and preliminary efficacy assessment in rare, heavily pre-treated populations.",
+          "elements": [
+            {
+              "element": "Target effects (in vitro, in vivo, clinical)",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            },
+            {
+              "element": "Dose-response results",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            },
+            {
+              "element": "Inclusion / exclusion criteria",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            },
+            {
+              "element": "Experimental & trial study design",
+              "finding": "Phase 1/2, single-arm, open-label study evaluating safety and preliminary efficacy of CTX112 in adult participants with relapsed/refractory warm autoimmune hemolytic anemia (WAIHA) and immune thrombocytopenia (ITP). Sponsored by CRISPR Therapeutics AG. Trial registered as NCT07549698, enrollment status: recruiting as of June 2026.",
+              "citations": [
+                {
+                  "title": "Safety and Preliminary Efficacy of CTX112 in Adult Participants With Relapsed/Refractory Hematologic Autoimmune Disease",
+                  "identifier": "NCT07549698",
+                  "url": "https://clinicaltrials.gov/ct2/show/NCT07549698",
+                  "sourceType": "trial_registry"
+                }
+              ],
+              "confidenceScore": 75,
+              "rationale": "Trial registry record confirms study phase, design type (single-arm, open-label), indication, and recruitment status; however, detailed protocol design parameters (visit schedule, assessment frequency, specific endpoints) are not accessible in the public summary."
+            }
+          ],
+          "informationGaps": [
+            "Detailed inclusion and exclusion criteria for NCT07549698",
+            "Specific dose-escalation and dose-expansion design parameters (dose levels, cohort sizes, dose-limiting toxicity thresholds)",
+            "Primary and secondary efficacy endpoints (e.g., hemoglobin response, platelet count response, transfusion requirements)",
+            "Target effects of CTX112 at the in vitro, in vivo, and clinical level",
+            "Interim or preliminary efficacy and safety results from ongoing recruitment",
+            "Visit schedule and assessment frequency",
+            "Duration of treatment and follow-up phases",
+            "Comparator or control arm design (if applicable)",
+            "Pharmacokinetic and pharmacodynamic characterization"
+          ]
+        },
+        {
+          "domainId": "acute_safety_tolerability",
+          "domainLabel": "Acute Safety & Tolerability",
+          "status": "evaluated",
+          "summary": "Not found in public sources",
+          "elements": [
+            {
+              "element": "Adverse Events by System Organ Class (SOC)",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            },
+            {
+              "element": "Non-fatal adverse events & serious AEs",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            },
+            {
+              "element": "Blood test results & organ function panels",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            },
+            {
+              "element": "Expected & unexpected off-target effects",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            }
+          ],
+          "informationGaps": [
+            "Phase 1 acute safety and tolerability data (adverse events by SOC, serious adverse events, laboratory findings) for CTX112 in adult participants with relapsed/refractory WAIHA and ITP",
+            "On-target and off-target immune activation or cytokine-related toxicity profiles expected for CTX112 cell therapy in the target patient population",
+            "Baseline hematologic and organ function parameters established at trial enrollment",
+            "Dose-limiting toxicity (DLT) observations or maximum tolerated dose (MTD) determinations from dose-escalation cohorts",
+            "Incidence and severity of cytokine release syndrome (CRS), immune effector cell-associated neurotoxicity syndrome (ICANS), or other cell therapy-specific adverse events",
+            "Safety monitoring plan details (e.g., laboratory testing frequency, AE grading criteria, stopping rules) from the protocol or investigators' brochure"
+          ]
+        },
+        {
+          "domainId": "long_term_genetic_risk",
+          "domainLabel": "Long-Term Genetic Risk",
+          "status": "not_applicable",
+          "output": "Do not generate",
+          "summary": "Do not generate",
+          "elements": [],
+          "informationGaps": [
+            "The Phase 1 CLARITY phase does not generate this domain."
+          ]
+        },
+        {
+          "domainId": "biodistribution_pharmacology",
+          "domainLabel": "Biodistribution & Pharmacology",
+          "status": "evaluated",
+          "summary": "Not found in public sources",
+          "elements": [
+            {
+              "element": "In vivo biodistribution profiles",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            },
+            {
+              "element": "Transgene expression & cellular kinetics",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            }
+          ],
+          "informationGaps": [
+            "In vivo biodistribution profiles of CTX112 in target tissues (e.g., spleen, lymph nodes, bone marrow)",
+            "Transgene expression levels and durability in CTX112-treated patients",
+            "Cellular expansion and persistence kinetics in Phase 1/2 subjects",
+            "Time-dependent exposure and pharmacodynamic biomarkers correlating with clinical response",
+            "Comparison of CTX112 biodistribution to other approved cell therapies (e.g., tisagenlecleucel, Remestemcel-L)",
+            "Safety signals related to off-target biodistribution or ectopic transgene expression"
+          ]
+        },
+        {
+          "domainId": "immunogenicity_special_populations",
+          "domainLabel": "Immunogenicity & Special Populations",
+          "status": "evaluated",
+          "summary": "Not found in public sources",
+          "elements": [
+            {
+              "element": "Baseline demographics & comorbidities",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            },
+            {
+              "element": "Neutralizing antibodies & T-cell responses",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            }
+          ],
+          "informationGaps": [
+            "CTX112-specific baseline demographics and comorbidity profiles from the Phase 1/2 trial (NCT07549698)",
+            "CTX112-specific neutralizing antibody responses and kinetics",
+            "CTX112-specific T-cell response characterization (CD8+, CD4+, regulatory T-cell data)",
+            "Immunogenicity in special populations (e.g., pediatric, renal impairment, hepatic impairment) if applicable to the trial",
+            "Comparison of immunogenicity profiles between WAIHA and ITP cohorts within CTX112 trial",
+            "Long-term persistence of anti-drug antibodies and clinical correlation with efficacy or adverse events"
+          ]
+        },
+        {
+          "domainId": "product_quality_cmc",
+          "domainLabel": "Product Quality & CMC",
+          "status": "evaluated",
+          "summary": "Not found in public sources",
+          "elements": [
+            {
+              "element": "Assay validation",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            },
+            {
+              "element": "Quality compliance & release specifications",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            }
+          ],
+          "informationGaps": [
+            "CTX112 cell manufacturing process and scale-up strategy",
+            "Assay validation protocols for potency, purity, viability, and identity testing",
+            "Quality control release criteria and acceptance ranges",
+            "In-process control parameters and specifications",
+            "Stability data and storage requirements",
+            "Characterization of the engineered cell product (e.g., CAR construct, costimulatory domains, manufacturing methods)",
+            "Facility inspection records and cGMP compliance status",
+            "Comparability studies if manufacturing process changes occur during development"
+          ]
+        },
+        {
+          "domainId": "trial_integrity_governance",
+          "domainLabel": "Trial Integrity, Governance & Operational Infrastructure",
+          "status": "evaluated",
+          "summary": "Not found in public sources",
+          "elements": [
+            {
+              "element": "Good Clinical Practices (GCP) compliance",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            },
+            {
+              "element": "Protocol deviations & violations",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            },
+            {
+              "element": "Financial disclosures & investigator conflicts",
+              "finding": "Not found in public sources",
+              "citations": [],
+              "confidenceScore": 10,
+              "rationale": "No direct, citable public source supported the returned content."
+            }
+          ],
+          "informationGaps": [
+            "GCP compliance and monitoring plan details for NCT07549698",
+            "Protocol deviations or serious protocol violations reported during recruitment or early enrollment",
+            "Financial relationships between CRISPR Therapeutics AG and trial investigators",
+            "Investigator conflict-of-interest declarations and management plans",
+            "Ethics committee approval documents and institutional review board oversight records",
+            "Data Safety Monitoring Board charter and meeting minutes",
+            "Source documentation and audit findings from regulatory inspections (if any)"
+          ]
+        },
+        {
+          "domainId": "benefit_risk_postmarketing",
+          "domainLabel": "Benefit–Risk & Postmarketing Controls",
+          "status": "not_applicable",
+          "output": "Do not generate",
+          "summary": "Do not generate",
+          "elements": [],
+          "informationGaps": [
+            "The Phase 1 CLARITY phase does not generate this domain."
+          ]
+        }
+      ],
+      "usage": {
+        "input_tokens": 84408,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 7843
+      }
+    }
+  },
+  "meta": {
+    "rubricVersion": "2.0.0",
+    "evidenceDossierVersion": "1.0.0",
+    "model": "claude-haiku-4-5-20251001",
+    "effort": "high",
+    "usage": {
+      "input_tokens": 90890,
+      "cache_creation_input_tokens": 5201,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 19299
+    },
+    "usageByStage": {
+      "dossier": {
+        "input_tokens": 84408,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 7843
+      },
+      "rubricReview": {
+        "input_tokens": 6482,
+        "cache_creation_input_tokens": 5201,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 5201,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 11456,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      }
+    },
+    "evaluatedAt": "2026-08-16T03:12:34.670Z",
+    "trace": {
+      "traceId": "436404f3-4a89-41ab-a455-09ab73c2812c",
+      "mode": "full",
+      "status": "completed",
+      "capturedAt": "2026-08-16T03:12:34.670Z"
+    }
+  }
+}
