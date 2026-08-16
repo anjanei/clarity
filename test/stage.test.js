@@ -163,6 +163,154 @@ test('the stage projects, sizes to the element, and calls back once per frame', 
   stage.destroy();
 });
 
+/* -- the camera ----------------------------------------------------------- */
+
+const pointer = (x, y, extra = {}) => ({
+  pointerId: 1,
+  isPrimary: true,
+  button: 0,
+  buttons: 1,
+  clientX: x,
+  clientY: y,
+  preventDefault: () => {},
+  ...extra,
+});
+
+test('the camera turns on all three axes, with no pole to get stuck at', () => {
+  const canvas = stubCanvas();
+  const stage = createStage(canvas, { draw: () => {} });
+  const overhead = () => stage.project(0, 100, 0);
+
+  // A point directly above the target. Under a yaw/pitch camera, pitch has to be
+  // clamped short of vertical, so this point could never be brought below the
+  // centre line — the stage only ever turned usefully about one axis.
+  assert.ok(overhead().y < 300, 'starts above the centre line');
+  stage.rotate(Math.PI, 0, 0);
+  assert.ok(overhead().y > 300, 'a half-turn about the camera X axis is reachable');
+
+  // Roll: the axis a yaw/pitch camera does not have at all.
+  stage.resetView();
+  const upright = overhead();
+  stage.rotate(0, 0, Math.PI / 2);
+  const rolled = overhead();
+  assert.ok(Math.abs(rolled.x - 450) > 50, 'rolling moves the overhead point sideways');
+  assert.ok(Math.abs(rolled.y - 300) < 1e-6, 'and off the vertical it started on');
+  assert.ok(Math.abs(upright.x - 450) < 1e-6);
+
+  stage.resetView();
+  assert.ok(Math.abs(overhead().y - upright.y) < 1e-9, 'reset returns the framing exactly');
+  stage.destroy();
+});
+
+test('ten thousand turns leave the camera basis square, not sheared', () => {
+  const canvas = stubCanvas();
+  const stage = createStage(canvas, { draw: () => {} });
+  const random = seededRandom(7);
+  for (let i = 0; i < 10_000; i += 1) {
+    stage.rotate(random() - 0.5, random() - 0.5, random() - 0.5);
+  }
+
+  const m = stage.state.rot;
+  const dot = (a, b) => m[a * 3] * m[b * 3] + m[a * 3 + 1] * m[b * 3 + 1] + m[a * 3 + 2] * m[b * 3 + 2];
+  for (const axis of [0, 1, 2]) assert.ok(Math.abs(dot(axis, axis) - 1) < 1e-9, 'rows stay unit length');
+  for (const [a, b] of [[0, 1], [0, 2], [1, 2]]) assert.ok(Math.abs(dot(a, b)) < 1e-9, 'rows stay perpendicular');
+  stage.destroy();
+});
+
+test('zoom runs from inside a node to the whole board, and anchors on the pointer', () => {
+  const canvas = stubCanvas();
+  const stage = createStage(canvas, { draw: () => {}, distance: 1000 });
+
+  for (let i = 0; i < 200; i += 1) stage.zoom(0.9);
+  assert.equal(stage.state.distance, stage.state.minDistance);
+  for (let i = 0; i < 400; i += 1) stage.zoom(1.1);
+  assert.equal(stage.state.distance, stage.state.maxDistance);
+
+  // Zooming about an off-centre point keeps that point where it was, which is
+  // what stops a zoom from walking the node you aimed at off the canvas.
+  stage.resetView();
+  const world = { x: 120, y: -80, z: 0 };
+  const before = stage.project(world.x, world.y, world.z);
+  stage.zoom(0.5, before.x, before.y);
+  const after = stage.project(world.x, world.y, world.z);
+  assert.ok(Math.abs(after.x - before.x) < 1, 'the point under the pointer holds its x');
+  assert.ok(Math.abs(after.y - before.y) < 1, 'and its y');
+  stage.destroy();
+});
+
+test('a drag turns the stage, a still press selects, and a pan does neither', () => {
+  const canvas = stubCanvas();
+  const clicks = [];
+  const stage = createStage(canvas, { draw: () => {}, onClick: (x, y) => clicks.push([x, y]), autoRotate: 0.05 });
+
+  // A drag far past the old ±1.25 rad clamp.
+  canvas.dispatch('pointerdown', pointer(300, 40));
+  for (let y = 40; y <= 580; y += 20) canvas.dispatch('pointermove', pointer(300, y));
+  canvas.dispatch('pointerup', pointer(300, 580, { buttons: 0 }));
+  assert.equal(clicks.length, 0, 'a drag is not a selection');
+  assert.equal(stage.state.autoRotate, 0, 'the idle drift stops once the reader takes over');
+  assert.ok(Math.abs(stage.state.spin.x) > 0.01, 'a flick leaves the stage turning');
+
+  // …and settles on its own rather than spinning forever.
+  for (let i = 0; i < 200; i += 1) step();
+  assert.equal(stage.state.spin.x, 0, 'the spin decays to rest');
+
+  canvas.dispatch('pointerdown', pointer(420, 310));
+  canvas.dispatch('pointerup', pointer(420, 310, { buttons: 0 }));
+  assert.deepEqual(clicks, [[420, 310]], 'a still press selects');
+
+  const target = { ...stage.state.target };
+  canvas.dispatch('pointerdown', pointer(300, 300, { shiftKey: true }));
+  for (let x = 300; x <= 520; x += 20) canvas.dispatch('pointermove', pointer(x, 300, { shiftKey: true }));
+  canvas.dispatch('pointerup', pointer(520, 300, { buttons: 0, shiftKey: true }));
+  assert.ok(Math.hypot(stage.state.target.x - target.x, stage.state.target.z - target.z) > 1, 'shift-drag pans');
+  assert.equal(clicks.length, 1, 'a pan never selects');
+  stage.destroy();
+});
+
+test('a second finger cancels the first, so a pinch never reads as a tap', () => {
+  const canvas = stubCanvas();
+  const clicks = [];
+  const stage = createStage(canvas, { draw: () => {}, onClick: (x, y) => clicks.push([x, y]) });
+  const touch = (id, x, y, extra = {}) => pointer(x, y, { pointerId: id, pointerType: 'touch', ...extra });
+
+  canvas.dispatch('pointerdown', touch(1, 300, 300));
+  canvas.dispatch('pointerdown', touch(2, 400, 300));
+  canvas.dispatch('pointermove', touch(1, 290, 300));
+  canvas.dispatch('pointermove', touch(2, 500, 300));
+  assert.ok(stage.state.distance < 900, 'spreading two fingers zooms in');
+  canvas.dispatch('pointerup', touch(1, 290, 300, { buttons: 0 }));
+  canvas.dispatch('pointerup', touch(2, 500, 300, { buttons: 0 }));
+  assert.equal(clicks.length, 0, 'lifting off a pinch selects nothing');
+  stage.destroy();
+});
+
+test('every camera move a pointer can make is reachable from the keyboard', () => {
+  const canvas = stubCanvas();
+  const stage = createStage(canvas, { draw: () => {}, distance: 1000 });
+  const key = (k, extra = {}) => canvas.dispatch('keydown', { key: k, preventDefault: () => {}, ...extra });
+  const snapshot = () => stage.state.rot.join(',');
+
+  const start = snapshot();
+  key('ArrowUp');
+  assert.notEqual(snapshot(), start, 'arrows turn');
+  const turned = snapshot();
+  key('q');
+  assert.notEqual(snapshot(), turned, 'Q and E roll');
+
+  key('ArrowLeft', { ctrlKey: true });
+  assert.ok(Math.abs(stage.state.target.x) + Math.abs(stage.state.target.z) > 0.5, 'ctrl+arrows pan');
+
+  key('-');
+  assert.ok(stage.state.distance > 1000, 'minus pulls back');
+  key('=');
+
+  key('0');
+  assert.equal(stage.state.distance, 1000);
+  assert.deepEqual(stage.state.target, { x: 0, y: 0, z: 0 }, 'zero puts the view back');
+  stage.destroy();
+});
+
 test('one frame of the evidence graph draws without throwing', () => {
   const canvas = stubCanvas();
   const graph = createEvidenceGraph(canvas, {});

@@ -61,47 +61,12 @@ export function createApp() {
   app.use('/api', labRouter);
   app.use('/api', modalRouter);
 
-  app.get('/api/health', async (_req, res) => {
-    const catalog = await loadCatalog().catch(() => null);
-
-    let paperclip = { reachable: false };
-    if (config.paperclip.apiKey) {
-      try {
-        const connection = await checkConnection();
-        paperclip = { reachable: true, tool: connection.toolName, tools: connection.tools };
-      } catch (err) {
-        paperclip = { reachable: false, error: err.message };
-      }
+  app.get('/api/health', async (_req, res, next) => {
+    try {
+      res.json(await health());
+    } catch (err) {
+      next(err);
     }
-
-    res.json({
-      ok: Boolean(config.paperclip.apiKey && modelConfigured() && catalog),
-      keys: {
-        paperclip: Boolean(config.paperclip.apiKey),
-        model: modelConfigured(),
-      },
-      provider: config.model.provider,
-      model: config.model.name,
-      effort: config.model.evalEffort,
-      runs: {
-        enabled: config.runs.enabled,
-        perWindow: config.runs.perWindow,
-        windowMinutes: Math.round(config.runs.windowMs / 60000),
-        concurrent: config.runs.concurrent,
-      },
-      auditMemory: {
-        store: config.auditMemory.store,
-        mongodbConfigured: Boolean(config.auditMemory.mongodbUri),
-        database: config.auditMemory.mongodbUri ? config.auditMemory.mongodbDb : null,
-        collection: config.auditMemory.mongodbUri ? config.auditMemory.mongodbCollection : null,
-      },
-      catalog: catalog
-        ? { generatedAt: catalog.generatedAt, trials: catalog.trials.length }
-        : null,
-      paperclip,
-      modal: modalStatus(),
-      benchling: await checkBenchling().catch((err) => ({ configured: false, error: err.message })),
-    });
   });
 
   app.use(express.static(paths.public, { extensions: ['html'] }));
@@ -120,6 +85,84 @@ export function createApp() {
   });
 
   return app;
+}
+
+/**
+ * Health is the one unauthenticated route that reaches *out*: it probes
+ * Paperclip over MCP and Benchling over HTTP to report whether they answer. Run
+ * uncached, a loop over `/api/health` turns this lab into an amplifier pointed
+ * at two upstreams that are not ours to hammer — and the page pays the round
+ * trip on every load.
+ *
+ * So the payload is memoised for a few seconds, and concurrent callers share the
+ * one in-flight probe rather than each starting their own. A failed probe is
+ * cached for less time than a healthy one, so a service that comes back is
+ * reported as back quickly rather than after a full window.
+ */
+const HEALTH_TTL_MS = 15_000;
+const HEALTH_ERROR_TTL_MS = 4_000;
+let healthCache = null;
+let healthInFlight = null;
+
+function health() {
+  const now = Date.now();
+  if (healthCache && now < healthCache.until) return Promise.resolve(healthCache.payload);
+  if (healthInFlight) return healthInFlight;
+
+  healthInFlight = buildHealth()
+    .then((payload) => {
+      const degraded = !payload.ok || payload.paperclip?.reachable === false;
+      healthCache = { payload, until: Date.now() + (degraded ? HEALTH_ERROR_TTL_MS : HEALTH_TTL_MS) };
+      return payload;
+    })
+    .finally(() => {
+      healthInFlight = null;
+    });
+
+  return healthInFlight;
+}
+
+async function buildHealth() {
+  const catalog = await loadCatalog().catch(() => null);
+
+  let paperclip = { reachable: false };
+  if (config.paperclip.apiKey) {
+    try {
+      const connection = await checkConnection();
+      paperclip = { reachable: true, tool: connection.toolName, tools: connection.tools };
+    } catch (err) {
+      paperclip = { reachable: false, error: err.message };
+    }
+  }
+
+  return {
+    ok: Boolean(config.paperclip.apiKey && modelConfigured() && catalog),
+    keys: {
+      paperclip: Boolean(config.paperclip.apiKey),
+      model: modelConfigured(),
+    },
+    provider: config.model.provider,
+    model: config.model.name,
+    effort: config.model.evalEffort,
+    runs: {
+      enabled: config.runs.enabled,
+      perWindow: config.runs.perWindow,
+      windowMinutes: Math.round(config.runs.windowMs / 60000),
+      concurrent: config.runs.concurrent,
+    },
+    auditMemory: {
+      store: config.auditMemory.store,
+      mongodbConfigured: Boolean(config.auditMemory.mongodbUri),
+      database: config.auditMemory.mongodbUri ? config.auditMemory.mongodbDb : null,
+      collection: config.auditMemory.mongodbUri ? config.auditMemory.mongodbCollection : null,
+    },
+    catalog: catalog
+      ? { generatedAt: catalog.generatedAt, trials: catalog.trials.length }
+      : null,
+    paperclip,
+    modal: modalStatus(),
+    benchling: await checkBenchling().catch((err) => ({ configured: false, error: err.message })),
+  };
 }
 
 export function startServer() {

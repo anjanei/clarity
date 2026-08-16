@@ -16,6 +16,9 @@
     />
   </head>
   <body class="workstation">
+    <!-- The molecule, behind everything. Decorative: masked, never read aloud. -->
+    <div class="weave no-print" aria-hidden="true"></div>
+
     <a href="#stage" class="sr-only">Skip to the lab</a>
 
     <!-- ============================================================== rail -->
@@ -131,8 +134,18 @@
         <div class="stage-tools no-print">
           <button id="graph-up" type="button" class="tool-btn" title="Up one level (Esc)" disabled>↰</button>
           <button id="graph-open" type="button" class="tool-btn" title="Open the selected node" disabled>⤢</button>
-          <button id="stage-expand" type="button" class="tool-btn" title="Expand the stage (F)" aria-pressed="false">⤢&#xFE0E;</button>
+          <button id="graph-reset" type="button" class="tool-btn" title="Reset the view (0)">⌖</button>
+          <button id="stage-expand" type="button" class="tool-btn" title="Expand the stage (F)" aria-pressed="false">⛶</button>
         </div>
+
+        <!-- How the camera moves. Stated once, where the camera is. -->
+        <p id="stage-hint" class="stage-hint no-print" aria-hidden="true">
+          <span>drag <i>turn</i></span>
+          <span>shift·right-drag <i>pan</i></span>
+          <span>scroll <i>zoom</i></span>
+          <span>alt-drag <i>roll</i></span>
+          <span>double-click <i>open</i></span>
+        </p>
 
         <div class="stage-foot">
           <div class="stage-readouts">

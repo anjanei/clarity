@@ -264,8 +264,10 @@ export function createConstructViewer(canvas, hooks = {}) {
 
   const stage = createStage(canvas, {
     distance: 900,
-    minDistance: 320,
-    maxDistance: 2000,
+    // Close enough to read one base off the backbone, far enough to see the
+    // whole construct. The camera turns freely on all three axes either way.
+    minDistance: 45,
+    maxDistance: 9000,
     autoRotate: 0.16,
     pitch: 0,
     draw: (ctx, frame) => {
@@ -297,6 +299,7 @@ export function createConstructViewer(canvas, hooks = {}) {
       hovered = null;
       selected = null;
       build();
+      stage.setTarget(0, 0, 0);
       stage.setDistance(String(model?.unit).toLowerCase() === 'aa' ? 820 : 940);
     },
     /**
@@ -316,6 +319,7 @@ export function createConstructViewer(canvas, hooks = {}) {
       const centred = points.map((point) => ({ ...point, x: point.x - centre.x, y: point.y - centre.y, z: point.z - centre.z }));
       const extent = Math.max(...centred.map((point) => Math.hypot(point.x, point.y, point.z)), 1);
       backbone = { points: centred, scale: 300 / extent };
+      stage.setTarget(0, 0, 0);
       stage.setDistance(900);
     },
     get hasBackbone() {

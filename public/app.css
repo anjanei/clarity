@@ -80,6 +80,13 @@
   --aurora-2: oklch(0.72 0.15 42 / 0.1);
   --aurora-3: oklch(0.8 0.17 142 / 0.08);
   --grain: 0.32;
+  --weave: 0.055;
+
+  /* One full turn of duplex, drawn in white so it can be used as an alpha mask
+     and take its colour from the palette. Shared by both themes; only the
+     opacity above differs, because a strand that reads on near-black is a smear
+     on white. */
+  --weave-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 130 52'%3E%3Cg fill='none' stroke='%23fff' stroke-linecap='round'%3E%3Cg stroke-width='0.9' stroke-opacity='0.6'%3E%3Cpath d='M0 26C11 26 22 11 32.5 11S54 26 65 26 87 41 97.5 41 119 26 130 26'/%3E%3Cpath d='M0 26C11 26 22 41 32.5 41S54 26 65 26 87 11 97.5 11 119 26 130 26'/%3E%3C/g%3E%3Cg stroke-width='0.7' stroke-opacity='0.3'%3E%3Cpath d='M16 16v20M32.5 11v30M49 16v20M81 16v20M97.5 11v30M114 16v20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 
   --shadow-float: 0 24px 60px -12px oklch(0 0 0 / 0.8);
   --shadow-drawer: -30px 0 80px -20px oklch(0 0 0 / 0.9);
@@ -124,6 +131,7 @@
     --aurora-2: oklch(0.7 0.14 42 / 0.07);
     --aurora-3: oklch(0.74 0.16 142 / 0.07);
     --grain: 0.1;
+    --weave: 0.09;
 
     --shadow-float: 0 18px 44px -14px oklch(0.4 0.03 258 / 0.28);
     --shadow-drawer: -24px 0 60px -20px oklch(0.4 0.03 258 / 0.3);
@@ -167,6 +175,7 @@
   --aurora-2: oklch(0.7 0.14 42 / 0.07);
   --aurora-3: oklch(0.74 0.16 142 / 0.07);
   --grain: 0.1;
+  --weave: 0.09;
 
   --shadow-float: 0 18px 44px -14px oklch(0.4 0.03 258 / 0.28);
   --shadow-drawer: -24px 0 60px -20px oklch(0.4 0.03 258 / 0.3);
@@ -231,6 +240,63 @@ body::after {
 @keyframes drift {
   from { transform: translate3d(0, 0, 0) scale(1); }
   to   { transform: translate3d(2.5%, -2%, 0) scale(1.08); }
+}
+
+/* --- the weave ------------------------------------------------------------
+   A duplex lattice under the whole workstation.
+
+   It is painted as a *mask* rather than a background image so the strands take
+   a palette colour and stay correct in both themes — a baked-in hex would be a
+   fourth place the palette lives, and would drift from the other three. The
+   tile is one full turn: two strands crossing at the half-period, with the base
+   pairs drawn only where the strands are far enough apart to show them. */
+
+.weave {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--weave);
+  background-color: var(--color-clip-400);
+  -webkit-mask-image: var(--weave-tile);
+  mask-image: var(--weave-tile);
+  -webkit-mask-size: 260px 104px;
+  mask-size: 260px 104px;
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+}
+
+/* The strand a run travels along: a replication fork, moving left to right for
+   as long as the review is actually running, and nowhere to be seen when it is
+   not. Purely a status surface — the console text remains the record. */
+.stage-console { position: relative; }
+.stage-console::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-clip-400) 38%,
+    var(--color-bench-400) 50%,
+    var(--color-claude-400) 62%,
+    transparent
+  );
+  background-size: 42% 100%;
+  background-repeat: no-repeat;
+}
+.stage-console.is-running::before {
+  opacity: 1;
+  animation: fork 2.4s linear infinite;
+}
+
+@keyframes fork {
+  from { background-position: -45% 0; }
+  to   { background-position: 145% 0; }
 }
 
 /* --- type -----------------------------------------------------------------*/
@@ -860,11 +926,32 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
   .splitter.is-dragging::after,
   .splitter:focus-visible::after { background: var(--color-clip-400); height: 44px; }
 
-  /* Stage focus: both side panes fold away and the graph takes the window. */
-  body.is-focus .deck { grid-template-columns: 0 0 minmax(0, 1fr) 0 0; }
-  body.is-focus .dock,
-  body.is-focus .inspector,
-  body.is-focus .splitter { display: none; }
+}
+
+/* --- stage focus ----------------------------------------------------------
+   Both side panes fold away and the graph takes the window.
+
+   The template must collapse to a *single* track, not five tracks with the
+   middle one sized. `display: none` removes the four other panes as grid items
+   altogether, so the stage — now the only item left — is auto-placed into the
+   first track. Against `0 0 1fr 0 0` that first track is zero wide, and the
+   canvas renders at zero width: the expand button appeared to do nothing. */
+
+body.is-focus .dock,
+body.is-focus .inspector,
+body.is-focus .splitter { display: none; }
+
+@media (min-width: 1024px) {
+  body.is-focus .deck { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Below the split-pane breakpoint the panes are stacked, not tiled, so focus
+   buys its room from the chrome instead: the rail and the pane switcher go.
+   The ⤢ button lives on the stage itself and stays reachable to undo it. */
+@media (max-width: 1023px) {
+  body.is-focus .rail,
+  body.is-focus .pane-bar { display: none; }
+  body.is-focus .stage { display: block !important; }
 }
 
 /* While dragging, nothing else may claim the pointer or highlight text. */
@@ -937,6 +1024,19 @@ body.is-resizing canvas { pointer-events: none; }
 .tool-btn:hover:not(:disabled) { color: var(--color-ink); border-color: oklch(0.78 0.14 195 / 0.55); }
 .tool-btn:disabled { opacity: 0.32; cursor: default; }
 .tool-btn[aria-pressed="true"] { color: var(--color-clip-400); border-color: oklch(0.78 0.14 195 / 0.6); }
+
+/* The camera legend. A free camera is only free if you know it is: it sits
+   under the tools, fades once the reader has actually moved the view, and is
+   never in the way of the graph. */
+.stage-hint {
+  @apply pointer-events-none absolute right-3 top-12 z-10 hidden flex-col items-end gap-0.5 md:flex;
+  transition: opacity 0.5s ease 0.4s;
+}
+.stage-hint span {
+  @apply flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.12em] text-ghost;
+}
+.stage-hint i { @apply not-italic text-faint; }
+.stage-hint.is-dismissed { opacity: 0; }
 
 .stage-foot { @apply absolute inset-x-0 bottom-0 z-20 flex flex-col; }
 

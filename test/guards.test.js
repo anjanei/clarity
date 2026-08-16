@@ -81,6 +81,20 @@ test('health states the run policy so the lab can explain a disabled button', as
   assert.equal(typeof body.runs.perWindow, 'number');
 });
 
+test('health is memoised, so it cannot be looped into an amplifier', async () => {
+  // The route probes Paperclip and Benchling. It is public and unauthenticated,
+  // so a loop over it would point this lab's traffic at two upstreams that are
+  // not ours to hammer. Fifty concurrent callers must share one probe.
+  const responses = await Promise.all(
+    Array.from({ length: 50 }, () => fetch(`${baseUrl}/api/health`).then((r) => r.json())),
+  );
+  assert.equal(responses.length, 50);
+  const first = JSON.stringify(responses[0]);
+  for (const body of responses) {
+    assert.equal(JSON.stringify(body), first, 'every caller in the window gets the same payload');
+  }
+});
+
 test('the rate limiter admits its quota then refuses with a retry hint', () => {
   const limit = createRateLimiter({ windowMs: 60_000, max: 2 });
   const call = () => {

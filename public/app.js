@@ -553,6 +553,10 @@ const clearConsole = () => {
 
 function setConsoleState(text) {
   if (el.consoleState) el.consoleState.textContent = text;
+  // The console header carries a replication fork while a run is live: the same
+  // signal the graph is drawing, in the one strip that is always on screen.
+  el.consoleShell?.classList.toggle('is-running', text === 'running');
+  document.body.classList.toggle('is-running', text === 'running');
 }
 
 /* ---------------------------------------------------------------- the run */
@@ -1580,6 +1584,12 @@ function setFocusMode(on) {
   const button = document.getElementById('stage-expand');
   button?.setAttribute('aria-pressed', String(on));
   button?.setAttribute('title', on ? 'Restore the panes (F)' : 'Expand the stage (F)');
+  // On a stacked layout the panes take turns rather than tile, so expanding the
+  // stage while the report is showing has to bring the stage forward too.
+  if (on) showPane('stage');
+  // The canvas sizes itself from its box; the box has just changed underneath it.
+  graph?.stage?.resize();
+  el.graphCanvas?.focus?.({ preventScroll: true });
 }
 
 /** The stage toolbar reflects what the graph can actually do right now. */
@@ -1689,9 +1699,23 @@ function wire() {
   document.getElementById('graph-open')?.addEventListener('click', () => {
     graph?.descendSelected();
   });
+  document.getElementById('graph-reset')?.addEventListener('click', () => {
+    graph?.resetView();
+    el.graphCanvas?.focus?.({ preventScroll: true });
+  });
   document.getElementById('stage-expand')?.addEventListener('click', () => {
     setFocusMode(!state.focus);
   });
+
+  // The camera legend has done its job the moment the reader moves the camera.
+  const hint = document.getElementById('stage-hint');
+  if (hint && el.graphCanvas) {
+    const dismiss = () => hint.classList.add('is-dismissed');
+    for (const type of ['pointerdown', 'wheel', 'keydown']) {
+      el.graphCanvas.addEventListener(type, dismiss, { once: true, passive: true });
+    }
+    setTimeout(dismiss, 14000);
+  }
 
   window.addEventListener('beforeunload', () => state.stream?.close());
   window.addEventListener('beforeprint', () => document.querySelectorAll('details').forEach((d) => (d.open = true)));

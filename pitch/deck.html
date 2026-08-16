@@ -1,0 +1,1284 @@
+<title>CLARITY Pitch Deck</title>
+
+<style>
+  /* ==========================================================================
+     CLARITY — pitch deck
+
+     Built on Google Slides geometry: every slide is exactly 960 × 540 px (the
+     16:9 default, 10 × 5.625in), laid out at that size and scaled to whatever
+     viewport it lands in. Nothing reflows between screens, so what you rehearse
+     is what projects, and Print → PDF gives one 16:9 page per slide.
+
+     The identity is the product's own, not a second one invented for the pitch.
+     Two rules carry over from the lab and do all the work:
+
+       1. Colour is semantic, never decorative. Cyan is retrieval, coral is
+          reasoning, lime is structure; amber and red belong to the risk scale
+          and are never spent on chrome.
+       2. Measured things are set in mono, written things in grotesk — so you
+          can tell at a glance whether a figure was counted or claimed.
+
+     Committed to one dark world on purpose: a deck that flips to white halfway
+     through a talk is a worse deck. Every colour is painted explicitly, so the
+     page holds on either host ground.
+     ========================================================================== */
+
+  :root {
+    --ground:      oklch(0.125 0.014 250);
+    --stage:       oklch(0.145 0.015 250);
+    --panel:       oklch(0.19 0.016 250 / 0.55);
+    --edge:        oklch(1 0 0 / 0.09);
+    --edge-strong: oklch(1 0 0 / 0.17);
+
+    --ink:   oklch(0.97 0.004 250);
+    --muted: oklch(0.75 0.012 250);
+    --faint: oklch(0.61 0.014 250);
+    --ghost: oklch(0.47 0.012 250);
+
+    /* the three actors */
+    --clip:   oklch(0.86 0.13 195);
+    --claude: oklch(0.82 0.13 45);
+    --bench:  oklch(0.88 0.16 140);
+    /* source + risk classes, kept apart from the three above */
+    --lit:    oklch(0.78 0.12 288);
+    --reg:    oklch(0.84 0.14 78);
+    --stop:   oklch(0.68 0.19 22);
+
+    --accent: var(--clip);
+
+    --grotesk: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+    --k: 1;
+
+    --weave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 130 52'%3E%3Cg fill='none' stroke='%23fff' stroke-linecap='round'%3E%3Cg stroke-width='0.9' stroke-opacity='0.6'%3E%3Cpath d='M0 26C11 26 22 11 32.5 11S54 26 65 26 87 41 97.5 41 119 26 130 26'/%3E%3Cpath d='M0 26C11 26 22 41 32.5 41S54 26 65 26 87 11 97.5 11 119 26 130 26'/%3E%3C/g%3E%3Cg stroke-width='0.7' stroke-opacity='0.3'%3E%3Cpath d='M16 16v20M32.5 11v30M49 16v20M81 16v20M97.5 11v30M114 16v20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--grotesk);
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  /* --- the viewport ------------------------------------------------------- */
+
+  #viewport {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+  }
+
+  /* The slide is authored at 960 × 540 and scaled as one block, so a headline
+     never rewraps between the laptop you rehearse on and the projector. */
+  #frame {
+    position: relative;
+    width: 960px;
+    height: 540px;
+    transform: scale(var(--k));
+    transform-origin: center;
+    background: var(--stage);
+    border: 1px solid var(--edge);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 40px 120px -30px oklch(0 0 0 / 0.9);
+  }
+
+  /* The duplex field, behind the slide content. */
+  #frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.055;
+    background-color: var(--accent);
+    transition: background-color 0.6s ease;
+    -webkit-mask-image: var(--weave);
+    mask-image: var(--weave);
+    -webkit-mask-size: 260px 104px;
+    mask-size: 260px 104px;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    padding: 46px 56px 62px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.34s ease, transform 0.34s cubic-bezier(0.2, 0.9, 0.2, 1), visibility 0.34s;
+  }
+  .slide.is-current { opacity: 1; visibility: visible; transform: none; }
+
+  .slide[data-accent="clip"]   { --accent: var(--clip); }
+  .slide[data-accent="claude"] { --accent: var(--claude); }
+  .slide[data-accent="bench"]  { --accent: var(--bench); }
+  .slide[data-accent="stop"]   { --accent: var(--stop); }
+  .slide[data-accent="reg"]    { --accent: var(--reg); }
+  .slide[data-accent="lit"]    { --accent: var(--lit); }
+
+  /* The strand along the foot of every slide: a read head whose position is the
+     deck's position, coloured by the actor the current slide is about. */
+  #strand {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 960px;
+    height: 34px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* --- type --------------------------------------------------------------- */
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    color: var(--accent);
+    margin: 0;
+    transition: color 0.6s ease;
+  }
+
+  .display {
+    font-size: 62px;
+    line-height: 0.97;
+    letter-spacing: -0.04em;
+    font-weight: 320;
+    margin: 0;
+    max-width: 15ch;
+    text-wrap: balance;
+  }
+  .display b { font-weight: 600; }
+
+  h2 {
+    font-size: 33px;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-weight: 360;
+    margin: 0;
+    max-width: 26ch;
+    text-wrap: balance;
+  }
+  h2 b { font-weight: 620; }
+
+  .lede {
+    font-size: 15px;
+    line-height: 1.52;
+    color: var(--muted);
+    margin: 0;
+    max-width: 66ch;
+  }
+  .lede strong { color: var(--ink); font-weight: 550; }
+
+  p.note {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--faint);
+    margin: 0;
+    max-width: 78ch;
+  }
+
+  .fig { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+  cite {
+    display: block;
+    font-family: var(--mono);
+    font-size: 9px;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+    color: var(--ghost);
+    font-style: normal;
+    max-width: 96ch;
+  }
+
+  .pull {
+    font-size: 21px;
+    line-height: 1.26;
+    letter-spacing: -0.022em;
+    font-weight: 360;
+    margin: 0;
+    max-width: 40ch;
+    border-left: 2px solid var(--accent);
+    padding-left: 16px;
+    transition: border-color 0.6s ease;
+  }
+  .pull b { font-weight: 620; }
+
+  /* --- pieces ------------------------------------------------------------- */
+
+  .rows { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .cols { display: grid; gap: 22px; grid-template-columns: repeat(3, 1fr); align-items: start; }
+  .cols.two { grid-template-columns: 1fr 1fr; }
+  .cols.wide-left { grid-template-columns: 1.25fr 1fr; }
+  .cols.wide-right { grid-template-columns: 1fr 1.15fr; }
+
+  .stat { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .stat .n {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 44px;
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+    font-weight: 400;
+    color: var(--accent);
+    transition: color 0.6s ease;
+  }
+  .stat .k {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--faint);
+    line-height: 1.4;
+  }
+  .stat .d { font-size: 12px; line-height: 1.45; color: var(--muted); }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--edge);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+  }
+  .card h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 560;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card p { margin: 0; font-size: 12px; line-height: 1.5; color: var(--muted); }
+  .card p b { color: var(--ink); font-weight: 550; }
+
+  .dot { width: 7px; height: 7px; border-radius: 99px; flex: none; }
+
+  /* --- the three stages, with a packet running them ----------------------- */
+
+  .pipeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+  .stage-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--panel);
+    border: 1px solid var(--edge);
+    border-radius: 12px;
+    padding: 14px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .stage-card::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 2px;
+    background: var(--tone);
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: pass 6s linear infinite;
+    animation-delay: var(--delay);
+  }
+  @keyframes pass {
+    0%, 4%    { transform: scaleX(0); opacity: 0; }
+    10%       { transform: scaleX(1); opacity: 1; }
+    38%       { transform: scaleX(1); opacity: 1; }
+    52%, 100% { transform: scaleX(1); opacity: 0.18; }
+  }
+
+  .stage-card .who {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.17em;
+    color: var(--tone);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .stage-card strong { font-size: 14px; font-weight: 560; letter-spacing: -0.012em; }
+  .stage-card p { margin: 0; font-size: 11.5px; line-height: 1.5; color: var(--muted); }
+  .stage-card .sees {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    line-height: 1.55;
+    color: var(--faint);
+    border-top: 1px dashed var(--edge-strong);
+    padding-top: 8px;
+    margin-top: auto;
+  }
+
+  /* --- the proof chain ---------------------------------------------------- */
+
+  .chain { display: flex; flex-direction: column; }
+  .link {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 14px;
+    padding: 8px 0;
+    border-top: 1px solid var(--edge);
+    align-items: baseline;
+  }
+  .link:first-child { border-top: 0; }
+  .link .step { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; color: var(--accent); transition: color 0.6s ease; }
+  .link .what { font-size: 13px; line-height: 1.45; color: var(--muted); }
+  .link .what b { color: var(--ink); font-weight: 550; }
+  .link .what em { font-style: normal; color: var(--faint); }
+  code {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--clip);
+    background: oklch(0.86 0.13 195 / 0.09);
+    border: 1px solid oklch(0.86 0.13 195 / 0.2);
+    border-radius: 4px;
+    padding: 1px 5px;
+    overflow-wrap: anywhere;
+  }
+
+  /* --- tables ------------------------------------------------------------- */
+
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 4.5px 8px 4.5px 0; border-bottom: 1px solid var(--edge); }
+  th {
+    font-family: var(--mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--faint);
+    font-weight: 400;
+  }
+  td { font-size: 12px; color: var(--muted); }
+  td:first-child { color: var(--ink); }
+  td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 4px;
+    padding: 1px 5px;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .tag.absent { color: var(--reg); }
+  .tag.moderate { color: var(--bench); }
+  .tag.weak { color: var(--faint); }
+
+  pre {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    line-height: 1.7;
+    color: var(--muted);
+    background: oklch(0.1 0.014 250 / 0.85);
+    border: 1px solid var(--edge);
+    border-left: 2px solid var(--stop);
+    border-radius: 9px;
+    padding: 10px 13px;
+    overflow-x: auto;
+  }
+  pre .c { color: var(--ghost); }
+  pre .k { color: var(--claude); }
+
+  ul.plain { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  ul.plain li {
+    display: grid;
+    grid-template-columns: 14px 1fr;
+    gap: 10px;
+    font-size: 12.5px;
+    line-height: 1.48;
+    color: var(--muted);
+    align-items: baseline;
+  }
+  ul.plain li b { color: var(--ink); font-weight: 550; }
+  ul.plain .mark { font-family: var(--mono); font-size: 11px; color: var(--stop); }
+  ul.plain.yes .mark { color: var(--bench); }
+
+  canvas.fig-canvas {
+    width: 100%;
+    display: block;
+    border-radius: 11px;
+    border: 1px solid var(--edge);
+    background: oklch(0.1 0.014 250 / 0.5);
+  }
+
+  .fill {
+    color: var(--reg);
+    border: 1px dashed currentColor;
+    border-radius: 5px;
+    padding: 2px 7px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  /* --- chrome outside the slide ------------------------------------------- */
+
+  .hud {
+    position: fixed;
+    right: 16px;
+    bottom: 14px;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--faint);
+    background: oklch(0.1 0.014 250 / 0.85);
+    border: 1px solid var(--edge);
+    border-radius: 99px;
+    padding: 6px 14px;
+    backdrop-filter: blur(12px);
+  }
+  .hud b { color: var(--accent); font-weight: 400; transition: color 0.6s ease; }
+  .hud button {
+    font: inherit;
+    letter-spacing: inherit;
+    color: var(--faint);
+    background: none;
+    border: 0;
+    border-left: 1px solid var(--edge);
+    padding: 0 0 0 11px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .hud button:hover { color: var(--ink); }
+  .hud button[aria-pressed="true"] { color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .arrow {
+    position: fixed;
+    top: 50%;
+    z-index: 6;
+    transform: translateY(-50%);
+    width: 38px;
+    height: 38px;
+    border-radius: 99px;
+    border: 1px solid var(--edge);
+    background: oklch(0.1 0.014 250 / 0.7);
+    color: var(--faint);
+    font-size: 15px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    backdrop-filter: blur(10px);
+  }
+  .arrow:hover { color: var(--ink); border-color: var(--edge-strong); }
+  .arrow:disabled { opacity: 0.25; cursor: default; }
+  #prev { left: 12px; }
+  #next { right: 12px; }
+
+  /* Speaker notes, below the slide — the spoken script, tied to what is up. */
+  #notes {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    max-height: 34vh;
+    overflow-y: auto;
+    padding: 16px 22px 58px;
+    background: oklch(0.1 0.014 250 / 0.95);
+    border-top: 1px solid var(--edge-strong);
+    backdrop-filter: blur(14px);
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.65;
+    color: var(--muted);
+    display: none;
+  }
+  body.show-notes #notes { display: block; }
+  #notes .cue { color: var(--accent); }
+  .notes-source { display: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    .stage-card::after { transform: scaleX(1); opacity: 0.4; }
+  }
+
+  /* Print → PDF gives one 16:9 page per slide, ready to import. */
+  @media print {
+    @page { size: 960px 540px; margin: 0; }
+    body { background: #000; overflow: visible; }
+    .hud, .arrow, #notes { display: none !important; }
+    #viewport { position: static; display: block; }
+    #frame {
+      transform: none;
+      width: 960px;
+      height: auto;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: visible;
+    }
+    #strand { display: none; }
+    .slide {
+      position: relative;
+      inset: auto;
+      width: 960px;
+      height: 540px;
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      break-after: page;
+      background: var(--stage);
+    }
+  }
+</style>
+
+<div id="viewport">
+  <div id="frame" role="region" aria-label="CLARITY pitch deck" tabindex="0">
+    <canvas id="strand" aria-hidden="true"></canvas>
+
+    <!-- 1 ----------------------------------------------------------------- -->
+    <section class="slide is-current" data-accent="clip" data-label="CLARITY">
+      <p class="eyebrow">Evidence retrieval by Paperclip · reasoning by Claude · structure by Benchling</p>
+      <h1 class="display">An FDA-grade <b>review room</b> for clinical trials.</h1>
+      <p class="lede">
+        Point it at a registry ID. CLARITY turns the public record into the file a reviewer would want
+        on their desk — registry facts, FDA precedent, primary literature, a cited nine-domain dossier,
+        and an approval-risk call that <strong>shows the weakest argument first</strong>.
+      </p>
+      <div class="cols">
+        <div class="stat"><span class="n">118</span><span class="k">programmes in catalog</span></div>
+        <div class="stat"><span class="n">10</span><span class="k">weighted rubric dimensions</span></div>
+        <div class="stat"><span class="n">0</span><span class="k">third-party scripts in the browser</span></div>
+      </div>
+      <p class="notes-source"><span class="cue">0:00</span> — Ninety-two out of every hundred drugs that enter human trials never reach a patient. Not because the science was bad. Often nobody could tell in time. I'm building CLARITY: point it at a registry ID, and it hands back the file a reviewer would want on their desk — with every claim traceable to a document you can open.</p>
+    </section>
+
+    <!-- 2 ----------------------------------------------------------------- -->
+    <section class="slide" data-accent="stop" data-label="The stake">
+      <p class="eyebrow">The stake</p>
+      <h2><b>92</b> of every <b>100</b> drugs that enter human trials never reach a patient.</h2>
+      <div class="cols">
+        <div class="stat">
+          <span class="n">7.9%</span>
+          <span class="k">Phase I → approval</span>
+          <span class="d">Across a decade of development programmes.</span>
+        </div>
+        <div class="stat">
+          <span class="n">$2.6B</span>
+          <span class="k">capitalised cost per survivor</span>
+          <span class="d">What it takes to get one of them across the line.</span>
+        </div>
+        <div class="stat">
+          <span class="n">95</span>
+          <span class="k">of our 118 are Phase 1 or 1/2</span>
+          <span class="d">The stage where nobody outside the sponsor can separate promising from doomed.</span>
+        </div>
+      </div>
+      <p class="lede">
+        Behind those numbers is a queue. A child with transfusion-dependent β-thalassemia is on a
+        four-weekly transfusion schedule and an iron chelator for life.
+      </p>
+      <cite>
+        Success rate: BIO / Informa / QLS, Clinical Development Success Rates 2011–2020. Cost: DiMasi,
+        Grabowski &amp; Hansen, J Health Econ 47:20–33, 2016. Phase mix: this repository's catalog.
+      </cite>
+      <p class="notes-source"><span class="cue">0:30</span> — That 7.9% is BIO's, across a decade. The capitalised cost of one survivor is 2.6 billion dollars. Behind the numbers is a queue — and in our catalog there are 118 programmes that might change a trajectory like that, almost all Phase 1.</p>
+    </section>
+
+    <!-- 3 ----------------------------------------------------------------- -->
+    <section class="slide" data-accent="reg" data-label="The bottleneck">
+      <p class="eyebrow">Who is stuck</p>
+      <h2>A licensing team, a translational investor and a foundation are all doing <b>the same task by hand</b> today.</h2>
+      <div class="cols wide-left">
+        <div class="card">
+          <h3><span class="dot" style="background: var(--reg)"></span>The job, as done now</h3>
+          <p>
+            Read the registry record. Find the Phase 1 publication, if it exists. Pull the FDA review
+            package for the nearest approved product in the class. Notice nobody published per-cohort
+            dosing. Form a probability. Write it down.
+          </p>
+          <p><b>Then justify it to someone who <em>will</em> ask “where did that come from?”</b></p>
+        </div>
+        <div class="rows">
+          <div class="stat"><span class="n">days</span><span class="k">of specialist time, per programme</span></div>
+          <div class="stat">
+            <span class="n">0</span><span class="k">of it reproducible</span>
+            <span class="d">Two analysts reading the same literature reach different numbers, and neither can hand over the trail that got them there.</span>
+          </div>
+        </div>
+      </div>
+      <p class="pull">The bottleneck on capital reaching good science is not intelligence. It is <b>audit</b>.</p>
+      <p class="notes-source"><span class="cue">1:05</span> — Several days of specialist time. Not reproducible. Land the line: the bottleneck is not intelligence, it is audit. Then pause.</p>
+    </section>
+
+    <!-- 4 ----------------------------------------------------------------- -->
+    <section class="slide" data-accent="stop" data-label="Why LLMs fail">
+      <p class="eyebrow">The obvious solution, and how it fails</p>
+      <h2>Ask a language model. <b>It will answer.</b></h2>
+      <div class="cols two">
+        <div class="card" style="border-color: oklch(0.88 0.16 140 / 0.28)">
+          <h3><span class="dot" style="background: var(--bench)"></span>Pembrolizumab</h3>
+          <p>Decades of published trials, labels and review packages. The model answers well.</p>
+        </div>
+        <div class="card" style="border-color: oklch(0.68 0.19 22 / 0.34)">
+          <h3><span class="dot" style="background: var(--stop)"></span>A Phase 1/2 allogeneic CAR-T, 11 weeks old</h3>
+          <p>First registry record filed. Nothing published. The model answers with <em>identical confidence</em>.</p>
+        </div>
+      </div>
+      <p class="lede">
+        Same fluent register. Same air of authority. <strong>No signal whatsoever</strong> distinguishing
+        the recalled fact from the plausible invention.
+      </p>
+      <p class="pull">An opinion you cannot audit is not a weak opinion — it is <b>a liability that looks like an asset</b>.</p>
+      <p class="notes-source"><span class="cue">1:50</span> — It will answer well about pembrolizumab, and with identical confidence about the CAR-T that has published nothing. In a regulatory context that's worse than useless.</p>
+    </section>
+
+    <!-- 5 ----------------------------------------------------------------- -->
+    <section class="slide" data-accent="clip" data-label="The insight">
+      <p class="eyebrow">The insight</p>
+      <h2>It is not a reasoning failure. It is a <b>provenance</b> failure.</h2>
+      <div class="pipeline">
+        <div class="stage-card" style="--tone: var(--clip); --delay: 0s">
+          <span class="who"><span class="dot" style="background: var(--clip)"></span>Retrieval · Paperclip</span>
+          <strong>Find everything public</strong>
+          <p>Registries, FDA reviews, PMC and bioRxiv, US and international trial indexes.</p>
+          <span class="sees">Whatever this returns is the entire universe of available facts.</span>
+        </div>
+        <div class="stage-card" style="--tone: var(--claude); --delay: 2s">
+          <span class="who"><span class="dot" style="background: var(--claude)"></span>Extraction · 9 domains</span>
+          <strong>One pass per domain</strong>
+          <p>Each pass sees only its own domain's evidence packet. Every finding must carry a public identifier.</p>
+          <span class="sees">“Not found in public sources” when it cannot be sourced.</span>
+        </div>
+        <div class="stage-card" style="--tone: var(--reg); --delay: 4s">
+          <span class="who"><span class="dot" style="background: var(--reg)"></span>Scoring · 10 dimensions</span>
+          <strong>Judge only what was cited</strong>
+          <p>Sees the trial record and the cited dossier. Never the open internet. Never its own recall.</p>
+          <span class="sees">A score that can only rest on something a reader can open.</span>
+        </div>
+      </div>
+      <p class="pull">Nothing on the report comes from the model's recall. If the evidence does not exist, the report says so — <b>and the score goes down</b>.</p>
+      <p class="notes-source"><span class="cue">2:25</span> — Retrieval is one system. Extraction is a second pass that sees only one domain's packet and must attach a public identifier. Scoring is a third pass that sees only the trial record and the cited dossier. That constraint is not a design preference — it is the product.</p>
+    </section>
+
+    <!-- 6 ----------------------------------------------------------------- -->
+    <section class="slide" data-accent="bench" data-label="The lab">
+      <p class="eyebrow">The product</p>
+      <h2>The graph in the middle is not a picture of the run. <b>It is the run.</b></h2>
+      <div class="cols wide-right">
+        <div class="rows">
+          <ul class="plain yes">
+            <li><span class="mark">▸</span><span><b>Nodes light in the order the server actually works.</b> A stage that never fires never lights.</span></li>
+            <li><span class="mark">▸</span><span><b>The graph grows.</b> Every retrieval attaches the document it found — <span class="fig">15</span> nodes idle, <span class="fig">34</span> with a full dossier.</span></li>
+            <li><span class="mark">▸</span><span><b>Every node with structure opens into its own graph.</b> The review becomes the weighted rubric as a body with mass.</span></li>
+            <li><span class="mark">▸</span><span><b>The construct renders in space</b> — feature architecture on the turns, from a sequence the server actually returned.</span></li>
+          </ul>
+          <p class="note"><span class="fig">2,356</span> lines of first-party rendering code. No WebGL library, no CDN, no third-party JavaScript in the browser at all.</p>
+        </div>
+        <div class="rows">
+          <canvas class="fig-canvas" id="growth" data-anim="growth" style="height: 168px" aria-label="Animated diagram: the evidence graph growing from fifteen nodes to thirty-four as retrieval attaches documents"></canvas>
+          <canvas class="fig-canvas" id="construct" data-anim="construct" style="height: 118px" aria-label="Animated diagram: the construct as a double helix with feature architecture mapped onto its turns"></canvas>
+          <p class="note" style="font-size: 10.5px">Above: the board filling as evidence lands. Below: the construct view — the Benchling-backed structure surface, drawn as the lab draws it.</p>
+        </div>
+      </div>
+      <p class="notes-source"><span class="cue">3:05</span> — This is the workstation. The graph isn't an animation playing next to the run — it is the run. Every retrieval attaches the document it found, so the graph visibly grows.</p>
+    </section>
+
+    <!-- 7 ----------------------------------------------------------------- -->
+    <section class="slide" data-accent="lit" data-label="Proof chain">
+      <p class="eyebrow">One claim, opened all the way</p>
+      <h2>Five clicks from a number on a dashboard to <b>a shell command you can paste</b>.</h2>
+      <div class="chain">
+        <div class="link">
+          <span class="step">1</span>
+          <span class="what"><em>Claim ·</em> β-thalassemia pathophysiology is consistently described, and co-inheritance of α-thalassemia ameliorates phenotype.</span>
+        </div>
+        <div class="link">
+          <span class="step">2</span>
+          <span class="what"><em>Cited ·</em> <code>PMC5583283</code> <code>PMC12672394</code> <code>NCT06291961</code> — each one resolvable, each one openable.</span>
+        </div>
+        <div class="link">
+          <span class="step">3</span>
+          <span class="what"><em>Extracted ·</em> domain <b>Disease Context &amp; Mechanism</b>, at <span class="fig">85%</span> confidence, with the extractor's own reasoning recorded verbatim.</span>
+        </div>
+        <div class="link">
+          <span class="step">4</span>
+          <span class="what"><em>Retrieved by ·</em> <code>search -s pmc,arxiv "CS-101 β-thalassemia Major …"</code> → <span class="fig">5,498</span> chars, then map/reduce reader extraction → <span class="fig">24,025</span> chars.</span>
+        </div>
+        <div class="link">
+          <span class="step">5</span>
+          <span class="what"><em>Scored by ·</em> <code>claude-opus-5</code> · effort <code>high</code> · rubric <code>v2.0.0</code> · dossier <code>v1.0.0</code>, with a full run trace on disk.</span>
+        </div>
+      </div>
+      <p class="pull">Every claim in every report has this. Not a sample — <b>all of them</b>. Where a link genuinely does not exist, the drawer renders that step as <em>missing</em>.</p>
+      <p class="notes-source"><span class="cue">3:25</span> — Claim, to citations, to the extraction with its own confidence, to the literal search command, to the model and rubric version. A broken chain shown honestly is the difference between provenance and decoration.</p>
+    </section>
+
+    <!-- 8 ----------------------------------------------------------------- -->
+    <section class="slide" data-accent="reg" data-label="CS-101">
+      <p class="eyebrow">The run I am least comfortable with — which is why it is here</p>
+      <h2>CS-101 · base-edited HSC therapy for β-thalassemia major · Phase 2</h2>
+      <div class="cols wide-left">
+        <table>
+          <thead><tr><th>Rubric dimension</th><th class="num">Score</th><th style="width: 78px">Evidence</th></tr></thead>
+          <tbody>
+            <tr><td>Disease Context &amp; Mechanism</td><td class="num" style="color: var(--bench)">4 / 5</td><td><span class="tag moderate">moderate</span></td></tr>
+            <tr><td>Trial Design &amp; Regulatory Strategy</td><td class="num">3 / 5</td><td><span class="tag weak">weak</span></td></tr>
+            <tr><td>Immunogenicity</td><td class="num">3 / 5</td><td><span class="tag absent">absent</span></td></tr>
+            <tr><td>Trial Integrity &amp; Governance</td><td class="num">3 / 5</td><td><span class="tag absent">absent</span></td></tr>
+            <tr><td>Efficacy &amp; Clinical Evidence</td><td class="num" style="color: var(--stop)">2 / 5</td><td><span class="tag absent">absent</span></td></tr>
+            <tr><td>Safety &amp; Tolerability</td><td class="num" style="color: var(--stop)">2 / 5</td><td><span class="tag absent">absent</span></td></tr>
+            <tr><td>Long-Term Genetic Risk</td><td class="num" style="color: var(--stop)">2 / 5</td><td><span class="tag absent">absent</span></td></tr>
+            <tr><td>Biodistribution &amp; Pharmacology</td><td class="num" style="color: var(--stop)">2 / 5</td><td><span class="tag absent">absent</span></td></tr>
+            <tr><td>Manufacturability &amp; CMC</td><td class="num" style="color: var(--stop)">2 / 5</td><td><span class="tag absent">absent</span></td></tr>
+            <tr><td>PK/PD &amp; Dosing</td><td class="num" style="color: var(--stop)">2 / 5</td><td><span class="tag absent">absent</span></td></tr>
+          </tbody>
+        </table>
+        <div class="rows">
+          <div class="stat">
+            <span class="n" style="color: var(--reg)">40%</span>
+            <span class="k">probability of trial success · 24–56 · confidence low</span>
+          </div>
+          <p class="note" style="color: var(--muted); font-size: 12px">
+            Nine of ten dimensions come back <b style="color: var(--ink)">absent</b>. The one that scores
+            well is about the <em>disease</em> — thirty years deep in the literature. Every dimension
+            about the <em>product</em> scores 2 out of 5, because the clinical data for this construct
+            is not public yet.
+          </p>
+          <pre><span class="c">// src/evaluate/evaluate.js — in code, not in a prompt</span>
+<span class="k">if</span> (strength === 'absent' &amp;&amp; score &gt; 3) score = 3;
+point = clamp(point, low, high);</pre>
+        </div>
+      </div>
+      <p class="note">
+        A system that returns 40% <b style="color: var(--ink)">and shows you exactly which nine boxes are empty</b> has told you
+        something true, actionable and arguable. A system that returns a confident 68% by quietly borrowing Casgevy's safety
+        profile has told you nothing — twice. Every <span class="tag absent">absent</span> row is pinned at 2 or 3. It cannot be argued past.
+      </p>
+      <p class="notes-source"><span class="cue">3:50</span> — This is the slide that makes the case. Don't rush the table. Land “told you nothing — twice,” then show that the ceiling is code.</p>
+    </section>
+
+    <!-- 9 ----------------------------------------------------------------- -->
+    <section class="slide" data-accent="clip" data-label="Calibration">
+      <p class="eyebrow">Three real runs, for calibration</p>
+      <h2>The spread is <b>evidence coverage</b>, not enthusiasm.</h2>
+      <table>
+        <thead><tr><th>Programme</th><th>Indication</th><th class="num" style="width: 60px">Phase</th><th class="num" style="width: 130px">Verdict</th><th style="width: 90px">Confidence</th></tr></thead>
+        <tbody>
+          <tr><td>NTLA-2001</td><td>Hereditary ATTR amyloidosis · <em>in vivo</em> CRISPR knockout of hepatic <em>TTR</em></td><td class="num">1</td><td class="num" style="color: var(--bench)">58% <span style="color: var(--faint)">(40–72)</span></td><td><span class="tag moderate">moderate</span></td></tr>
+          <tr><td>CS-101</td><td>β-thalassemia major · base-edited HSC therapy</td><td class="num">2</td><td class="num" style="color: var(--reg)">40% <span style="color: var(--faint)">(24–56)</span></td><td><span class="tag absent">low</span></td></tr>
+          <tr><td>CTX112</td><td>r/r B-cell malignancy · allogeneic CD19 CAR-T</td><td class="num">1/2</td><td class="num" style="color: var(--stop)">28% <span style="color: var(--faint)">(15–42)</span></td><td><span class="tag absent">low</span></td></tr>
+        </tbody>
+      </table>
+      <p class="lede">
+        NTLA-2001 scores highest not because it is the most exciting science, but because the ATTR
+        precedent set — patisiran, tafamidis, inotersen, eplontersen, acoramidis — is unusually rich.
+        The reviewer still refuses to score efficacy on presumption: no primary Phase 1 dataset with
+        per-cohort TTR reductions was retrievable, <strong>and the report says so</strong>.
+      </p>
+      <p class="note">
+        CTX112 consumed <span class="fig">31</span> retrieval commands, <span class="fig">29</span> cited
+        sources and <span class="fig">207,641</span> tokens of context to arrive at 28%. The expense is
+        the point: it looked as hard as it could and reported what it found.
+      </p>
+      <p class="notes-source"><span class="cue">4:15</span> — Cut this slide first if you are over time. Its job is only to show the numbers move for a reason.</p>
+    </section>
+
+    <!-- 10 ---------------------------------------------------------------- -->
+    <section class="slide" data-accent="stop" data-label="Boundaries">
+      <p class="eyebrow">What this does not do</p>
+      <h2>A system that will not say what it cannot do <b>has not earned the right</b> to say what it can.</h2>
+      <ul class="plain">
+        <li><span class="mark">✕</span><span><b>It is not a regulatory decision.</b> FDA review is a human, deliberative process with access to the confidential IND that CLARITY by construction cannot see.</span></li>
+        <li><span class="mark">✕</span><span><b>It only knows what is public.</b> The dominant reason a Phase 1/2 asset scores low is that its own clinical data has not been published. That is a statement about the evidence, not the science.</span></li>
+        <li><span class="mark">✕</span><span><b>It does not match patients to trials.</b> The catalog carries no site or eligibility geography — building a screening widget on data we do not have would be the exact failure the rest of the system exists to prevent.</span></li>
+        <li><span class="mark">✕</span><span><b>Small n on benchmarks.</b> Six reviews is a position, not a distribution, and the interface says so out loud instead of drawing a histogram from six points.</span></li>
+        <li><span class="mark">✕</span><span><b>The reviewer is a model.</b> The rubric, the weights, the phase gates and the guardrails are code. The judgement inside a domain is Claude's — and the proof chain exists precisely so you can overrule it.</span></li>
+      </ul>
+      <p class="notes-source"><span class="cue">4:30</span> — Optional out loud, but leave it on screen during Q&amp;A. Stating the boundary is what buys the rest of the claim.</p>
+    </section>
+
+    <!-- 11 ---------------------------------------------------------------- -->
+    <section class="slide" data-accent="bench" data-label="Why it holds">
+      <p class="eyebrow">Why it holds up under someone who knows the field</p>
+      <h2>The parts that must not be a model's opinion <b>are not one</b>.</h2>
+      <div class="cols two" style="gap: 14px">
+        <div class="card">
+          <h3><span class="dot" style="background: var(--bench)"></span>The rubric is arithmetic</h3>
+          <p>Ten weighted dimensions, scored 1–5 against explicit anchors. Weights sum to 1.0, and the module <b>refuses to load if they do not</b>. Long-term genetic risk and biodistribution carry as much weight as CMC — for an <em>in vivo</em> editor those dimensions <em>are</em> the review.</p>
+        </div>
+        <div class="card">
+          <h3><span class="dot" style="background: var(--clip)"></span>The domains are phase-gated</h3>
+          <p>Nine CLARITY domains, each activating at preclinical, Phase 1, 2 or 3. A preclinical asset is never asked for postmarketing controls it cannot have. Runtime policy, not documentation — they ship with the deployment.</p>
+        </div>
+        <div class="card">
+          <h3><span class="dot" style="background: var(--claude)"></span>Every run leaves a record</h3>
+          <p>An audit record per run, and an optional full trace with prompts, structured outputs, timing and token usage. Reviews are deduplicated in flight, so a double-click never pays twice.</p>
+        </div>
+        <div class="card">
+          <h3><span class="dot" style="background: var(--reg)"></span>It degrades honestly</h3>
+          <p>No canvas context, the flat SVG topology renders instead. No <code>EventSource</code>, the run says so rather than hanging. Read-only filesystem, the review is kept in memory rather than lost. Nothing fails silently.</p>
+        </div>
+      </div>
+      <p class="note"><span class="fig">61</span> tests covering the API surface, citation grammars, evidence assembly, traces, run guards and the whole render path.</p>
+      <p class="notes-source"><span class="cue">4:35</span> — Compress hard if you are short. The one sentence that must survive: the rubric refuses to load if the weights don't sum to one.</p>
+    </section>
+
+    <!-- 12 ---------------------------------------------------------------- -->
+    <section class="slide" data-accent="clip" data-label="Ask">
+      <p class="eyebrow">The ask</p>
+      <h1 class="display">Argue with <b>the number</b>.</h1>
+      <p class="lede">
+        We want design partners who will run their own programme through CLARITY and push back on what
+        it returns — <strong>licensing teams, translational investors, and disease foundations deciding
+        where a grant goes</strong>. The whole point of the proof chain is that now they can.
+      </p>
+      <div class="cols">
+        <div class="stat"><span class="n">3</span><span class="k">actors, never touching</span><span class="d">The architecture is the moat, not the model.</span></div>
+        <div class="stat"><span class="n">118</span><span class="k">programmes ready to review</span><span class="d">77 cell therapy · 40 gene therapy, eight therapeutic areas.</span></div>
+        <div class="stat"><span class="n">1</span><span class="k">registry ID to start</span><span class="d">Paste an NCT number and watch the board fill.</span></div>
+      </div>
+      <p class="lede">
+        <span class="fill">FILL IN — raise, round, use of funds</span>
+        &nbsp;
+        <span class="fill">FILL IN — name, contact, live URL</span>
+      </p>
+      <p class="note">Generated assessments are decision support, not regulatory advice.</p>
+      <p class="notes-source"><span class="cue">4:35</span> — Replace both amber placeholders before you present. Close on “argue with the number” — it is the invitation, and it is the differentiator.</p>
+    </section>
+  </div>
+</div>
+
+<button id="prev" class="arrow" type="button" aria-label="Previous slide">‹</button>
+<button id="next" class="arrow" type="button" aria-label="Next slide">›</button>
+
+<div class="hud">
+  <span><b id="hud-n">01</b> / 12</span>
+  <span id="hud-label">CLARITY</span>
+  <button id="notes-toggle" type="button" aria-pressed="false" title="Toggle speaker notes (N)">notes</button>
+</div>
+
+<div id="notes" aria-live="polite"></div>
+
+<script>
+  (() => {
+    'use strict';
+
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const slides = [...document.querySelectorAll('.slide')];
+    const frame = document.getElementById('frame');
+    const hudN = document.getElementById('hud-n');
+    const hudLabel = document.getElementById('hud-label');
+    const notesPane = document.getElementById('notes');
+    const prevButton = document.getElementById('prev');
+    const nextButton = document.getElementById('next');
+    let current = 0;
+
+    /* -- fitting -----------------------------------------------------------
+       The slide is authored at 960 × 540 and scaled as one block. Everything
+       inside is in fixed pixels, so a headline cannot rewrap between the
+       laptop it was rehearsed on and the projector it lands on. */
+
+    const SLIDE_W = 960;
+    const SLIDE_H = 540;
+
+    function fit() {
+      const margin = innerWidth < 700 ? 16 : 56;
+      const reserved = document.body.classList.contains('show-notes')
+        ? Math.min(innerHeight * 0.34, 240) + 24
+        : 64;
+      const k = Math.min(
+        (innerWidth - margin * 2) / SLIDE_W,
+        (innerHeight - reserved) / SLIDE_H,
+      );
+      document.documentElement.style.setProperty('--k', String(Math.max(0.18, k)));
+    }
+
+    /* -- navigation --------------------------------------------------------- */
+
+    function show(index) {
+      const next = Math.max(0, Math.min(slides.length - 1, index));
+      if (next === current) return;
+      slides[current].classList.remove('is-current');
+      current = next;
+      const slide = slides[current];
+      slide.classList.add('is-current');
+      sync();
+    }
+
+    function sync() {
+      const slide = slides[current];
+      hudN.textContent = String(current + 1).padStart(2, '0');
+      hudLabel.textContent = slide.dataset.label ?? '';
+      notesPane.innerHTML = slide.querySelector('.notes-source')?.innerHTML ?? '';
+      prevButton.disabled = current === 0;
+      nextButton.disabled = current === slides.length - 1;
+      // The whole page reads its accent from the slide on screen, so the weave,
+      // the strand and the HUD shift together rather than piecemeal.
+      document.documentElement.style.setProperty(
+        '--accent',
+        getComputedStyle(slide).getPropertyValue('--accent'),
+      );
+    }
+
+    prevButton.addEventListener('click', () => show(current - 1));
+    nextButton.addEventListener('click', () => show(current + 1));
+
+    addEventListener('keydown', (event) => {
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+      const key = event.key;
+      if (key === 'ArrowRight' || key === 'ArrowDown' || key === 'PageDown' || key === ' ') show(current + 1);
+      else if (key === 'ArrowLeft' || key === 'ArrowUp' || key === 'PageUp') show(current - 1);
+      else if (key === 'Home') show(0);
+      else if (key === 'End') show(slides.length - 1);
+      else if (key === 'n' || key === 'N') toggleNotes();
+      else return;
+      event.preventDefault();
+    });
+
+    // Swipe, for a deck read on a phone.
+    let touch = null;
+    addEventListener('touchstart', (e) => { touch = e.touches[0].clientX; }, { passive: true });
+    addEventListener('touchend', (e) => {
+      if (touch === null) return;
+      const dx = e.changedTouches[0].clientX - touch;
+      touch = null;
+      if (Math.abs(dx) > 60) show(current + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+
+    const notesButton = document.getElementById('notes-toggle');
+    function toggleNotes() {
+      const on = document.body.classList.toggle('show-notes');
+      notesButton.setAttribute('aria-pressed', String(on));
+      fit();
+    }
+    notesButton.addEventListener('click', toggleNotes);
+
+    /* -- the strand ---------------------------------------------------------
+       A length of duplex along the foot of the slide, with a read head whose
+       position is the deck's position. Informational, not ornamental — which is
+       the only reason it earns the space it takes. */
+
+    const strand = document.getElementById('strand');
+    const sctx = strand.getContext('2d');
+    let headAt = 0;
+    let t = 0;
+
+    function sizeStrand() {
+      const d = Math.min(devicePixelRatio || 1, 2);
+      strand.width = Math.round(SLIDE_W * d);
+      strand.height = Math.round(34 * d);
+      sctx.setTransform(d, 0, 0, d, 0, 0);
+    }
+
+    function drawStrand(dt) {
+      const w = SLIDE_W;
+      const h = 34;
+      sctx.clearRect(0, 0, w, h);
+
+      const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || 'oklch(0.86 0.13 195)';
+      const cy = h * 0.5;
+      const amp = 7;
+      const turns = 22;
+      const steps = 460;
+      const phase = reduced ? 0 : t * 0.5;
+
+      const target = slides.length > 1 ? current / (slides.length - 1) : 0;
+      headAt += (target - headAt) * Math.min(1, dt * 5);
+      const headX = 24 + headAt * (w - 48);
+
+      // Base pairs first, so the strands read as passing in front of them.
+      for (let i = 0; i <= steps; i += 3) {
+        const x = 24 + (i / steps) * (w - 48);
+        const a = phase + (i / steps) * Math.PI * 2 * turns;
+        const face = Math.abs(Math.cos(a));
+        if (face < 0.2) continue;
+        sctx.beginPath();
+        sctx.moveTo(x, cy + Math.sin(a) * amp);
+        sctx.lineTo(x, cy - Math.sin(a) * amp);
+        sctx.strokeStyle = accent;
+        sctx.globalAlpha = (x <= headX ? 0.34 : 0.09) * (0.4 + face * 0.6);
+        sctx.lineWidth = 1;
+        sctx.stroke();
+      }
+
+      for (const sign of [1, -1]) {
+        sctx.beginPath();
+        for (let i = 0; i <= steps; i += 1) {
+          const x = 24 + (i / steps) * (w - 48);
+          const a = phase + (i / steps) * Math.PI * 2 * turns;
+          const y = cy + sign * Math.sin(a) * amp;
+          if (i === 0) sctx.moveTo(x, y);
+          else sctx.lineTo(x, y);
+        }
+        sctx.strokeStyle = accent;
+        sctx.globalAlpha = 0.34;
+        sctx.lineWidth = 1.1;
+        sctx.lineCap = 'round';
+        sctx.stroke();
+      }
+
+      // The read head.
+      const glow = sctx.createRadialGradient(headX, cy, 0, headX, cy, 22);
+      glow.addColorStop(0, accent);
+      glow.addColorStop(1, 'transparent');
+      sctx.globalAlpha = 0.3;
+      sctx.fillStyle = glow;
+      sctx.beginPath();
+      sctx.arc(headX, cy, 22, 0, Math.PI * 2);
+      sctx.fill();
+
+      sctx.globalAlpha = 1;
+      sctx.beginPath();
+      sctx.arc(headX, cy, 3, 0, Math.PI * 2);
+      sctx.fillStyle = accent;
+      sctx.fill();
+    }
+
+    /* -- slide figures ------------------------------------------------------ */
+
+    const figures = new Map();
+    const read = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+    function mountFigure(canvas) {
+      const ctx = canvas.getContext('2d');
+      const fit2 = () => {
+        const rect = canvas.getBoundingClientRect();
+        const d = Math.min(devicePixelRatio || 1, 2);
+        // The frame is scaled, so the box is measured back out of that scale to
+        // keep the backing store at true device resolution rather than blurry.
+        const k = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--k')) || 1;
+        const w = rect.width / k;
+        const h = rect.height / k;
+        canvas.width = Math.max(1, Math.round(w * d));
+        canvas.height = Math.max(1, Math.round(h * d));
+        return { w, h, d };
+      };
+      return { ctx, fit: fit2, box: fit2() };
+    }
+
+    /** The board filling: 15 nodes idle, 34 once the dossier has landed. */
+    function drawGrowth(fig, time) {
+      const { ctx } = fig;
+      const { w, h, d } = fig.box;
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+
+      const cycle = 9;
+      const phase = (time % cycle) / cycle;
+      const backbone = 6;
+      const total = 34;
+      const lit = Math.min(total, Math.floor(phase * 1.55 * total));
+
+      const cy = h / 2;
+      const stageX = (i) => w * 0.12 + (i / (backbone - 1)) * w * 0.76;
+      const tones = ['--clip', '--clip', '--claude', '--claude', '--reg', '--bench'];
+
+      for (let i = backbone; i < total; i += 1) {
+        if (i >= lit) continue;
+        const k = i - backbone;
+        const anchor = 1 + (k % 4);
+        const angle = (k * 2.399) % (Math.PI * 2);
+        const radius = Math.min(w, h) * (0.16 + ((k * 7) % 11) / 55);
+        const x = stageX(anchor) + Math.cos(angle) * radius;
+        const y = cy + Math.sin(angle) * radius * 0.62;
+        const age = Math.min(1, (lit - i) / 3);
+
+        ctx.globalAlpha = 0.2 * age;
+        ctx.strokeStyle = read('--clip');
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(stageX(anchor), cy);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+
+        ctx.globalAlpha = 0.85 * age;
+        ctx.fillStyle = read(k % 3 === 0 ? '--lit' : '--clip');
+        ctx.beginPath();
+        ctx.arc(x, y, 2.4 * age, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.globalAlpha = 0.3;
+      ctx.strokeStyle = read('--faint');
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(stageX(0), cy);
+      ctx.lineTo(stageX(backbone - 1), cy);
+      ctx.stroke();
+
+      for (let i = 0; i < backbone; i += 1) {
+        const on = i < lit;
+        const tone = read(tones[i]);
+        const x = stageX(i);
+        const pulse = on && !reduced ? 1 + Math.sin(time * 3 + i) * 0.1 : 1;
+
+        if (on) {
+          const g = ctx.createRadialGradient(x, cy, 0, x, cy, 20);
+          g.addColorStop(0, tone);
+          g.addColorStop(1, 'transparent');
+          ctx.globalAlpha = 0.22;
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(x, cy, 20, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.globalAlpha = on ? 1 : 0.28;
+        ctx.beginPath();
+        ctx.arc(x, cy, 5.5 * pulse, 0, Math.PI * 2);
+        ctx.strokeStyle = tone;
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+        if (on) {
+          ctx.fillStyle = tone;
+          ctx.globalAlpha = 0.35;
+          ctx.fill();
+        }
+      }
+
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = read('--faint');
+      ctx.font = '400 9px ui-monospace, Menlo, Consolas, monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText(`nodes ${String(Math.max(15, lit)).padStart(2, '0')} / 34`, 10, h - 9);
+      ctx.textAlign = 'right';
+      ctx.fillText(lit >= total ? 'dossier complete' : 'retrieving', w - 10, h - 9);
+    }
+
+    /** The construct: feature architecture mapped onto the turns of a duplex. */
+    function drawConstruct(fig, time) {
+      const { ctx } = fig;
+      const { w, h, d } = fig.box;
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+
+      const features = [
+        { from: 0.02, to: 0.16, tone: '--clip', name: 'ITR' },
+        { from: 0.18, to: 0.34, tone: '--reg', name: 'promoter' },
+        { from: 0.36, to: 0.68, tone: '--claude', name: 'CDS' },
+        { from: 0.7, to: 0.84, tone: '--bench', name: 'guide' },
+        { from: 0.86, to: 0.99, tone: '--clip', name: 'ITR' },
+      ];
+
+      const cy = h / 2 - 5;
+      const amp = h * 0.22;
+      const turns = 4.5;
+      const steps = 240;
+      const spin = reduced ? 0.6 : time * 0.5;
+      const toneAt = (t0) => features.find((f) => t0 >= f.from && t0 <= f.to)?.tone ?? '--faint';
+
+      const point = (i, sign) => {
+        const t0 = i / steps;
+        const a = spin + t0 * Math.PI * 2 * turns;
+        return { x: w * 0.06 + t0 * w * 0.88, y: cy + sign * Math.sin(a) * amp, face: sign * Math.cos(a), t: t0 };
+      };
+
+      for (let i = 0; i <= steps; i += 4) {
+        const a = point(i, 1);
+        const b = point(i, -1);
+        if (Math.abs(a.face) < 0.25) continue;
+        ctx.globalAlpha = 0.1 + Math.abs(a.face) * 0.24;
+        ctx.strokeStyle = read(toneAt(a.t));
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
+
+      for (const sign of [1, -1]) {
+        for (let i = 0; i < steps; i += 1) {
+          const a = point(i, sign);
+          const b = point(i + 1, sign);
+          ctx.globalAlpha = 0.45 + (a.face + 1) * 0.26;
+          ctx.strokeStyle = read(toneAt(a.t));
+          ctx.lineWidth = 1.4 + (a.face + 1) * 0.45;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+
+      // The flat, measurable feature map, directly beneath — as in the lab.
+      ctx.globalAlpha = 1;
+      const trackY = h - 13;
+      for (const f of features) {
+        ctx.fillStyle = read(f.tone);
+        ctx.globalAlpha = 0.85;
+        ctx.fillRect(w * 0.06 + f.from * w * 0.88, trackY, (f.to - f.from) * w * 0.88, 3.5);
+      }
+      ctx.globalAlpha = 0.75;
+      ctx.fillStyle = read('--faint');
+      ctx.font = '400 8px ui-monospace, Menlo, Consolas, monospace';
+      ctx.textAlign = 'left';
+      for (const f of features) {
+        const x = w * 0.06 + f.from * w * 0.88;
+        if ((f.to - f.from) * w * 0.88 > 32) ctx.fillText(f.name, x, trackY - 5);
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    const painters = { growth: drawGrowth, construct: drawConstruct };
+    for (const canvas of document.querySelectorAll('[data-anim]')) figures.set(canvas, mountFigure(canvas));
+
+    /* -- one loop for everything -------------------------------------------- */
+
+    let last = 0;
+    function frameLoop(now) {
+      requestAnimationFrame(frameLoop);
+      if (document.hidden) { last = now; return; }
+      const dt = Math.min(0.05, (now - (last || now)) / 1000);
+      last = now;
+      t += dt;
+
+      try {
+        drawStrand(dt);
+        // Only the figures on the slide that is up are worth drawing.
+        for (const [canvas, fig] of figures) {
+          if (!canvas.closest('.slide')?.classList.contains('is-current')) continue;
+          painters[canvas.dataset.anim]?.(fig, t);
+        }
+      } catch (error) {
+        if (!frameLoop.warned) { console.error('deck frame failed', error); frameLoop.warned = true; }
+      }
+    }
+
+    function sizeAll() {
+      fit();
+      sizeStrand();
+      for (const [, fig] of figures) fig.box = fig.fit();
+    }
+
+    addEventListener('resize', sizeAll);
+    sizeAll();
+    sync();
+    frame.focus?.({ preventScroll: true });
+    requestAnimationFrame(frameLoop);
+
+    // Exposed so the deck can be driven from a remote or a rehearsal script.
+    window.deck = { show, get index() { return current; }, count: slides.length, sizeAll };
+  })();
+</script>

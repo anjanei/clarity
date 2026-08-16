@@ -771,6 +771,9 @@ export function createEvidenceGraph(canvas, hooks = {}) {
     graph = instantiate(spec);
     for (const child of graph.nodes) child.state = child.center ? 'active' : 'done';
     selectedId = 'focus';
+    // Every subgraph is built around the origin, so a camera the reader has
+    // panned somewhere else has to come back or the new level opens off-screen.
+    stage?.setTarget(0, 0, 0);
     stage?.setDistance(clamp(320 + graph.nodes.length * 11, 360, 1100));
     hooks.onLevel?.(levels());
     hooks.onSelect?.(graph.byId.get('focus') ?? null, levels());
@@ -789,6 +792,7 @@ export function createEvidenceGraph(canvas, hooks = {}) {
       for (const child of graph.nodes) child.state = child.center ? 'active' : 'done';
     }
     selectedId = null;
+    stage?.setTarget(0, 0, 0);
     stage?.setDistance(stack.length ? 620 : 1000);
     hooks.onLevel?.(levels());
     hooks.onSelect?.(null, levels());
@@ -1176,8 +1180,10 @@ export function createEvidenceGraph(canvas, hooks = {}) {
     yaw: -0.28,
     pitch: -0.16,
     distance: 1320,
-    minDistance: 260,
-    maxDistance: 3000,
+    // Close enough to sit inside a single node, far enough to hold a dossier of
+    // several hundred. The reader decides which; the stage does not cap them.
+    minDistance: 45,
+    maxDistance: 26000,
     autoRotate: 0.018,
     onPointerMove: (x, y) => {
       const node = pick(x, y);
@@ -1277,6 +1283,10 @@ export function createEvidenceGraph(canvas, hooks = {}) {
     },
     ascend,
     levels,
+    /** Put the camera back where the stage opened, keeping the current level. */
+    resetView() {
+      stage?.resetView();
+    },
     get depth() {
       return stack.length;
     },
