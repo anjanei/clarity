@@ -206,13 +206,12 @@ function welcomeCard() {
     <section class="panel panel-lit panel-pad rise">
       <p class="eyebrow">Track A · end-to-end agentic science</p>
       <h2 class="headline mt-3">
-        Regulatory review,<br /><span class="display-accent">with the receipts.</span>
+        FDA-grade trial review,<br /><span class="display-accent">from public evidence to decision memo.</span>
       </h2>
       <p class="mt-4 text-[13px] leading-relaxed text-muted">
-        CLARITY retrieves the public evidence for a clinical programme, organises it into a cited
-        nine-domain dossier, and scores it the way an FDA reviewer would. Every score, every finding
-        and every probability traces back to the source document — and to the exact retrieval command
-        that found it.
+        CLARITY turns an NCT record into the file a reviewer would want on their desk: registry facts,
+        FDA precedent, primary literature, a cited nine-domain dossier, and a probability call that
+        exposes the weakest approval argument first.
       </p>
       <dl class="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-4">
         ${stats
@@ -229,8 +228,8 @@ function welcomeCard() {
         <button type="button" class="btn-ghost !px-3.5 !py-1.5 !text-[12px]" data-open-method>How the pipeline works</button>
       </div>
       <p class="mt-4 text-[11px] leading-relaxed text-ghost">
-        The stage to the left is the agent topology at rest. Drag to orbit it; it will light in the
-        order the server works once a review runs.
+        Every score opens down to the cited document, retrieved passage, and trace step that produced it.
+        The graph lights up in the same order the review is built.
       </p>
     </section>`;
 }

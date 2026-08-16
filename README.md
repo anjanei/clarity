@@ -2,13 +2,13 @@
 
 # CLARITY
 
-### An FDA reviewer that shows its work.
+### An FDA-grade review room for clinical trials.
 
-**Point it at a clinical programme. It retrieves the public evidence that exists, organises it into a
-cited nine-domain regulatory dossier, and scores it the way a reviewer would — then opens every
-single number down to the paper it came from and the search command that found the paper.**
+**Point it at an NCT ID. CLARITY turns the public record into the file a reviewer would want on
+their desk: registry facts, FDA precedent, primary literature, a cited nine-domain dossier, and an
+approval-risk call that shows the weakest argument first.**
 
-[![Live](https://img.shields.io/badge/live-fdaapproval.vercel.app-2DD4BF?style=for-the-badge&labelColor=0B1120)](https://fdaapproval.vercel.app)
+[![Live](https://img.shields.io/badge/live-Render-2DD4BF?style=for-the-badge&labelColor=0B1120)](https://fdaapproval-pzpr.onrender.com/?trial=NCT05951205)
 &nbsp;
 [![Node](https://img.shields.io/badge/node-20%2B-6EE7A0?style=for-the-badge&labelColor=0B1120)](https://nodejs.org)
 &nbsp;
@@ -432,29 +432,26 @@ run is guarded three ways:
 | Run starts per address per window | 6 per 10 min | `RUN_LIMIT`, `RUN_WINDOW_MS` |
 | Reviews running at once | 2 | `RUN_CONCURRENCY` |
 
-The counters are in-memory, so on a serverless host the limit is per instance rather than global.
-That is a weaker guarantee than a shared store, but it needs no external dependency and **cannot fail
-closed and lock you out of your own lab.** A deployment that needs a hard ceiling, or any Vercel
-Hobby deployment that cannot guarantee a review will finish inside the 300-second function limit,
-should set `PUBLIC_RUNS=off` and run reviews from the CLI:
+The counters are in-memory, so the limit is per running service instance rather than global. That is
+a weaker guarantee than a shared store, but it needs no external dependency and **cannot fail closed
+and lock you out of your own lab.** A deployment that needs a hard ceiling should set
+`PUBLIC_RUNS=off` and run reviews from the CLI:
 
 ```bash
 npm run review -- NCT05951205 --trace=metadata
 ```
 
-For a live hosted runner, Render is a better match than Vercel Hobby: the app is
-a plain Express service and binds to `0.0.0.0:$PORT`. The committed
-`render.yaml` uses Render's free web-service plan so a workspace without billing
-can deploy it immediately. After a payment method is added, switch `plan` to
-`starter` and add a disk mounted at `/var/data`, then set `EVALUATIONS_DIR` and
-`TRACES_DIR` to `/var/data/evaluations` and `/var/data/traces` for persistent
-generated reviews.
+For a live hosted runner, use Render. The app is a plain Express service, binds
+to `0.0.0.0:$PORT`, and ships with `render.yaml`. The committed blueprint uses
+Render's free web-service plan so a workspace without billing can deploy it
+immediately. After a payment method is added, switch `plan` to `starter` and add
+a disk mounted at `/var/data`, then set `EVALUATIONS_DIR` and `TRACES_DIR` to
+`/var/data/evaluations` and `/var/data/traces` for persistent generated reviews.
 
 Every response carries a content-security policy forbidding third-party script, framing and plugins.
 The page loads no external code, no external fonts and no external images, so the policy is `'self'`
-plus inline styles — there is nothing to relax. It is applied **twice on purpose**: in the Express
-middleware, and again in `vercel.json`, because files under `public/` are served straight from the CDN
-and never reach the middleware.
+plus inline styles — there is nothing to relax. On Render, the Express middleware applies that policy
+to the app shell and every API response.
 
 <details>
 <summary><b>API reference</b></summary>
@@ -590,7 +587,7 @@ curl https://inference.us-west.modal.direct/v1/models \
   -H "Authorization: Bearer $MODAL_TOKEN_ID.$MODAL_TOKEN_SECRET"
 ```
 
-> **Never commit these.** On Vercel they are project environment variables. The
+> **Never commit these.** On Render they are service environment variables. The
 > browser cannot reach Modal at all — the content policy is `connect-src 'self'` —
 > so every call proxies through the server, which is where the secret belongs.
 > `/api/health` reports presence booleans and the host, never the token, and any
@@ -690,7 +687,6 @@ public/
     graph3d.js              the living evidence graph and its descents
     genome3d.js             the construct in space
     genome.js               the flat, measurable feature map
-    agents.js               the three couriers
     metrics.js              formulas, contribution matrix, benchmarks
     proof.js                the provenance drawer
     ui.js                   escaping and shared render primitives
@@ -704,12 +700,18 @@ test/                       API, citations, evidence, traces, guards, render pat
 
 ## Deployment
 
-Deploys to Vercel through `api/index.js`, which imports the Express app from `src/server.js`.
-`vercel.json` rewrites `/api/*` and the SPA fallback through that adapter and packages `public/`,
-`data/` and `evidence_skills/` with the function.
+Deploys to Render as a Node web service through `render.yaml`. The live service
+pulls from the `sameer` branch, builds with `npm ci && npm run build`, starts
+with `npm start`, and serves the Express app from `src/server.js`.
 
-> ⚠️ This project has **no Git integration** — deployments are made with `vercel --prod` from a linked
-> checkout. Pushing to a branch publishes the code, not the site.
+The current public deployment is:
+
+```text
+https://fdaapproval-pzpr.onrender.com/?trial=NCT05951205
+```
+
+Render environment variables hold the Paperclip, Anthropic and Modal secrets.
+The repository only stores placeholders and public cached review artifacts.
 
 Set `PUBLIC_RUNS=off` on any deployment whose URL you intend to share.
 
