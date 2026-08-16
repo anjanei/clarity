@@ -15,6 +15,7 @@ import {
 
 test('maps catalog phases to the CLARITY phase gates', () => {
   assert.equal(normalizeClarityPhase('Early Phase 1'), 'phase1');
+  assert.equal(normalizeClarityPhase('phase1'), 'phase1');
   assert.equal(normalizeClarityPhase('Phase 1/2'), 'phase1');
   assert.equal(normalizeClarityPhase('Phase 2/3'), 'phase2');
   assert.equal(normalizeClarityPhase('Phase 4'), null);
@@ -33,6 +34,7 @@ test('maps catalog phases to the CLARITY phase gates', () => {
     ],
   );
   assert.deepEqual(inactiveDomainsForPhase('Phase 2').map(({ id }) => id), ['benefit_risk_postmarketing']);
+  assert.equal(activeDomainsForPhase('phase1').length, 7);
 });
 
 test('ships a CLARITY policy file for every executable domain', async () => {

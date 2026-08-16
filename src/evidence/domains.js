@@ -19,6 +19,9 @@ const phaseRank = Object.freeze({
 /** Map catalog values to the four development phases supported by the CLARITY skills. */
 export function normalizeClarityPhase(phase) {
   const value = String(phase || '').trim().toLowerCase();
+  // Callers may already hold the canonical internal value after an earlier
+  // normalization pass (for example, gatherEvidence → activeDomainsForPhase).
+  if (CLARITY_PHASES.includes(value)) return value;
   if (value === 'pre-clinical' || value === 'preclinical') return 'preclinical';
   if (value === 'early phase 1' || value === 'phase 1' || value === 'phase 1/2') return 'phase1';
   if (value === 'phase 2' || value === 'phase 2/3') return 'phase2';
