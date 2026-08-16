@@ -11,7 +11,7 @@ Paperclip search  ──►  Claude extraction  ──►  data/trials.json   (o
                                                       │
                                               user picks a trial
                                                       │
-Paperclip evidence sweep ──► Claude FDA-reviewer scoring ──► review report
+Paperclip domain evidence sweep ──► CLARITY cited dossier ──► Claude FDA-reviewer scoring ──► review report
 ```
 
 ## Requirements
@@ -27,6 +27,23 @@ npm install
 cp .env.example .env      # then fill in both keys
 npm run build:css
 ```
+
+### Local test environment
+
+The test suite has no paid-service dependency and does not require API keys. It creates an
+isolated temporary catalog through `DATA_DIR`, then checks the frontend entry point and core API
+responses on an ephemeral local port.
+
+```bash
+npm ci
+npm run build:css
+npm test
+```
+
+For day-to-day development, leave API keys blank to test the catalog browsing UI and API routes;
+only catalog generation and FDA-review runs require both keys. To run those flows, copy
+`.env.example` to `.env`, replace the placeholder values, optionally run `npm run catalog`, then
+start the app with `npm run dev` and visit <http://localhost:3000>.
 
 ### 1. Confirm Paperclip connectivity
 
@@ -125,6 +142,20 @@ npm start
 Open <http://localhost:3000>. Pick a trial, press **Run FDA review**. Progress streams over SSE
 while retrieval runs; a completed review is cached to `data/evaluations/<trialId>.json` and shown
 instantly on re-select (use **Re-run review** to force a fresh pass).
+
+### Evidence dossier
+
+Before the existing rubric-scoring call, the app builds an evidence-only dossier from the CLARITY
+skills under `evidence_skills/CLARITY_FDA_Review_Skills/`. For the selected trial phase, it gathers
+public registry, regulatory, and literature evidence for each eligible domain; then one focused
+Claude extraction pass per domain returns phase-appropriate findings with direct public-source
+links. Unsupported elements are emitted as `Not found in public sources`; inactive domains emit
+`Do not generate`.
+
+The dossier changes the evidence supplied to the reviewer but does **not** change the review
+rubric, its weights, probability calibration, or post-processing. The UI exposes the direct-source
+links in its **Cited evidence dossier** panel. These skill files are runtime policy and must be
+present when deploying the application.
 
 ## The rubric
 

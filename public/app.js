@@ -299,11 +299,11 @@ function progressCard() {
     <div class="card card-pad rise">
       <div class="flex items-center gap-3">
         <span class="size-2 animate-pulse rounded-full bg-accent-600"></span>
-        <p class="text-sm font-medium text-slate-900">Retrieving evidence and scoring the rubric</p>
+        <p class="text-sm font-medium text-slate-900">Retrieving and organizing cited evidence</p>
       </div>
       <p class="mt-1 text-xs text-slate-500">
-        A full review runs Paperclip retrieval across seven evidence tracks, then a single
-        high-effort reasoning pass. This usually takes a few minutes.
+        A full review retrieves public evidence for each active CLARITY domain, builds a cited
+        dossier, then runs the existing FDA-review scoring pass. This usually takes a few minutes.
       </p>
       <div class="mt-4 max-h-56 overflow-y-auto rounded-lg bg-slate-50 p-3">
         <ul id="progress-log" class="space-y-1"></ul>
@@ -535,6 +535,80 @@ function contextCard(review) {
     </div>`;
 }
 
+function safeHttpsUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' ? url.href : '';
+  } catch {
+    return '';
+  }
+}
+
+function citationLink(citation) {
+  const href = safeHttpsUrl(citation.url);
+  const label = `${citation.title || citation.identifier || 'Source'}${
+    citation.identifier ? ` (${citation.identifier})` : ''
+  }`;
+  return href
+    ? `<a class="text-accent-700 underline decoration-accent-200 underline-offset-2 hover:text-accent-900" href="${esc(href)}" target="_blank" rel="noreferrer">${esc(label)}</a>`
+    : esc(label);
+}
+
+function evidenceDossierCard(evaluation) {
+  const dossier = evaluation.evidence?.dossier;
+  if (!dossier?.domains?.length) return '';
+
+  return `
+    <details class="card card-pad">
+      <summary class="cursor-pointer text-sm font-semibold text-slate-900">
+        Cited evidence dossier · ${esc(dossier.phaseLabel || dossier.phase || '')}
+      </summary>
+      <p class="mt-2 text-xs text-slate-500">
+        Domain evidence is organized before the unchanged rubric-scoring pass. Links open the primary
+        article, registry record, or regulatory document in a new tab.
+      </p>
+      <div class="mt-4 space-y-4">
+        ${dossier.domains
+          .map((domain) => {
+            if (domain.status === 'not_applicable') {
+              return `<section class="rounded-lg bg-slate-50 px-3 py-2.5">
+                <p class="text-sm font-semibold text-slate-800">${esc(domain.domainLabel)}</p>
+                <p class="mt-1 text-xs text-slate-500">Do not generate for this development phase.</p>
+              </section>`;
+            }
+            return `<section class="rounded-lg border border-slate-200 p-3">
+              <p class="text-sm font-semibold text-slate-900">${esc(domain.domainLabel)}</p>
+              <p class="mt-1 text-sm text-slate-600">${esc(domain.summary)}</p>
+              <div class="mt-3 space-y-3">
+                ${(domain.elements || [])
+                  .map(
+                    (element) => `<div>
+                      <p class="text-xs font-semibold text-slate-700">${esc(element.element)}</p>
+                      <p class="mt-1 text-sm text-slate-600">${esc(element.finding)}</p>
+                      <p class="mt-1 text-xs text-slate-500">Confidence ${esc(element.confidenceScore)}% · ${esc(element.rationale)}</p>
+                      ${
+                        element.citations?.length
+                          ? `<ul class="mt-1.5 space-y-1 text-xs">${element.citations
+                              .map((citation) => `<li>${citationLink(citation)}</li>`)
+                              .join('')}</ul>`
+                          : '<p class="mt-1.5 text-xs text-slate-400">No direct public source found.</p>'
+                      }
+                    </div>`,
+                  )
+                  .join('')}
+              </div>
+              ${
+                domain.informationGaps?.length
+                  ? `<p class="mt-3 text-xs text-slate-500">Gaps: ${esc(domain.informationGaps.join(' · '))}</p>`
+                  : ''
+              }
+            </section>`;
+          })
+          .join('')}
+      </div>
+    </details>`;
+}
+
 function provenanceCard(evaluation) {
   const { evidence, meta, review } = evaluation;
   const usage = meta?.usage ?? {};
@@ -619,6 +693,7 @@ function renderPanel({ error } = {}) {
          ${driversCard(review)}
          ${actionsCard(review)}
          ${contextCard(review)}
+         ${evidenceDossierCard(state.evaluation)}
          ${provenanceCard(state.evaluation)}
        </div>`,
     );
@@ -627,8 +702,9 @@ function renderPanel({ error } = {}) {
       <div class="card card-pad">
         <p class="text-sm text-slate-600">
           No review yet for this trial. Running one retrieves evidence from Paperclip across
-          registry records, FDA review documents and the literature, then scores six rubric
-          dimensions and produces a calibrated probability of completing clinical trials.
+          registry records, FDA review documents and the literature, organizes direct citations by
+          CLARITY domain, then scores the existing rubric and produces a calibrated probability of
+          completing clinical trials.
         </p>
       </div>`);
   }
