@@ -55,11 +55,21 @@ const RADIUS = 76;
  * @param {HTMLCanvasElement} canvas
  * @param {{onSelect?: (feature: object|null) => void, onHover?: Function}} hooks
  */
+/** pLDDT-style confidence, on the scale every predictor reports it. */
+function confidenceColor(value) {
+  if (!Number.isFinite(value)) return PALETTE.faint;
+  if (value >= 90) return PALETTE.clip;
+  if (value >= 70) return PALETTE.bench;
+  if (value >= 50) return PALETTE.gap;
+  return PALETTE.stop;
+}
+
 export function createConstructViewer(canvas, hooks = {}) {
   let model = null;
   let samples = [];
   let hovered = null;
   let selected = null;
+  let backbone = null;
 
   /**
    * Precompute the backbone once per model. Doing this per frame would be fine
@@ -96,7 +106,45 @@ export function createConstructViewer(canvas, hooks = {}) {
     }
   }
 
+  /**
+   * A predicted fold, drawn as the alpha-carbon trace it actually is.
+   *
+   * Colour is the predictor's own per-residue confidence, on the convention its
+   * readers already know — so a low-confidence loop looks like a low-confidence
+   * loop rather than like structure. Nothing is smoothed or idealised; these are
+   * the coordinates the model returned.
+   */
+  function drawBackbone(ctx, frame) {
+    const points = backbone.points;
+    const projected = points.map((point) => frame.project(point.x * backbone.scale, point.y * backbone.scale, point.z * backbone.scale));
+
+    for (let i = 1; i < projected.length; i += 1) {
+      const a = projected[i - 1];
+      const b = projected[i];
+      if (!a.visible || !b.visible) continue;
+      // A break in residue numbering is a chain break, not a bond.
+      if (points[i].index - points[i - 1].index > 1) continue;
+      const alpha = depthAlpha(b.depth, 520, 2400);
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.strokeStyle = confidenceColor(points[i].confidence)(alpha);
+      ctx.lineWidth = Math.max(1.2, 4.2 * clamp(b.scale, 0.3, 1.6));
+      ctx.lineCap = 'round';
+      ctx.stroke();
+    }
+
+    const first = projected[0];
+    const last = projected[projected.length - 1];
+    if (first?.visible) drawLabel(ctx, 'N', first.x, first.y - 10, { size: 10, color: PALETTE.faint(), mono: true });
+    if (last?.visible) drawLabel(ctx, 'C', last.x, last.y - 10, { size: 10, color: PALETTE.faint(), mono: true });
+  }
+
   function draw(ctx, frame) {
+    if (backbone?.points?.length) {
+      drawBackbone(ctx, frame);
+      return;
+    }
     if (!model || !samples.length) {
       drawLabel(ctx, 'No construct resolved', frame.width / 2, frame.height / 2, {
         size: 12,
@@ -245,10 +293,33 @@ export function createConstructViewer(canvas, hooks = {}) {
     stage,
     setModel(next) {
       model = next ?? null;
+      backbone = null;
       hovered = null;
       selected = null;
       build();
       stage.setDistance(String(model?.unit).toLowerCase() === 'aa' ? 820 : 940);
+    },
+    /**
+     * Show a predicted fold instead of the schematic. Coordinates arrive in
+     * ångströms around an arbitrary origin, so they are centred and scaled into
+     * the stage's world units before anything is drawn.
+     */
+    setBackbone(points) {
+      if (!Array.isArray(points) || points.length < 2) {
+        backbone = null;
+        return;
+      }
+      const centre = points.reduce(
+        (acc, point) => ({ x: acc.x + point.x / points.length, y: acc.y + point.y / points.length, z: acc.z + point.z / points.length }),
+        { x: 0, y: 0, z: 0 },
+      );
+      const centred = points.map((point) => ({ ...point, x: point.x - centre.x, y: point.y - centre.y, z: point.z - centre.z }));
+      const extent = Math.max(...centred.map((point) => Math.hypot(point.x, point.y, point.z)), 1);
+      backbone = { points: centred, scale: 300 / extent };
+      stage.setDistance(900);
+    },
+    get hasBackbone() {
+      return Boolean(backbone?.points?.length);
     },
     get selected() {
       return selected;

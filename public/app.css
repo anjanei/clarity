@@ -650,6 +650,13 @@ body::after {
 .chain-step:last-child::after { display: none; }
 .chain-step[data-missing="true"]::before { background: var(--color-unknown); box-shadow: 0 0 0 3px rgb(var(--tint) / 0.06); }
 
+/* A passage that was checked against its source, not just asserted about it. */
+.quote-span {
+  @apply mb-2 rounded-lg py-2 pl-3 pr-2.5;
+  background: rgb(var(--tint) / 0.04);
+  box-shadow: inset 2px 0 0 0 var(--color-clip-400);
+}
+
 /* --- gene model viewer ----------------------------------------------------*/
 
 .gene-stage {

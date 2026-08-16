@@ -236,6 +236,79 @@ function calibrationBridge(probability) {
     </div>`;
 }
 
+/* --------------------------------------------------------------- grounding */
+
+/**
+ * The chain today ends at "this document". Grounding takes it to "this
+ * sentence": Modal is asked which passage of the retained source text supports
+ * the claim, and the server refuses any span whose quote is not verbatim in that
+ * passage. So a quote shown here was checked against the document, not just
+ * asserted about it — and where nothing survives that check, the step says the
+ * passage could not be located rather than showing an approximation.
+ */
+let groundingAvailable = false;
+
+export function enableGrounding(value) {
+  groundingAvailable = Boolean(value);
+}
+
+function groundStep(claim, trialId, domainId) {
+  if (!groundingAvailable || !claim || !trialId) return '';
+  return step(
+    'Quoted passage',
+    `<button type="button" class="btn-quiet" data-ground
+       data-claim="${esc(claim)}" data-trial="${esc(trialId)}" data-domain="${esc(domainId ?? '')}">
+       locate the exact sentence
+     </button>
+     <div class="ground-result mt-2"></div>`,
+  );
+}
+
+async function runGrounding(button) {
+  const host = button.parentElement?.querySelector('.ground-result');
+  if (!host) return;
+  button.disabled = true;
+  button.textContent = 'searching the retained text…';
+
+  try {
+    const response = await fetch(`/api/ground/${encodeURIComponent(button.dataset.trial)}`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', accept: 'application/json' },
+      body: JSON.stringify({ claim: button.dataset.claim, domainId: button.dataset.domain || undefined }),
+    });
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(body.message || `Request failed (${response.status})`);
+
+    if (!body.spans?.length) {
+      host.innerHTML = `<p class="text-[12px] leading-relaxed text-faint">
+        No passage in the retained source text was verified to contain this claim verbatim.
+        ${body.rejected ? `${body.rejected} candidate${body.rejected === 1 ? '' : 's'} were rejected as non-verbatim.` : ''}
+      </p>`;
+    } else {
+      host.innerHTML = `${body.spans
+        .map(
+          (span) => `<blockquote class="quote-span">
+            <p class="text-[12px] leading-relaxed text-ink prose-wrap">“${esc(span.quote)}”</p>
+            <p class="mt-1 font-mono text-[10px] text-ghost prose-wrap">
+              ${esc(span.title || span.id)} · characters ${span.start}–${span.end}${span.score != null ? ` · score ${span.score}` : ''}
+            </p>
+          </blockquote>`,
+        )
+        .join('')}
+      ${
+        body.rejected
+          ? `<p class="mt-1.5 font-mono text-[10px] text-gap">${body.rejected} further candidate${body.rejected === 1 ? '' : 's'} rejected: the quote was not verbatim in the passage.</p>`
+          : ''
+      }`;
+    }
+    button.remove();
+  } catch (error) {
+    host.innerHTML = `<p class="text-[12px] leading-relaxed text-gap prose-wrap">${esc(error.message)}</p>`;
+    button.disabled = false;
+    button.textContent = 'try again';
+  }
+}
+
 /* ----------------------------------------------------------------- drawer */
 
 let openDrawer = null;
@@ -277,7 +350,9 @@ function mount(title, subtitle, bodyHtml) {
   document.body.style.overflow = 'hidden';
   document.addEventListener('keydown', onKey);
   wrap.addEventListener('click', (event) => {
-    if (event.target.closest('[data-close]')) close();
+    if (event.target.closest('[data-close]')) return close();
+    const ground = event.target.closest('[data-ground]');
+    if (ground) runGrounding(ground);
   });
   wrap.querySelector('.drawer')?.focus?.();
 }
@@ -299,6 +374,7 @@ export function proveClaim({ evaluation, claim, sourceText, context }) {
     `<div>
        ${step('Claim', `<p class="prose-wrap">${esc(claim)}</p>`)}
        ${citationStep(sources, index)}
+       ${groundStep(claim, evaluation?.trial?.trialId, context?.domainId)}
        ${extractionStep(matches)}
        ${retrievalStep(sections)}
        ${runStep(evaluation)}

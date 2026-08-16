@@ -457,6 +457,8 @@ and never reach the middleware.
 | `GET /api/pipeline?phase=` | CLARITY topology the lab graph is drawn from |
 | `GET /api/benchmarks` | Distributions across every cached review |
 | `GET /api/benchling/status` | Benchling credential presence and reachability, without exposing secrets |
+| `POST /api/structure/:trialId/predict` | Fold a real sequence on Modal · **guarded**, 503 when unconfigured |
+| `POST /api/ground/:trialId` | Ground a claim to a verbatim passage on Modal · **guarded**, 503 when unconfigured |
 | `GET /api/gene-model/:trialId` | Live Benchling construct when matched; otherwise a labelled derived schematic |
 | `GET /api/evaluations/:trialId` | Cached review, 404 if none |
 | `GET /api/evaluations/:trialId/traces` | Available trace summaries |
@@ -487,6 +489,10 @@ Concurrent requests for the same trial share one run, so a double-click does not
 | `PUBLIC_RUNS` | `on` | `off` serves cached reviews only |
 | `RUN_LIMIT` / `RUN_WINDOW_MS` | `6` / `600000` | Run starts per address per window |
 | `RUN_CONCURRENCY` | `2` | Concurrent reviews per instance |
+| `MODAL_ENDPOINT_URL` | — | Deployed Modal endpoint; both Modal surfaces are inert without it |
+| `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` | — | Proxy token pair (`wk-…` / `ws-…`), server-side only |
+| `MODAL_MODE` | `json` | `json` posts the task as-is; `openai` wraps it as a chat completion |
+| `MODAL_TIMEOUT_MS` | `120000` | GPU jobs are slow; this is the ceiling |
 | `BENCHLING_TENANT` | — | Tenant subdomain or origin; required for live Benchling calls |
 | `BENCHLING_API_KEY` | — | Personal key, server-side only, HTTP Basic |
 | `BENCHLING_CLIENT_ID` / `BENCHLING_CLIENT_SECRET` | — | Benchling App OAuth pair |
@@ -510,6 +516,57 @@ review data, not a source artifact to commit.
 
 `TRACE_MODE=metadata` keeps timing and token diagnostics for every run without storing prompts or
 source text. `TRACE_MODE=full` makes complete tracing the server default.
+
+</details>
+
+<details>
+<summary><b>Modal — the second compute provider (optional)</b></summary>
+
+<br>
+
+Claude does the reading and the judgement. Modal carries the two jobs that want a
+GPU rather than a language model, and both are **off unless configured**:
+
+**Fold.** A real sequence in, a structure out. The construct panel gains a
+*predict fold* control, and the result renders as the alpha-carbon trace it
+actually is, coloured by the predictor's own per-residue confidence. A derived
+schematic has no sequence, so there is nothing to fold and the route says so
+(`422 no_sequence`) rather than folding something plausible and labelling it with
+the construct's name. A predicted fold is a **hypothesis about the molecule**, is
+labelled as such in the panel, and never replaces a Benchling-resolved sequence.
+
+**Ground.** Today the proof chain ends at *"this document"*. Grounding takes it to
+*"this sentence"*: Modal is asked which passage of the retained source text
+supports a claim, and **the server refuses any span whose quote is not verbatim in
+that passage**, reporting how many candidates it rejected. A grounding model that
+paraphrases is producing a citation that does not exist — which is the exact
+failure the whole pipeline is built to prevent — so the check is not optional and
+not client-side. Passage text only exists where a run captured a **full trace**; a
+cached review keeps retrieval metadata, not source text, and the route says that
+too (`409 no_retained_text`).
+
+Both routes sit behind the same rate limit, concurrency cap and kill switch as the
+review routes, because both cost GPU seconds.
+
+```bash
+MODAL_ENDPOINT_URL=https://<workspace>--<app>-<fn>.modal.run
+MODAL_TOKEN_ID=wk-...        # proxy token id
+MODAL_TOKEN_SECRET=ws-...    # shown once at creation
+MODAL_MODE=json              # or `openai` for OpenAI-compatible Auto Endpoints
+```
+
+> **Never commit these.** On Vercel they are project environment variables. The
+> browser cannot reach Modal at all — the content policy is `connect-src 'self'` —
+> so every call proxies through the server, which is where the secret belongs.
+> `/api/health` reports presence booleans and the host, never the token, and any
+> token-shaped string is redacted before it can reach a log line or an error body.
+
+The worker contract, if you are deploying your own:
+
+| Task | Request | Response |
+| --- | --- | --- |
+| `fold` | `{task, sequence, name, unit}` | `{format: "pdb"\|"mmcif", data, plddt?, mean_plddt?, model?}` |
+| `ground` | `{task, claim, passages: [{id, title, text}]}` | `{spans: [{id, quote, score?}]}` |
 
 </details>
 

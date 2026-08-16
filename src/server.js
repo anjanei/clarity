@@ -6,6 +6,8 @@ import { config, paths } from './config.js';
 import { trialsRouter } from './routes/trials.js';
 import { evaluateRouter } from './routes/evaluate.js';
 import { labRouter } from './routes/lab.js';
+import { modalRouter } from './routes/modal.js';
+import { modalStatus } from './modal/client.js';
 import { loadCatalog } from './catalog/store.js';
 import { checkConnection } from './paperclip/tools.js';
 import { checkBenchling } from './benchling/client.js';
@@ -57,6 +59,7 @@ export function createApp() {
   app.use('/api', trialsRouter);
   app.use('/api', evaluateRouter);
   app.use('/api', labRouter);
+  app.use('/api', modalRouter);
 
   app.get('/api/health', async (_req, res) => {
     const catalog = await loadCatalog().catch(() => null);
@@ -89,6 +92,7 @@ export function createApp() {
         ? { generatedAt: catalog.generatedAt, trials: catalog.trials.length }
         : null,
       paperclip,
+      modal: modalStatus(),
       benchling: await checkBenchling().catch((err) => ({ configured: false, error: err.message })),
     });
   });

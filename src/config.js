@@ -54,6 +54,27 @@ export const config = {
     concurrent: Math.max(1, Number(process.env.RUN_CONCURRENCY) || 2),
   },
 
+  // Modal is the second compute provider, alongside Claude. It carries the two
+  // jobs that want a GPU rather than a language model: folding a sequence into a
+  // structure, and grounding a reviewer's claim to the exact passage that
+  // supports it. Both are additive — every surface that uses Modal has a defined
+  // behaviour when it is not configured, and that is the default.
+  modal: {
+    // The deployed endpoint's URL. Modal web functions are
+    // https://<workspace>--<app>-<fn>.modal.run; Auto Endpoints are
+    // https://<endpoint>.<region>.modal.direct.
+    url: (process.env.MODAL_ENDPOINT_URL || '').replace(/\/+$/, ''),
+    // Proxy-auth token pair. The id is `wk-…`, the secret `ws-…`; the secret is
+    // shown once at creation and lives only in the server environment.
+    tokenId: process.env.MODAL_TOKEN_ID || '',
+    tokenSecret: process.env.MODAL_TOKEN_SECRET || '',
+    // `json` posts the task payload as-is. `openai` wraps it as a chat
+    // completion, which is what Modal's OpenAI-compatible endpoints expect.
+    mode: (process.env.MODAL_MODE || 'json').toLowerCase() === 'openai' ? 'openai' : 'json',
+    model: process.env.MODAL_MODEL || '',
+    timeoutMs: Math.max(1000, Number(process.env.MODAL_TIMEOUT_MS) || 120_000),
+  },
+
   // Benchling is tenant-scoped: the same app credentials are meaningless without
   // knowing which tenant to authenticate against. Absent a tenant the gene-model
   // panel renders modality-derived schematics and says so, rather than guessing.
@@ -65,6 +86,10 @@ export const config = {
     appId: process.env.BENCHLING_APP_ID || '',
   },
 };
+
+/** Modal needs a destination and both halves of the proxy token to be usable. */
+export const modalConfigured = () =>
+  Boolean(config.modal.url && config.modal.tokenId && config.modal.tokenSecret);
 
 export const benchlingConfigured = () =>
   Boolean(

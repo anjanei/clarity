@@ -17,7 +17,7 @@ import { createCrew } from './lab/agents.js';
 import { createConstructViewer } from './lab/genome3d.js';
 import { createPipelineGraph } from './lab/graph.js';
 import { renderGeneModel } from './lab/genome.js';
-import { proveClaim, proveDomain, proveProbability, registerPipeline } from './lab/proof.js';
+import { enableGrounding, proveClaim, proveDomain, proveProbability, registerPipeline } from './lab/proof.js';
 import {
   benchmarkDomains,
   benchmarkStrip,
@@ -182,6 +182,8 @@ function renderStatus(health) {
   if (health.benchling?.reachable) chips.push(chip('Benchling live', 'bench'));
   else if (health.benchling?.configured) chips.push(chip('Benchling configured', 'gap'));
   else chips.push(chip('Derived structures', 'unknown'));
+  if (health.modal?.configured) chips.push(chip('Modal live', 'clip'));
+  enableGrounding(Boolean(health.modal?.configured));
   if (health.runs && health.runs.enabled === false) chips.push(chip('Cached reviews only', 'gap'));
   el.statusStrip.innerHTML = chips.join('');
   renderSelectedTrial();
@@ -999,7 +1001,15 @@ function structureTab() {
         <canvas id="construct-canvas" tabindex="0" role="img" aria-label="Three-dimensional view of ${esc(model.name)}"></canvas>
         <p id="construct-readout" class="construct-readout"></p>
       </div>
-      <p class="mt-2 font-mono text-[10px] text-ghost">drag to turn · scroll to zoom · the flat map below is the measurable view</p>
+      <div class="mt-2 flex flex-wrap items-center justify-between gap-2">
+        <p class="font-mono text-[10px] text-ghost">drag to turn · scroll to zoom · the flat map below is the measurable view</p>
+        ${
+          state.health?.modal?.configured
+            ? `<button type="button" class="btn-quiet" data-predict-structure>predict fold</button>`
+            : ''
+        }
+      </div>
+      <div id="fold-status" class="mt-2"></div>
     </section>
     <div id="gene-model-flat"></div>`;
 }
@@ -1021,6 +1031,57 @@ function mountStructure() {
   });
   if (constructViewer) constructViewer.setModel(state.geneModel.model);
   else if (readout) readout.textContent = 'Three-dimensional view unavailable in this browser — the flat map below is complete.';
+
+  document.querySelector('[data-predict-structure]')?.addEventListener('click', predictStructure);
+}
+
+/**
+ * Ask Modal to fold the construct. A predicted fold is a hypothesis about the
+ * molecule, so it replaces the schematic only under its own label — and the
+ * refusals (no sequence, not configured, upstream failure) are reported as
+ * refusals rather than quietly leaving the old picture up.
+ */
+async function predictStructure(event) {
+  const button = event.currentTarget;
+  const status = document.getElementById('fold-status');
+  if (!state.selected || !status) return;
+
+  button.disabled = true;
+  button.textContent = 'folding…';
+  status.innerHTML = `<p class="text-[11px] text-faint">Folding on Modal. This runs on a GPU and can take a minute.</p>`;
+
+  try {
+    const response = await fetch(`/api/structure/${encodeURIComponent(state.selected.trialId)}/predict`, {
+      method: 'POST',
+      headers: { accept: 'application/json' },
+    });
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(body.message || `Request failed (${response.status})`);
+
+    const structure = body.structure ?? {};
+    if (!structure.backbone?.length) throw new Error('Modal returned a structure with no backbone to draw.');
+
+    constructViewer?.setBackbone(structure.backbone);
+    status.innerHTML = `
+      <div class="inset px-3 py-2.5">
+        <div class="flex flex-wrap items-center gap-1.5">
+          ${chip('Predicted fold', 'gap')}
+          ${structure.model ? chip(structure.model, 'clip') : ''}
+          ${chip(`${num(structure.residues)} residues`, 'unknown')}
+          ${structure.meanConfidence != null ? chip(`mean ${Math.round(structure.meanConfidence)}`, 'info') : ''}
+        </div>
+        <p class="mt-2 text-[11px] leading-relaxed text-faint">
+          This is a model's prediction from the Benchling sequence, not a solved structure and not an
+          observation of the clinical product. Colour is the predictor's own per-residue confidence.
+        </p>
+      </div>`;
+    button.textContent = 'refold';
+  } catch (error) {
+    status.innerHTML = `<p class="text-[11px] leading-relaxed text-gap prose-wrap">${esc(error.message)}</p>`;
+    button.textContent = 'predict fold';
+  } finally {
+    button.disabled = false;
+  }
 }
 
 /* -- benchmarks tab ------------------------------------------------------ */
