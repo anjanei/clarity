@@ -1,0 +1,983 @@
+<title>CLARITY System Map</title>
+
+<style>
+  /* ==========================================================================
+     CLARITY — system map
+
+     Inherits the product's own instrument identity rather than inventing a
+     second one. The two rules that carry over and do all the work:
+
+       1. Colour is semantic, never decorative. Cyan is retrieval, coral is
+          reasoning, lime is structure; amber and red belong to the risk and
+          guard scale and are never spent on chrome.
+       2. Measured things are set in mono, written things in grotesk.
+
+     Dark-committed on purpose — this is the lab's own document — so every
+     colour is painted explicitly and the page holds on either host ground.
+     ========================================================================== */
+
+  :root {
+    --ground:  oklch(0.125 0.014 250);
+    --panel:   oklch(0.165 0.015 250);
+    --sunken:  oklch(0.105 0.014 250);
+    --edge:    oklch(1 0 0 / 0.1);
+    --edge-2:  oklch(1 0 0 / 0.18);
+
+    --ink:   oklch(0.97 0.004 250);
+    --muted: oklch(0.76 0.012 250);
+    --faint: oklch(0.62 0.014 250);
+    --ghost: oklch(0.48 0.012 250);
+
+    --clip:   oklch(0.86 0.13 195);
+    --claude: oklch(0.82 0.13 45);
+    --bench:  oklch(0.88 0.16 140);
+    --lit:    oklch(0.78 0.12 288);
+    --reg:    oklch(0.84 0.14 78);
+    --stop:   oklch(0.68 0.19 22);
+
+    --grotesk: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--grotesk);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: clamp(2rem, 5vw, 4.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
+
+  header.top { border-bottom: 1px solid var(--edge); padding-bottom: 2rem; margin-bottom: 3rem; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    color: var(--clip);
+    margin: 0 0 0.9rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.6vw, 3.1rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    font-weight: 350;
+    margin: 0 0 1rem;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  h1 b { font-weight: 600; }
+
+  h2 {
+    font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+    letter-spacing: -0.025em;
+    font-weight: 420;
+    margin: 0 0 0.5rem;
+    text-wrap: balance;
+  }
+
+  h3 {
+    font-size: 1.02rem;
+    font-weight: 570;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.4rem;
+  }
+
+  p { margin: 0 0 1rem; color: var(--muted); max-width: 72ch; }
+  p.lede { font-size: 1.06rem; color: var(--muted); max-width: 74ch; }
+  p:last-child { margin-bottom: 0; }
+
+  section.band { margin-top: 3.6rem; }
+  section.band > .head { margin-bottom: 1.5rem; }
+
+  .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--ghost);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    color: var(--clip);
+    background: oklch(0.86 0.13 195 / 0.09);
+    border: 1px solid oklch(0.86 0.13 195 / 0.18);
+    border-radius: 4px;
+    padding: 0.05em 0.36em;
+    overflow-wrap: anywhere;
+  }
+
+  figure {
+    margin: 0 0 1.4rem;
+    background: var(--panel);
+    border: 1px solid var(--edge);
+    border-radius: 14px;
+    padding: clamp(1rem, 2.4vw, 1.8rem);
+    overflow-x: auto;
+  }
+  figure svg { width: 100%; height: auto; display: block; min-width: 560px; }
+  figcaption {
+    margin-top: 1rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--edge);
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: var(--faint);
+    max-width: 78ch;
+  }
+  figcaption b { color: var(--muted); font-weight: 550; }
+
+  .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--edge);
+    border-radius: 12px;
+    padding: 1.1rem 1.25rem;
+  }
+  .card .tag {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.6rem;
+  }
+  .card p { font-size: 0.88rem; margin: 0; }
+  .dot { width: 7px; height: 7px; border-radius: 99px; display: inline-block; }
+
+  .scroller { overflow-x: auto; border: 1px solid var(--edge); border-radius: 12px; background: var(--panel); }
+  table { border-collapse: collapse; width: 100%; min-width: 640px; }
+  th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--edge); vertical-align: top; }
+  thead th {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--faint);
+    font-weight: 400;
+    background: var(--sunken);
+    position: sticky;
+    top: 0;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td { font-size: 0.87rem; color: var(--muted); }
+  td.k { font-family: var(--mono); font-size: 0.8rem; color: var(--ink); white-space: nowrap; }
+  td .mono { font-family: var(--mono); font-size: 0.8rem; }
+
+  .pill {
+    font-family: var(--mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    padding: 0.1em 0.4em;
+    white-space: nowrap;
+  }
+  .pill.get { color: var(--clip); }
+  .pill.post { color: var(--claude); }
+  .pill.guard { color: var(--stop); }
+  .pill.open { color: var(--ghost); }
+
+  ul.plain { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  ul.plain li {
+    display: grid;
+    grid-template-columns: 1.1rem 1fr;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    align-items: baseline;
+  }
+  ul.plain li b { color: var(--ink); font-weight: 550; }
+  ul.plain .m { font-family: var(--mono); font-size: 0.8rem; color: var(--bench); }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.1rem;
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+    color: var(--faint);
+    margin-bottom: 1.4rem;
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 0.45rem; }
+
+  footer.foot {
+    margin-top: 4.5rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--edge);
+    font-size: 0.82rem;
+    color: var(--ghost);
+  }
+
+  /* SVG shared classes */
+  .s-box { fill: oklch(0.19 0.016 250); stroke: oklch(1 0 0 / 0.16); stroke-width: 1; }
+  .s-box-deep { fill: oklch(0.1 0.014 250); stroke: oklch(1 0 0 / 0.12); stroke-width: 1; }
+  .s-t { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 12px; fill: oklch(0.97 0.004 250); }
+  .s-t-sm { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 9.5px; fill: oklch(0.62 0.014 250); }
+  .s-t-mid { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; fill: oklch(0.76 0.012 250); }
+  .s-lbl { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 9px; fill: oklch(0.62 0.014 250); letter-spacing: 0.04em; }
+  .s-line { stroke: oklch(0.55 0.012 250); stroke-width: 1.3; fill: none; }
+  .s-line-dash { stroke: oklch(0.5 0.012 250); stroke-width: 1.2; fill: none; stroke-dasharray: 4 4; }
+
+  @media print {
+    body { background: #fff; color: #111; }
+    figure { break-inside: avoid; }
+  }
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">System map · generated from source, not from memory</p>
+  <h1>How <b>CLARITY</b> turns a registry ID into a cited, auditable review.</h1>
+  <p class="lede">
+    Every box, arrow, guard and version string below was read out of this repository at
+    rubric&nbsp;<code>v2.0.0</code> / dossier&nbsp;<code>v1.0.0</code>. Where a constraint is enforced in
+    code rather than asked for in a prompt, the diagram says so — those are the parts that cannot be
+    argued past.
+  </p>
+</header>
+
+<div class="legend">
+  <span><span class="dot" style="background: var(--clip)"></span>retrieval</span>
+  <span><span class="dot" style="background: var(--claude)"></span>reasoning</span>
+  <span><span class="dot" style="background: var(--bench)"></span>structure</span>
+  <span><span class="dot" style="background: var(--reg)"></span>persistence</span>
+  <span><span class="dot" style="background: var(--stop)"></span>guard / refusal</span>
+  <span><span class="dot" style="background: var(--lit)"></span>source document</span>
+</div>
+
+<!-- ==================================================================== 1 -->
+<section class="band">
+  <div class="head">
+    <span class="num">01 — THE WHOLE RUN</span>
+    <h2>One request, end to end</h2>
+    <p>
+      The path a review actually takes, from the click to the four things it leaves behind. The three
+      compute stages are the spine; everything hanging off it is a guard, a cache, or a store.
+    </p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 1000 700" role="img" aria-label="End-to-end flow of one CLARITY review: browser opens an SSE stream, three guards admit it, an in-flight dedupe and version-checked cache may short-circuit, otherwise retrieval, extraction and scoring run in sequence, and the result is written to four stores.">
+      <defs>
+        <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="oklch(0.55 0.012 250)"/>
+        </marker>
+        <marker id="a-clip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="oklch(0.86 0.13 195)"/>
+        </marker>
+        <marker id="a-stop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="oklch(0.68 0.19 22)"/>
+        </marker>
+        <marker id="a-reg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="oklch(0.84 0.14 78)"/>
+        </marker>
+      </defs>
+
+      <!-- client -->
+      <rect class="s-box" x="20" y="24" width="180" height="54" rx="9"/>
+      <text class="s-t" x="36" y="46">Browser · the lab</text>
+      <text class="s-t-sm" x="36" y="63">app.js · EventSource</text>
+
+      <line class="s-line" x1="200" y1="51" x2="268" y2="51" marker-end="url(#a)"/>
+      <text class="s-lbl" x="204" y="43">GET …/stream</text>
+
+      <!-- guards -->
+      <rect x="268" y="14" width="286" height="74" rx="9" fill="oklch(0.68 0.19 22 / 0.07)" stroke="oklch(0.68 0.19 22 / 0.4)" stroke-width="1"/>
+      <text class="s-lbl" x="280" y="30" fill="oklch(0.68 0.19 22)">GUARD CHAIN · the only routes that spend money</text>
+      <rect class="s-box" x="278" y="38" width="82" height="40" rx="7"/>
+      <text class="s-t-sm" x="288" y="54">runSwitch</text>
+      <text class="s-t-sm" x="288" y="68">PUBLIC_RUNS</text>
+      <rect class="s-box" x="368" y="38" width="82" height="40" rx="7"/>
+      <text class="s-t-sm" x="378" y="54">rateLimit</text>
+      <text class="s-t-sm" x="378" y="68">6 / 10 min</text>
+      <rect class="s-box" x="458" y="38" width="86" height="40" rx="7"/>
+      <text class="s-t-sm" x="468" y="54">concurrency</text>
+      <text class="s-t-sm" x="468" y="68">max 2</text>
+
+      <line class="s-line" x1="554" y1="51" x2="620" y2="51" marker-end="url(#a)"/>
+
+      <!-- dedupe -->
+      <rect class="s-box" x="620" y="24" width="180" height="54" rx="9"/>
+      <text class="s-t" x="636" y="46">in-flight dedupe</text>
+      <text class="s-t-sm" x="636" y="63">key: trialId : mode</text>
+
+      <path class="s-line-dash" d="M 710 78 L 710 100 L 300 100 L 300 122" marker-end="url(#a)"/>
+      <text class="s-lbl" x="480" y="95">a second caller joins the same run</text>
+
+      <!-- cache -->
+      <rect class="s-box" x="210" y="122" width="240" height="58" rx="9"/>
+      <text class="s-t" x="226" y="145">cached review?</text>
+      <text class="s-t-sm" x="226" y="162">dossierVersion must match</text>
+
+      <line class="s-line" x1="450" y1="151" x2="700" y2="151" marker-end="url(#a-reg)" stroke="oklch(0.84 0.14 78)"/>
+      <text class="s-lbl" x="500" y="143" fill="oklch(0.84 0.14 78)">hit → short-circuit, still writes an audit</text>
+
+      <line class="s-line" x1="330" y1="180" x2="330" y2="214" marker-end="url(#a-clip)" stroke="oklch(0.86 0.13 195)"/>
+      <text class="s-lbl" x="338" y="202" fill="oklch(0.86 0.13 195)">miss / force=1</text>
+
+      <!-- STAGE 1 -->
+      <rect x="60" y="214" width="880" height="96" rx="11" fill="oklch(0.86 0.13 195 / 0.06)" stroke="oklch(0.86 0.13 195 / 0.35)"/>
+      <text class="s-lbl" x="76" y="234" fill="oklch(0.86 0.13 195)">STAGE 1 · RETRIEVAL — gatherEvidence() · sees the open corpus</text>
+      <rect class="s-box-deep" x="76" y="244" width="150" height="52" rx="7"/>
+      <text class="s-t-sm" x="88" y="264">phase gate</text>
+      <text class="s-t-sm" x="88" y="278">9 domains → active</text>
+      <line class="s-line" x1="226" y1="270" x2="256" y2="270" marker-end="url(#a)"/>
+      <rect class="s-box-deep" x="256" y="244" width="160" height="52" rx="7"/>
+      <text class="s-t-sm" x="268" y="264">search × scope</text>
+      <text class="s-t-sm" x="268" y="278">concurrency 4</text>
+      <line class="s-line" x1="416" y1="270" x2="446" y2="270" marker-end="url(#a)"/>
+      <rect class="s-box-deep" x="446" y="244" width="160" height="52" rx="7"/>
+      <text class="s-t-sm" x="458" y="264">map --from</text>
+      <text class="s-t-sm" x="458" y="278">reduce --from</text>
+      <line class="s-line" x1="606" y1="270" x2="636" y2="270" marker-end="url(#a)"/>
+      <rect class="s-box-deep" x="636" y="244" width="176" height="52" rx="7"/>
+      <text class="s-t-sm" x="648" y="264">evidence bundle</text>
+      <text class="s-t-sm" x="648" y="278">sections + stats</text>
+      <rect x="828" y="244" width="98" height="52" rx="7" fill="oklch(0.68 0.19 22 / 0.1)" stroke="oklch(0.68 0.19 22 / 0.5)"/>
+      <text class="s-t-sm" x="838" y="264" fill="oklch(0.68 0.19 22)">0 sections</text>
+      <text class="s-t-sm" x="838" y="278" fill="oklch(0.68 0.19 22)">→ throw</text>
+
+      <line class="s-line" x1="500" y1="310" x2="500" y2="338" marker-end="url(#a-clip)" stroke="oklch(0.86 0.13 195)"/>
+      <text class="s-lbl" x="510" y="329">only what was retrieved crosses</text>
+
+      <!-- STAGE 2 -->
+      <rect x="60" y="338" width="880" height="96" rx="11" fill="oklch(0.82 0.13 45 / 0.06)" stroke="oklch(0.82 0.13 45 / 0.35)"/>
+      <text class="s-lbl" x="76" y="358" fill="oklch(0.82 0.13 45)">STAGE 2 · EXTRACTION — synthesizeEvidenceDossier() · one pass per domain, sees only its own packet</text>
+      <rect class="s-box-deep" x="76" y="368" width="176" height="52" rx="7"/>
+      <text class="s-t-sm" x="88" y="388">orchestrator SKILL</text>
+      <text class="s-t-sm" x="88" y="402">cached prefix</text>
+      <line class="s-line" x1="252" y1="394" x2="282" y2="394" marker-end="url(#a)"/>
+      <rect class="s-box-deep" x="282" y="368" width="176" height="52" rx="7"/>
+      <text class="s-t-sm" x="294" y="388">domain SKILL.md</text>
+      <text class="s-t-sm" x="294" y="402">effort: low · conc. 2</text>
+      <line class="s-line" x1="458" y1="394" x2="488" y2="394" marker-end="url(#a)"/>
+      <rect class="s-box-deep" x="488" y="368" width="190" height="52" rx="7"/>
+      <text class="s-t-sm" x="500" y="388">one entry per element</text>
+      <text class="s-t-sm" x="500" y="402">strict JSON schema</text>
+      <line class="s-line" x1="678" y1="394" x2="708" y2="394" marker-end="url(#a)"/>
+      <rect x="708" y="368" width="218" height="52" rx="7" fill="oklch(0.68 0.19 22 / 0.1)" stroke="oklch(0.68 0.19 22 / 0.5)"/>
+      <text class="s-t-sm" x="720" y="388" fill="oklch(0.68 0.19 22)">no resolvable https citation</text>
+      <text class="s-t-sm" x="720" y="402" fill="oklch(0.68 0.19 22)">→ “Not found in public sources”</text>
+
+      <line class="s-line" x1="500" y1="434" x2="500" y2="462" marker-end="url(#a)" stroke="oklch(0.82 0.13 45)"/>
+      <text class="s-lbl" x="510" y="453">cited dossier only — no raw corpus</text>
+
+      <!-- STAGE 3 -->
+      <rect x="60" y="462" width="880" height="96" rx="11" fill="oklch(0.84 0.14 78 / 0.06)" stroke="oklch(0.84 0.14 78 / 0.35)"/>
+      <text class="s-lbl" x="76" y="482" fill="oklch(0.84 0.14 78)">STAGE 3 · SCORING — structuredCall() · sees the trial record and the cited dossier, nothing else</text>
+      <rect class="s-box-deep" x="76" y="492" width="180" height="52" rx="7"/>
+      <text class="s-t-sm" x="88" y="512">reviewer persona</text>
+      <text class="s-t-sm" x="88" y="526">+ rubric v2.0.0 · cached</text>
+      <line class="s-line" x1="256" y1="518" x2="286" y2="518" marker-end="url(#a)"/>
+      <rect class="s-box-deep" x="286" y="492" width="176" height="52" rx="7"/>
+      <text class="s-t-sm" x="298" y="512">10 dimensions 1–5</text>
+      <text class="s-t-sm" x="298" y="526">effort: high</text>
+      <line class="s-line" x1="462" y1="518" x2="492" y2="518" marker-end="url(#a)"/>
+      <rect x="492" y="492" width="216" height="52" rx="7" fill="oklch(0.68 0.19 22 / 0.1)" stroke="oklch(0.68 0.19 22 / 0.5)"/>
+      <text class="s-t-sm" x="504" y="512" fill="oklch(0.68 0.19 22)">absent &amp;&amp; score &gt; 3 → 3</text>
+      <text class="s-t-sm" x="504" y="526" fill="oklch(0.68 0.19 22)">point clamped into [low, high]</text>
+      <line class="s-line" x1="708" y1="518" x2="738" y2="518" marker-end="url(#a)"/>
+      <rect class="s-box-deep" x="738" y="492" width="188" height="52" rx="7"/>
+      <text class="s-t-sm" x="750" y="512">weightedRubricScore</text>
+      <text class="s-t-sm" x="750" y="526">+ probability &amp; range</text>
+
+      <line class="s-line" x1="500" y1="558" x2="500" y2="590" marker-end="url(#a-reg)" stroke="oklch(0.84 0.14 78)"/>
+
+      <!-- stores -->
+      <text class="s-lbl" x="60" y="586" fill="oklch(0.84 0.14 78)">WHAT THE RUN LEAVES BEHIND</text>
+      <rect class="s-box" x="60" y="596" width="200" height="58" rx="9"/>
+      <text class="s-t-sm" x="74" y="617">data/evaluations/*.json</text>
+      <text class="s-t-sm" x="74" y="633">the cached review</text>
+      <rect class="s-box" x="276" y="596" width="200" height="58" rx="9"/>
+      <text class="s-t-sm" x="290" y="617">data/audits/ or Mongo</text>
+      <text class="s-t-sm" x="290" y="633">one record per request</text>
+      <rect class="s-box" x="492" y="596" width="200" height="58" rx="9"/>
+      <text class="s-t-sm" x="506" y="617">data/traces/…</text>
+      <text class="s-t-sm" x="506" y="633">off | metadata | full</text>
+      <rect class="s-box" x="708" y="596" width="218" height="58" rx="9"/>
+      <text class="s-t-sm" x="722" y="617">SSE progress events</text>
+      <text class="s-t-sm" x="722" y="633">drive the live graph</text>
+
+      <text class="s-lbl" x="60" y="678">Read-only filesystem (EROFS / EACCES / EPERM) → each store falls back to a process-lifetime memory cache rather than losing the run.</text>
+    </svg>
+    <figcaption>
+      <b>The spine is three compute stages that never see each other's inputs.</b> Everything to the
+      left of stage 1 exists to stop the expensive part from running: a deployment switch, a per-address
+      rate limit, a concurrency ceiling, an in-flight dedupe so a double-click pays once, and a cache
+      that is only honoured when the review on disk was produced by the current dossier version.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- ==================================================================== 2 -->
+<section class="band">
+  <div class="head">
+    <span class="num">02 — THE CENTRAL CLAIM</span>
+    <h2>What each stage is allowed to see</h2>
+    <p>
+      This is the diagram the product's argument rests on. The failure mode being designed out is not
+      bad reasoning — it is a model answering from recall with the same confidence it answers from
+      evidence. The fix is an information boundary, not a better prompt.
+    </p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 1000 330" role="img" aria-label="Three vertical lanes showing the inputs each stage can see: retrieval sees the open corpus, extraction sees only one domain's evidence packet, scoring sees only the trial record and the cited dossier. Crossed arrows show that the model's own recall and the open corpus never reach the scoring stage.">
+      <defs>
+        <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="oklch(0.55 0.012 250)"/>
+        </marker>
+      </defs>
+
+      <!-- sources -->
+      <rect class="s-box-deep" x="20" y="34" width="150" height="34" rx="6"/>
+      <text class="s-t-sm" x="32" y="55">registries · FDA</text>
+      <rect class="s-box-deep" x="20" y="76" width="150" height="34" rx="6"/>
+      <text class="s-t-sm" x="32" y="97">PMC · bioRxiv · arXiv</text>
+      <rect x="20" y="118" width="150" height="34" rx="6" fill="oklch(0.68 0.19 22 / 0.08)" stroke="oklch(0.68 0.19 22 / 0.45)"/>
+      <text class="s-t-sm" x="32" y="139" fill="oklch(0.68 0.19 22)">the model's recall</text>
+
+      <line class="s-line" x1="170" y1="51" x2="216" y2="80" marker-end="url(#b)"/>
+      <line class="s-line" x1="170" y1="93" x2="216" y2="92" marker-end="url(#b)"/>
+
+      <!-- lane 1 -->
+      <rect x="216" y="34" width="220" height="240" rx="11" fill="oklch(0.86 0.13 195 / 0.07)" stroke="oklch(0.86 0.13 195 / 0.4)"/>
+      <text class="s-lbl" x="232" y="56" fill="oklch(0.86 0.13 195)">1 · RETRIEVAL</text>
+      <text class="s-t" x="232" y="80">Paperclip over MCP</text>
+      <text class="s-t-mid" x="232" y="104">Sees the open corpus.</text>
+      <text class="s-t-mid" x="232" y="122">Assigns no score.</text>
+      <line x1="232" y1="140" x2="420" y2="140" stroke="oklch(1 0 0 / 0.14)" stroke-width="1"/>
+      <text class="s-t-sm" x="232" y="162">emits: raw sections,</text>
+      <text class="s-t-sm" x="232" y="177">result ids, commands</text>
+      <text class="s-t-sm" x="232" y="206">whatever this returns is</text>
+      <text class="s-t-sm" x="232" y="221">the entire universe of</text>
+      <text class="s-t-sm" x="232" y="236">available facts</text>
+
+      <line class="s-line" x1="436" y1="154" x2="490" y2="154" marker-end="url(#b)"/>
+      <text class="s-lbl" x="440" y="146">per domain</text>
+
+      <!-- lane 2 -->
+      <rect x="490" y="34" width="220" height="240" rx="11" fill="oklch(0.82 0.13 45 / 0.07)" stroke="oklch(0.82 0.13 45 / 0.4)"/>
+      <text class="s-lbl" x="506" y="56" fill="oklch(0.82 0.13 45)">2 · EXTRACTION</text>
+      <text class="s-t" x="506" y="80">One pass per domain</text>
+      <text class="s-t-mid" x="506" y="104">Sees only that domain's</text>
+      <text class="s-t-mid" x="506" y="122">evidence packet.</text>
+      <line x1="506" y1="140" x2="694" y2="140" stroke="oklch(1 0 0 / 0.14)" stroke-width="1"/>
+      <text class="s-t-sm" x="506" y="162">emits: findings, each with</text>
+      <text class="s-t-sm" x="506" y="177">a public identifier + URL</text>
+      <text class="s-t-sm" x="506" y="206">may not assign a score,</text>
+      <text class="s-t-sm" x="506" y="221">weight, probability or</text>
+      <text class="s-t-sm" x="506" y="236">risk rating</text>
+
+      <line class="s-line" x1="710" y1="154" x2="764" y2="154" marker-end="url(#b)"/>
+      <text class="s-lbl" x="714" y="146">cited only</text>
+
+      <!-- lane 3 -->
+      <rect x="764" y="34" width="216" height="240" rx="11" fill="oklch(0.84 0.14 78 / 0.07)" stroke="oklch(0.84 0.14 78 / 0.4)"/>
+      <text class="s-lbl" x="780" y="56" fill="oklch(0.84 0.14 78)">3 · SCORING</text>
+      <text class="s-t" x="780" y="80">The reviewer</text>
+      <text class="s-t-mid" x="780" y="104">Sees the trial record</text>
+      <text class="s-t-mid" x="780" y="122">and the cited dossier.</text>
+      <line x1="780" y1="140" x2="964" y2="140" stroke="oklch(1 0 0 / 0.14)" stroke-width="1"/>
+      <text class="s-t-sm" x="780" y="162">emits: 10 scores, a</text>
+      <text class="s-t-sm" x="780" y="177">probability and a range</text>
+      <text class="s-t-sm" x="780" y="206">never the open internet,</text>
+      <text class="s-t-sm" x="780" y="221">never its own recall</text>
+
+      <!-- blocked paths -->
+      <path class="s-line-dash" d="M 95 152 L 95 300 L 870 300 L 870 276" stroke="oklch(0.68 0.19 22)" fill="none"/>
+      <line x1="470" y1="288" x2="490" y2="312" stroke="oklch(0.68 0.19 22)" stroke-width="2"/>
+      <line x1="490" y1="288" x2="470" y2="312" stroke="oklch(0.68 0.19 22)" stroke-width="2"/>
+      <text class="s-lbl" x="506" y="296" fill="oklch(0.68 0.19 22)">this path does not exist — it is the whole design</text>
+    </svg>
+    <figcaption>
+      <b>The barred arrow is the product.</b> Nothing on the report can originate in the model's memory,
+      because the scoring call is never handed the corpus or a channel back to it. The cost of that
+      constraint is visible and intentional: when the evidence is not public, the dossier says
+      <span class="mono">“Not found in public sources”</span> and the score falls.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- ==================================================================== 3 -->
+<section class="band">
+  <div class="head">
+    <span class="num">03 — RETRIEVAL FAN-OUT</span>
+    <h2>How one domain becomes many Paperclip commands</h2>
+    <p>
+      Each active domain declares its own search steps, and each step names a <em>scope</em> that
+      expands into one or more real commands. This is why a Phase 3 asset costs far more than a
+      preclinical one — and why the expense is itemised in the trace.
+    </p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 1000 400" role="img" aria-label="Fan-out from one evidence domain through its search steps and scopes into Paperclip commands, then a deep-read map and reduce pass producing an underscore-deep section that supersedes the raw one.">
+      <defs>
+        <marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="oklch(0.55 0.012 250)"/>
+        </marker>
+      </defs>
+
+      <rect class="s-box" x="20" y="160" width="150" height="66" rx="9"/>
+      <text class="s-t" x="34" y="186">one domain</text>
+      <text class="s-t-sm" x="34" y="204">e.g. Acute Safety</text>
+      <text class="s-t-sm" x="34" y="218">&amp; Tolerability</text>
+
+      <line class="s-line" x1="170" y1="180" x2="228" y2="80" marker-end="url(#c)"/>
+      <line class="s-line" x1="170" y1="193" x2="228" y2="193" marker-end="url(#c)"/>
+      <line class="s-line" x1="170" y1="206" x2="228" y2="300" marker-end="url(#c)"/>
+      <text class="s-lbl" x="176" y="120">searches[]</text>
+
+      <!-- scopes -->
+      <rect class="s-box-deep" x="228" y="54" width="168" height="52" rx="7"/>
+      <text class="s-t-sm" x="242" y="74">scope: literature</text>
+      <text class="s-t-sm" x="242" y="90">-s pmc,arxiv</text>
+
+      <rect class="s-box-deep" x="228" y="167" width="168" height="52" rx="7"/>
+      <text class="s-t-sm" x="242" y="187">scope: registry</text>
+      <text class="s-t-sm" x="242" y="203">/trials/us + /trials/intl</text>
+
+      <rect class="s-box-deep" x="228" y="274" width="168" height="52" rx="7"/>
+      <text class="s-t-sm" x="242" y="294">scope: fda</text>
+      <text class="s-t-sm" x="242" y="310">-s fda</text>
+
+      <line class="s-line" x1="396" y1="80" x2="452" y2="98" marker-end="url(#c)"/>
+      <line class="s-line" x1="396" y1="186" x2="452" y2="140" marker-end="url(#c)"/>
+      <line class="s-line" x1="396" y1="205" x2="452" y2="182" marker-end="url(#c)"/>
+      <line class="s-line" x1="396" y1="300" x2="452" y2="224" marker-end="url(#c)"/>
+      <text class="s-lbl" x="404" y="252">registry expands to two</text>
+
+      <!-- commands -->
+      <rect x="452" y="66" width="216" height="180" rx="9" fill="oklch(0.86 0.13 195 / 0.07)" stroke="oklch(0.86 0.13 195 / 0.35)"/>
+      <text class="s-lbl" x="466" y="86" fill="oklch(0.86 0.13 195)">PAPERCLIP · concurrency 4</text>
+      <text class="s-t-sm" x="466" y="112">search …  -s pmc,arxiv</text>
+      <text class="s-t-sm" x="466" y="140">search …  /trials/us</text>
+      <text class="s-t-sm" x="466" y="168">search …  /trials/intl</text>
+      <text class="s-t-sm" x="466" y="196">search …  -s fda</text>
+      <text class="s-t-sm" x="466" y="228" fill="oklch(0.62 0.014 250)">each returns a result id</text>
+
+      <line class="s-line" x1="668" y1="156" x2="726" y2="156" marker-end="url(#c)"/>
+      <text class="s-lbl" x="672" y="148">one per domain</text>
+
+      <!-- deep read -->
+      <rect x="726" y="86" width="252" height="140" rx="9" fill="oklch(0.78 0.12 288 / 0.07)" stroke="oklch(0.78 0.12 288 / 0.4)"/>
+      <text class="s-lbl" x="740" y="106" fill="oklch(0.78 0.12 288)">DEEP READ</text>
+      <text class="s-t-sm" x="740" y="130">map --from s_… “extract every</text>
+      <text class="s-t-sm" x="740" y="144">concrete finding …”</text>
+      <line x1="740" y1="158" x2="962" y2="158" stroke="oklch(1 0 0 / 0.12)"/>
+      <text class="s-t-sm" x="740" y="178">reduce --from m_… --strategy</text>
+      <text class="s-t-sm" x="740" y="192">summarize</text>
+      <text class="s-t-sm" x="740" y="214" fill="oklch(0.78 0.12 288)">→ section key `…_deep`</text>
+
+      <path class="s-line-dash" d="M 852 226 L 852 268 L 560 268 L 560 246" marker-end="url(#c)"/>
+      <text class="s-lbl" x="580" y="284">a `_deep` section supersedes its raw parent in the domain prompt —</text>
+      <text class="s-lbl" x="580" y="298">the same evidence is never paid for twice</text>
+
+      <rect x="452" y="330" width="526" height="46" rx="8" fill="oklch(0.68 0.19 22 / 0.08)" stroke="oklch(0.68 0.19 22 / 0.4)"/>
+      <text class="s-t-sm" x="466" y="350" fill="oklch(0.68 0.19 22)">A failed reduce is not fatal — the per-paper map output stands.</text>
+      <text class="s-t-sm" x="466" y="366" fill="oklch(0.68 0.19 22)">A failed search becomes a recorded retrieval gap, not a missing domain.</text>
+    </svg>
+    <figcaption>
+      <b>Scope is the unit that fans out, not the search.</b> A single <span class="mono">registry</span>
+      step becomes two commands because the US and international indexes are separate virtual paths.
+      Every command, its timing and its full public response are recorded when tracing is on — this is
+      the bottom link of the proof chain the interface exposes.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- ==================================================================== 4 -->
+<section class="band">
+  <div class="head">
+    <span class="num">04 — PHASE GATING</span>
+    <h2>Nine domains, activated by development phase</h2>
+    <p>
+      A preclinical asset is never asked for postmarketing controls it cannot have. Inactive domains
+      are not silently skipped — they enter the dossier marked <span class="mono">not_applicable</span>,
+      so the reader can tell a missing answer from an inapplicable question.
+    </p>
+  </div>
+
+  <div class="scroller">
+    <table>
+      <thead>
+        <tr>
+          <th>CLARITY evidence domain</th>
+          <th>Active from</th>
+          <th>Pre-clinical</th>
+          <th>Phase 1</th>
+          <th>Phase 2</th>
+          <th>Phase 3</th>
+          <th>Searches</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="k">disease_context_mechanism</td><td class="mono">preclinical</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td class="mono">3</td></tr>
+        <tr><td class="k">acute_safety_tolerability</td><td class="mono">preclinical</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td class="mono">3</td></tr>
+        <tr><td class="k">product_quality_cmc</td><td class="mono">preclinical</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td class="mono">2</td></tr>
+        <tr><td class="k">trial_design</td><td class="mono">phase 1</td><td style="color:var(--ghost)">○</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td class="mono">3</td></tr>
+        <tr><td class="k">biodistribution_pharmacology</td><td class="mono">phase 1</td><td style="color:var(--ghost)">○</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td class="mono">2</td></tr>
+        <tr><td class="k">immunogenicity_special_populations</td><td class="mono">phase 1</td><td style="color:var(--ghost)">○</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td class="mono">3</td></tr>
+        <tr><td class="k">trial_integrity_governance</td><td class="mono">phase 1</td><td style="color:var(--ghost)">○</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td class="mono">3</td></tr>
+        <tr><td class="k">long_term_genetic_risk</td><td class="mono">phase 2</td><td style="color:var(--ghost)">○</td><td style="color:var(--ghost)">○</td><td style="color:var(--bench)">●</td><td style="color:var(--bench)">●</td><td class="mono">2</td></tr>
+        <tr><td class="k">benefit_risk_postmarketing</td><td class="mono">phase 3</td><td style="color:var(--ghost)">○</td><td style="color:var(--ghost)">○</td><td style="color:var(--ghost)">○</td><td style="color:var(--bench)">●</td><td class="mono">3</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:0.9rem; font-size:0.85rem; color:var(--faint)">
+    Phase strings are normalised first: <span class="mono">Early Phase 1 / Phase 1 / Phase 1/2 → phase1</span>,
+    <span class="mono">Phase 2 / Phase 2/3 → phase2</span>. Anything unmappable throws before a single
+    request is spent. The requested <em>output elements</em> also widen with phase, so the same domain
+    is asked for more at Phase 2 than at Phase 1.
+  </p>
+</section>
+
+<!-- ==================================================================== 5 -->
+<section class="band">
+  <div class="head">
+    <span class="num">05 — THE RUBRIC</span>
+    <h2>Ten weighted dimensions, checked at module load</h2>
+    <p>
+      The shape is deliberate and it is not the shape you would use for a small molecule: long-term
+      genetic risk and biodistribution carry as much weight as CMC, because for an integrating vector
+      or an <em>in vivo</em> editor those dimensions <em>are</em> the review.
+    </p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 1000 340" role="img" aria-label="Horizontal bar chart of the ten rubric dimension weights, from efficacy at 22 percent down to trial integrity at 3 percent, summing to 100 percent.">
+      <g>
+        <text class="s-t-mid" x="0" y="26">Efficacy &amp; Clinical Evidence</text>
+        <rect x="300" y="14" width="418" height="15" rx="3" fill="oklch(0.82 0.13 45)"/>
+        <text class="s-t-sm" x="728" y="26">22%</text>
+
+        <text class="s-t-mid" x="0" y="56">Safety &amp; Tolerability</text>
+        <rect x="300" y="44" width="380" height="15" rx="3" fill="oklch(0.82 0.13 45)"/>
+        <text class="s-t-sm" x="690" y="56">20%</text>
+
+        <text class="s-t-mid" x="0" y="86">Long-Term Genetic Risk</text>
+        <rect x="300" y="74" width="190" height="15" rx="3" fill="oklch(0.86 0.13 195)"/>
+        <text class="s-t-sm" x="500" y="86">10%</text>
+
+        <text class="s-t-mid" x="0" y="116">Biodistribution &amp; Pharmacology</text>
+        <rect x="300" y="104" width="190" height="15" rx="3" fill="oklch(0.86 0.13 195)"/>
+        <text class="s-t-sm" x="500" y="116">10%</text>
+
+        <text class="s-t-mid" x="0" y="146">Manufacturability &amp; CMC</text>
+        <rect x="300" y="134" width="190" height="15" rx="3" fill="oklch(0.86 0.13 195)"/>
+        <text class="s-t-sm" x="500" y="146">10%</text>
+
+        <text class="s-t-mid" x="0" y="176">PK/PD &amp; Dosing</text>
+        <rect x="300" y="164" width="152" height="15" rx="3" fill="oklch(0.88 0.16 140)"/>
+        <text class="s-t-sm" x="462" y="176">8%</text>
+
+        <text class="s-t-mid" x="0" y="206">Trial Design &amp; Regulatory Strategy</text>
+        <rect x="300" y="194" width="133" height="15" rx="3" fill="oklch(0.88 0.16 140)"/>
+        <text class="s-t-sm" x="443" y="206">7%</text>
+
+        <text class="s-t-mid" x="0" y="236">Disease Context &amp; Mechanism</text>
+        <rect x="300" y="224" width="95" height="15" rx="3" fill="oklch(0.88 0.16 140)"/>
+        <text class="s-t-sm" x="405" y="236">5%</text>
+
+        <text class="s-t-mid" x="0" y="266">Immunogenicity</text>
+        <rect x="300" y="254" width="95" height="15" rx="3" fill="oklch(0.88 0.16 140)"/>
+        <text class="s-t-sm" x="405" y="266">5%</text>
+
+        <text class="s-t-mid" x="0" y="296">Trial Integrity &amp; Governance</text>
+        <rect x="300" y="284" width="57" height="15" rx="3" fill="oklch(0.88 0.16 140)"/>
+        <text class="s-t-sm" x="367" y="296">3%</text>
+      </g>
+      <line x1="300" y1="312" x2="718" y2="312" stroke="oklch(1 0 0 / 0.16)"/>
+      <text class="s-lbl" x="300" y="330" fill="oklch(0.68 0.19 22)">Σ = 1.00 — rubric.js throws at import if this is not exactly 1.00, so the module cannot load mis-weighted.</text>
+    </svg>
+    <figcaption>
+      <b>The weight check is a module-load <span class="mono">throw</span>, not a test.</b> A rubric whose
+      weights drift cannot be deployed at all — the process fails to start. Scores themselves are
+      range-checked too: a dimension outside 1–5 raises rather than being silently clamped into the
+      weighted average.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- ==================================================================== 6 -->
+<section class="band">
+  <div class="head">
+    <span class="num">06 — HTTP SURFACE</span>
+    <h2>Every route, and what guards it</h2>
+    <p>
+      Only four routes can spend money, and all four carry the same guard chain. Everything else reads
+      a file or a constant.
+    </p>
+  </div>
+
+  <div class="scroller">
+    <table>
+      <thead>
+        <tr><th>Route</th><th>Guards</th><th>What it does</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="k"><span class="pill get">GET</span> /api/health</td><td><span class="pill open">memoised 15s</span></td><td>Probes Paperclip over MCP and Benchling; result cached (4s when degraded) and in-flight de-duplicated so the route cannot be looped into an amplifier.</td></tr>
+        <tr><td class="k"><span class="pill get">GET</span> /api/trials</td><td><span class="pill open">open</span></td><td>Filtered catalog + facets. 503 with instructions when <span class="mono">data/trials.json</span> is absent.</td></tr>
+        <tr><td class="k"><span class="pill get">GET</span> /api/trials/:trialId</td><td><span class="pill open">open</span></td><td>One catalog record.</td></tr>
+        <tr><td class="k"><span class="pill get">GET</span> /api/rubric</td><td><span class="pill open">open</span></td><td>Dimensions, weights, focus and anchors — the frontend renders labels from this, never a copy.</td></tr>
+        <tr><td class="k"><span class="pill get">GET</span> /api/pipeline</td><td><span class="pill open">open</span></td><td>The topology the graph draws, emitted from the same constants the pipeline executes, so the picture cannot drift from the run.</td></tr>
+        <tr><td class="k"><span class="pill get">GET</span> /api/benchmarks</td><td><span class="pill open">open</span></td><td>Distributions across every review on disk.</td></tr>
+        <tr><td class="k"><span class="pill get">GET</span> /api/evaluations/:id</td><td><span class="pill open">open</span></td><td>Cached review only — never triggers a run.</td></tr>
+        <tr><td class="k"><span class="pill get">GET</span> …/traces · …/traces/:tid</td><td><span class="pill open">open</span></td><td>Run-trace index and one trace.</td></tr>
+        <tr><td class="k"><span class="pill get">GET</span> …/audits · …/audits/:aid</td><td><span class="pill open">open</span></td><td>Audit index and one record; MongoDB first, filesystem then memory as fallbacks.</td></tr>
+        <tr><td class="k"><span class="pill post">POST</span> /api/evaluations/:id</td><td><span class="pill guard">run switch · rate · concurrency</span></td><td>Blocking run.</td></tr>
+        <tr><td class="k"><span class="pill get">GET</span> …/:id/stream</td><td><span class="pill guard">run switch · rate · concurrency</span></td><td>SSE run: <span class="mono">progress</span> events, then one <span class="mono">result</span> or <span class="mono">error</span>. 15s heartbeat; hang-up releases the concurrency slot.</td></tr>
+        <tr><td class="k"><span class="pill get">GET</span> /api/gene-model/:id</td><td><span class="pill open">open</span></td><td>Benchling construct when configured and matched; otherwise the modality-derived schematic, explicitly labelled.</td></tr>
+        <tr><td class="k"><span class="pill get">GET</span> /api/benchling/status</td><td><span class="pill open">open</span></td><td>Tenant reachability.</td></tr>
+        <tr><td class="k"><span class="pill post">POST</span> /api/structure/:id/predict</td><td><span class="pill guard">modal fold · rate · concurrency</span></td><td>Folds a real sequence on GPU. 503 unconfigured, <span class="mono">422</span> when no real sequence exists — it will not fold a schematic and label it with the construct's name.</td></tr>
+        <tr><td class="k"><span class="pill post">POST</span> /api/ground/:id</td><td><span class="pill guard">modal ground · rate · concurrency</span></td><td>Grounds a claim to the exact passage. <span class="mono">409</span> when the review retained no source text.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="margin-top:1rem">
+    Every response carries a CSP of <code>script-src 'self'</code>, <code>frame-ancestors 'none'</code>,
+    <code>object-src 'none'</code> and <code>base-uri 'none'</code>, plus nosniff, no-referrer and a
+    Permissions-Policy. The same headers are duplicated in the CDN config, because static files under
+    <code>public/</code> never reach the Express middleware.
+  </p>
+</section>
+
+<!-- ==================================================================== 7 -->
+<section class="band">
+  <div class="head">
+    <span class="num">07 — SIDE SYSTEMS</span>
+    <h2>Everything optional, and what happens without it</h2>
+    <p>
+      Four integrations are additive. Each one has a defined behaviour when it is absent, and absent is
+      the default — no surface breaks, and none of them silently substitutes something plausible.
+    </p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <span class="tag" style="color: var(--clip)"><span class="dot" style="background: var(--clip)"></span>Paperclip · required</span>
+      <h3>Evidence retrieval</h3>
+      <p>Hosted MCP server exposing one tool whose only argument is a CLI command string. Without a key, health reports it and runs refuse before spending anything.</p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color: var(--claude)"><span class="dot" style="background: var(--claude)"></span>Model · required</span>
+      <h3>Extraction + scoring</h3>
+      <p>Anthropic by default (<span class="mono">claude-opus-5</span>), or any OpenAI-compatible endpoint via <span class="mono">MODEL_PROVIDER</span>. Structured output with a JSON schema — no parse-and-retry loop.</p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color: var(--bench)"><span class="dot" style="background: var(--bench)"></span>Benchling · optional</span>
+      <h3>Real construct sequences</h3>
+      <p>Tenant-scoped DNA/AA sequence lookup by therapeutic name. Unconfigured or unmatched → the modality-derived schematic renders, and the panel says it is architecture only.</p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color: var(--lit)"><span class="dot" style="background: var(--lit)"></span>Modal · optional</span>
+      <h3>Two GPU jobs</h3>
+      <p>Folding a sequence into a structure, and grounding a claim to a passage. Separate endpoints and protocols per task, since a structure predictor and a language model are rarely one deployment.</p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color: var(--reg)"><span class="dot" style="background: var(--reg)"></span>MongoDB · optional</span>
+      <h3>Durable audit memory</h3>
+      <p>Every run writes an audit record. With <span class="mono">MONGODB_URI</span> set they go to a collection; otherwise to disk; and on a read-only filesystem, to a process-lifetime memory cache.</p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color: var(--ghost)"><span class="dot" style="background: var(--ghost)"></span>ClinicalTrials.gov · build-time</span>
+      <h3>Registry enrichment</h3>
+      <p>Read-only v2 API, batched 50 ids per request, no key. Registry values beat extracted ones for sponsor, phase and start date; observational studies are dropped.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================================== 8 -->
+<section class="band">
+  <div class="head">
+    <span class="num">08 — CATALOG BUILD</span>
+    <h2>The offline pipeline that fills the picker</h2>
+    <p>
+      Run separately with <code>npm run catalog</code>. It is the same philosophy in miniature: where a
+      source cannot supply a field, go to the authoritative source rather than letting a model guess
+      and calling the guess data.
+    </p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 1000 210" role="img" aria-label="Offline catalog build: broad Paperclip sweep across therapeutic areas, model extraction into a strict schema, then deterministic enrichment from the ClinicalTrials.gov v2 API, producing data slash trials dot json.">
+      <defs>
+        <marker id="d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="oklch(0.55 0.012 250)"/>
+        </marker>
+      </defs>
+
+      <rect x="16" y="50" width="196" height="86" rx="10" fill="oklch(0.86 0.13 195 / 0.07)" stroke="oklch(0.86 0.13 195 / 0.35)"/>
+      <text class="s-lbl" x="30" y="72" fill="oklch(0.86 0.13 195)">1 · SWEEP</text>
+      <text class="s-t-sm" x="30" y="94">8 area queries ×</text>
+      <text class="s-t-sm" x="30" y="110">/trials/us + /trials/intl</text>
+      <text class="s-t-sm" x="30" y="126">+ one -s fda pass</text>
+
+      <line class="s-line" x1="212" y1="93" x2="266" y2="93" marker-end="url(#d)"/>
+
+      <rect x="266" y="50" width="196" height="86" rx="10" fill="oklch(0.82 0.13 45 / 0.07)" stroke="oklch(0.82 0.13 45 / 0.35)"/>
+      <text class="s-lbl" x="280" y="72" fill="oklch(0.82 0.13 45)">2 · EXTRACT</text>
+      <text class="s-t-sm" x="280" y="94">strict-schema normalise</text>
+      <text class="s-t-sm" x="280" y="110">effort: low</text>
+      <text class="s-t-sm" x="280" y="126">absent field → “Unknown”</text>
+
+      <line class="s-line" x1="462" y1="93" x2="516" y2="93" marker-end="url(#d)"/>
+
+      <rect x="516" y="50" width="212" height="86" rx="10" fill="oklch(0.88 0.16 140 / 0.07)" stroke="oklch(0.88 0.16 140 / 0.35)"/>
+      <text class="s-lbl" x="530" y="72" fill="oklch(0.88 0.16 140)">3 · ENRICH (deterministic)</text>
+      <text class="s-t-sm" x="530" y="94">ClinicalTrials.gov v2</text>
+      <text class="s-t-sm" x="530" y="110">batched 50 ids · no key</text>
+      <text class="s-t-sm" x="530" y="126">registry header wins</text>
+
+      <line class="s-line" x1="728" y1="93" x2="782" y2="93" marker-end="url(#d)"/>
+
+      <rect class="s-box" x="782" y="50" width="200" height="86" rx="10"/>
+      <text class="s-lbl" x="796" y="72" fill="oklch(0.84 0.14 78)">4 · WRITE</text>
+      <text class="s-t-sm" x="796" y="94">data/trials.json</text>
+      <text class="s-t-sm" x="796" y="110">118 programmes today</text>
+      <text class="s-t-sm" x="796" y="126">served by /api/trials</text>
+
+      <text class="s-lbl" x="516" y="168">Non-NCT registries (ChiCTR, jRCT/UMIN, ISRCTN, PACTR) have no equivalent free batch API —</text>
+      <text class="s-lbl" x="516" y="184">those records keep whatever extraction found and are flagged registryEnriched: false.</text>
+
+      <text class="s-lbl" x="16" y="168" fill="oklch(0.68 0.19 22)">Observational studies are dropped at step 3;</text>
+      <text class="s-lbl" x="16" y="184" fill="oklch(0.68 0.19 22)">implausible records never enter the catalog.</text>
+    </svg>
+    <figcaption>
+      <b>Sponsor, phase and start date come from the registry, not the model.</b> Paperclip indexes a
+      trial's narrative — eligibility, summary, arm descriptions — but not its structured header, so
+      extraction correctly returns <span class="mono">Unknown</span> for those and the deterministic
+      pass fills them.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- ==================================================================== 9 -->
+<section class="band">
+  <div class="head">
+    <span class="num">09 — THE BROWSER</span>
+    <h2>One workstation, zero third-party JavaScript</h2>
+    <p>
+      The interface is not a report with a chart on it — it is a single workstation whose centre panel
+      is the run itself, driven by the same SSE events the console prints.
+    </p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 1000 330" role="img" aria-label="Frontend module map: the workstation shell divided into rail, dock, stage and inspector, with the lab modules that render each surface and their fallbacks listed beneath.">
+      <rect class="s-box" x="16" y="16" width="968" height="34" rx="7"/>
+      <text class="s-t-sm" x="32" y="37">rail — status chips · theme · Run FDA review</text>
+
+      <rect class="s-box" x="16" y="60" width="212" height="200" rx="9"/>
+      <text class="s-t" x="32" y="84">dock</text>
+      <text class="s-t-sm" x="32" y="106">programme picker</text>
+      <text class="s-t-sm" x="32" y="122">pipeline matrix</text>
+      <text class="s-t-sm" x="32" y="138">phase / area facets</text>
+      <text class="s-t-sm" x="32" y="162">full-trace opt-in</text>
+
+      <rect x="238" y="60" width="452" height="200" rx="9" fill="oklch(0.86 0.13 195 / 0.06)" stroke="oklch(0.86 0.13 195 / 0.35)"/>
+      <text class="s-t" x="256" y="84">stage — the live evidence graph</text>
+      <text class="s-t-sm" x="256" y="108">engine3d.js — matrix camera, perspective projection,</text>
+      <text class="s-t-sm" x="256" y="124">free 3-axis orbit · pan · roll · cursor-anchored zoom</text>
+      <text class="s-t-sm" x="256" y="148">graph3d.js — nodes light in the order the server works;</text>
+      <text class="s-t-sm" x="256" y="164">every retrieval attaches the document it found</text>
+      <text class="s-t-sm" x="256" y="188">genome3d.js / genome.js — the construct in space,</text>
+      <text class="s-t-sm" x="256" y="204">and the flat measurable feature map beneath it</text>
+      <text class="s-t-sm" x="256" y="234" fill="oklch(0.68 0.19 22)">no 2D context → graph.js renders the flat SVG topology</text>
+
+      <rect class="s-box" x="700" y="60" width="284" height="200" rx="9"/>
+      <text class="s-t" x="716" y="84">inspector — six tabs</text>
+      <text class="s-t-sm" x="716" y="108">Review · Evidence · History</text>
+      <text class="s-t-sm" x="716" y="124">Structure · Benchmarks · Method</text>
+      <text class="s-t-sm" x="716" y="150">proof.js — the provenance drawer</text>
+      <text class="s-t-sm" x="716" y="166">metrics.js — formulas shown, not asserted</text>
+      <text class="s-t-sm" x="716" y="182">citations.js — identifier grammars</text>
+      <text class="s-t-sm" x="716" y="206">a missing chain link renders as</text>
+      <text class="s-t-sm" x="716" y="222">missing, never filled in</text>
+
+      <rect class="s-box" x="238" y="270" width="452" height="42" rx="7"/>
+      <text class="s-t-sm" x="256" y="296">console — every SSE progress event, verbatim</text>
+
+      <rect x="700" y="270" width="284" height="42" rx="7" fill="oklch(0.68 0.19 22 / 0.08)" stroke="oklch(0.68 0.19 22 / 0.4)"/>
+      <text class="s-t-sm" x="716" y="296" fill="oklch(0.68 0.19 22)">no EventSource → the run says so, does not hang</text>
+
+      <rect x="16" y="270" width="212" height="42" rx="7" fill="oklch(0.88 0.16 140 / 0.08)" stroke="oklch(0.88 0.16 140 / 0.4)"/>
+      <text class="s-t-sm" x="32" y="296" fill="oklch(0.88 0.16 140)">storage throws → preference just</text>
+      <text class="s-t-sm" x="32" y="308" fill="oklch(0.88 0.16 140)">does not persist</text>
+    </svg>
+    <figcaption>
+      <b>Every degradation path is defined and visible.</b> No canvas context, no <span class="mono">EventSource</span>,
+      no writable storage, a malformed SSE frame — each has a named behaviour, and none of them is a
+      blank rectangle or a silent hang.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- =================================================================== 10 -->
+<section class="band">
+  <div class="head">
+    <span class="num">10 — GUARDRAIL INVENTORY</span>
+    <h2>What is enforced in code, not asked for in a prompt</h2>
+    <p>
+      The distinction matters because a prompt can be argued past and a branch cannot. These are the
+      constraints that survive a model that decides to be helpful.
+    </p>
+  </div>
+
+  <div class="scroller">
+    <table>
+      <thead><tr><th>Constraint</th><th>Where</th><th>What it prevents</th></tr></thead>
+      <tbody>
+        <tr><td>Rubric weights must sum to 1.00</td><td class="k">rubric.js</td><td>Throws at <em>import</em> — a mis-weighted rubric cannot be deployed at all.</td></tr>
+        <tr><td>Score outside 1–5 raises</td><td class="k">rubric.js</td><td>A malformed score corrupting the weighted average silently.</td></tr>
+        <tr><td><span class="mono">absent</span> evidence caps the score at 3</td><td class="k">evaluate.js</td><td>An unsupported high score on a dimension with no evidence behind it.</td></tr>
+        <tr><td>Point estimate clamped into its own range</td><td class="k">evaluate.js</td><td>A headline number that sits outside the interval it was reported with.</td></tr>
+        <tr><td>Missing dimension is materialised as absent/3</td><td class="k">evaluate.js</td><td>A dimension quietly vanishing from the report instead of being flagged.</td></tr>
+        <tr><td>Citation needs an identifier <em>and</em> a resolvable https URL</td><td class="k">dossier.js</td><td>A finding surviving on a Paperclip command, a result-set id, or a fabricated link.</td></tr>
+        <tr><td>Paperclip's own domain is rejected as a source</td><td class="k">dossier.js</td><td>The retrieval tool citing itself as primary literature.</td></tr>
+        <tr><td>One entry per requested element, always</td><td class="k">dossier.js</td><td>Silent under-reporting — an unanswered element becomes an explicit “Not found”.</td></tr>
+        <tr><td>Extraction may not score, weight or rate risk</td><td class="k">dossier.js</td><td>The retrieval-facing pass leaking a judgement into the evidence layer.</td></tr>
+        <tr><td>Unmappable phase throws before any spend</td><td class="k">queries.js</td><td>Paying for a sweep that cannot be organised into a dossier.</td></tr>
+        <tr><td>Zero retrieved sections aborts the run</td><td class="k">evaluate.js</td><td>Scoring an empty dossier and reporting it as a finding.</td></tr>
+        <tr><td>Cache honoured only on a version match</td><td class="k">store.js</td><td>Serving a review built by a superseded dossier schema.</td></tr>
+        <tr><td>In-flight dedupe by trial + trace mode</td><td class="k">store.js</td><td>A double-click paying for two reviews; a full trace joining a run that retained nothing.</td></tr>
+        <tr><td>Trial ids sanitised before touching the filesystem</td><td class="k">store.js · audits.js</td><td>Path traversal via a crafted trial or audit id.</td></tr>
+        <tr><td>Health memoised and in-flight de-duplicated</td><td class="k">server.js</td><td>A public unauthenticated route being looped into an amplifier against two upstreams.</td></tr>
+        <tr><td>Run switch · rate limit · concurrency ceiling</td><td class="k">rate-limit.js</td><td>An unbounded bill from a public URL with no authentication.</td></tr>
+        <tr><td>Concurrency slot released on <span class="mono">close</span> and <span class="mono">finish</span></td><td class="k">rate-limit.js</td><td>An abandoned SSE run holding its slot forever.</td></tr>
+        <tr><td>Fold refuses without a real sequence</td><td class="k">routes/modal.js</td><td>Folding a derived schematic and labelling it with the construct's name.</td></tr>
+        <tr><td>Grounding refuses without retained text</td><td class="k">routes/modal.js</td><td>Claiming a passage match against source text that was never kept.</td></tr>
+        <tr><td>Modal tokens redacted from every log path</td><td class="k">modal/client.js</td><td>Credentials reaching a log or an error surface.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="foot">
+  Read from the repository at rubric <span class="mono">v2.0.0</span>, dossier
+  <span class="mono">v1.0.0</span>, audit <span class="mono">v1.0.0</span>, trace
+  <span class="mono">v1.0.0</span> · 62 tests passing.
+  Generated assessments are decision support, not regulatory advice.
+</footer>
+
+</div>
