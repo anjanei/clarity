@@ -15,6 +15,12 @@ import { checkBenchling } from './benchling/client.js';
  * makes no cross-origin requests, so the policy can be as tight as "self" plus
  * inline styles — the report renders inline `style` attributes for meter widths
  * and heat fills, but never an inline script.
+ *
+ * This covers everything Express handles. It is deliberately duplicated in the
+ * `headers` block of vercel.json, because files under `public/` are served
+ * straight from the CDN and never reach this middleware — which would leave the
+ * HTML page, the surface that matters most for XSS and clickjacking, with no
+ * policy at all. Keep the two copies identical.
  */
 function securityHeaders(_req, res, next) {
   res.setHeader(
