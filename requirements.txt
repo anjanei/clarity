@@ -1,0 +1,101 @@
+# requirements.txt — Modal GPU workers for CLARITY
+#
+# THIS FILE IS NOT FOR THE APP IN THIS REPOSITORY.
+#
+# CLARITY itself is a Node/Express service. Its dependency manifest is
+# package.json; install it with `npm ci`. There is no Python in this branch.
+#
+# This file is for the two OPTIONAL GPU workers that the app calls out to over
+# HTTP, documented in README.md under "Modal — the second compute provider".
+# Their code is deployed to Modal separately and is not part of this repo; the
+# app only knows their URLs and their JSON contract. With MODAL_* unset, every
+# route that would use them returns 503 and the app is fully functional without
+# them.
+#
+#   fold   — a real sequence in, a predicted structure out
+#   ground — a claim + its source passages in, verbatim supporting quotes out
+#
+# Consumed by Modal as the image spec, not installed on your laptop:
+#
+#   image = modal.Image.debian_slim(python_version="3.12").pip_install_from_requirements("requirements.txt")
+#
+# ---------------------------------------------------------------------------
+# FOLD AND GROUND MUST BE SEPARATE MODAL IMAGES.
+# torch and vllm in one environment is a dependency resolver fight you will
+# lose, and they want different GPUs anyway. Uncomment exactly one worker
+# section below per image, or split this into requirements-fold.txt and
+# requirements-ground.txt.
+# ---------------------------------------------------------------------------
+#
+# Python 3.12 recommended. Modal requires >= 3.9; note the interpreter on this
+# machine is 3.7.9, which cannot run the `modal` CLI — use a newer one for
+# deploys. Versions below are the current PyPI releases as of 2026-08-16.
+
+
+# === control plane — needed for any `modal deploy`, no GPU ==================
+
+modal==1.5.4
+
+
+# === worker: fold ==========================================================
+#
+# Contract (src/modal/tasks.js, src/modal/client.js). MODAL_FOLD_MODE=json
+# posts the payload as-is to MODAL_FOLD_URL, so this is a plain
+# @modal.fastapi_endpoint web function — no OpenAI wrapper:
+#
+#   request   {"task": "fold", "sequence": "<A-Z only>", "name": str, "unit": "aa"|"nt"}
+#   response  {"format": "pdb"|"mmcif", "data": str,
+#              "plddt": [float], "mean_plddt": float, "model": str}
+#
+# The server accepts {"pdb": ...} / {"cif": ...} / {"structure": ...} as
+# aliases for `data`, and `confidence`/`meanConfidence` for the pLDDT fields.
+# It cleans the sequence to A-Za-z uppercase and rejects anything under 16 or
+# over 2000 residues before calling you, so you do not need those guards.
+#
+# Return PDB where you can: the app parses CA/P atoms into a backbone trace
+# client-side and reads per-residue pLDDT out of the B-factor column (cols
+# 61-66), which mmCIF does not give it for free.
+
+# boltz==2.2.1
+# torch==2.13.0
+# numpy==2.5.2
+# gemmi==0.7.5            # mmCIF/PDB writing and format conversion
+# fastapi==0.141.1        # only if you want request models beyond Modal's default
+# pydantic==2.13.4
+
+# Alternative predictors, same contract:
+#   esm==3.2.3            # ESM3 / ESMFold via the Evolutionary Scale SDK
+#   fair-esm==2.0.0       # legacy ESM. `fair-esm[esmfold]` additionally needs
+#                         # OpenFold from git — the `openfold` name on PyPI is an
+#                         # unrelated 0.0.1 placeholder, not the real package.
+#                         # boltz is the lower-friction path, and README.md
+#                         # already uses MODAL_FOLD_MODEL=boltz-2 as its example.
+
+
+# === worker: ground ========================================================
+#
+# MODAL_GROUND_MODE=openai, so this endpoint must speak OpenAI chat
+# completions. The app POSTs to {MODAL_GROUND_URL}/v1/chat/completions with
+# temperature 0 and model = MODAL_GROUND_MODEL, and expects the assistant
+# message content to be JSON (a ```json fence is tolerated and unwrapped):
+#
+#   in    user message = {"task": "ground", "claim": str,
+#                         "passages": [{"id", "title", "text"}]}   # <= 8, 24k chars each
+#   out   {"spans": [{"id": <passage id>, "quote": str, "score": float}]}
+#
+# `quote` MUST be copied verbatim out of that passage's text. The server
+# re-locates every quote in the source and DROPS any it cannot find, counting
+# the rejects — a paraphrase is silently discarded, not shown. Do not
+# normalise, trim or "clean up" the quote beyond whitespace.
+#
+# vLLM already serves this API, so a served open-weights model needs no
+# first-party code at all. You can also skip this section entirely and point
+# MODAL_GROUND_URL at a Modal Shared Endpoint
+# (https://inference.us-west.modal.direct) — then nothing here is deployed and
+# MODAL_GROUND_MODEL is whatever /v1/models reports.
+
+# vllm==0.27.1
+# torch==2.13.0
+# transformers==5.15.0
+# huggingface-hub==1.27.0
+# accelerate==1.14.0

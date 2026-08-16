@@ -171,17 +171,32 @@ function fillSelect(select, values, anyLabel) {
 
 /* -------------------------------------------------------------------- status */
 
+/**
+ * Modal's slot in the status strip, reported per task because a deployment can
+ * have grounding without folding.
+ *
+ * It reads the per-task `configured` flags rather than the token presence: both
+ * halves of a token with no endpoint behind them is not a working provider, and
+ * a chip that said "Modal live" off credentials alone would be advertising a
+ * control that can only fail.
+ */
+function modalChip(health) {
+  const ground = Boolean(health.modal?.tasks?.ground?.configured);
+  const fold = Boolean(health.modal?.tasks?.fold?.configured);
+  if (!ground && !fold) return chip('Modal missing', 'stop');
+  const tasks = [ground && 'grounding', fold && 'folding'].filter(Boolean).join(' + ');
+  return chip(`Modal ${tasks}`, 'claude');
+}
+
 function renderStatus(health) {
   state.health = health;
   const chips = [
     health.keys?.paperclip ? chip('Paperclip live', 'clip') : chip('Paperclip missing', 'stop'),
-    health.keys?.model ? chip(`${health.provider || 'model'} ${health.model}`, 'claude') : chip('Model missing', 'stop'),
+    modalChip(health),
   ];
   if (health.benchling?.reachable) chips.push(chip('Benchling live', 'bench'));
   else if (health.benchling?.configured) chips.push(chip('Benchling configured', 'gap'));
   else chips.push(chip('Derived structures', 'unknown'));
-  if (health.modal?.tasks?.ground?.configured) chips.push(chip('Modal grounding', 'clip'));
-  if (health.modal?.tasks?.fold?.configured) chips.push(chip('Modal folding', 'bench'));
   enableGrounding(Boolean(health.modal?.tasks?.ground?.configured));
   if (health.runs && health.runs.enabled === false) chips.push(chip('Cached reviews only', 'gap'));
   el.statusStrip.innerHTML = chips.join('');
