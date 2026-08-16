@@ -44,6 +44,16 @@ export const config = {
     mode: process.env.TRACE_MODE || 'off',
   },
 
+  // The run routes are the only ones that spend money, and they sit on a public
+  // URL with no authentication. These are the levers that bound the damage.
+  runs: {
+    // `off` serves cached reviews only — the right setting for a public demo.
+    enabled: String(process.env.PUBLIC_RUNS ?? 'on').toLowerCase() !== 'off',
+    windowMs: Math.max(1000, Number(process.env.RUN_WINDOW_MS) || 10 * 60 * 1000),
+    perWindow: Math.max(1, Number(process.env.RUN_LIMIT) || 6),
+    concurrent: Math.max(1, Number(process.env.RUN_CONCURRENCY) || 2),
+  },
+
   // Benchling is tenant-scoped: the same app credentials are meaningless without
   // knowing which tenant to authenticate against. Absent a tenant the gene-model
   // panel renders modality-derived schematics and says so, rather than guessing.

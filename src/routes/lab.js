@@ -14,8 +14,21 @@ import {
 import { benchlingConfigured, config } from '../config.js';
 import { checkBenchling, findConstructFor } from '../benchling/client.js';
 import { deriveConstruct, fromBenchling } from '../benchling/model.js';
+import { buildBenchmarks } from '../evaluate/benchmarks.js';
 
 export const labRouter = Router();
+
+/**
+ * Distributions across every review already on disk. A probability means little
+ * on its own; this is what the lab plots it against.
+ */
+labRouter.get('/benchmarks', async (_req, res, next) => {
+  try {
+    res.json(await buildBenchmarks());
+  } catch (err) {
+    next(err);
+  }
+});
 
 /**
  * The graph the frontend animates. Emitted from the same constants the pipeline

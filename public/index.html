@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark" />
     <title>FDA Approval Review — CLARITY agentic lab</title>
     <meta
@@ -10,130 +10,58 @@
       content="End-to-end agentic review of clinical programmes: public evidence retrieved with Paperclip, organised into a cited nine-domain CLARITY dossier, and scored as an FDA reviewer would — every score traceable to its source document and the query that found it."
     />
     <link rel="stylesheet" href="/dist/app.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='12.5' fill='none' stroke='%2358e6e0' stroke-width='1.2' opacity='.5'/%3E%3Cpath d='M6 19c4-10 12-10 16 0' fill='none' stroke='%2358e6e0' stroke-width='1.8' stroke-linecap='round'/%3E%3Cpath d='M6 9c4 10 12 10 16 0' fill='none' stroke='%236fe6a0' stroke-width='1.8' stroke-linecap='round'/%3E%3Ccircle cx='14' cy='14' r='2.4' fill='%23f0a07a'/%3E%3C/svg%3E"
+    />
   </head>
-  <body>
-    <a href="#lab" class="sr-only">Skip to the lab</a>
+  <body class="workstation">
+    <a href="#stage" class="sr-only">Skip to the lab</a>
 
-    <!-- ========================================================= top bar -->
-    <header
-      class="no-print sticky top-0 z-40 border-b border-white/[0.07] backdrop-blur-xl"
-      style="background: oklch(0.13 0.012 250 / 0.72)"
-    >
-      <div class="mx-auto flex max-w-[1680px] items-center gap-4 px-4 py-2.5 sm:px-6 lg:px-8">
-        <a href="#top" class="flex shrink-0 items-center gap-2.5">
-          <svg viewBox="0 0 28 28" class="size-6" aria-hidden="true">
-            <circle cx="14" cy="14" r="12.5" fill="none" stroke="var(--color-clip-400)" stroke-width="1.1" opacity="0.45" />
-            <path d="M6 19c4-10 12-10 16 0" fill="none" stroke="var(--color-clip-400)" stroke-width="1.6" stroke-linecap="round" />
-            <path d="M6 9c4 10 12 10 16 0" fill="none" stroke="var(--color-bench-400)" stroke-width="1.6" stroke-linecap="round" />
-            <circle cx="14" cy="14" r="2.1" fill="var(--color-claude-400)" />
-          </svg>
-          <span class="text-[15px] font-semibold tracking-tight">CLARITY</span>
-        </a>
+    <!-- ============================================================== rail -->
+    <header class="rail no-print">
+      <a href="#stage" class="rail-brand">
+        <svg viewBox="0 0 28 28" class="size-6" aria-hidden="true">
+          <circle cx="14" cy="14" r="12.5" fill="none" stroke="var(--color-clip-400)" stroke-width="1.1" opacity="0.45" />
+          <path d="M6 19c4-10 12-10 16 0" fill="none" stroke="var(--color-clip-400)" stroke-width="1.6" stroke-linecap="round" />
+          <path d="M6 9c4 10 12 10 16 0" fill="none" stroke="var(--color-bench-400)" stroke-width="1.6" stroke-linecap="round" />
+          <circle cx="14" cy="14" r="2.1" fill="var(--color-claude-400)" />
+        </svg>
+        <span class="text-[15px] font-semibold tracking-tight">CLARITY</span>
+      </a>
 
-        <span class="chip-info hidden sm:inline-flex"><span class="dot"></span>Track&nbsp;A</span>
+      <span class="chip-info hidden sm:inline-flex"><span class="dot"></span>Track&nbsp;A</span>
 
-        <div id="status-strip" class="ml-auto flex min-w-0 items-center gap-1.5 overflow-x-auto"></div>
+      <div id="status-strip" class="rail-status" aria-live="polite"></div>
 
-        <a href="#lab" class="btn-ghost hidden shrink-0 !px-3 !py-1.5 !text-[12px] md:inline-flex">
-          Open the lab
-        </a>
+      <div class="rail-actions">
+        <button
+          id="toggle-crew"
+          type="button"
+          class="btn-quiet"
+          aria-pressed="true"
+          title="The crew are the couriers that move with the pipeline. Turn them off for a still surface."
+        >
+          crew
+        </button>
+        <button id="run-review" type="button" class="btn-primary !px-3.5 !py-1.5 !text-[12px]" disabled>
+          Run FDA review
+        </button>
       </div>
     </header>
 
-    <main id="top">
-      <!-- ============================================================ hero -->
-      <section class="relative mx-auto max-w-[1680px] px-4 pb-16 pt-14 sm:px-6 sm:pt-20 lg:px-8 lg:pt-24">
-        <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-          <div id="hero-bio" class="absolute inset-0"></div>
-        </div>
-
-        <div class="relative grid items-end gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
-          <div>
-            <p class="eyebrow">Track A · end-to-end agentic science</p>
-
-            <h1 class="display mt-5 max-w-[16ch]">
-              Regulatory review,<br />
-              <span
-                style="
-                  background: linear-gradient(100deg, var(--color-clip-400), var(--color-bench-400) 55%, var(--color-claude-400));
-                  -webkit-background-clip: text;
-                  background-clip: text;
-                  color: transparent;
-                "
-                >with the receipts.</span
-              >
-            </h1>
-
-            <p class="mt-6 max-w-[54ch] text-[15px] leading-relaxed text-muted">
-              CLARITY retrieves the public evidence for a clinical programme, organises it into a
-              cited nine-domain dossier, and scores it the way an FDA reviewer would. Every score,
-              every finding and every probability traces back to the source document — and to the
-              exact retrieval command that found it.
-            </p>
-
-            <div class="mt-8 flex flex-wrap items-center gap-3">
-              <a href="#lab" class="btn-primary">
-                Run a review
-                <svg viewBox="0 0 16 16" class="size-3.5" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </a>
-              <a href="#method" class="btn-ghost">How the pipeline works</a>
-            </div>
-
-            <dl id="hero-stats" class="mt-12 grid max-w-2xl grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4"></dl>
-          </div>
-
-          <!-- Idle topology: the same graph the run animates, at rest. -->
-          <div class="panel panel-lit panel-pad float-slow hidden lg:block">
-            <div class="flex items-baseline justify-between">
-              <p class="label">Agent topology</p>
-              <p class="label !text-ghost">idle</p>
-            </div>
-            <div id="hero-graph" class="mt-3"></div>
-            <p class="mt-3 text-[11px] leading-relaxed text-faint">
-              Retrieval fans out across registries, regulatory review documents and the primary
-              literature, then converges through nine CLARITY domains into one scored dossier.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <hr class="hairline mx-auto max-w-[1680px]" />
-
-      <!-- ========================================================== method -->
-      <section id="method" class="mx-auto max-w-[1680px] px-4 py-16 sm:px-6 lg:px-8">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p class="eyebrow">The pipeline</p>
-            <h2 class="headline mt-3 max-w-[20ch]">Four passes, one audit trail.</h2>
-          </div>
-          <p class="max-w-[46ch] text-[13px] leading-relaxed text-faint">
-            Nothing in the report is generated from the model's own recall. Each stage consumes only
-            what the stage before it retrieved, and hands forward the citations it used.
-          </p>
-        </div>
-
-        <div id="method-steps" class="reveal mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4"></div>
-      </section>
-
-      <hr class="hairline mx-auto max-w-[1680px]" />
-
-      <!-- ============================================================= lab -->
-      <section id="lab" class="mx-auto max-w-[1680px] px-4 py-14 sm:px-6 lg:px-8">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-          <div>
+    <!-- ============================================================= body -->
+    <div class="deck">
+      <!-- ------------------------------------------------------ left dock -->
+      <aside id="dock" class="dock no-print" aria-label="Programme picker">
+        <div class="dock-scroll">
+          <section class="dock-block">
             <p class="eyebrow">The lab</p>
-            <h2 class="headline mt-3">Pick a programme.</h2>
-          </div>
-          <p id="catalog-meta" class="font-mono text-[11px] text-ghost"></p>
-        </div>
+            <h2 class="mt-1.5 text-[17px] font-semibold tracking-tight text-ink">Pick a programme.</h2>
+            <p id="catalog-meta" class="mt-1 font-mono text-[10px] text-ghost"></p>
 
-        <!-- command bar -->
-        <div class="no-print panel panel-pad mt-6">
-          <div class="grid gap-3 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)_minmax(0,1fr)_auto]">
-            <div class="relative min-w-0">
-              <label for="trial-search" class="label mb-1.5">Clinical trial</label>
+            <div class="relative mt-3">
+              <label for="trial-search" class="sr-only">Clinical trial</label>
               <input
                 id="trial-search"
                 type="search"
@@ -148,43 +76,147 @@
               <div id="trial-pop" class="combo-pop hidden" role="listbox" aria-label="Clinical trials"></div>
             </div>
 
-            <div class="min-w-0">
-              <label for="filter-phase" class="label mb-1.5">Phase</label>
-              <select id="filter-phase" class="select"><option value="">Any phase</option></select>
+            <div class="mt-2 grid grid-cols-2 gap-2">
+              <div class="min-w-0">
+                <label for="filter-phase" class="sr-only">Phase</label>
+                <select id="filter-phase" class="select !py-1.5 !text-[12px]">
+                  <option value="">Any phase</option>
+                </select>
+              </div>
+              <div class="min-w-0">
+                <label for="filter-area" class="sr-only">Therapeutic area</label>
+                <select id="filter-area" class="select !py-1.5 !text-[12px]">
+                  <option value="">Any area</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <section class="dock-block">
+            <div class="flex items-baseline justify-between gap-2">
+              <p class="label">Pipeline matrix</p>
+              <p id="matrix-meta" class="font-mono text-[10px] text-ghost"></p>
+            </div>
+            <p class="mt-1 text-[11px] leading-relaxed text-faint">
+              Every programme in the catalog by development phase. Select one to load it onto the stage.
+            </p>
+            <div id="pipeline-matrix" class="mt-3"></div>
+          </section>
+
+          <section class="dock-block">
+            <p class="label">Selected</p>
+            <div id="selected-trial" class="mt-2"></div>
+            <label class="mt-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.1em] text-faint">
+              <input id="capture-full-trace" type="checkbox" />
+              Full trace
+            </label>
+          </section>
+        </div>
+      </aside>
+
+      <!-- ---------------------------------------------------------- stage -->
+      <main id="stage" class="stage">
+        <canvas
+          id="graph-canvas"
+          class="stage-canvas"
+          tabindex="0"
+          role="img"
+          aria-label="Live agent graph: trial record, Paperclip retrieval, CLARITY domain passes, dossier synthesis, FDA review, report"
+        ></canvas>
+        <div id="graph-fallback" class="stage-fallback hidden"></div>
+
+        <!-- resting state: the pitch, over the live topology -->
+        <div id="stage-hero" class="stage-hero">
+          <p class="eyebrow">Track A · end-to-end agentic science</p>
+          <h1 class="display mt-4">
+            Regulatory review,<br />
+            <span class="display-accent">with the receipts.</span>
+          </h1>
+          <p class="mt-5 max-w-[52ch] text-[14px] leading-relaxed text-muted">
+            CLARITY retrieves the public evidence for a clinical programme, organises it into a cited
+            nine-domain dossier, and scores it the way an FDA reviewer would. Every score, every finding
+            and every probability traces back to the source document — and to the exact retrieval command
+            that found it.
+          </p>
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <button id="hero-run" type="button" class="btn-primary">
+              Run a review
+              <svg viewBox="0 0 16 16" class="size-3.5" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <button id="hero-method" type="button" class="btn-ghost">How the pipeline works</button>
+          </div>
+          <dl id="hero-stats" class="mt-8 grid max-w-xl grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4"></dl>
+        </div>
+
+        <!-- descent trail -->
+        <nav id="breadcrumbs" class="stage-crumbs" aria-label="Graph depth"></nav>
+
+        <div class="stage-foot">
+          <div class="stage-readouts">
+            <div class="stage-hud">
+              <div id="hud-counters" class="hud-counters"></div>
+              <p class="hud-hint">
+                drag to orbit · scroll to zoom · click a node to inspect · double-click to open it
+              </p>
             </div>
 
-            <div class="min-w-0">
-              <label for="filter-area" class="label mb-1.5">Therapeutic area</label>
-              <select id="filter-area" class="select"><option value="">Any area</option></select>
-            </div>
-
-            <div class="flex items-end">
-              <button id="run-review" class="btn-primary w-full lg:w-auto" disabled>Run FDA review</button>
+            <div class="stage-legend" aria-hidden="true">
+              <span><i style="background: var(--color-clip-400)"></i>retrieval</span>
+              <span><i style="background: var(--color-claude-400)"></i>reasoning</span>
+              <span><i style="background: var(--color-bench-400)"></i>structure</span>
+              <span><i style="background: var(--color-stop)"></i>risk</span>
             </div>
           </div>
 
-          <div id="selected-trial" class="mt-4 hidden"></div>
+          <!-- live console -->
+          <section id="console-shell" class="stage-console" aria-label="Run console">
+          <button id="console-toggle" type="button" class="console-head" aria-expanded="true" aria-controls="console-body">
+            <span class="label">Live agent graph</span>
+            <span class="ml-2 hidden text-[11px] text-faint sm:inline">
+              Paperclip retrieval, CLARITY dossier passes, Claude review, Benchling structure.
+            </span>
+            <span id="console-state" class="ml-auto font-mono text-[10px] uppercase tracking-[0.14em] text-ghost">idle</span>
+            <svg viewBox="0 0 16 16" class="disclosure-caret size-3.5 shrink-0 text-faint" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="m6 3.5 4.5 4.5L6 12.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+            <div id="console-body" class="console-scroll">
+              <ul id="progress-log" class="space-y-1"></ul>
+            </div>
+          </section>
         </div>
+      </main>
 
-        <!-- live run surface -->
-        <div id="run-surface" class="mt-4"></div>
+      <!-- ------------------------------------------------------ inspector -->
+      <aside id="inspector" class="inspector" aria-label="Report">
+        <div class="inspector-tabs no-print" role="tablist">
+          <button class="tab" role="tab" data-tab="review" aria-selected="true">Review</button>
+          <button class="tab" role="tab" data-tab="evidence" aria-selected="false">Evidence</button>
+          <button class="tab" role="tab" data-tab="structure" aria-selected="false">Structure</button>
+          <button class="tab" role="tab" data-tab="benchmarks" aria-selected="false">Benchmarks</button>
+          <button class="tab" role="tab" data-tab="method" aria-selected="false">Method</button>
+        </div>
+        <div id="inspector-selection" class="no-print"></div>
+        <div id="inspector-body" class="inspector-body"></div>
+        <footer class="inspector-foot">
+          <p class="text-[10px] leading-relaxed text-ghost">
+            Generated assessments are decision support, not regulatory advice.<br />
+            Evidence retrieval by Paperclip · reasoning by Claude · structure by Benchling.
+          </p>
+        </footer>
+      </aside>
+    </div>
 
-        <!-- report -->
-        <div id="panel" class="mt-4"></div>
-      </section>
-    </main>
+    <!-- mobile navigation between the three panes -->
+    <nav id="pane-bar" class="pane-bar no-print" aria-label="Panes">
+      <button class="pane-tab" data-pane="dock">Programmes</button>
+      <button class="pane-tab is-active" data-pane="stage">Stage</button>
+      <button class="pane-tab" data-pane="inspector">Report</button>
+    </nav>
 
-    <footer class="mx-auto max-w-[1680px] px-4 pb-14 sm:px-6 lg:px-8">
-      <hr class="hairline" />
-      <div class="flex flex-wrap items-center justify-between gap-4 pt-6">
-        <p class="text-[11px] leading-relaxed text-ghost">
-          Generated assessments are decision support, not regulatory advice.<br />
-          Evidence retrieval by Paperclip · reasoning by Claude · structure by Benchling.
-        </p>
-        <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-ghost">Track A · agentic science</p>
-      </div>
-    </footer>
-
+    <div id="crew-layer" class="crew-layer" aria-hidden="true"></div>
     <div id="drawer-root"></div>
 
     <script type="module" src="/app.js"></script>

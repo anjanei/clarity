@@ -59,6 +59,21 @@ body {
   overflow-x: hidden;
 }
 
+/* The workstation owns the viewport: nothing scrolls the page, each pane scrolls
+   itself. That is what keeps the stage stable while the report is read, and it
+   removes any possibility of scroll-jacking, because there is no page scroll. */
+body.workstation {
+  display: grid;
+  /* Grid children default to min-width:auto and will happily grow past the
+     viewport on a narrow screen. minmax(0, 1fr) is what actually holds the
+     workstation inside the window. */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 100dvh;
+  overflow: hidden;
+}
+body.workstation > * { min-width: 0; }
+
 body::before {
   content: "";
   position: fixed;
@@ -619,6 +634,378 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
   html { scroll-behavior: auto; }
 }
 
+/* ===========================================================================
+   THE WORKSTATION
+   ---------------------------------------------------------------------------
+   Three panes on one viewport: the catalog on the left, the live graph in the
+   middle, the report on the right. Below 1024px they become one pane at a time
+   with a tab bar, because three columns on a phone is three unreadable columns.
+   ========================================================================= */
+
+.rail {
+  @apply z-40 flex items-center gap-2 overflow-hidden border-b px-3 py-2 sm:gap-3 sm:px-4;
+  border-color: oklch(1 0 0 / 0.07);
+  background: oklch(0.13 0.012 250 / 0.78);
+  backdrop-filter: blur(18px);
+}
+
+.rail-brand { @apply flex shrink-0 items-center gap-2.5; }
+
+/* On a phone the wordmark is the first thing that can go: the mark still
+   identifies the app, and the run button must never be the thing that clips. */
+@media (max-width: 419px) {
+  .rail-brand span { display: none; }
+}
+
+.rail-status {
+  @apply flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto;
+  scrollbar-width: none;
+}
+.rail-status::-webkit-scrollbar { display: none; }
+
+.rail-actions { @apply flex shrink-0 items-center gap-2; }
+
+.deck {
+  @apply relative grid min-h-0 min-w-0;
+  grid-template-columns: minmax(0, 1fr);
+}
+.deck > * { @apply min-w-0; }
+
+@media (min-width: 1024px) {
+  .deck { grid-template-columns: 280px minmax(0, 1fr) 360px; }
+}
+@media (min-width: 1280px) {
+  .deck { grid-template-columns: 304px minmax(0, 1fr) 404px; }
+}
+@media (min-width: 1600px) {
+  .deck { grid-template-columns: 340px minmax(0, 1fr) 468px; }
+}
+
+/* --- dock -----------------------------------------------------------------*/
+
+.dock {
+  @apply relative min-h-0 border-r;
+  border-color: oklch(1 0 0 / 0.07);
+  background: oklch(0.12 0.012 250 / 0.55);
+}
+
+.dock-scroll { @apply h-full overflow-y-auto overscroll-contain px-3 pb-6 pt-3; }
+
+.dock-block {
+  @apply mb-3 rounded-2xl p-3;
+  background: linear-gradient(180deg, oklch(1 0 0 / 0.04), oklch(1 0 0 / 0.015));
+  border: 1px solid oklch(1 0 0 / 0.07);
+}
+
+/* --- stage ----------------------------------------------------------------*/
+
+.stage { @apply relative min-h-0 overflow-hidden; }
+
+.stage-canvas {
+  @apply absolute inset-0 block size-full;
+  cursor: grab;
+  touch-action: none;
+}
+.stage-canvas:active { cursor: grabbing; }
+
+.stage-fallback { @apply absolute inset-x-4 top-1/2 -translate-y-1/2; }
+
+/* The pitch, resting on the live topology. It parks itself into the corner the
+   moment a programme is selected — the instrument is the point, not the copy. */
+.stage-hero {
+  @apply pointer-events-none absolute inset-x-0 top-0 px-5 pt-8 sm:px-8 sm:pt-12;
+  max-width: 62ch;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.stage-hero > * { pointer-events: auto; }
+.stage-hero.is-parked {
+  opacity: 0;
+  transform: translateY(-18px);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.display-accent {
+  background: linear-gradient(100deg, var(--color-clip-400), var(--color-bench-400) 55%, var(--color-claude-400));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.stage-crumbs {
+  @apply absolute left-3 top-3 z-10 flex max-w-[min(90%,44rem)] flex-wrap items-center gap-1 rounded-full px-2 py-1;
+  background: oklch(0.11 0.012 250 / 0.72);
+  border: 1px solid oklch(1 0 0 / 0.08);
+  backdrop-filter: blur(12px);
+}
+
+.crumb {
+  @apply cursor-pointer rounded-full px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-faint transition-colors;
+}
+.crumb:hover { @apply text-ink; background: oklch(1 0 0 / 0.06); }
+.crumb.is-current { color: var(--color-clip-400); }
+.crumb-sep { @apply font-mono text-[10px] text-ghost; }
+
+/* Readouts and console share one bottom stack, so the console can grow without
+   ever sliding underneath the counters. */
+.stage-foot { @apply absolute inset-x-0 bottom-0 z-20 flex flex-col; }
+
+.stage-readouts { @apply pointer-events-none flex items-end justify-between gap-3 px-3 pb-2; }
+
+.stage-hud { @apply flex flex-col gap-1.5; }
+
+.hud-counters { @apply flex flex-wrap gap-1.5; }
+
+.hud-counter {
+  @apply flex items-baseline gap-1.5 rounded-lg px-2 py-1;
+  background: oklch(0.1 0.012 250 / 0.66);
+  border: 1px solid oklch(1 0 0 / 0.06);
+  backdrop-filter: blur(8px);
+}
+.hud-counter i { @apply not-italic; }
+.hud-counter b { @apply text-[12px] font-semibold; }
+
+.hud-hint { @apply hidden font-mono text-[10px] text-ghost sm:block; }
+
+.stage-legend { @apply hidden shrink-0 flex-col items-end gap-1 md:flex; }
+.stage-legend span { @apply flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.1em] text-ghost; }
+.stage-legend i { @apply block size-1.5 rounded-full; }
+
+/* --- stage console --------------------------------------------------------*/
+
+.stage-console {
+  @apply flex flex-col;
+  background: oklch(0.1 0.012 250 / 0.86);
+  border-top: 1px solid oklch(1 0 0 / 0.08);
+  backdrop-filter: blur(16px);
+}
+
+.console-head {
+  @apply flex w-full cursor-pointer items-center gap-2 px-3 py-1.5 text-left transition-colors;
+}
+.console-head:hover { background: oklch(1 0 0 / 0.03); }
+.console-head .disclosure-caret { transform: rotate(90deg); }
+.stage-console.is-collapsed .console-head .disclosure-caret { transform: rotate(0deg); }
+
+.console-scroll {
+  @apply overflow-y-auto px-3 pb-2;
+  max-height: 28vh;
+  scrollbar-width: thin;
+}
+.stage-console.is-collapsed .console-scroll { display: none; }
+
+/* --- inspector ------------------------------------------------------------*/
+
+.inspector {
+  @apply relative flex min-h-0 flex-col border-l;
+  border-color: oklch(1 0 0 / 0.07);
+  background: oklch(0.12 0.012 250 / 0.55);
+}
+
+.inspector-tabs {
+  @apply flex shrink-0 gap-0.5 overflow-x-auto border-b px-2 pt-2;
+  border-color: oklch(1 0 0 / 0.07);
+  scrollbar-width: none;
+}
+.inspector-tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  @apply relative cursor-pointer whitespace-nowrap rounded-t-lg px-3 py-1.5 text-[12px] text-faint transition-colors;
+}
+.tab:hover { @apply text-ink; }
+.tab[aria-selected="true"] { @apply text-ink; background: oklch(1 0 0 / 0.05); }
+.tab[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0.5rem;
+  bottom: -1px;
+  height: 1px;
+  background: var(--color-clip-400);
+}
+
+.inspector-body { @apply min-h-0 flex-1 overflow-y-auto overscroll-contain p-3; }
+
+.inspector-foot { @apply shrink-0 border-t px-3 py-2; border-color: oklch(1 0 0 / 0.07); }
+
+.selection-card {
+  @apply mx-3 mt-3 rounded-xl px-3 py-2.5;
+  background: oklch(0.78 0.14 195 / 0.07);
+  border: 1px solid oklch(0.78 0.14 195 / 0.24);
+}
+
+/* --- pane switching (small screens) ---------------------------------------*/
+
+.pane-bar { @apply hidden; }
+
+@media (max-width: 1023px) {
+  .deck > * { grid-area: 1 / 1; }
+  .dock, .inspector { @apply border-0; }
+  body[data-pane="dock"] .stage,
+  body[data-pane="dock"] .inspector,
+  body[data-pane="stage"] .dock,
+  body[data-pane="stage"] .inspector,
+  body[data-pane="inspector"] .dock,
+  body[data-pane="inspector"] .stage { display: none; }
+
+  .pane-bar {
+    @apply z-40 grid shrink-0 grid-cols-3 border-t;
+    border-color: oklch(1 0 0 / 0.08);
+    background: oklch(0.11 0.012 250 / 0.92);
+    backdrop-filter: blur(14px);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  .pane-tab {
+    @apply cursor-pointer py-2.5 font-mono text-[10px] uppercase tracking-[0.14em] text-faint transition-colors;
+  }
+  .pane-tab.is-active { color: var(--color-clip-400); background: oklch(1 0 0 / 0.04); }
+
+  body.workstation { grid-template-rows: auto minmax(0, 1fr) auto; }
+  .stage-hero { @apply pt-6; }
+  .console-scroll { max-height: 22vh; }
+}
+
+/* --- pipeline matrix (catalog) --------------------------------------------*/
+
+.matrix-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) repeat(var(--cols), 1.55rem);
+  gap: 2px;
+  align-items: center;
+}
+
+.matrix-col {
+  @apply text-center font-mono text-[9px] uppercase tracking-[0.06em] text-ghost;
+}
+
+.matrix-area { @apply truncate pr-1 text-right font-mono text-[9px] uppercase tracking-[0.06em] text-faint; }
+
+.matrix-cell {
+  @apply flex h-[1.35rem] cursor-pointer items-center justify-center rounded font-mono text-[9px] text-ink transition;
+  background: oklch(0.78 0.14 195 / var(--fill, 0));
+  border: 1px solid oklch(1 0 0 / 0.05);
+}
+.matrix-cell:disabled { @apply cursor-default text-transparent; background: oklch(1 0 0 / 0.015); }
+.matrix-cell:not(:disabled):hover { border-color: oklch(0.78 0.14 195 / 0.6); }
+.matrix-cell.is-active { border-color: var(--color-clip-400); box-shadow: 0 0 0 1px var(--color-clip-400); }
+
+.matrix-item {
+  @apply flex w-full cursor-pointer flex-col rounded-lg px-2 py-1 text-left transition-colors;
+}
+.matrix-item:hover { background: oklch(0.78 0.14 195 / 0.1); }
+
+/* --- contribution matrix (report) -----------------------------------------*/
+
+.matrix { @apply mt-3 overflow-hidden rounded-xl; border: 1px solid oklch(1 0 0 / 0.06); }
+
+.matrix-head,
+.matrix-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2.6rem 1.8rem 2.4rem minmax(2.5rem, 3.5rem) auto;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.matrix-head {
+  @apply border-b px-2.5 py-1.5 font-mono text-[9px] uppercase tracking-[0.1em] text-ghost;
+  border-color: oklch(1 0 0 / 0.07);
+}
+
+.matrix-row {
+  @apply w-full cursor-pointer border-b px-2.5 py-1.5 text-left transition-colors;
+  border-color: oklch(1 0 0 / 0.04);
+}
+.matrix-row:last-child { border-bottom: 0; }
+.matrix-row:hover { background: oklch(1 0 0 / 0.04); }
+
+.matrix-bar { @apply block h-1.5 w-full overflow-hidden rounded-full; background: oklch(1 0 0 / 0.07); }
+.matrix-fill { @apply block h-full rounded-full; transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.matrix-fill[data-tone="ok"] { background: var(--color-ok); }
+.matrix-fill[data-tone="gap"] { background: var(--color-gap); }
+.matrix-fill[data-tone="stop"] { background: var(--color-stop); }
+.matrix-fill[data-tone="unknown"] { background: var(--color-unknown); }
+
+/* --- formulas -------------------------------------------------------------*/
+
+.formula {
+  @apply mt-3 rounded-xl px-3 py-2.5;
+  background: oklch(0.09 0.012 250 / 0.7);
+  border: 1px solid oklch(1 0 0 / 0.06);
+}
+.formula-expr { @apply font-mono text-[13px] text-ink; }
+.formula-sub { @apply mt-1.5 flex flex-wrap items-center gap-1 font-mono text-[10px] text-faint; }
+.formula-result { @apply mt-1.5 font-mono text-[12px] text-ink; }
+.formula-note { @apply mt-1.5 text-[11px] leading-relaxed text-ghost; }
+
+.formula .term {
+  @apply rounded px-1 py-0.5;
+  background: oklch(1 0 0 / 0.05);
+}
+.formula .term[data-tone="ok"] { color: var(--color-ok); }
+.formula .term[data-tone="gap"] { color: var(--color-gap); }
+.formula .term[data-tone="stop"] { color: var(--color-stop); }
+.formula .term[data-tone="unknown"] { color: var(--color-unknown); }
+.formula .op { @apply px-0.5 text-ghost; }
+
+/* --- benchmarks -----------------------------------------------------------*/
+
+.bench-axis {
+  @apply relative h-8 w-full rounded-lg;
+  background: linear-gradient(90deg, oklch(0.68 0.19 22 / 0.16), oklch(0.82 0.15 78 / 0.14), oklch(0.78 0.15 155 / 0.16));
+  border: 1px solid oklch(1 0 0 / 0.06);
+}
+.bench-mark {
+  @apply absolute top-1/2 block size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full;
+  background: oklch(1 0 0 / 0.4);
+}
+.bench-mark.is-current { background: var(--color-ink); }
+.bench-here {
+  @apply absolute inset-y-0 block w-px -translate-x-1/2;
+  background: var(--color-clip-400);
+  box-shadow: 0 0 10px 1px oklch(0.78 0.14 195 / 0.7);
+}
+
+.bench-range {
+  @apply relative h-1.5 w-full rounded-full;
+  background: oklch(1 0 0 / 0.07);
+}
+.bench-range-fill { @apply absolute inset-y-0 block rounded-full; background: oklch(1 0 0 / 0.14); }
+.bench-range-mean { @apply absolute inset-y-[-2px] block w-px -translate-x-1/2; background: oklch(1 0 0 / 0.45); }
+.bench-range-mine { @apply absolute top-1/2 block size-2 -translate-x-1/2 -translate-y-1/2 rounded-full; }
+.bench-range-mine[data-tone="ok"] { background: var(--color-ok); }
+.bench-range-mine[data-tone="gap"] { background: var(--color-gap); }
+.bench-range-mine[data-tone="stop"] { background: var(--color-stop); }
+.bench-range-mine[data-tone="unknown"] { background: var(--color-unknown); }
+
+/* --- construct viewer -----------------------------------------------------*/
+
+.construct-stage {
+  @apply relative overflow-hidden rounded-xl;
+  height: 260px;
+  background:
+    radial-gradient(60% 90% at 50% 0%, oklch(0.8 0.17 142 / 0.07), transparent 70%),
+    oklch(0.09 0.012 250 / 0.8);
+  border: 1px solid oklch(1 0 0 / 0.07);
+}
+.construct-stage canvas { @apply block size-full; cursor: grab; touch-action: none; }
+.construct-stage canvas:active { cursor: grabbing; }
+
+.construct-readout {
+  @apply pointer-events-none absolute inset-x-2 bottom-2 truncate font-mono text-[10px] text-bench-400;
+}
+
+/* --- crew -----------------------------------------------------------------*/
+
+.crew-layer { @apply pointer-events-none fixed inset-0 z-[80]; }
+.crew-canvas { @apply block size-full; }
+
+/* Something was pulled open, and you can see what pulled it. */
+.is-tugged { animation: tug 0.44s cubic-bezier(0.3, 1.4, 0.4, 1); }
+@keyframes tug {
+  0%   { transform: translateY(0); }
+  35%  { transform: translateY(3px); }
+  100% { transform: translateY(0); }
+}
+
 /* --- print ----------------------------------------------------------------
    The screen is an instrument; the export is a regulatory dossier. Invert to
    ink-on-paper, drop the chrome, and print every domain in full. */
@@ -631,6 +1018,13 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
   body::before, body::after { display: none !important; }
 
   html, body { background: #fff !important; color: #0f172a !important; }
+
+  /* The viewport-locked workstation becomes an ordinary document. */
+  body.workstation { display: block !important; height: auto !important; overflow: visible !important; }
+  .deck { display: block !important; }
+  .dock, .stage, .rail, .pane-bar, .crew-layer, .inspector-tabs, .stage-console { display: none !important; }
+  .inspector { display: block !important; border: 0 !important; background: none !important; }
+  .inspector-body { overflow: visible !important; height: auto !important; max-height: none !important; }
 
   .no-print { display: none !important; }
   .print-only { display: block !important; }

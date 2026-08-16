@@ -1,9 +1,27 @@
 import { Router } from 'express';
+import { config } from '../config.js';
 import { getTrial } from '../catalog/store.js';
 import { readEvaluation, runEvaluation } from '../evaluate/store.js';
 import { listRunTraces, normalizeTraceMode, readRunTrace } from '../evaluate/trace.js';
+import { createConcurrencyGate, createRateLimiter, createRunSwitch } from '../utils/rate-limit.js';
 
 export const evaluateRouter = Router();
+
+/**
+ * Applied only to the two routes that start a review. Reading a cached review,
+ * a trace or the catalog stays unrestricted — those are just files.
+ */
+const guardRun = [
+  createRunSwitch({ enabled: config.runs.enabled }),
+  createRateLimiter({
+    windowMs: config.runs.windowMs,
+    max: config.runs.perWindow,
+    message:
+      `This lab allows ${config.runs.perWindow} review runs per ` +
+      `${Math.round(config.runs.windowMs / 60000)} minutes from one address. Cached reviews are always available.`,
+  }),
+  createConcurrencyGate({ max: config.runs.concurrent }),
+];
 
 async function requireTrial(req, res) {
   const trial = await getTrial(req.params.trialId);
@@ -56,7 +74,7 @@ evaluateRouter.get('/evaluations/:trialId/traces/:traceId', async (req, res, nex
 });
 
 /** Blocking run. Reviews take minutes — prefer the SSE route for UI. */
-evaluateRouter.post('/evaluations/:trialId', async (req, res, next) => {
+evaluateRouter.post('/evaluations/:trialId', guardRun, async (req, res, next) => {
   try {
     const trial = await requireTrial(req, res);
     if (!trial) return;
@@ -71,7 +89,7 @@ evaluateRouter.post('/evaluations/:trialId', async (req, res, next) => {
 });
 
 /** Progress-streaming run: `progress` events, then one `result` or `error`. */
-evaluateRouter.get('/evaluations/:trialId/stream', async (req, res, next) => {
+evaluateRouter.get('/evaluations/:trialId/stream', guardRun, async (req, res, next) => {
   try {
     const trial = await requireTrial(req, res);
     if (!trial) return;

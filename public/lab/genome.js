@@ -5,6 +5,8 @@
 // A derived model shows modality architecture only and says, in the panel, that
 // the coordinates are illustrative — it never draws a sequence it does not have.
 
+import { safeHttpsUrl } from '../citations.js';
+
 const esc = (value) =>
   String(value ?? '').replace(/[&<>"']/g, (ch) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
@@ -212,8 +214,10 @@ export function renderGeneModel(mount, payload, { onTargetProof } = {}) {
       }
 
       ${
-        model.benchling?.webURL
-          ? `<p class="mt-3"><a class="src-link" href="${esc(model.benchling.webURL)}" target="_blank" rel="noreferrer">open in Benchling</a></p>`
+        // The tenant supplies this URL; it is escaped *and* scheme-checked before
+        // it is allowed to become a link.
+        safeHttpsUrl(model.benchling?.webURL)
+          ? `<p class="mt-3"><a class="src-link" href="${esc(safeHttpsUrl(model.benchling.webURL))}" target="_blank" rel="noreferrer noopener">open in Benchling</a></p>`
           : ''
       }
 

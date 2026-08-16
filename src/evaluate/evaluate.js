@@ -122,8 +122,18 @@ export async function evaluateTrial(trial, { onStep, deepRead = true, trace } = 
     () => gatherEvidence(trial, {
       deepRead,
       trace,
+      // The retrieval step already knows which domain asked for the search and
+      // which command answered it. Passing those through unchanged lets the lab
+      // attach the document to the right node instead of guessing from prose.
       onStep: (step) =>
-        onStep?.({ stage: 'evidence', message: `${step.label} — ${step.source}` }),
+        onStep?.({
+          stage: 'evidence',
+          key: step.key,
+          domainId: step.domainId,
+          label: step.label,
+          source: step.source,
+          message: `${step.label} — ${step.source}`,
+        }),
     }),
     { phase: trial.phase },
   );

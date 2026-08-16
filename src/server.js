@@ -10,8 +10,42 @@ import { loadCatalog } from './catalog/store.js';
 import { checkConnection } from './paperclip/tools.js';
 import { checkBenchling } from './benchling/client.js';
 
+/**
+ * Response headers every route gets. The page loads no third-party code and
+ * makes no cross-origin requests, so the policy can be as tight as "self" plus
+ * inline styles — the report renders inline `style` attributes for meter widths
+ * and heat fills, but never an inline script.
+ */
+function securityHeaders(_req, res, next) {
+  res.setHeader(
+    'Content-Security-Policy',
+    [
+      "default-src 'self'",
+      "script-src 'self'",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data:",
+      "font-src 'self' data:",
+      "connect-src 'self'",
+      "form-action 'self'",
+      "base-uri 'none'",
+      "object-src 'none'",
+      "frame-ancestors 'none'",
+    ].join('; '),
+  );
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Referrer-Policy', 'no-referrer');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=(), payment=()');
+  next();
+}
+
 export function createApp() {
   const app = express();
+  // Vercel and every other proxy set X-Forwarded-For; without this Express
+  // reports the proxy's address and the rate limiter counts every caller as one.
+  app.set('trust proxy', true);
+  app.disable('x-powered-by');
+  app.use(securityHeaders);
   app.use(express.json({ limit: '1mb' }));
 
   app.use('/api', trialsRouter);
@@ -39,6 +73,12 @@ export function createApp() {
       },
       model: config.anthropic.model,
       effort: config.anthropic.evalEffort,
+      runs: {
+        enabled: config.runs.enabled,
+        perWindow: config.runs.perWindow,
+        windowMinutes: Math.round(config.runs.windowMs / 60000),
+        concurrent: config.runs.concurrent,
+      },
       catalog: catalog
         ? { generatedAt: catalog.generatedAt, trials: catalog.trials.length }
         : null,
@@ -78,6 +118,11 @@ export function startServer() {
     }
     if (!config.paperclip.apiKey) console.warn('  ! PAPERCLIP_API_KEY is not set');
     if (!config.anthropic.apiKey) console.warn('  ! ANTHROPIC_API_KEY is not set');
+    console.log(
+      config.runs.enabled
+        ? `  runs: ${config.runs.perWindow} per ${Math.round(config.runs.windowMs / 60000)} min per address, ${config.runs.concurrent} concurrent`
+        : '  runs: disabled (PUBLIC_RUNS=off) — cached reviews only',
+    );
   });
 }
 
