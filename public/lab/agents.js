@@ -17,7 +17,7 @@
 // prefers-reduced-motion, and the rail carries a toggle, because a moving figure
 // near text is exactly the wrong thing for some readers.
 
-import { PALETTE, clamp, easeOut, lerp, prefersReducedMotion } from './engine3d.js';
+import { PALETTE, clamp, prefersReducedMotion, theme } from './engine3d.js';
 
 const CREW = [
   { id: 'clip', name: 'Clip', color: PALETTE.clip, role: 'retrieval' },
@@ -116,6 +116,10 @@ export function createCrew({ mount, enabled = true } = {}) {
 
   /* -- drawing ------------------------------------------------------------ */
 
+  // They were too small to read as characters at all — a 12px smudge is a bug,
+  // not a courier. Everything below is drawn in unit space and scaled once.
+  const S = 1.9;
+
   function drawAgent(agent, time) {
     const bob = Math.sin(time * 3.4 + agent.phase) * 2 + agent.hop * -10;
     const x = agent.x;
@@ -124,73 +128,97 @@ export function createCrew({ mount, enabled = true } = {}) {
 
     // A soft ground shadow keeps them attached to the surface rather than floating.
     ctx.beginPath();
-    ctx.ellipse(x, agent.y + 11, 7, 2.4, 0, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgb(0 0 0 / 0.32)';
+    ctx.ellipse(x, agent.y + 11 * S, 7 * S, 2.4 * S, 0, 0, Math.PI * 2);
+    ctx.fillStyle = theme.mode === 'light' ? 'rgb(20 30 50 / 0.14)' : 'rgb(0 0 0 / 0.32)';
     ctx.fill();
 
     ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    const glowGradient = ctx.createRadialGradient(x, y, 0, x, y, 22);
-    glowGradient.addColorStop(0, color(0.34));
+    if (theme.mode !== 'light') ctx.globalCompositeOperation = 'lighter';
+    const halo = 26 * S;
+    const glowGradient = ctx.createRadialGradient(x, y, 0, x, y, halo);
+    glowGradient.addColorStop(0, color(0.3));
     glowGradient.addColorStop(1, color(0));
     ctx.fillStyle = glowGradient;
     ctx.beginPath();
-    ctx.arc(x, y, 22, 0, Math.PI * 2);
+    ctx.arc(x, y, halo, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
+
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(S, S);
 
     // Body: a capsule with a visor. Deliberately abstract — an instrument's crew,
     // not a cartoon mascot.
     ctx.beginPath();
-    ctx.moveTo(x - 6, y + 6);
-    ctx.lineTo(x - 6, y - 2);
-    ctx.quadraticCurveTo(x - 6, y - 9, x, y - 9);
-    ctx.quadraticCurveTo(x + 6, y - 9, x + 6, y - 2);
-    ctx.lineTo(x + 6, y + 6);
-    ctx.quadraticCurveTo(x, y + 9, x - 6, y + 6);
+    ctx.moveTo(-6, 6);
+    ctx.lineTo(-6, -2);
+    ctx.quadraticCurveTo(-6, -9, 0, -9);
+    ctx.quadraticCurveTo(6, -9, 6, -2);
+    ctx.lineTo(6, 6);
+    ctx.quadraticCurveTo(0, 9, -6, 6);
     ctx.closePath();
-    ctx.fillStyle = PALETTE.void(0.92);
+    ctx.fillStyle = PALETTE.void(0.94);
     ctx.fill();
-    ctx.strokeStyle = color(0.9);
-    ctx.lineWidth = 1.2;
+    ctx.strokeStyle = color(0.92);
+    ctx.lineWidth = 1.1;
     ctx.stroke();
 
+    // Visor, with a highlight so it reads as glass at this size.
     ctx.beginPath();
-    ctx.ellipse(x + agent.facing * 1.2, y - 3, 3.4, 2.4, 0, 0, Math.PI * 2);
+    ctx.ellipse(agent.facing * 1.2, -3.2, 3.6, 2.6, 0, 0, Math.PI * 2);
     ctx.fillStyle = color(0.95);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(agent.facing * 2.1, -4, 1.1, 0.8, 0, 0, Math.PI * 2);
+    ctx.fillStyle = PALETTE.ink(0.85);
+    ctx.fill();
+
+    // An antenna, blinking on its own clock — the one detail that makes them read
+    // as alive rather than as icons.
+    const blink = 0.55 + 0.45 * Math.sin(time * 4 + agent.phase * 3);
+    ctx.beginPath();
+    ctx.moveTo(0, -9);
+    ctx.lineTo(agent.facing * 1.4, -13);
+    ctx.strokeStyle = color(0.6);
+    ctx.lineWidth = 0.9;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(agent.facing * 1.4, -13.6, 1.2, 0, Math.PI * 2);
+    ctx.fillStyle = color(blink);
     ctx.fill();
 
     // Legs, which only exist while walking.
     const speed = Math.hypot(agent.tx - agent.x, agent.ty - agent.y);
     if (speed > 3) {
       const swing = Math.sin(time * 14 + agent.phase) * 3;
-      ctx.strokeStyle = color(0.7);
-      ctx.lineWidth = 1.1;
+      ctx.strokeStyle = color(0.72);
+      ctx.lineWidth = 1.2;
       ctx.beginPath();
-      ctx.moveTo(x - 2.4, y + 7);
-      ctx.lineTo(x - 2.4 + swing, y + 11);
-      ctx.moveTo(x + 2.4, y + 7);
-      ctx.lineTo(x + 2.4 - swing, y + 11);
+      ctx.moveTo(-2.4, 7);
+      ctx.lineTo(-2.4 + swing, 11);
+      ctx.moveTo(2.4, 7);
+      ctx.lineTo(2.4 - swing, 11);
       ctx.stroke();
     }
 
     if (agent.carry) {
-      const cx = x + agent.facing * 9;
-      const cy = y - 8;
       ctx.save();
-      ctx.translate(cx, cy);
+      ctx.translate(agent.facing * 9.5, -8);
       ctx.rotate(Math.sin(time * 5 + agent.phase) * 0.2);
-      ctx.strokeStyle = PALETTE.ink(0.85);
-      ctx.lineWidth = 1.1;
+      ctx.strokeStyle = PALETTE.ink(0.9);
+      ctx.lineWidth = 1;
       // A paperclip, drawn as a paperclip.
       ctx.beginPath();
-      ctx.moveTo(-1.6, 3);
-      ctx.lineTo(-1.6, -2);
-      ctx.arc(0, -2, 1.6, Math.PI, 0);
-      ctx.lineTo(1.6, 2);
+      ctx.moveTo(-1.8, 3.4);
+      ctx.lineTo(-1.8, -2);
+      ctx.arc(0, -2, 1.8, Math.PI, 0);
+      ctx.lineTo(1.8, 2.4);
       ctx.stroke();
       ctx.restore();
     }
+
+    ctx.restore();
   }
 
   function drawSparks(dt) {

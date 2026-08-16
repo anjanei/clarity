@@ -12,6 +12,7 @@
 
 import { SOURCE_TYPE_LABEL, citationIndex, inferType, parseSources, safeHttpsUrl } from './citations.js';
 import { createEvidenceGraph } from './lab/graph3d.js';
+import { setStageTheme } from './lab/engine3d.js';
 import { createCrew } from './lab/agents.js';
 import { createConstructViewer } from './lab/genome3d.js';
 import { createPipelineGraph } from './lab/graph.js';
@@ -66,7 +67,18 @@ const state = {
   counters: { paperclip: 0, claude: 0 },
   captureFullTrace: readFlag('fdaapproval.captureFullTrace', false),
   crewEnabled: readFlag('fdaapproval.crew', true),
+  theme: readTheme(),
+  focus: false,
 };
+
+function readTheme() {
+  try {
+    const stored = localStorage.getItem('fdaapproval.theme');
+    return ['light', 'dark', 'system'].includes(stored) ? stored : 'system';
+  } catch {
+    return 'system';
+  }
+}
 
 function readFlag(key, fallback) {
   try {
@@ -89,8 +101,8 @@ function writeFlag(key, value) {
 const el = {};
 const ids = [
   'status-strip', 'trial-search', 'trial-pop', 'filter-phase', 'filter-area', 'catalog-meta',
-  'pipeline-matrix', 'matrix-meta', 'selected-trial', 'run-review', 'hero-run', 'hero-method',
-  'hero-stats', 'stage-hero', 'graph-canvas', 'graph-fallback', 'breadcrumbs', 'hud-counters',
+  'pipeline-matrix', 'matrix-meta', 'selected-trial', 'run-review',
+  'graph-canvas', 'graph-fallback', 'breadcrumbs', 'hud-counters',
   'progress-log', 'console-shell', 'console-toggle', 'console-body', 'console-state',
   'inspector', 'inspector-body', 'inspector-selection', 'capture-full-trace', 'toggle-crew',
   'crew-layer', 'dock', 'stage', 'pane-bar',
@@ -178,17 +190,49 @@ function renderStatus(health) {
 /** Runs cost money; a deployment can switch them off and still serve every report. */
 const runsAllowed = () => state.health?.runs?.enabled !== false;
 
-function renderHeroStats() {
-  if (!state.catalogMeta || !state.pipeline || !el.heroStats) return;
+/**
+ * The pitch, in the reading pane rather than over the graph. It used to be a
+ * hero overlay on the stage, which meant the display type sat directly on top of
+ * the topology it was describing — the one thing on the page worth looking at.
+ */
+function welcomeCard() {
   const stats = [
-    ['Trials', num(state.catalogMeta.total)],
-    ['CLARITY domains', state.pipeline.domains?.length ?? 0],
-    ['Rubric', `v${state.pipeline.rubricVersion ?? '—'}`],
-    ['Dossier', `v${state.pipeline.dossierVersion ?? '—'}`],
+    ['Trials', num(state.catalogMeta?.total ?? 0)],
+    ['CLARITY domains', state.pipeline?.domains?.length ?? '—'],
+    ['Rubric', `v${state.pipeline?.rubricVersion ?? '—'}`],
+    ['Dossier', `v${state.pipeline?.dossierVersion ?? '—'}`],
   ];
-  el.heroStats.innerHTML = stats
-    .map(([label, value]) => `<div><dt class="label">${esc(label)}</dt><dd class="counter mt-1 text-xl text-ink">${esc(value)}</dd></div>`)
-    .join('');
+  return `
+    <section class="panel panel-lit panel-pad rise">
+      <p class="eyebrow">Track A · end-to-end agentic science</p>
+      <h2 class="headline mt-3">
+        Regulatory review,<br /><span class="display-accent">with the receipts.</span>
+      </h2>
+      <p class="mt-4 text-[13px] leading-relaxed text-muted">
+        CLARITY retrieves the public evidence for a clinical programme, organises it into a cited
+        nine-domain dossier, and scores it the way an FDA reviewer would. Every score, every finding
+        and every probability traces back to the source document — and to the exact retrieval command
+        that found it.
+      </p>
+      <dl class="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-4">
+        ${stats
+          .map(([label, value]) => `<div><dt class="label">${esc(label)}</dt><dd class="counter mt-1 text-lg text-ink">${esc(value)}</dd></div>`)
+          .join('')}
+      </dl>
+      <div class="mt-5 flex flex-wrap items-center gap-2">
+        <button type="button" class="btn-primary !px-3.5 !py-1.5 !text-[12px]" data-focus-search>
+          Pick a programme
+          <svg viewBox="0 0 16 16" class="size-3.5" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button type="button" class="btn-ghost !px-3.5 !py-1.5 !text-[12px]" data-open-method>How the pipeline works</button>
+      </div>
+      <p class="mt-4 text-[11px] leading-relaxed text-ghost">
+        The stage to the left is the agent topology at rest. Drag to orbit it; it will light in the
+        order the server works once a review runs.
+      </p>
+    </section>`;
 }
 
 function renderCounters() {
@@ -313,9 +357,8 @@ async function loadPipeline() {
   graph?.setPipeline(state.pipeline);
   graph?.setRubric(state.rubric);
   renderFallbackGraph();
-  renderHeroStats();
   renderCounters();
-  if (state.tab === 'method') renderInspector();
+  if (!state.selected || state.tab === 'method') renderInspector();
 }
 
 async function loadBenchmarks() {
@@ -344,7 +387,7 @@ async function loadCatalog() {
       renderPipelineMatrix();
     }
     el.catalogMeta.textContent = `${data.count} of ${data.total} trials · ${fmtDate(data.generatedAt)}`;
-    renderHeroStats();
+    if (!state.selected) renderInspector();
     renderCombo();
   } catch (err) {
     state.trials = [];
@@ -411,7 +454,6 @@ async function selectTrial(trialId) {
 
   el.trialSearch.value = `${trial.therapeuticName} · ${trial.trialId}`;
   closeCombo();
-  el.stageHero?.classList.add('is-parked');
   setConsoleState('ready');
   clearConsole();
 
@@ -571,7 +613,6 @@ function runReview({ force = false } = {}) {
   state.counters = { paperclip: 0, claude: 0 };
   el.runReview.disabled = true;
   el.runReview.textContent = 'Reviewing…';
-  el.stageHero?.classList.add('is-parked');
   graph?.reset();
   clearConsole();
   setConsoleState('running');
@@ -673,7 +714,7 @@ function renderInspector() {
   if (state.tab === 'method') {
     html = methodTab();
   } else if (!state.selected) {
-    html = `<div class="panel panel-pad"><p class="text-[13px] leading-relaxed text-faint">Select a trial to open the review lab.</p></div>`;
+    html = welcomeCard();
   } else if (state.tab === 'benchmarks') {
     html = benchmarksTab(review);
   } else if (state.tab === 'structure') {
@@ -1202,6 +1243,17 @@ function wireInspector() {
     button.addEventListener('click', () => selectTrial(button.dataset.selectTrial));
   });
 
+  el.inspectorBody.querySelector('[data-focus-search]')?.addEventListener('click', (event) => {
+    crew?.popFrom(event.currentTarget);
+    showPane('dock');
+    el.trialSearch.focus();
+  });
+
+  el.inspectorBody.querySelector('[data-open-method]')?.addEventListener('click', (event) => {
+    crew?.popFrom(event.currentTarget);
+    setTab('method');
+  });
+
   el.inspectorBody.querySelectorAll('.matrix-row').forEach((row) => {
     row.addEventListener('click', () => {
       const card = el.inspectorBody.querySelector(`[data-domain-card="${CSS.escape(row.dataset.domain)}"]`);
@@ -1250,6 +1302,180 @@ function openProof(kind, payload) {
       context: { domainId: parsed.domainId, label: parsed.label },
     });
   }
+}
+
+/* ------------------------------------------------------------------- theme */
+
+/**
+ * Three states, not two: light, dark, and *follow the system* — which is the
+ * default and the one a toggle usually throws away. The stylesheet handles the
+ * system case on its own through `prefers-color-scheme`, so no attribute is set
+ * until the reader actually chooses; that also means no flash of the wrong
+ * theme on load, without an inline script the content policy would reject.
+ */
+const THEME_ORDER = ['system', 'light', 'dark'];
+const THEME_GLYPH = { system: '◐', light: '☀', dark: '☾' };
+
+const systemPrefersLight = () => {
+  try {
+    return window.matchMedia('(prefers-color-scheme: light)').matches;
+  } catch {
+    return false;
+  }
+};
+
+const effectiveTheme = () =>
+  state.theme === 'system' ? (systemPrefersLight() ? 'light' : 'dark') : state.theme;
+
+function applyTheme() {
+  const root = document.documentElement;
+  if (state.theme === 'system') root.removeAttribute('data-theme');
+  else root.setAttribute('data-theme', state.theme);
+
+  // The canvas has no cascade of its own; it has to be told.
+  setStageTheme(effectiveTheme());
+
+  const button = document.getElementById('toggle-theme');
+  const glyph = document.getElementById('theme-glyph');
+  if (glyph) glyph.textContent = THEME_GLYPH[state.theme];
+  if (button) {
+    button.title = state.theme === 'system' ? 'Theme: follows your system' : `Theme: ${state.theme}`;
+    button.setAttribute('aria-label', button.title);
+  }
+}
+
+function cycleTheme() {
+  state.theme = THEME_ORDER[(THEME_ORDER.indexOf(state.theme) + 1) % THEME_ORDER.length];
+  try {
+    localStorage.setItem('fdaapproval.theme', state.theme);
+  } catch {
+    /* the choice simply does not persist */
+  }
+  applyTheme();
+}
+
+/* ------------------------------------------------------------------ layout */
+
+const LAYOUT = {
+  dock: { prop: '--dock-w', key: 'fdaapproval.dockW', min: 210, max: 560, fallback: 304, sign: 1 },
+  inspector: { prop: '--inspector-w', key: 'fdaapproval.inspectorW', min: 300, max: 760, fallback: 404, sign: -1 },
+};
+
+function readWidth(spec) {
+  let stored = null;
+  try {
+    stored = Number(localStorage.getItem(spec.key));
+  } catch {
+    stored = null;
+  }
+  return clampWidth(spec, Number.isFinite(stored) && stored > 0 ? stored : spec.fallback);
+}
+
+function clampWidth(spec, value) {
+  const deck = document.querySelector('.deck');
+  // The stage is the point of the app; neither side pane may squeeze it out.
+  const room = Math.max(spec.min, (deck?.clientWidth ?? window.innerWidth) - 300);
+  return Math.round(Math.min(Math.max(value, spec.min), Math.min(spec.max, room)));
+}
+
+function applyWidth(name, value) {
+  const spec = LAYOUT[name];
+  const deck = document.querySelector('.deck');
+  if (!deck) return;
+  const width = clampWidth(spec, value);
+  deck.style.setProperty(spec.prop, `${width}px`);
+  try {
+    localStorage.setItem(spec.key, String(width));
+  } catch {
+    /* the layout simply does not persist */
+  }
+  return width;
+}
+
+/**
+ * Pane resizing. Pointer drag for the mouse, arrow keys for the keyboard, and a
+ * double-click to put a pane back where it started.
+ */
+function initLayout() {
+  for (const [name, spec] of Object.entries(LAYOUT)) applyWidth(name, readWidth(spec));
+
+  const wire = (element, name) => {
+    if (!element) return;
+    const spec = LAYOUT[name];
+    let start = null;
+
+    element.addEventListener('pointerdown', (event) => {
+      const deck = document.querySelector('.deck');
+      const current = parseFloat(getComputedStyle(deck).getPropertyValue(spec.prop)) || spec.fallback;
+      start = { x: event.clientX, width: current };
+      element.classList.add('is-dragging');
+      document.body.classList.add('is-resizing');
+      try {
+        element.setPointerCapture(event.pointerId);
+      } catch {
+        /* capture is a nicety */
+      }
+      event.preventDefault();
+    });
+
+    element.addEventListener('pointermove', (event) => {
+      if (!start) return;
+      applyWidth(name, start.width + (event.clientX - start.x) * spec.sign);
+    });
+
+    const end = (event) => {
+      if (!start) return;
+      start = null;
+      element.classList.remove('is-dragging');
+      document.body.classList.remove('is-resizing');
+      try {
+        element.releasePointerCapture(event.pointerId);
+      } catch {
+        /* already released */
+      }
+    };
+    element.addEventListener('pointerup', end);
+    element.addEventListener('pointercancel', end);
+
+    element.addEventListener('dblclick', () => applyWidth(name, spec.fallback));
+
+    element.addEventListener('keydown', (event) => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      const deck = document.querySelector('.deck');
+      const current = parseFloat(getComputedStyle(deck).getPropertyValue(spec.prop)) || spec.fallback;
+      const step = (event.shiftKey ? 48 : 16) * (event.key === 'ArrowRight' ? 1 : -1) * spec.sign;
+      applyWidth(name, current + step);
+      event.preventDefault();
+    });
+  };
+
+  wire(document.getElementById('split-dock'), 'dock');
+  wire(document.getElementById('split-inspector'), 'inspector');
+
+  // A narrowed window can leave a stored width wider than the room now available.
+  window.addEventListener('resize', debounce(() => {
+    for (const [name, spec] of Object.entries(LAYOUT)) {
+      const deck = document.querySelector('.deck');
+      const current = parseFloat(getComputedStyle(deck).getPropertyValue(spec.prop)) || spec.fallback;
+      applyWidth(name, current);
+    }
+  }, 120));
+}
+
+function setFocusMode(on) {
+  state.focus = on;
+  document.body.classList.toggle('is-focus', on);
+  const button = document.getElementById('stage-expand');
+  button?.setAttribute('aria-pressed', String(on));
+  button?.setAttribute('title', on ? 'Restore the panes (F)' : 'Expand the stage (F)');
+}
+
+/** The stage toolbar reflects what the graph can actually do right now. */
+function syncStageTools() {
+  const up = document.getElementById('graph-up');
+  const open = document.getElementById('graph-open');
+  if (up) up.disabled = !graph || graph.depth === 0;
+  if (open) open.disabled = !state.selection?.expandable;
 }
 
 function openConsole() {
@@ -1316,20 +1542,6 @@ function wire() {
     runReview({ force: Boolean(state.evaluation) });
   };
   el.runReview.addEventListener('click', run);
-  el.heroRun.addEventListener('click', (event) => {
-    crew?.popFrom(event.currentTarget);
-    if (state.selected) runReview({ force: Boolean(state.evaluation) });
-    else {
-      showPane('dock');
-      el.trialSearch.focus();
-    }
-  });
-  el.heroMethod.addEventListener('click', (event) => {
-    crew?.popFrom(event.currentTarget);
-    showPane('inspector');
-    setTab('method');
-  });
-
   el.captureFullTrace.checked = state.captureFullTrace;
   el.captureFullTrace.addEventListener('change', (event) => {
     state.captureFullTrace = event.target.checked;
@@ -1358,15 +1570,50 @@ function wire() {
     tab.addEventListener('click', () => showPane(tab.dataset.pane));
   });
 
+  document.getElementById('toggle-theme')?.addEventListener('click', (event) => {
+    cycleTheme();
+    crew?.popFrom(event.currentTarget);
+  });
+
+  // A reader on "system" who changes their OS theme mid-session should follow.
+  try {
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+      if (state.theme === 'system') applyTheme();
+    });
+  } catch {
+    /* older engines: the choice is still honoured, it just will not live-update */
+  }
+
+  document.getElementById('graph-up')?.addEventListener('click', () => {
+    graph?.ascend(Math.max(0, (graph.depth ?? 1) - 1));
+  });
+  document.getElementById('graph-open')?.addEventListener('click', () => {
+    graph?.descendSelected();
+  });
+  document.getElementById('stage-expand')?.addEventListener('click', (event) => {
+    crew?.popFrom(event.currentTarget);
+    setFocusMode(!state.focus);
+  });
+
   window.addEventListener('beforeunload', () => state.stream?.close());
   window.addEventListener('beforeprint', () => document.querySelectorAll('details').forEach((d) => (d.open = true)));
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && graph?.depth) graph.ascend(graph.depth - 1);
-    if (event.key === '/' && document.activeElement !== el.trialSearch) {
+    const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName ?? '');
+    if (event.key === 'Escape') {
+      if (graph?.depth) graph.ascend(graph.depth - 1);
+      else if (state.focus) setFocusMode(false);
+    }
+    if (typing) return;
+    if (event.key === '/') {
       event.preventDefault();
+      if (state.focus) setFocusMode(false);
       showPane('dock');
       el.trialSearch.focus();
+    }
+    if (event.key === 'f' || event.key === 'F') {
+      event.preventDefault();
+      setFocusMode(!state.focus);
     }
   });
 }
@@ -1374,7 +1621,9 @@ function wire() {
 /* ---------------------------------------------------------------------- init */
 
 (function init() {
+  applyTheme();
   wire();
+  initLayout();
   showPane('stage');
 
   crew = createCrew({ mount: el.crewLayer, enabled: state.crewEnabled });
@@ -1383,9 +1632,13 @@ function wire() {
     onSelect: (node) => {
       state.selection = node;
       renderSelectionCard();
+      syncStageTools();
       if (node?.data?.type === 'structure') setTab('structure');
     },
-    onLevel: renderBreadcrumbs,
+    onLevel: (levels) => {
+      renderBreadcrumbs(levels);
+      syncStageTools();
+    },
     resolveSources: (sourceText, evaluation) => parseSources(sourceText, citationIndex(evaluation)),
   });
 

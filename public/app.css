@@ -3,21 +3,22 @@
 /* ============================================================================
    CLARITY — end-to-end agentic FDA review lab
    ----------------------------------------------------------------------------
-   A dark instrument panel, not a document. Three rules hold the design together:
+   An instrument panel, not a document. Three rules hold the design together:
 
    1. Colour is semantic, never decorative. Cyan = retrieval (Paperclip),
       coral = reasoning (Claude), lime = wet-lab/structure (Benchling). Risk
       keeps its own red/amber/emerald/slate scale and is never reused for chrome.
    2. Data is monospace and tabular. Prose is grotesk. You can tell at a glance
       whether something was measured or written.
-   3. Every surface is a hairline on near-black. Depth comes from luminosity,
-      not from shadows or borders getting heavier.
+   3. Every surface is a hairline over the canvas. Depth comes from luminosity,
+      not from shadows or borders getting heavier — which is what lets the whole
+      system inverse cleanly between the dark and light themes below.
    ========================================================================== */
 
 @theme {
   /* canvas */
-  --color-void: oklch(0.16 0.012 250);
-  --color-void-deep: oklch(0.13 0.012 250);
+  --color-void: var(--bg-canvas-2);
+  --color-void-deep: var(--bg-canvas);
   --color-ink: oklch(0.97 0.004 250);
   --color-muted: oklch(0.68 0.014 250);
   --color-faint: oklch(0.54 0.014 250);
@@ -43,18 +44,148 @@
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Menlo, Consolas, monospace;
 }
 
+/* ============================================================================
+   THEME
+   ----------------------------------------------------------------------------
+   The instrument reads dark by default and light on request. Rather than two
+   stylesheets, every surface in this file is expressed against a small token
+   set, and `--tint` carries the one that matters most: the neutral used for
+   every hairline, divider and translucent fill. In dark it is white at low
+   alpha; in light it is near-black at low alpha. Flipping that single value
+   inverts the entire chrome correctly, which is why no rule below hard-codes
+   a white overlay.
+
+   The light palette is declared twice on purpose — once for readers whose
+   system asks for light and who have not chosen explicitly, once for the
+   explicit toggle. CSS cannot share a declaration block between a media query
+   and a selector, and `light-dark()` is newer than this project's floor.
+   Keep the two copies in step.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  --tint: 255 255 255;
+  --bg-canvas: oklch(0.13 0.012 250);
+  --bg-canvas-2: oklch(0.16 0.012 250);
+  --bg-rail: oklch(0.13 0.012 250 / 0.78);
+  --bg-pane: oklch(0.12 0.012 250 / 0.55);
+  --bg-sunken: oklch(0.11 0.012 250 / 0.7);
+  --bg-deep: oklch(0.1 0.012 250 / 0.75);
+  --bg-well: oklch(0.09 0.012 250 / 0.82);
+  --bg-float: oklch(0.14 0.014 250 / 0.98);
+  --scrim: oklch(0.08 0.01 250 / 0.7);
+
+  --aurora-1: oklch(0.78 0.14 195 / 0.13);
+  --aurora-2: oklch(0.72 0.15 42 / 0.1);
+  --aurora-3: oklch(0.8 0.17 142 / 0.08);
+  --grain: 0.32;
+
+  --shadow-float: 0 24px 60px -12px oklch(0 0 0 / 0.8);
+  --shadow-drawer: -30px 0 80px -20px oklch(0 0 0 / 0.9);
+  --option-bg: #0d1117;
+  --option-fg: #e6edf3;
+}
+
+/* Light palette — copy 1 of 2: the reader's system preference. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+
+    --tint: 17 26 44;
+    --bg-canvas: oklch(0.985 0.003 250);
+    --bg-canvas-2: oklch(0.96 0.005 250);
+    --bg-rail: oklch(1 0 0 / 0.84);
+    --bg-pane: oklch(1 0 0 / 0.58);
+    --bg-sunken: oklch(0.985 0.004 250 / 0.86);
+    --bg-deep: oklch(0.97 0.005 250 / 0.82);
+    --bg-well: oklch(0.955 0.006 250 / 0.9);
+    --bg-float: oklch(1 0 0 / 0.99);
+    --scrim: oklch(0.5 0.02 250 / 0.34);
+
+    --color-ink: oklch(0.24 0.02 258);
+    --color-muted: oklch(0.42 0.02 258);
+    --color-faint: oklch(0.54 0.018 258);
+    --color-ghost: oklch(0.66 0.014 258);
+
+    /* Accents lose contrast on white, so each drops in lightness and gains chroma. */
+    --color-clip-400: oklch(0.56 0.13 205);
+    --color-clip-500: oklch(0.52 0.13 200);
+    --color-claude-400: oklch(0.58 0.16 40);
+    --color-claude-500: oklch(0.55 0.17 38);
+    --color-bench-400: oklch(0.52 0.15 148);
+    --color-bench-500: oklch(0.49 0.15 148);
+    --color-stop: oklch(0.53 0.2 26);
+    --color-gap: oklch(0.58 0.14 68);
+    --color-ok: oklch(0.52 0.14 155);
+    --color-unknown: oklch(0.62 0.012 258);
+
+    --aurora-1: oklch(0.72 0.13 195 / 0.1);
+    --aurora-2: oklch(0.7 0.14 42 / 0.07);
+    --aurora-3: oklch(0.74 0.16 142 / 0.07);
+    --grain: 0.1;
+
+    --shadow-float: 0 18px 44px -14px oklch(0.4 0.03 258 / 0.28);
+    --shadow-drawer: -24px 0 60px -20px oklch(0.4 0.03 258 / 0.3);
+    --option-bg: #ffffff;
+    --option-fg: #1c2333;
+  }
+}
+
+/* Light palette — copy 2 of 2: the explicit choice. Must match copy 1. */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --tint: 17 26 44;
+  --bg-canvas: oklch(0.985 0.003 250);
+  --bg-canvas-2: oklch(0.96 0.005 250);
+  --bg-rail: oklch(1 0 0 / 0.84);
+  --bg-pane: oklch(1 0 0 / 0.58);
+  --bg-sunken: oklch(0.985 0.004 250 / 0.86);
+  --bg-deep: oklch(0.97 0.005 250 / 0.82);
+  --bg-well: oklch(0.955 0.006 250 / 0.9);
+  --bg-float: oklch(1 0 0 / 0.99);
+  --scrim: oklch(0.5 0.02 250 / 0.34);
+
+  --color-ink: oklch(0.24 0.02 258);
+  --color-muted: oklch(0.42 0.02 258);
+  --color-faint: oklch(0.54 0.018 258);
+  --color-ghost: oklch(0.66 0.014 258);
+
+  --color-clip-400: oklch(0.56 0.13 205);
+  --color-clip-500: oklch(0.52 0.13 200);
+  --color-claude-400: oklch(0.58 0.16 40);
+  --color-claude-500: oklch(0.55 0.17 38);
+  --color-bench-400: oklch(0.52 0.15 148);
+  --color-bench-500: oklch(0.49 0.15 148);
+  --color-stop: oklch(0.53 0.2 26);
+  --color-gap: oklch(0.58 0.14 68);
+  --color-ok: oklch(0.52 0.14 155);
+  --color-unknown: oklch(0.62 0.012 258);
+
+  --aurora-1: oklch(0.72 0.13 195 / 0.1);
+  --aurora-2: oklch(0.7 0.14 42 / 0.07);
+  --aurora-3: oklch(0.74 0.16 142 / 0.07);
+  --grain: 0.1;
+
+  --shadow-float: 0 18px 44px -14px oklch(0.4 0.03 258 / 0.28);
+  --shadow-drawer: -24px 0 60px -20px oklch(0.4 0.03 258 / 0.3);
+  --option-bg: #ffffff;
+  --option-fg: #1c2333;
+}
+
 /* --- canvas ---------------------------------------------------------------
    Two fixed layers under everything: a slow aurora that drifts, and a static
    grain that keeps large flat areas from banding on cheap panels. */
 
 html {
   scroll-behavior: smooth;
-  background: var(--color-void-deep);
+  background: var(--bg-canvas);
 }
 
 body {
   @apply text-ink antialiased;
-  background: var(--color-void-deep);
+  background: var(--bg-canvas);
   font-feature-settings: "cv02", "cv03", "ss01";
   overflow-x: hidden;
 }
@@ -81,9 +212,9 @@ body::before {
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(38vmax 38vmax at 18% 8%, oklch(0.78 0.14 195 / 0.13), transparent 62%),
-    radial-gradient(34vmax 34vmax at 84% 22%, oklch(0.72 0.15 42 / 0.1), transparent 60%),
-    radial-gradient(44vmax 44vmax at 60% 96%, oklch(0.8 0.17 142 / 0.08), transparent 64%);
+    radial-gradient(38vmax 38vmax at 18% 8%, var(--aurora-1), transparent 62%),
+    radial-gradient(34vmax 34vmax at 84% 22%, var(--aurora-2), transparent 60%),
+    radial-gradient(44vmax 44vmax at 60% 96%, var(--aurora-3), transparent 64%);
   animation: drift 34s ease-in-out infinite alternate;
 }
 
@@ -93,7 +224,7 @@ body::after {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.32;
+  opacity: var(--grain);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
 }
 
@@ -142,15 +273,15 @@ body::after {
 .hairline {
   height: 1px;
   border: 0;
-  background: linear-gradient(90deg, transparent, oklch(1 0 0 / 0.14), transparent);
+  background: linear-gradient(90deg, transparent, rgb(var(--tint) / 0.14), transparent);
 }
 
 /* --- surfaces -------------------------------------------------------------*/
 
 .panel {
   @apply relative rounded-2xl;
-  background: linear-gradient(180deg, oklch(1 0 0 / 0.045), oklch(1 0 0 / 0.018));
-  border: 1px solid oklch(1 0 0 / 0.085);
+  background: linear-gradient(180deg, rgb(var(--tint) / 0.045), rgb(var(--tint) / 0.018));
+  border: 1px solid rgb(var(--tint) / 0.085);
   backdrop-filter: blur(14px);
 }
 
@@ -169,8 +300,8 @@ body::after {
 
 .inset {
   @apply rounded-xl;
-  background: oklch(0.11 0.012 250 / 0.65);
-  border: 1px solid oklch(1 0 0 / 0.06);
+  background: var(--bg-sunken);
+  border: 1px solid rgb(var(--tint) / 0.06);
 }
 
 /* --- chips ----------------------------------------------------------------*/
@@ -182,11 +313,11 @@ body::after {
   white-space: nowrap;
 }
 
-.chip        { border-color: oklch(1 0 0 / 0.12); background: oklch(1 0 0 / 0.045); @apply text-muted; }
+.chip        { border-color: rgb(var(--tint) / 0.12); background: rgb(var(--tint) / 0.045); @apply text-muted; }
 .chip-stop   { border-color: oklch(0.68 0.19 22 / 0.4);  background: oklch(0.68 0.19 22 / 0.14);  color: var(--color-stop); }
 .chip-gap    { border-color: oklch(0.82 0.15 78 / 0.38); background: oklch(0.82 0.15 78 / 0.13);  color: var(--color-gap); }
 .chip-ok     { border-color: oklch(0.78 0.15 155 / 0.38);background: oklch(0.78 0.15 155 / 0.12); color: var(--color-ok); }
-.chip-unknown{ border-style: dashed; border-color: oklch(1 0 0 / 0.16); @apply text-faint; }
+.chip-unknown{ border-style: dashed; border-color: rgb(var(--tint) / 0.16); @apply text-faint; }
 .chip-info   { border-color: oklch(0.78 0.14 195 / 0.35);background: oklch(0.78 0.14 195 / 0.12); color: var(--color-clip-400); }
 .chip-clip   { border-color: oklch(0.78 0.14 195 / 0.35);background: oklch(0.78 0.14 195 / 0.12); color: var(--color-clip-400); }
 .chip-claude { border-color: oklch(0.72 0.15 42 / 0.38); background: oklch(0.72 0.15 42 / 0.13);  color: var(--color-claude-400); }
@@ -201,7 +332,7 @@ body::after {
 
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; box-shadow: 0 0 0 0 currentColor; }
-  50%      { opacity: 0.55; box-shadow: 0 0 0 3px oklch(1 0 0 / 0); }
+  50%      { opacity: 0.55; box-shadow: 0 0 0 3px rgb(var(--tint) / 0); }
 }
 
 /* --- controls -------------------------------------------------------------*/
@@ -224,22 +355,22 @@ body::after {
 
 .btn-ghost {
   @apply text-ink;
-  border-color: oklch(1 0 0 / 0.14);
-  background: oklch(1 0 0 / 0.04);
+  border-color: rgb(var(--tint) / 0.14);
+  background: rgb(var(--tint) / 0.04);
 }
-.btn-ghost:hover:not(:disabled) { background: oklch(1 0 0 / 0.09); border-color: oklch(1 0 0 / 0.24); }
+.btn-ghost:hover:not(:disabled) { background: rgb(var(--tint) / 0.09); border-color: rgb(var(--tint) / 0.24); }
 
 .btn-quiet {
   @apply px-2.5 py-1 font-mono text-[10px] uppercase text-faint;
   letter-spacing: 0.1em;
-  border-color: oklch(1 0 0 / 0.1);
+  border-color: rgb(var(--tint) / 0.1);
 }
-.btn-quiet:hover:not(:disabled) { @apply text-ink; border-color: oklch(1 0 0 / 0.24); }
+.btn-quiet:hover:not(:disabled) { @apply text-ink; border-color: rgb(var(--tint) / 0.24); }
 
 .field {
   @apply w-full rounded-lg px-3 py-2 text-[13px] text-ink placeholder:text-ghost;
-  background: oklch(0.11 0.012 250 / 0.7);
-  border: 1px solid oklch(1 0 0 / 0.1);
+  background: var(--bg-sunken);
+  border: 1px solid rgb(var(--tint) / 0.1);
 }
 .field:focus {
   outline: none;
@@ -250,23 +381,23 @@ body::after {
 /* Native selects need their own chevron once the platform one is removed. */
 .select {
   @apply w-full cursor-pointer appearance-none rounded-lg py-2 pl-3 pr-8 text-[13px] text-ink;
-  background: oklch(0.11 0.012 250 / 0.7);
-  border: 1px solid oklch(1 0 0 / 0.1);
+  background: var(--bg-sunken);
+  border: 1px solid rgb(var(--tint) / 0.1);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%2394a3b8' stroke-width='1.6'%3E%3Cpath d='m4 6 4 4 4-4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.6rem center;
   background-size: 0.9rem;
 }
 .select:focus { outline: none; border-color: oklch(0.78 0.14 195 / 0.55); }
-.select option { background: #0d1117; color: #e6edf3; }
+.select option { background: var(--option-bg); color: var(--option-fg); }
 
 /* --- combobox (trial picker) ---------------------------------------------*/
 
 .combo-pop {
   @apply absolute left-0 right-0 z-50 mt-2 overflow-hidden rounded-xl;
-  background: oklch(0.14 0.014 250 / 0.98);
-  border: 1px solid oklch(1 0 0 / 0.13);
-  box-shadow: 0 24px 60px -12px oklch(0 0 0 / 0.8);
+  background: var(--bg-float);
+  border: 1px solid rgb(var(--tint) / 0.13);
+  box-shadow: var(--shadow-float);
   backdrop-filter: blur(20px);
 }
 
@@ -274,7 +405,7 @@ body::after {
 
 .combo-item {
   @apply cursor-pointer border-b px-3 py-2.5 transition-colors;
-  border-color: oklch(1 0 0 / 0.05);
+  border-color: rgb(var(--tint) / 0.05);
 }
 .combo-item:last-child { border-bottom: 0; }
 .combo-item:hover,
@@ -287,15 +418,15 @@ body::after {
   @apply relative w-full overflow-hidden rounded-xl;
   background:
     radial-gradient(60% 100% at 50% 0%, oklch(0.78 0.14 195 / 0.07), transparent 70%),
-    oklch(0.1 0.012 250 / 0.7);
-  border: 1px solid oklch(1 0 0 / 0.07);
+    var(--bg-deep);
+  border: 1px solid rgb(var(--tint) / 0.07);
 }
 
 .graph-svg { display: block; width: 100%; height: auto; }
 
 .edge {
   fill: none;
-  stroke: oklch(1 0 0 / 0.13);
+  stroke: rgb(var(--tint) / 0.13);
   stroke-width: 1.25;
   transition: stroke 0.4s ease, stroke-width 0.4s ease;
 }
@@ -320,8 +451,8 @@ body::after {
 }
 
 .node-box {
-  fill: oklch(0.15 0.014 250 / 0.92);
-  stroke: oklch(1 0 0 / 0.12);
+  fill: var(--bg-float);
+  stroke: rgb(var(--tint) / 0.12);
   stroke-width: 1;
   transition: stroke 0.35s ease, fill 0.35s ease;
 }
@@ -352,8 +483,8 @@ body::after {
 
 .console {
   @apply max-h-64 overflow-y-auto rounded-xl p-3;
-  background: oklch(0.09 0.012 250 / 0.85);
-  border: 1px solid oklch(1 0 0 / 0.06);
+  background: var(--bg-well);
+  border: 1px solid rgb(var(--tint) / 0.06);
   scrollbar-width: thin;
 }
 
@@ -387,7 +518,7 @@ body::after {
 
 .meter-track {
   @apply h-1 w-full overflow-hidden rounded-full;
-  background: oklch(1 0 0 / 0.08);
+  background: rgb(var(--tint) / 0.08);
 }
 .meter-fill {
   @apply block h-full rounded-full;
@@ -400,7 +531,7 @@ body::after {
 .score-track { @apply flex gap-0.5; }
 .score-pip {
   @apply h-1.5 w-full rounded-full;
-  background: oklch(1 0 0 / 0.1);
+  background: rgb(var(--tint) / 0.1);
   transition: background 0.3s ease;
 }
 .score-pip[data-tone="stop"][data-on="true"]    { background: var(--color-stop); }
@@ -411,11 +542,11 @@ body::after {
 .rule-stop    { box-shadow: inset 2px 0 0 0 var(--color-stop); }
 .rule-gap     { box-shadow: inset 2px 0 0 0 var(--color-gap); }
 .rule-ok      { box-shadow: inset 2px 0 0 0 var(--color-ok); }
-.rule-unknown { box-shadow: inset 2px 0 0 0 oklch(1 0 0 / 0.16); }
+.rule-unknown { box-shadow: inset 2px 0 0 0 rgb(var(--tint) / 0.16); }
 
 .evidence-row {
   @apply rounded-lg py-2 pl-3 pr-2.5;
-  background: oklch(1 0 0 / 0.03);
+  background: rgb(var(--tint) / 0.03);
 }
 
 /* --- domain table ---------------------------------------------------------*/
@@ -424,10 +555,10 @@ body::after {
   @apply grid w-full cursor-pointer grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1.5
          border-b px-3 py-2.5 text-left transition-colors
          sm:grid-cols-[minmax(0,1fr)_5rem_3.5rem_5.5rem_5rem_2rem];
-  border-color: oklch(1 0 0 / 0.05);
+  border-color: rgb(var(--tint) / 0.05);
 }
 .domain-row:last-child { border-bottom: 0; }
-.domain-row:hover, .domain-row:focus-visible { background: oklch(1 0 0 / 0.04); outline: none; }
+.domain-row:hover, .domain-row:focus-visible { background: rgb(var(--tint) / 0.04); outline: none; }
 .domain-row[aria-selected="true"] {
   background: oklch(0.78 0.14 195 / 0.09);
   box-shadow: inset 2px 0 0 0 var(--color-clip-400);
@@ -437,7 +568,7 @@ body::after {
   @apply hidden gap-x-3 border-b px-3 pb-1.5 pt-0.5 font-mono text-[9px] uppercase text-ghost
          sm:grid sm:grid-cols-[minmax(0,1fr)_5rem_3.5rem_5.5rem_5rem_2rem];
   letter-spacing: 0.12em;
-  border-color: oklch(1 0 0 / 0.08);
+  border-color: rgb(var(--tint) / 0.08);
 }
 
 /* --- citations ------------------------------------------------------------*/
@@ -452,7 +583,7 @@ body::after {
 
 .src-plain {
   @apply inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 font-mono text-[10px] text-faint;
-  border: 1px dashed oklch(1 0 0 / 0.14);
+  border: 1px dashed rgb(var(--tint) / 0.14);
 }
 
 .src-id { @apply font-mono text-[9px] text-ghost; }
@@ -463,7 +594,7 @@ body::after {
   @apply inline-flex shrink-0 cursor-pointer items-center gap-1 rounded-md px-1.5 py-0.5
          align-middle font-mono text-[9px] uppercase transition;
   letter-spacing: 0.1em;
-  border: 1px solid oklch(1 0 0 / 0.1);
+  border: 1px solid rgb(var(--tint) / 0.1);
   color: var(--color-ghost);
 }
 .proof-btn:hover {
@@ -476,16 +607,16 @@ body::after {
 
 .drawer-scrim {
   @apply fixed inset-0 z-[90];
-  background: oklch(0.08 0.01 250 / 0.7);
+  background: var(--scrim);
   backdrop-filter: blur(3px);
   animation: fade-in 0.2s ease-out both;
 }
 
 .drawer {
   @apply fixed right-0 top-0 z-[100] flex h-full w-full max-w-[34rem] flex-col;
-  background: oklch(0.13 0.014 250 / 0.99);
-  border-left: 1px solid oklch(1 0 0 / 0.12);
-  box-shadow: -30px 0 80px -20px oklch(0 0 0 / 0.9);
+  background: var(--bg-float);
+  border-left: 1px solid rgb(var(--tint) / 0.12);
+  box-shadow: var(--shadow-drawer);
   animation: slide-in 0.32s cubic-bezier(0.2, 0.9, 0.2, 1) both;
 }
 
@@ -514,10 +645,10 @@ body::after {
   top: 14px;
   bottom: 0;
   width: 1px;
-  background: linear-gradient(180deg, oklch(0.78 0.14 195 / 0.4), oklch(1 0 0 / 0.06));
+  background: linear-gradient(180deg, oklch(0.78 0.14 195 / 0.4), rgb(var(--tint) / 0.06));
 }
 .chain-step:last-child::after { display: none; }
-.chain-step[data-missing="true"]::before { background: var(--color-unknown); box-shadow: 0 0 0 3px oklch(1 0 0 / 0.06); }
+.chain-step[data-missing="true"]::before { background: var(--color-unknown); box-shadow: 0 0 0 3px rgb(var(--tint) / 0.06); }
 
 /* --- gene model viewer ----------------------------------------------------*/
 
@@ -525,8 +656,8 @@ body::after {
   @apply relative overflow-hidden rounded-xl;
   background:
     linear-gradient(180deg, oklch(0.8 0.17 142 / 0.05), transparent 60%),
-    oklch(0.1 0.012 250 / 0.75);
-  border: 1px solid oklch(1 0 0 / 0.07);
+    var(--bg-deep);
+  border: 1px solid rgb(var(--tint) / 0.07);
 }
 
 .feature-block {
@@ -544,8 +675,8 @@ body::after {
 
 .base-ladder {
   @apply overflow-x-auto whitespace-nowrap rounded-lg p-2 font-mono text-[10px] leading-4;
-  background: oklch(0.09 0.012 250 / 0.8);
-  border: 1px solid oklch(1 0 0 / 0.06);
+  background: var(--bg-well);
+  border: 1px solid rgb(var(--tint) / 0.06);
   letter-spacing: 0.12em;
 }
 .base-A { color: oklch(0.8 0.16 145); }
@@ -603,7 +734,7 @@ details > summary::-webkit-details-marker { display: none; }
 .disclosure {
   @apply flex items-center justify-between gap-3 rounded-lg px-3 py-2 transition-colors;
 }
-.disclosure:hover { background: oklch(1 0 0 / 0.04); }
+.disclosure:hover { background: rgb(var(--tint) / 0.04); }
 
 .disclosure-caret { @apply transition-transform duration-200; }
 details[open] > summary .disclosure-caret { transform: rotate(90deg); }
@@ -612,8 +743,8 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 
 *::-webkit-scrollbar { width: 8px; height: 8px; }
 *::-webkit-scrollbar-track { background: transparent; }
-*::-webkit-scrollbar-thumb { background: oklch(1 0 0 / 0.12); border-radius: 99px; }
-*::-webkit-scrollbar-thumb:hover { background: oklch(1 0 0 / 0.22); }
+*::-webkit-scrollbar-thumb { background: rgb(var(--tint) / 0.12); border-radius: 99px; }
+*::-webkit-scrollbar-thumb:hover { background: rgb(var(--tint) / 0.22); }
 
 /* --- accessibility --------------------------------------------------------*/
 
@@ -644,8 +775,8 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 
 .rail {
   @apply z-40 flex items-center gap-2 overflow-hidden border-b px-3 py-2 sm:gap-3 sm:px-4;
-  border-color: oklch(1 0 0 / 0.07);
-  background: oklch(0.13 0.012 250 / 0.78);
+  border-color: rgb(var(--tint) / 0.07);
+  background: var(--bg-rail);
   backdrop-filter: blur(18px);
 }
 
@@ -668,33 +799,79 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 .deck {
   @apply relative grid min-h-0 min-w-0;
   grid-template-columns: minmax(0, 1fr);
+  --dock-w: 304px;
+  --inspector-w: 404px;
 }
 .deck > * { @apply min-w-0; }
 
+/* --- resizable panes ------------------------------------------------------
+   The three widths are the reader's, not ours. A regulatory reviewer wants the
+   report wide; someone exploring the topology wants the stage wide. Both are
+   one drag away, and the choice persists. */
+
+.splitter { display: none; }
+
 @media (min-width: 1024px) {
-  .deck { grid-template-columns: 280px minmax(0, 1fr) 360px; }
+  .deck { grid-template-columns: var(--dock-w) 0.4rem minmax(240px, 1fr) 0.4rem var(--inspector-w); }
+
+  .splitter {
+    @apply relative block cursor-col-resize;
+    background: rgb(var(--tint) / 0.04);
+    transition: background 0.18s ease;
+  }
+  /* A 6px target is a hard target; the hit area is widened invisibly. */
+  .splitter::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline: -4px;
+  }
+  /* The grip: three dots, only once you are near it. */
+  .splitter::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 26px;
+    transform: translate(-50%, -50%);
+    border-radius: 99px;
+    background: rgb(var(--tint) / 0.16);
+    transition: background 0.18s ease, height 0.18s ease;
+  }
+  .splitter:hover,
+  .splitter.is-dragging,
+  .splitter:focus-visible { background: oklch(0.78 0.14 195 / 0.16); }
+  .splitter:hover::after,
+  .splitter.is-dragging::after,
+  .splitter:focus-visible::after { background: var(--color-clip-400); height: 44px; }
+
+  /* Stage focus: both side panes fold away and the graph takes the window. */
+  body.is-focus .deck { grid-template-columns: 0 0 minmax(0, 1fr) 0 0; }
+  body.is-focus .dock,
+  body.is-focus .inspector,
+  body.is-focus .splitter { display: none; }
 }
-@media (min-width: 1280px) {
-  .deck { grid-template-columns: 304px minmax(0, 1fr) 404px; }
-}
-@media (min-width: 1600px) {
-  .deck { grid-template-columns: 340px minmax(0, 1fr) 468px; }
-}
+
+/* While dragging, nothing else may claim the pointer or highlight text. */
+body.is-resizing { cursor: col-resize; user-select: none; }
+body.is-resizing iframe,
+body.is-resizing canvas { pointer-events: none; }
 
 /* --- dock -----------------------------------------------------------------*/
 
 .dock {
   @apply relative min-h-0 border-r;
-  border-color: oklch(1 0 0 / 0.07);
-  background: oklch(0.12 0.012 250 / 0.55);
+  border-color: rgb(var(--tint) / 0.07);
+  background: var(--bg-pane);
 }
 
 .dock-scroll { @apply h-full overflow-y-auto overscroll-contain px-3 pb-6 pt-3; }
 
 .dock-block {
   @apply mb-3 rounded-2xl p-3;
-  background: linear-gradient(180deg, oklch(1 0 0 / 0.04), oklch(1 0 0 / 0.015));
-  border: 1px solid oklch(1 0 0 / 0.07);
+  background: linear-gradient(180deg, rgb(var(--tint) / 0.04), rgb(var(--tint) / 0.015));
+  border: 1px solid rgb(var(--tint) / 0.07);
 }
 
 /* --- stage ----------------------------------------------------------------*/
@@ -710,21 +887,8 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 
 .stage-fallback { @apply absolute inset-x-4 top-1/2 -translate-y-1/2; }
 
-/* The pitch, resting on the live topology. It parks itself into the corner the
-   moment a programme is selected — the instrument is the point, not the copy. */
-.stage-hero {
-  @apply pointer-events-none absolute inset-x-0 top-0 px-5 pt-8 sm:px-8 sm:pt-12;
-  max-width: 62ch;
-  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.stage-hero > * { pointer-events: auto; }
-.stage-hero.is-parked {
-  opacity: 0;
-  transform: translateY(-18px);
-  pointer-events: none;
-  visibility: hidden;
-}
-
+/* The pitch lives in the reading pane, not over the topology it describes.
+   Nothing but the breadcrumb, the readouts and the console may sit on the stage. */
 .display-accent {
   background: linear-gradient(100deg, var(--color-clip-400), var(--color-bench-400) 55%, var(--color-claude-400));
   -webkit-background-clip: text;
@@ -734,20 +898,32 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 
 .stage-crumbs {
   @apply absolute left-3 top-3 z-10 flex max-w-[min(90%,44rem)] flex-wrap items-center gap-1 rounded-full px-2 py-1;
-  background: oklch(0.11 0.012 250 / 0.72);
-  border: 1px solid oklch(1 0 0 / 0.08);
+  background: var(--bg-sunken);
+  border: 1px solid rgb(var(--tint) / 0.08);
   backdrop-filter: blur(12px);
 }
 
 .crumb {
   @apply cursor-pointer rounded-full px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-faint transition-colors;
 }
-.crumb:hover { @apply text-ink; background: oklch(1 0 0 / 0.06); }
+.crumb:hover { @apply text-ink; background: rgb(var(--tint) / 0.06); }
 .crumb.is-current { color: var(--color-clip-400); }
 .crumb-sep { @apply font-mono text-[10px] text-ghost; }
 
 /* Readouts and console share one bottom stack, so the console can grow without
    ever sliding underneath the counters. */
+.stage-tools { @apply absolute right-3 top-3 z-10 flex items-center gap-1; }
+
+.tool-btn {
+  @apply flex size-7 cursor-pointer items-center justify-center rounded-lg text-[13px] leading-none text-faint transition;
+  background: var(--bg-sunken);
+  border: 1px solid rgb(var(--tint) / 0.08);
+  backdrop-filter: blur(12px);
+}
+.tool-btn:hover:not(:disabled) { color: var(--color-ink); border-color: oklch(0.78 0.14 195 / 0.55); }
+.tool-btn:disabled { opacity: 0.32; cursor: default; }
+.tool-btn[aria-pressed="true"] { color: var(--color-clip-400); border-color: oklch(0.78 0.14 195 / 0.6); }
+
 .stage-foot { @apply absolute inset-x-0 bottom-0 z-20 flex flex-col; }
 
 .stage-readouts { @apply pointer-events-none flex items-end justify-between gap-3 px-3 pb-2; }
@@ -758,8 +934,8 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 
 .hud-counter {
   @apply flex items-baseline gap-1.5 rounded-lg px-2 py-1;
-  background: oklch(0.1 0.012 250 / 0.66);
-  border: 1px solid oklch(1 0 0 / 0.06);
+  background: var(--bg-deep);
+  border: 1px solid rgb(var(--tint) / 0.06);
   backdrop-filter: blur(8px);
 }
 .hud-counter i { @apply not-italic; }
@@ -775,15 +951,15 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 
 .stage-console {
   @apply flex flex-col;
-  background: oklch(0.1 0.012 250 / 0.86);
-  border-top: 1px solid oklch(1 0 0 / 0.08);
+  background: var(--bg-deep);
+  border-top: 1px solid rgb(var(--tint) / 0.08);
   backdrop-filter: blur(16px);
 }
 
 .console-head {
   @apply flex w-full cursor-pointer items-center gap-2 px-3 py-1.5 text-left transition-colors;
 }
-.console-head:hover { background: oklch(1 0 0 / 0.03); }
+.console-head:hover { background: rgb(var(--tint) / 0.03); }
 .console-head .disclosure-caret { transform: rotate(90deg); }
 .stage-console.is-collapsed .console-head .disclosure-caret { transform: rotate(0deg); }
 
@@ -798,13 +974,13 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 
 .inspector {
   @apply relative flex min-h-0 flex-col border-l;
-  border-color: oklch(1 0 0 / 0.07);
-  background: oklch(0.12 0.012 250 / 0.55);
+  border-color: rgb(var(--tint) / 0.07);
+  background: var(--bg-pane);
 }
 
 .inspector-tabs {
   @apply flex shrink-0 gap-0.5 overflow-x-auto border-b px-2 pt-2;
-  border-color: oklch(1 0 0 / 0.07);
+  border-color: rgb(var(--tint) / 0.07);
   scrollbar-width: none;
 }
 .inspector-tabs::-webkit-scrollbar { display: none; }
@@ -813,7 +989,7 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
   @apply relative cursor-pointer whitespace-nowrap rounded-t-lg px-3 py-1.5 text-[12px] text-faint transition-colors;
 }
 .tab:hover { @apply text-ink; }
-.tab[aria-selected="true"] { @apply text-ink; background: oklch(1 0 0 / 0.05); }
+.tab[aria-selected="true"] { @apply text-ink; background: rgb(var(--tint) / 0.05); }
 .tab[aria-selected="true"]::after {
   content: "";
   position: absolute;
@@ -825,7 +1001,7 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 
 .inspector-body { @apply min-h-0 flex-1 overflow-y-auto overscroll-contain p-3; }
 
-.inspector-foot { @apply shrink-0 border-t px-3 py-2; border-color: oklch(1 0 0 / 0.07); }
+.inspector-foot { @apply shrink-0 border-t px-3 py-2; border-color: rgb(var(--tint) / 0.07); }
 
 .selection-card {
   @apply mx-3 mt-3 rounded-xl px-3 py-2.5;
@@ -849,18 +1025,17 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 
   .pane-bar {
     @apply z-40 grid shrink-0 grid-cols-3 border-t;
-    border-color: oklch(1 0 0 / 0.08);
-    background: oklch(0.11 0.012 250 / 0.92);
+    border-color: rgb(var(--tint) / 0.08);
+    background: var(--bg-float);
     backdrop-filter: blur(14px);
     padding-bottom: env(safe-area-inset-bottom, 0);
   }
   .pane-tab {
     @apply cursor-pointer py-2.5 font-mono text-[10px] uppercase tracking-[0.14em] text-faint transition-colors;
   }
-  .pane-tab.is-active { color: var(--color-clip-400); background: oklch(1 0 0 / 0.04); }
+  .pane-tab.is-active { color: var(--color-clip-400); background: rgb(var(--tint) / 0.04); }
 
   body.workstation { grid-template-rows: auto minmax(0, 1fr) auto; }
-  .stage-hero { @apply pt-6; }
   .console-scroll { max-height: 22vh; }
 }
 
@@ -882,9 +1057,9 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 .matrix-cell {
   @apply flex h-[1.35rem] cursor-pointer items-center justify-center rounded font-mono text-[9px] text-ink transition;
   background: oklch(0.78 0.14 195 / var(--fill, 0));
-  border: 1px solid oklch(1 0 0 / 0.05);
+  border: 1px solid rgb(var(--tint) / 0.05);
 }
-.matrix-cell:disabled { @apply cursor-default text-transparent; background: oklch(1 0 0 / 0.015); }
+.matrix-cell:disabled { @apply cursor-default text-transparent; background: rgb(var(--tint) / 0.015); }
 .matrix-cell:not(:disabled):hover { border-color: oklch(0.78 0.14 195 / 0.6); }
 .matrix-cell.is-active { border-color: var(--color-clip-400); box-shadow: 0 0 0 1px var(--color-clip-400); }
 
@@ -895,7 +1070,7 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 
 /* --- contribution matrix (report) -----------------------------------------*/
 
-.matrix { @apply mt-3 overflow-hidden rounded-xl; border: 1px solid oklch(1 0 0 / 0.06); }
+.matrix { @apply mt-3 overflow-hidden rounded-xl; border: 1px solid rgb(var(--tint) / 0.06); }
 
 .matrix-head,
 .matrix-row {
@@ -907,17 +1082,17 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 
 .matrix-head {
   @apply border-b px-2.5 py-1.5 font-mono text-[9px] uppercase tracking-[0.1em] text-ghost;
-  border-color: oklch(1 0 0 / 0.07);
+  border-color: rgb(var(--tint) / 0.07);
 }
 
 .matrix-row {
   @apply w-full cursor-pointer border-b px-2.5 py-1.5 text-left transition-colors;
-  border-color: oklch(1 0 0 / 0.04);
+  border-color: rgb(var(--tint) / 0.04);
 }
 .matrix-row:last-child { border-bottom: 0; }
-.matrix-row:hover { background: oklch(1 0 0 / 0.04); }
+.matrix-row:hover { background: rgb(var(--tint) / 0.04); }
 
-.matrix-bar { @apply block h-1.5 w-full overflow-hidden rounded-full; background: oklch(1 0 0 / 0.07); }
+.matrix-bar { @apply block h-1.5 w-full overflow-hidden rounded-full; background: rgb(var(--tint) / 0.07); }
 .matrix-fill { @apply block h-full rounded-full; transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .matrix-fill[data-tone="ok"] { background: var(--color-ok); }
 .matrix-fill[data-tone="gap"] { background: var(--color-gap); }
@@ -928,8 +1103,8 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 
 .formula {
   @apply mt-3 rounded-xl px-3 py-2.5;
-  background: oklch(0.09 0.012 250 / 0.7);
-  border: 1px solid oklch(1 0 0 / 0.06);
+  background: var(--bg-well);
+  border: 1px solid rgb(var(--tint) / 0.06);
 }
 .formula-expr { @apply font-mono text-[13px] text-ink; }
 .formula-sub { @apply mt-1.5 flex flex-wrap items-center gap-1 font-mono text-[10px] text-faint; }
@@ -938,7 +1113,7 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 
 .formula .term {
   @apply rounded px-1 py-0.5;
-  background: oklch(1 0 0 / 0.05);
+  background: rgb(var(--tint) / 0.05);
 }
 .formula .term[data-tone="ok"] { color: var(--color-ok); }
 .formula .term[data-tone="gap"] { color: var(--color-gap); }
@@ -951,11 +1126,11 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 .bench-axis {
   @apply relative h-8 w-full rounded-lg;
   background: linear-gradient(90deg, oklch(0.68 0.19 22 / 0.16), oklch(0.82 0.15 78 / 0.14), oklch(0.78 0.15 155 / 0.16));
-  border: 1px solid oklch(1 0 0 / 0.06);
+  border: 1px solid rgb(var(--tint) / 0.06);
 }
 .bench-mark {
   @apply absolute top-1/2 block size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full;
-  background: oklch(1 0 0 / 0.4);
+  background: rgb(var(--tint) / 0.4);
 }
 .bench-mark.is-current { background: var(--color-ink); }
 .bench-here {
@@ -966,10 +1141,10 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 
 .bench-range {
   @apply relative h-1.5 w-full rounded-full;
-  background: oklch(1 0 0 / 0.07);
+  background: rgb(var(--tint) / 0.07);
 }
-.bench-range-fill { @apply absolute inset-y-0 block rounded-full; background: oklch(1 0 0 / 0.14); }
-.bench-range-mean { @apply absolute inset-y-[-2px] block w-px -translate-x-1/2; background: oklch(1 0 0 / 0.45); }
+.bench-range-fill { @apply absolute inset-y-0 block rounded-full; background: rgb(var(--tint) / 0.14); }
+.bench-range-mean { @apply absolute inset-y-[-2px] block w-px -translate-x-1/2; background: rgb(var(--tint) / 0.45); }
 .bench-range-mine { @apply absolute top-1/2 block size-2 -translate-x-1/2 -translate-y-1/2 rounded-full; }
 .bench-range-mine[data-tone="ok"] { background: var(--color-ok); }
 .bench-range-mine[data-tone="gap"] { background: var(--color-gap); }
@@ -983,8 +1158,8 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
   height: 260px;
   background:
     radial-gradient(60% 90% at 50% 0%, oklch(0.8 0.17 142 / 0.07), transparent 70%),
-    oklch(0.09 0.012 250 / 0.8);
-  border: 1px solid oklch(1 0 0 / 0.07);
+    var(--bg-well);
+  border: 1px solid rgb(var(--tint) / 0.07);
 }
 .construct-stage canvas { @apply block size-full; cursor: grab; touch-action: none; }
 .construct-stage canvas:active { cursor: grabbing; }

@@ -40,22 +40,40 @@ export function oklch(L, C, hDeg, alpha = 1) {
   return alpha >= 1 ? `rgb(${r} ${g} ${bb})` : `rgb(${r} ${g} ${bb} / ${alpha})`;
 }
 
+/**
+ * The canvas has no cascade, so the theme has to be carried explicitly. The two
+ * palettes mirror the tokens in app.css: same hues, re-tuned lightness, because
+ * a colour that reads as a bright signal on near-black disappears on white.
+ */
+export const theme = { mode: 'dark' };
+
+export function setStageTheme(mode) {
+  theme.mode = mode === 'light' ? 'light' : 'dark';
+}
+
+const pick = (dark, light) => (a = 1) =>
+  theme.mode === 'light' ? oklch(light[0], light[1], light[2], a) : oklch(dark[0], dark[1], dark[2], a);
+
 /** The lab palette, mirroring the tokens declared in app.css. */
 export const PALETTE = {
-  clip: (a = 1) => oklch(0.86, 0.13, 195, a),
-  clipDeep: (a = 1) => oklch(0.7, 0.13, 195, a),
-  claude: (a = 1) => oklch(0.82, 0.13, 45, a),
-  claudeDeep: (a = 1) => oklch(0.68, 0.15, 42, a),
-  bench: (a = 1) => oklch(0.88, 0.16, 140, a),
-  benchDeep: (a = 1) => oklch(0.7, 0.16, 142, a),
-  stop: (a = 1) => oklch(0.68, 0.19, 22, a),
-  gap: (a = 1) => oklch(0.82, 0.15, 78, a),
-  ok: (a = 1) => oklch(0.78, 0.15, 155, a),
-  ink: (a = 1) => oklch(0.97, 0.004, 250, a),
-  muted: (a = 1) => oklch(0.68, 0.014, 250, a),
-  faint: (a = 1) => oklch(0.54, 0.014, 250, a),
-  ghost: (a = 1) => oklch(0.42, 0.012, 250, a),
-  void: (a = 1) => oklch(0.13, 0.012, 250, a),
+  clip: pick([0.86, 0.13, 195], [0.56, 0.13, 205]),
+  clipDeep: pick([0.7, 0.13, 195], [0.48, 0.12, 202]),
+  claude: pick([0.82, 0.13, 45], [0.58, 0.16, 40]),
+  claudeDeep: pick([0.68, 0.15, 42], [0.5, 0.16, 38]),
+  bench: pick([0.88, 0.16, 140], [0.52, 0.15, 148]),
+  benchDeep: pick([0.7, 0.16, 142], [0.45, 0.14, 148]),
+  // Source classes, so a paper, a registry record and an FDA review read apart
+  // on the board without anyone having to open them.
+  lit: pick([0.78, 0.12, 288], [0.5, 0.15, 288]),
+  reg: pick([0.84, 0.14, 78], [0.55, 0.14, 68]),
+  stop: pick([0.68, 0.19, 22], [0.53, 0.2, 26]),
+  gap: pick([0.82, 0.15, 78], [0.58, 0.14, 68]),
+  ok: pick([0.78, 0.15, 155], [0.52, 0.14, 155]),
+  ink: pick([0.97, 0.004, 250], [0.24, 0.02, 258]),
+  muted: pick([0.68, 0.014, 250], [0.42, 0.02, 258]),
+  faint: pick([0.54, 0.014, 250], [0.54, 0.018, 258]),
+  ghost: pick([0.42, 0.012, 250], [0.66, 0.014, 258]),
+  void: pick([0.13, 0.012, 250], [0.99, 0.002, 250]),
 };
 
 export const AGENT_COLOR = {
@@ -452,14 +470,23 @@ export function createStage(canvas, options = {}) {
 
 /* --------------------------------------------------------------- primitives */
 
-/** Additive bloom. Cheap enough to use per node; expensive enough not to spam. */
+/**
+ * Bloom around a node.
+ *
+ * Additive blending is what makes a light glow on a dark stage, and it is
+ * exactly wrong on a light one — adding to near-white just washes to white, so
+ * the brightest nodes would become the least visible. On the light theme the
+ * same shape is painted normally at lower alpha, which reads as a soft halo
+ * instead of a blowout.
+ */
 export function glow(ctx, x, y, radius, color, alpha = 1) {
   if (!(radius > 0.4) || alpha <= 0.01) return;
+  const light = theme.mode === 'light';
   const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
-  gradient.addColorStop(0, color(0.55 * alpha));
-  gradient.addColorStop(0.45, color(0.16 * alpha));
+  gradient.addColorStop(0, color((light ? 0.3 : 0.55) * alpha));
+  gradient.addColorStop(0.45, color((light ? 0.09 : 0.16) * alpha));
   gradient.addColorStop(1, color(0));
-  ctx.globalCompositeOperation = 'lighter';
+  if (!light) ctx.globalCompositeOperation = 'lighter';
   ctx.fillStyle = gradient;
   ctx.beginPath();
   ctx.arc(x, y, radius, 0, Math.PI * 2);

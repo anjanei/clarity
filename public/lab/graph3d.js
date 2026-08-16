@@ -33,7 +33,9 @@ import {
   seededRandom,
 } from './engine3d.js';
 
-const COLUMN_WIDTH = 178;
+// Wide enough that the pipeline reads left-to-right at the default camera angle
+// rather than collapsing its stages into one another under perspective.
+const COLUMN_WIDTH = 246;
 const SPAWN_MS = 620;
 
 /** Domain labels are long; in space they need to be short but still recognisable. */
@@ -63,6 +65,22 @@ const TONE_COLOR = {
   stop: PALETTE.stop,
   unknown: PALETTE.faint,
 };
+
+/** What kind of document this is, taken from the dossier's own classification. */
+const SOURCE_COLOR = {
+  primary_literature: PALETTE.lit,
+  trial_registry: PALETTE.clip,
+  regulatory_document: PALETTE.reg,
+};
+
+/** Registry ids are identity; a paper's identity is its title. */
+function documentLabel(doc) {
+  const title = String(doc.title ?? '').trim();
+  if (title && title.toUpperCase() !== String(doc.identifier ?? '').toUpperCase()) {
+    return title.length > 34 ? `${title.slice(0, 33)}…` : title;
+  }
+  return doc.identifier || 'Source';
+}
 
 const scoreTone = (score, strength) => {
   if (strength === 'absent' || score == null) return 'unknown';
@@ -174,16 +192,19 @@ function buildPipelineSpec({ pipeline, trial, evaluation, liveDocs }) {
   const documents = evaluation ? collectDocuments(evaluation) : [];
   const liveOnly = documents.length ? [] : liveDocs ?? [];
 
+  // One node per real paper, registry record or review document — titled, sized
+  // by how many findings lean on it, coloured by what kind of source it is.
   documents.forEach((doc, index) => {
     const id = `doc:${doc.key}`;
     push({
       id,
       kind: 'doc',
-      label: doc.identifier || doc.title.slice(0, 22),
-      sub: `${doc.cites.length} cited`,
+      label: documentLabel(doc),
+      sub: [doc.identifier, doc.cites.length > 1 ? `×${doc.cites.length}` : null].filter(Boolean).join(' '),
       column: 1.72,
       ring: [index, Math.max(documents.length, 1)],
-      radius: clamp(5 + doc.cites.length * 1.7, 5, 13),
+      radius: clamp(5.5 + doc.cites.length * 1.9, 5.5, 14),
+      sourceType: doc.sourceType,
       expandable: true,
       data: { type: 'document', doc },
     });
@@ -191,6 +212,8 @@ function buildPipelineSpec({ pipeline, trial, evaluation, liveDocs }) {
     for (const domainId of doc.domains) edges.push({ from: id, to: domainId, faint: true });
   });
 
+  // Mid-run, before any of it has been cited: each completed search lands here as
+  // it happens, which is what makes the board grow while you watch it.
   liveOnly.forEach((doc, index) => {
     const id = `live:${doc.key}`;
     push({
@@ -200,7 +223,7 @@ function buildPipelineSpec({ pipeline, trial, evaluation, liveDocs }) {
       sub: doc.source,
       column: 1.72,
       ring: [index, Math.max(liveOnly.length, 1)],
-      radius: 6,
+      radius: 7,
       state: 'active',
       expandable: false,
       data: { type: 'liveSection', section: doc },
@@ -289,10 +312,11 @@ function documentSpec(doc, evaluation) {
     {
       id: 'focus',
       kind: 'doc',
-      label: doc.identifier || doc.title.slice(0, 26),
-      sub: doc.sourceType || 'source',
+      label: documentLabel(doc),
+      sub: doc.identifier || doc.sourceType || 'source',
       radius: 20,
       center: true,
+      sourceType: doc.sourceType,
       data: { type: 'document', doc },
     },
   ];
@@ -501,9 +525,10 @@ function claimSpec(node, evaluation, resolveSources) {
     nodes.push({
       id,
       kind: 'doc',
-      label: citation.identifier || citation.title || 'source',
-      sub: citation.sourceType || 'cited source',
+      label: documentLabel(citation),
+      sub: citation.identifier || citation.sourceType || 'cited source',
       radius: 9,
+      sourceType: citation.sourceType,
       data: { type: 'citation', citation },
     });
     edges.push({ from: id, to: element ? 'extraction' : 'focus', faint: true });
@@ -862,9 +887,12 @@ export function createEvidenceGraph(canvas, hooks = {}) {
 
   /* -- rendering ---------------------------------------------------------- */
 
-  const colorFor = (node) => (node.tone ? TONE_COLOR[node.tone] : AGENT_COLOR[node.kind]) ?? PALETTE.faint;
+  const colorFor = (node) =>
+    (node.tone ? TONE_COLOR[node.tone] : node.sourceType ? SOURCE_COLOR[node.sourceType] : null) ??
+    AGENT_COLOR[node.kind] ??
+    PALETTE.faint;
 
-  function sampleEdge(edge, project) {
+  function sampleEdge(edge, project, steps = 6) {
     // Sampling the curve in world space (not screen space) keeps the bow correct
     // under perspective — a straight screen-space bezier bends the wrong way.
     const points = [];
@@ -875,8 +903,8 @@ export function createEvidenceGraph(canvas, hooks = {}) {
     const cx = mx + (my === 0 ? 0 : my * bow);
     const cy = my * (1 + bow);
     const cz = mz * (1 + bow);
-    for (let i = 0; i <= 6; i += 1) {
-      const t = i / 6;
+    for (let i = 0; i <= steps; i += 1) {
+      const t = i / steps;
       const u = 1 - t;
       const x = u * u * edge.a.x + 2 * u * t * cx + t * t * edge.b.x;
       const y = u * u * edge.a.y + 2 * u * t * cy + t * t * edge.b.y;
@@ -884,6 +912,66 @@ export function createEvidenceGraph(canvas, hooks = {}) {
       points.push(project(x, y, z));
     }
     return points;
+  }
+
+  const TAU = Math.PI * 2;
+
+  /**
+   * Draw the connection between two pipeline stages as a length of double helix
+   * rather than a line.
+   *
+   * This is not ornament for its own sake. The thing being modelled is a genomic
+   * medicine, and the reader is a person who reads sequence maps for a living —
+   * a backbone with base pairs is the notation they already have in their hands.
+   * The winding is computed per sample from the screen-space tangent, so it stays
+   * correct as the camera turns, and each rung dims as it rotates edge-on, which
+   * is what gives the strand its depth for free.
+   */
+  function drawHelix(ctx, points, { color, alpha, turns, phase, amplitude, rungEvery, lineWidth }) {
+    const count = points.length;
+    if (count < 3) return;
+
+    const strandA = [];
+    const strandB = [];
+
+    for (let i = 0; i < count; i += 1) {
+      const previous = points[Math.max(0, i - 1)];
+      const next = points[Math.min(count - 1, i + 1)];
+      let tx = next.x - previous.x;
+      let ty = next.y - previous.y;
+      const length = Math.hypot(tx, ty) || 1;
+      tx /= length;
+      ty /= length;
+
+      const t = i / (count - 1);
+      const angle = phase + t * TAU * turns;
+      const swing = Math.sin(angle) * amplitude;
+      // Perpendicular to the path in screen space.
+      strandA.push({ x: points[i].x - ty * swing, y: points[i].y + tx * swing, depth: Math.cos(angle) });
+      strandB.push({ x: points[i].x + ty * swing, y: points[i].y - tx * swing, depth: -Math.cos(angle) });
+    }
+
+    // Rungs first, so the strands read as passing in front of them.
+    for (let i = rungEvery; i < count - 1; i += rungEvery) {
+      const face = Math.abs(strandA[i].depth);
+      if (face < 0.15) continue;
+      ctx.beginPath();
+      ctx.moveTo(strandA[i].x, strandA[i].y);
+      ctx.lineTo(strandB[i].x, strandB[i].y);
+      ctx.strokeStyle = color(alpha * face * 0.5);
+      ctx.lineWidth = lineWidth * 0.8;
+      ctx.stroke();
+    }
+
+    for (const strand of [strandA, strandB]) {
+      ctx.beginPath();
+      ctx.moveTo(strand[0].x, strand[0].y);
+      for (let i = 1; i < count; i += 1) ctx.lineTo(strand[i].x, strand[i].y);
+      ctx.strokeStyle = color(alpha);
+      ctx.lineWidth = lineWidth;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+    }
   }
 
   function edgeState(edge) {
@@ -928,18 +1016,37 @@ export function createEvidenceGraph(canvas, hooks = {}) {
       if (!edge.a.screen.visible || !edge.b.screen.visible) continue;
       const state = edgeState(edge);
       const dim = focus && !(focus.has(edge.from) && focus.has(edge.to)) ? 0.22 : 1;
-      const points = sampleEdge(edge, frame.project);
+      // A filament between a document and its domain stays a filament; only the
+      // pipeline's own backbone is drawn as duplex.
+      const duplex = !edge.faint;
+      const points = sampleEdge(edge, frame.project, duplex ? 26 : 6);
       if (points.some((point) => !point.visible)) continue;
 
       const alpha = depthAlpha((edge.a.screen.depth + edge.b.screen.depth) / 2) * dim * Math.min(edge.a.grow, edge.b.grow);
       const color = state === 'active' ? PALETTE.clip : state === 'done' ? PALETTE.benchDeep : PALETTE.ghost;
 
-      ctx.beginPath();
-      ctx.moveTo(points[0].x, points[0].y);
-      for (let i = 1; i < points.length; i += 1) ctx.lineTo(points[i].x, points[i].y);
-      ctx.strokeStyle = color(alpha * (edge.faint ? 0.3 : 0.55));
-      ctx.lineWidth = state === 'active' ? 1.6 : 1;
-      ctx.stroke();
+      if (duplex) {
+        const scale = (edge.a.screen.scale + edge.b.screen.scale) / 2;
+        const span = Math.hypot(edge.b.screen.x - edge.a.screen.x, edge.b.screen.y - edge.a.screen.y);
+        drawHelix(ctx, points, {
+          color,
+          alpha: alpha * 0.62,
+          // Roughly one turn per 46 screen pixels keeps the pitch constant as the
+          // camera pulls back, instead of unwinding with distance.
+          turns: clamp(span / 46, 1.5, 9),
+          phase: frame.reduced ? 0 : frame.time * 1.1 + edge.a.phase,
+          amplitude: clamp(4.6 * scale * 1.4, 1.8, 7),
+          rungEvery: 2,
+          lineWidth: state === 'active' ? 1.5 : 1.05,
+        });
+      } else {
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+        for (let i = 1; i < points.length; i += 1) ctx.lineTo(points[i].x, points[i].y);
+        ctx.strokeStyle = color(alpha * 0.3);
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
 
       // A packet running the wire while the downstream node is working. This is
       // the same signal the console prints, drawn where the work is happening.
@@ -1064,10 +1171,14 @@ export function createEvidenceGraph(canvas, hooks = {}) {
 
   const stage = createStage(canvas, {
     draw,
-    distance: 1000,
-    minDistance: 240,
-    maxDistance: 2600,
-    autoRotate: 0.035,
+    // Shallow yaw so the fan-out stays readable as a pipeline, and a slow drift
+    // rather than a spin — the graph should look alive, not busy.
+    yaw: -0.28,
+    pitch: -0.16,
+    distance: 1320,
+    minDistance: 260,
+    maxDistance: 3000,
+    autoRotate: 0.018,
     onPointerMove: (x, y) => {
       const node = pick(x, y);
       const id = node?.id ?? null;
