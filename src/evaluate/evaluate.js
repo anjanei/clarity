@@ -203,11 +203,15 @@ export async function evaluateTrial(trial, { onStep, deepRead = true, trace } = 
     evidence: {
       gatheredAt: bundle.gatheredAt,
       stats: bundle.stats,
-      sections: bundle.sections.map(({ key, label, source, query, error, text }) => ({
+      // `domainId` is retained so the report can bind a scored domain back to
+      // the exact retrieval commands that fed it — the last link in the
+      // claim → citation → rationale → query provenance chain.
+      sections: bundle.sections.map(({ key, label, source, query, error, text, domainId }) => ({
         key,
         label,
         source,
         query,
+        domainId: domainId ?? null,
         error: error ?? null,
         chars: text?.length ?? 0,
       })),

@@ -43,7 +43,24 @@ export const config = {
   trace: {
     mode: process.env.TRACE_MODE || 'off',
   },
+
+  // Benchling is tenant-scoped: the same app credentials are meaningless without
+  // knowing which tenant to authenticate against. Absent a tenant the gene-model
+  // panel renders modality-derived schematics and says so, rather than guessing.
+  benchling: {
+    tenant: process.env.BENCHLING_TENANT || '',
+    apiKey: process.env.BENCHLING_API_KEY || '',
+    clientId: process.env.BENCHLING_CLIENT_ID || '',
+    clientSecret: process.env.BENCHLING_CLIENT_SECRET || '',
+    appId: process.env.BENCHLING_APP_ID || '',
+  },
 };
+
+export const benchlingConfigured = () =>
+  Boolean(
+    config.benchling.tenant &&
+      (config.benchling.apiKey || (config.benchling.clientId && config.benchling.clientSecret)),
+  );
 
 /** Throws a readable error rather than letting an SDK 401 surface later. */
 export function requireKeys(...which) {

@@ -4,7 +4,9 @@ Select a clinical trial, then evaluate its therapeutic under the lens of an FDA 
 
 Evidence retrieval runs on **Paperclip** (trial registries, FDA/EMA/PMDA review documents, primary
 literature, ChEMBL/UniProt). Rubric scoring and the calibrated probability estimate run on the
-**Claude API**.
+**Claude API**. The lab surface renders an animated CLARITY graph, a live Paperclip/Claude console,
+proof drawers for each score and claim, and a Benchling-backed construct panel when a tenant is
+configured.
 
 ```
 Paperclip search  ──►  Claude extraction  ──►  data/trials.json   (one-time, re-runnable)
@@ -202,6 +204,9 @@ own stated range.
 | `GET /api/trials?q=&phase=&area=&sponsor=&registry=` | Filtered catalog plus facet values |
 | `GET /api/trials/:trialId` | One trial |
 | `GET /api/rubric` | Dimension labels, weights, anchors |
+| `GET /api/pipeline?phase=` | CLARITY topology used by the animated lab graph |
+| `GET /api/benchling/status` | Benchling credential presence and reachability, without exposing secrets |
+| `GET /api/gene-model/:trialId` | Live Benchling construct when matched; otherwise labelled modality-derived schematic |
 | `GET /api/evaluations/:trialId` | Cached review, 404 if none |
 | `GET /api/evaluations/:trialId/traces` | Available trace summaries |
 | `GET /api/evaluations/:trialId/traces/:traceId` | One persisted trace JSON |
@@ -223,7 +228,21 @@ Concurrent requests for the same trial share one run, so a double-click does not
 | `PAPERCLIP_CONCURRENCY` | `4` | Max simultaneous independent Paperclip commands |
 | `DOMAIN_CONCURRENCY` | `2` | Max simultaneous CLARITY synthesis calls |
 | `TRACE_MODE` | `off` | `off`, `metadata`, or `full` local trace retention |
+| `BENCHLING_TENANT` | — | Tenant subdomain or full Benchling origin; required for live Benchling API calls |
+| `BENCHLING_API_KEY` | — | Optional personal API key; stored server-side only and sent via HTTP Basic auth |
+| `BENCHLING_CLIENT_ID` | — | Optional Benchling App OAuth client id |
+| `BENCHLING_CLIENT_SECRET` | — | Optional Benchling App OAuth client secret |
+| `BENCHLING_APP_ID` | — | Optional display/provenance id for the Benchling App |
 | `PORT` | `3000` | |
+
+### Benchling structure panel
+
+Benchling exposes tenant-scoped APIs, so credentials alone are not enough: set
+`BENCHLING_TENANT` plus either `BENCHLING_API_KEY` or the app OAuth pair. When configured, the
+server searches DNA and amino-acid sequences by therapeutic name and returns real sequence metadata
+to the browser. If no tenant or match is available, the UI renders an explicitly labelled schematic
+derived from registry modality and target symbols cited in the review evidence; it never invents a
+nucleotide or amino-acid sequence.
 
 ## Implementation notes
 
@@ -275,5 +294,11 @@ src/
 public/                   index.html, app.js, app.css (Tailwind source)
 data/                     generated catalog, cached reviews, probe dumps
 ```
+
+## Deployment
+
+This repo deploys to Vercel through `api/index.js`, which imports the Express app from
+`src/server.js`. `vercel.json` rewrites both `/api/*` and the SPA fallback through that adapter and
+packages `public/`, `data/`, and `evidence_skills/` with the serverless function.
 
 Generated assessments are decision support, not regulatory advice.

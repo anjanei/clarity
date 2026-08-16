@@ -1,0 +1,7 @@
+.git
+.claude
+node_modules
+test
+data/traces
+data/probe
+*.log

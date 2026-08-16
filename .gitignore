@@ -13,3 +13,5 @@ data/traces/
 
 *.log
 .DS_Store
+.vercel
+.env*

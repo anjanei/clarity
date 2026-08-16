@@ -5,8 +5,10 @@ import express from 'express';
 import { config, paths } from './config.js';
 import { trialsRouter } from './routes/trials.js';
 import { evaluateRouter } from './routes/evaluate.js';
+import { labRouter } from './routes/lab.js';
 import { loadCatalog } from './catalog/store.js';
 import { checkConnection } from './paperclip/tools.js';
+import { checkBenchling } from './benchling/client.js';
 
 export function createApp() {
   const app = express();
@@ -14,6 +16,7 @@ export function createApp() {
 
   app.use('/api', trialsRouter);
   app.use('/api', evaluateRouter);
+  app.use('/api', labRouter);
 
   app.get('/api/health', async (_req, res) => {
     const catalog = await loadCatalog().catch(() => null);
@@ -35,10 +38,12 @@ export function createApp() {
         anthropic: Boolean(config.anthropic.apiKey),
       },
       model: config.anthropic.model,
+      effort: config.anthropic.evalEffort,
       catalog: catalog
         ? { generatedAt: catalog.generatedAt, trials: catalog.trials.length }
         : null,
       paperclip,
+      benchling: await checkBenchling().catch((err) => ({ configured: false, error: err.message })),
     });
   });
 
@@ -79,6 +84,11 @@ export function startServer() {
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   startServer();
 }
+
+// Serverless hosts (Vercel's Express preset) import this module and invoke its
+// default export per request. An Express app is already a (req, res) handler, so
+// the app itself is the export; nothing here binds a port.
+export default createApp();
 
 function lanAddresses() {
   return Object.values(networkInterfaces())

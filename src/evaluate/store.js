@@ -25,7 +25,16 @@ function filePath(trialId) {
   return path.join(paths.evaluations, safeName(trialId));
 }
 
+// Serverless hosts (Vercel) mount the bundle read-only, so a completed review
+// cannot be persisted next to the ones committed to the repo. Losing the review
+// the caller just paid minutes for is the worse failure, so writes fall back to
+// a process-lifetime cache: warm invocations still serve it, cold ones re-run.
+const memoryCache = new Map();
+const READ_ONLY_FS = new Set(['EROFS', 'EACCES', 'EPERM']);
+
 export async function readEvaluation(trialId) {
+  const cached = memoryCache.get(String(trialId).toLowerCase());
+  if (cached) return cached;
   try {
     return JSON.parse(await fs.readFile(filePath(trialId), 'utf8'));
   } catch (err) {
@@ -35,8 +44,14 @@ export async function readEvaluation(trialId) {
 }
 
 export async function writeEvaluation(trialId, evaluation) {
-  await fs.mkdir(paths.evaluations, { recursive: true });
-  await fs.writeFile(filePath(trialId), `${JSON.stringify(evaluation, null, 2)}\n`, 'utf8');
+  try {
+    await fs.mkdir(paths.evaluations, { recursive: true });
+    await fs.writeFile(filePath(trialId), `${JSON.stringify(evaluation, null, 2)}\n`, 'utf8');
+  } catch (err) {
+    if (!READ_ONLY_FS.has(err.code)) throw err;
+    memoryCache.set(String(trialId).toLowerCase(), evaluation);
+    console.warn(`Read-only filesystem: cached ${trialId} in memory only (${err.code}).`);
+  }
 }
 
 const inFlight = new Map();

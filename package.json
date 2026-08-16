@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "node src/server.js",
+    "build": "npm run build:css",
     "dev": "concurrently -k -n css,server -c magenta,cyan \"npm:dev:css\" \"npm:dev:server\"",
     "dev:css": "tailwindcss -i ./public/app.css -o ./public/dist/app.css --watch",
     "dev:server": "node --watch src/server.js",

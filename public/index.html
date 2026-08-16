@@ -1,90 +1,191 @@
 <!doctype html>
-<html lang="en" class="h-full">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FDA Approval Review — clinical trial success assessment</title>
+    <meta name="color-scheme" content="dark" />
+    <title>FDA Approval Review — CLARITY agentic lab</title>
     <meta
       name="description"
-      content="Select a clinical trial and evaluate its therapeutic under the lens of an FDA approver."
+      content="End-to-end agentic review of clinical programmes: public evidence retrieved with Paperclip, organised into a cited nine-domain CLARITY dossier, and scored as an FDA reviewer would — every score traceable to its source document and the query that found it."
     />
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/dist/app.css" />
   </head>
-  <body class="h-full">
-    <div class="mx-auto flex min-h-full max-w-[1600px] flex-col px-4 sm:px-6 lg:px-8">
-      <header class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 py-5">
-        <div>
-          <h1 class="text-lg font-semibold tracking-tight text-slate-900">FDA Approval Review</h1>
-          <p class="mt-0.5 text-sm text-slate-500">
-            Clinical trial catalog from Paperclip · rubric scoring by Claude
-          </p>
+  <body>
+    <a href="#lab" class="sr-only">Skip to the lab</a>
+
+    <!-- ========================================================= top bar -->
+    <header
+      class="no-print sticky top-0 z-40 border-b border-white/[0.07] backdrop-blur-xl"
+      style="background: oklch(0.13 0.012 250 / 0.72)"
+    >
+      <div class="mx-auto flex max-w-[1680px] items-center gap-4 px-4 py-2.5 sm:px-6 lg:px-8">
+        <a href="#top" class="flex shrink-0 items-center gap-2.5">
+          <svg viewBox="0 0 28 28" class="size-6" aria-hidden="true">
+            <circle cx="14" cy="14" r="12.5" fill="none" stroke="var(--color-clip-400)" stroke-width="1.1" opacity="0.45" />
+            <path d="M6 19c4-10 12-10 16 0" fill="none" stroke="var(--color-clip-400)" stroke-width="1.6" stroke-linecap="round" />
+            <path d="M6 9c4 10 12 10 16 0" fill="none" stroke="var(--color-bench-400)" stroke-width="1.6" stroke-linecap="round" />
+            <circle cx="14" cy="14" r="2.1" fill="var(--color-claude-400)" />
+          </svg>
+          <span class="text-[15px] font-semibold tracking-tight">CLARITY</span>
+        </a>
+
+        <span class="chip-info hidden sm:inline-flex"><span class="dot"></span>Track&nbsp;A</span>
+
+        <div id="status-strip" class="ml-auto flex min-w-0 items-center gap-1.5 overflow-x-auto"></div>
+
+        <a href="#lab" class="btn-ghost hidden shrink-0 !px-3 !py-1.5 !text-[12px] md:inline-flex">
+          Open the lab
+        </a>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- ============================================================ hero -->
+      <section class="relative mx-auto max-w-[1680px] px-4 pb-16 pt-14 sm:px-6 sm:pt-20 lg:px-8 lg:pt-24">
+        <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+          <div id="hero-bio" class="absolute inset-0"></div>
         </div>
-        <div id="health" class="flex flex-wrap items-center gap-2 text-xs"></div>
-      </header>
 
-      <main class="grid flex-1 grid-cols-1 gap-6 py-6 lg:grid-cols-[minmax(340px,420px)_1fr]">
-        <!-- Trial catalog -->
-        <aside class="flex min-h-0 flex-col gap-3">
-          <div class="card card-pad space-y-3">
-            <div>
-              <label for="search" class="label">Search catalog</label>
-              <input
-                id="search"
-                type="search"
-                class="field mt-1.5"
-                placeholder="Therapeutic, sponsor, indication, NCT id…"
-                autocomplete="off"
-              />
+        <div class="relative grid items-end gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+          <div>
+            <p class="eyebrow">Track A · end-to-end agentic science</p>
+
+            <h1 class="display mt-5 max-w-[16ch]">
+              Regulatory review,<br />
+              <span
+                style="
+                  background: linear-gradient(100deg, var(--color-clip-400), var(--color-bench-400) 55%, var(--color-claude-400));
+                  -webkit-background-clip: text;
+                  background-clip: text;
+                  color: transparent;
+                "
+                >with the receipts.</span
+              >
+            </h1>
+
+            <p class="mt-6 max-w-[54ch] text-[15px] leading-relaxed text-muted">
+              CLARITY retrieves the public evidence for a clinical programme, organises it into a
+              cited nine-domain dossier, and scores it the way an FDA reviewer would. Every score,
+              every finding and every probability traces back to the source document — and to the
+              exact retrieval command that found it.
+            </p>
+
+            <div class="mt-8 flex flex-wrap items-center gap-3">
+              <a href="#lab" class="btn-primary">
+                Run a review
+                <svg viewBox="0 0 16 16" class="size-3.5" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+              <a href="#method" class="btn-ghost">How the pipeline works</a>
             </div>
-            <div class="grid grid-cols-2 gap-2">
-              <div>
-                <label for="filter-phase" class="label">Phase</label>
-                <select id="filter-phase" class="field mt-1.5"><option value="">Any</option></select>
-              </div>
-              <div>
-                <label for="filter-area" class="label">Area</label>
-                <select id="filter-area" class="field mt-1.5"><option value="">Any</option></select>
-              </div>
-            </div>
-            <p id="catalog-meta" class="text-xs text-slate-500"></p>
+
+            <dl id="hero-stats" class="mt-12 grid max-w-2xl grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4"></dl>
           </div>
 
-          <div class="card flex min-h-0 flex-1 flex-col overflow-hidden">
-            <div
-              id="trial-list"
-              role="listbox"
-              aria-label="Clinical trials"
-              class="min-h-0 flex-1 overflow-y-auto"
-              tabindex="0"
-            ></div>
-          </div>
-        </aside>
-
-        <!-- Review panel -->
-        <section id="panel" class="min-w-0">
-          <div id="empty-state" class="card card-pad flex h-full min-h-[420px] flex-col items-center justify-center text-center">
-            <div class="flex size-11 items-center justify-center rounded-full bg-accent-50 text-accent-700">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="size-5">
-                <path d="M9 3h6l1 3H8l1-3Z" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M6 6h12v13a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6Z" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M9.5 12.5h5M9.5 16h3" stroke-linecap="round" />
-              </svg>
+          <!-- Idle topology: the same graph the run animates, at rest. -->
+          <div class="panel panel-lit panel-pad float-slow hidden lg:block">
+            <div class="flex items-baseline justify-between">
+              <p class="label">Agent topology</p>
+              <p class="label !text-ghost">idle</p>
             </div>
-            <h2 class="mt-4 text-base font-semibold text-slate-900">Select a clinical trial</h2>
-            <p class="mt-1.5 max-w-sm text-sm text-slate-500">
-              Pick a trial from the catalog, then run the review. Evidence is retrieved from trial
-              registries, FDA review documents and the primary literature, then scored against a
-              six-dimension approvability rubric.
+            <div id="hero-graph" class="mt-3"></div>
+            <p class="mt-3 text-[11px] leading-relaxed text-faint">
+              Retrieval fans out across registries, regulatory review documents and the primary
+              literature, then converges through nine CLARITY domains into one scored dossier.
             </p>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
-      <footer class="border-t border-slate-200 py-4 text-xs text-slate-400">
-        Generated assessments are decision support, not regulatory advice.
-      </footer>
-    </div>
+      <hr class="hairline mx-auto max-w-[1680px]" />
+
+      <!-- ========================================================== method -->
+      <section id="method" class="mx-auto max-w-[1680px] px-4 py-16 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p class="eyebrow">The pipeline</p>
+            <h2 class="headline mt-3 max-w-[20ch]">Four passes, one audit trail.</h2>
+          </div>
+          <p class="max-w-[46ch] text-[13px] leading-relaxed text-faint">
+            Nothing in the report is generated from the model's own recall. Each stage consumes only
+            what the stage before it retrieved, and hands forward the citations it used.
+          </p>
+        </div>
+
+        <div id="method-steps" class="reveal mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4"></div>
+      </section>
+
+      <hr class="hairline mx-auto max-w-[1680px]" />
+
+      <!-- ============================================================= lab -->
+      <section id="lab" class="mx-auto max-w-[1680px] px-4 py-14 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p class="eyebrow">The lab</p>
+            <h2 class="headline mt-3">Pick a programme.</h2>
+          </div>
+          <p id="catalog-meta" class="font-mono text-[11px] text-ghost"></p>
+        </div>
+
+        <!-- command bar -->
+        <div class="no-print panel panel-pad mt-6">
+          <div class="grid gap-3 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)_minmax(0,1fr)_auto]">
+            <div class="relative min-w-0">
+              <label for="trial-search" class="label mb-1.5">Clinical trial</label>
+              <input
+                id="trial-search"
+                type="search"
+                class="field"
+                placeholder="Search therapeutic, sponsor, indication, NCT id…"
+                autocomplete="off"
+                role="combobox"
+                aria-expanded="false"
+                aria-controls="trial-pop"
+                aria-autocomplete="list"
+              />
+              <div id="trial-pop" class="combo-pop hidden" role="listbox" aria-label="Clinical trials"></div>
+            </div>
+
+            <div class="min-w-0">
+              <label for="filter-phase" class="label mb-1.5">Phase</label>
+              <select id="filter-phase" class="select"><option value="">Any phase</option></select>
+            </div>
+
+            <div class="min-w-0">
+              <label for="filter-area" class="label mb-1.5">Therapeutic area</label>
+              <select id="filter-area" class="select"><option value="">Any area</option></select>
+            </div>
+
+            <div class="flex items-end">
+              <button id="run-review" class="btn-primary w-full lg:w-auto" disabled>Run FDA review</button>
+            </div>
+          </div>
+
+          <div id="selected-trial" class="mt-4 hidden"></div>
+        </div>
+
+        <!-- live run surface -->
+        <div id="run-surface" class="mt-4"></div>
+
+        <!-- report -->
+        <div id="panel" class="mt-4"></div>
+      </section>
+    </main>
+
+    <footer class="mx-auto max-w-[1680px] px-4 pb-14 sm:px-6 lg:px-8">
+      <hr class="hairline" />
+      <div class="flex flex-wrap items-center justify-between gap-4 pt-6">
+        <p class="text-[11px] leading-relaxed text-ghost">
+          Generated assessments are decision support, not regulatory advice.<br />
+          Evidence retrieval by Paperclip · reasoning by Claude · structure by Benchling.
+        </p>
+        <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-ghost">Track A · agentic science</p>
+      </div>
+    </footer>
+
+    <div id="drawer-root"></div>
 
     <script type="module" src="/app.js"></script>
   </body>
