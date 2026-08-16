@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" width="960" height="300" role="img" aria-label="CLARITY workflow: you give it a trial number; step one finds everything published about the drug; step two reads it topic by topic and pins a source to every fact; step three scores it against a fixed checklist using only those sourced notes; you get back a score and a report where every line is clickable. Each step is only ever shown what the step before it found.">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8993A6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="300" fill="#13161F"/>
+
+  <text x="40" y="46" font-family="Courier New, monospace" font-size="11" letter-spacing="2.6" fill="#5EEAE0">HOW IT WORKS</text>
+  <text x="40" y="80" font-family="Century Schoolbook, Georgia, serif" font-size="26" fill="#F5F7FA">What happens when you press <tspan font-weight="700">run</tspan>.</text>
+
+  <!-- you give it -->
+  <rect x="40" y="140" width="86" height="56" rx="8" fill="#0D0F14" stroke="#2C3341"/>
+  <text x="52" y="162" font-family="Courier New, monospace" font-size="8" letter-spacing="1.6" fill="#8993A6">YOU GIVE IT</text>
+  <text x="52" y="180" font-family="Calibri, Arial, sans-serif" font-size="12" fill="#B7C0D0">a trial number</text>
+
+  <line x1="126" y1="168" x2="146" y2="168" stroke="#8993A6" stroke-width="1.4" marker-end="url(#arw)"/>
+
+  <!-- step 1 -->
+  <rect x="148" y="110" width="204" height="116" rx="11" fill="#5EEAE017" stroke="#5EEAE073"/>
+  <text x="166" y="134" font-family="Courier New, monospace" font-size="9" letter-spacing="2.2" fill="#5EEAE0">STEP 1</text>
+  <text x="166" y="160" font-family="Century Schoolbook, Georgia, serif" font-size="21" font-weight="700" fill="#F5F7FA">Find</text>
+  <text x="166" y="182" font-family="Calibri, Arial, sans-serif" font-size="12.5" fill="#B7C0D0">Search everything ever</text>
+  <text x="166" y="199" font-family="Calibri, Arial, sans-serif" font-size="12.5" fill="#B7C0D0">published about this drug —</text>
+  <text x="166" y="216" font-family="Calibri, Arial, sans-serif" font-size="12.5" fill="#B7C0D0">registries, FDA files, journals.</text>
+
+  <line x1="352" y1="168" x2="372" y2="168" stroke="#8993A6" stroke-width="1.4" marker-end="url(#arw)"/>
+
+  <!-- step 2 -->
+  <rect x="374" y="110" width="204" height="116" rx="11" fill="#F0A07A17" stroke="#F0A07A73"/>
+  <text x="392" y="134" font-family="Courier New, monospace" font-size="9" letter-spacing="2.2" fill="#F0A07A">STEP 2</text>
+  <text x="392" y="160" font-family="Century Schoolbook, Georgia, serif" font-size="21" font-weight="700" fill="#F5F7FA">Read</text>
+  <text x="392" y="182" font-family="Calibri, Arial, sans-serif" font-size="12.5" fill="#B7C0D0">Go topic by topic and write</text>
+  <text x="392" y="199" font-family="Calibri, Arial, sans-serif" font-size="12.5" fill="#B7C0D0">down what is known — pinning</text>
+  <text x="392" y="216" font-family="Calibri, Arial, sans-serif" font-size="12.5" fill="#B7C0D0">the source to every fact.</text>
+
+  <line x1="578" y1="168" x2="598" y2="168" stroke="#8993A6" stroke-width="1.4" marker-end="url(#arw)"/>
+
+  <!-- step 3 -->
+  <rect x="600" y="110" width="204" height="116" rx="11" fill="#E8C15E17" stroke="#E8C15E73"/>
+  <text x="618" y="134" font-family="Courier New, monospace" font-size="9" letter-spacing="2.2" fill="#E8C15E">STEP 3</text>
+  <text x="618" y="160" font-family="Century Schoolbook, Georgia, serif" font-size="21" font-weight="700" fill="#F5F7FA">Judge</text>
+  <text x="618" y="182" font-family="Calibri, Arial, sans-serif" font-size="12.5" fill="#B7C0D0">Score it against the same</text>
+  <text x="618" y="199" font-family="Calibri, Arial, sans-serif" font-size="12.5" fill="#B7C0D0">checklist every time, using</text>
+  <text x="618" y="216" font-family="Calibri, Arial, sans-serif" font-size="12.5" fill="#B7C0D0">only those sourced notes.</text>
+
+  <line x1="804" y1="168" x2="816" y2="168" stroke="#8993A6" stroke-width="1.4" marker-end="url(#arw)"/>
+
+  <!-- you get -->
+  <rect x="818" y="130" width="122" height="76" rx="8" fill="#8FE8A017" stroke="#8FE8A073"/>
+  <text x="830" y="150" font-family="Courier New, monospace" font-size="8" letter-spacing="1.6" fill="#8FE8A0">YOU GET</text>
+  <text x="830" y="168" font-family="Calibri, Arial, sans-serif" font-size="11.5" fill="#B7C0D0">a score, and a</text>
+  <text x="830" y="183" font-family="Calibri, Arial, sans-serif" font-size="11.5" fill="#B7C0D0">report where every</text>
+  <text x="830" y="198" font-family="Calibri, Arial, sans-serif" font-size="11.5" fill="#B7C0D0">line is clickable</text>
+
+  <!-- the one constraint -->
+  <path d="M 250 226 L 250 250 L 702 250 L 702 226" fill="none" stroke="#E2554A8C" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <text x="476" y="270" text-anchor="middle" font-family="Courier New, monospace" font-size="11" letter-spacing="1" fill="#E2554A">each step is only ever shown what the step before it found</text>
+</svg>

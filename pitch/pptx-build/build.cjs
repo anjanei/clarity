@@ -137,7 +137,7 @@ function stat(slide, x, y, w, n, k, d, accent) {
 }
 
 function footerPage(slide, n) {
-  slide.addText(`${String(n).padStart(2, "0")} / 12`, {
+  slide.addText(`${String(n).padStart(2, "0")} / 13`, {
     x: PW - 1.1,
     y: PH - 0.34,
     w: 0.9,
@@ -407,7 +407,114 @@ function footerPage(slide, n) {
 }
 
 /* ========================================================================
-   6 — The lab
+   6 — How it works, in plain language
+   ======================================================================== */
+{
+  const s = baseSlide();
+  eyebrow(s, "The same idea, without the jargon", C.clip);
+  title(s, [{ text: "What happens when you press " }, { text: "run", options: { bold: true } }, { text: "." }]);
+
+  const steps = [
+    [C.clip, "STEP 1", "Find", ["Search everything ever published", "about this drug — registries,", "FDA files, medical journals."]],
+    [C.claude, "STEP 2", "Read", ["Go topic by topic and write down", "what is known — pinning the", "source to every single fact."]],
+    [C.reg, "STEP 3", "Judge", ["Score it against the same fixed", "checklist every time, using only", "those sourced notes."]],
+  ];
+
+  const y = 2.0;
+  const h = 1.35;
+  const cw = 2.35;
+  const x0 = 1.0;
+  const gap = 0.22;
+
+  // you give it
+  s.addShape("roundRect", { x: MARGIN - 0.05, y: y + 0.42, w: 0.85, h: 0.55, rectRadius: 0.06, fill: { color: "0D0F14" }, line: { color: C.edge, width: 0.75 } });
+  s.addText("YOU GIVE IT", { x: MARGIN + 0.02, y: y + 0.46, w: 0.75, h: 0.2, fontFace: FONT_MONO, fontSize: 6.5, color: C.faint, charSpacing: 1, margin: 0 });
+  s.addText("a trial number", { x: MARGIN + 0.02, y: y + 0.65, w: 0.78, h: 0.24, fontFace: FONT_BODY, fontSize: 8.5, color: C.muted, margin: 0 });
+
+  steps.forEach(([tone, step, head, body], i) => {
+    const x = x0 + i * (cw + gap);
+    s.addShape("roundRect", { x, y, w: cw, h, rectRadius: 0.09, fill: { color: C.panel }, line: { color: tone, width: 1 } });
+    s.addText(step, { x: x + 0.16, y: y + 0.12, w: cw - 0.32, h: 0.22, fontFace: FONT_MONO, fontSize: 7.5, color: tone, bold: true, charSpacing: 2, margin: 0 });
+    s.addText(head, { x: x + 0.16, y: y + 0.32, w: cw - 0.32, h: 0.34, fontFace: FONT_HEAD, fontSize: 19, color: C.ink, margin: 0 });
+    s.addText(body.join("\n"), {
+      x: x + 0.16,
+      y: y + 0.7,
+      w: cw - 0.28,
+      h: 0.58,
+      fontFace: FONT_BODY,
+      fontSize: 9.5,
+      color: C.muted,
+      margin: 0,
+      lineSpacingMultiple: 1.24,
+      valign: "top",
+    });
+    // arrow into the next step
+    if (i < steps.length - 1) {
+      s.addShape("rightArrow", {
+        x: x + cw + 0.03,
+        y: y + h / 2 - 0.06,
+        w: gap - 0.06,
+        h: 0.12,
+        fill: { color: C.faint },
+        line: { type: "none" },
+      });
+    }
+  });
+
+  // you get
+  const gx = x0 + 3 * (cw + gap) + 0.03;
+  s.addShape("rightArrow", { x: gx - 0.2, y: y + h / 2 - 0.06, w: 0.16, h: 0.12, fill: { color: C.faint }, line: { type: "none" } });
+  s.addShape("roundRect", { x: gx, y: y + 0.28, w: 1.28, h: 0.84, rectRadius: 0.07, fill: { color: C.panel }, line: { color: C.bench, width: 1 } });
+  s.addText("YOU GET", { x: gx + 0.13, y: y + 0.33, w: 1.05, h: 0.2, fontFace: FONT_MONO, fontSize: 6.5, color: C.bench, charSpacing: 1.5, margin: 0 });
+  s.addText("a score, and a report where every line is clickable", {
+    x: gx + 0.13,
+    y: y + 0.52,
+    w: 1.05,
+    h: 0.56,
+    fontFace: FONT_BODY,
+    fontSize: 8.5,
+    color: C.muted,
+    margin: 0,
+    lineSpacingMultiple: 1.2,
+    valign: "top",
+  });
+
+  // the one constraint that matters
+  s.addShape("roundRect", {
+    x: x0,
+    y: y + h + 0.16,
+    w: cw * 3 + gap * 2,
+    h: 0.34,
+    rectRadius: 0.05,
+    fill: { type: "none" },
+    line: { color: C.stop, width: 1, dashType: "dash" },
+  });
+  s.addText("each step is only ever shown what the step before it found", {
+    x: x0,
+    y: y + h + 0.16,
+    w: cw * 3 + gap * 2,
+    h: 0.34,
+    fontFace: FONT_MONO,
+    fontSize: 9,
+    color: C.stop,
+    align: "center",
+    valign: "middle",
+    margin: 0,
+  });
+
+  s.addShape("line", { x: MARGIN, y: 5.02, w: 0, h: 0.5, line: { color: C.clip, width: 2.25 } });
+  s.addText(
+    [
+      { text: "So nothing in the report can come from the model's memory. If the evidence isn't out there, it says so — ", options: { color: C.ink } },
+      { text: "and the score goes down.", options: { bold: true, color: C.ink } },
+    ],
+    { x: MARGIN + 0.22, y: 4.94, w: 8.7, h: 0.6, fontFace: FONT_HEAD, fontSize: 13, margin: 0, valign: "middle", lineSpacingMultiple: 1.1 },
+  );
+  footerPage(s, 6);
+}
+
+/* ========================================================================
+   7 — The lab
    ======================================================================== */
 {
   const s = baseSlide();
@@ -466,11 +573,11 @@ function footerPage(slide, n) {
     "The board filling as evidence lands — the Benchling-backed construct view sits directly beneath it in the lab.",
     { x: rx, y: 5.28, w: rw, h: 0.3, fontFace: FONT_BODY, fontSize: 9, color: C.ghost, margin: 0, italic: true },
   );
-  footerPage(s, 6);
+  footerPage(s, 7);
 }
 
 /* ========================================================================
-   7 — Proof chain
+   8 — Proof chain
    ======================================================================== */
 {
   const s = baseSlide();
@@ -511,11 +618,11 @@ function footerPage(slide, n) {
     ],
     { x: MARGIN + 0.22, y: 4.86, w: 8.6, h: 0.6, fontFace: FONT_HEAD, fontSize: 13, margin: 0, valign: "middle", lineSpacingMultiple: 1.1 },
   );
-  footerPage(s, 7);
+  footerPage(s, 8);
 }
 
 /* ========================================================================
-   8 — CS-101 (the uncomfortable demo)
+   9 — CS-101 (the uncomfortable demo)
    ======================================================================== */
 {
   const s = baseSlide();
@@ -594,11 +701,11 @@ function footerPage(slide, n) {
     "A system that returns 40% and shows you exactly which nine boxes are empty has told you something true and actionable. A confident 68% borrowing Casgevy's safety profile would have told you nothing — twice. The ceiling is enforced in code, not a prompt.",
     { x: MARGIN, y: 5.12, w: PW - MARGIN * 2, h: 0.42, fontFace: FONT_BODY, fontSize: 9.5, color: C.faint, margin: 0, lineSpacingMultiple: 1.25 },
   );
-  footerPage(s, 8);
+  footerPage(s, 9);
 }
 
 /* ========================================================================
-   9 — Calibration
+   10 — Calibration
    ======================================================================== */
 {
   const s = baseSlide();
@@ -654,11 +761,11 @@ function footerPage(slide, n) {
     "CTX112 consumed 31 retrieval commands, 29 cited sources and 207,641 tokens of context to arrive at 28%. The expense is the point: it looked as hard as it could and reported what it found.",
     { x: MARGIN, y: 4.7, w: PW - MARGIN * 2, h: 0.6, fontFace: FONT_BODY, fontSize: 10.5, color: C.faint, margin: 0, lineSpacingMultiple: 1.3 },
   );
-  footerPage(s, 9);
+  footerPage(s, 10);
 }
 
 /* ========================================================================
-   10 — Boundaries
+   11 — Boundaries
    ======================================================================== */
 {
   const s = baseSlide();
@@ -697,11 +804,11 @@ function footerPage(slide, n) {
     });
     y += 0.6;
   });
-  footerPage(s, 10);
+  footerPage(s, 11);
 }
 
 /* ========================================================================
-   11 — Why it holds
+   12 — Why it holds
    ======================================================================== */
 {
   const s = baseSlide();
@@ -727,11 +834,11 @@ function footerPage(slide, n) {
     "61 tests covering the API surface, citation grammars, evidence assembly, traces, run guards and the whole render path.",
     { x: MARGIN, y: 5.15, w: PW - MARGIN * 2, h: 0.35, fontFace: FONT_BODY, fontSize: 10, color: C.faint, margin: 0, italic: true },
   );
-  footerPage(s, 11);
+  footerPage(s, 12);
 }
 
 /* ========================================================================
-   12 — Ask
+   13 — Ask
    ======================================================================== */
 {
   const s = baseSlide();
@@ -776,7 +883,7 @@ function footerPage(slide, n) {
     color: C.ghost,
     margin: 0,
   });
-  footerPage(s, 12);
+  footerPage(s, 13);
 }
 
 /* -- speaker notes ---------------------------------------------------------
@@ -788,6 +895,7 @@ const notes = [
   "1:05 — Several days of specialist time. Not reproducible. Land the line: the bottleneck is not intelligence, it is audit. Then pause.",
   "1:50 — It will answer well about pembrolizumab, and with identical confidence about the CAR-T that has published nothing. In a regulatory context that's worse than useless.",
   "2:25 — Retrieval is one system. Extraction is a second pass that sees only one domain's packet and must attach a public identifier. Scoring is a third pass that sees only the trial record and the cited dossier. That constraint is not a design preference — it is the product.",
+  "2:50 — Say it in one breath: find, read, judge. The only unusual thing is the dashed line — each step is handed only what the step before it found, which is why nothing in the report can come from the model's memory. Then move on; don't linger.",
   "3:05 — This is the workstation. The graph isn't an animation playing next to the run — it is the run. Every retrieval attaches the document it found, so the graph visibly grows.",
   "3:25 — Claim, to citations, to the extraction with its own confidence, to the literal search command, to the model and rubric version. A broken chain shown honestly is the difference between provenance and decoration.",
   "3:50 — This is the slide that makes the case. Don't rush the table. Land “told you nothing — twice,” then show that the ceiling is code.",

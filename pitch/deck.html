@@ -421,6 +421,33 @@
     background: oklch(0.1 0.014 250 / 0.5);
   }
 
+  /* The plain-language workflow. Drawn rather than bulleted because the one
+     thing a non-technical reader has to take away — that each step is handed
+     only what the step before it found — is a shape, not a sentence. */
+  svg.flow { width: 100%; height: auto; display: block; }
+  svg.flow text { font-family: var(--grotesk); }
+  .f-step {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    fill: var(--clip);
+  }
+  .f-title { font-size: 21px; font-weight: 600; letter-spacing: -0.02em; fill: var(--ink); }
+  .f-body { font-size: 12px; fill: var(--muted); }
+  .f-cap {
+    font-family: var(--mono);
+    font-size: 8.5px;
+    letter-spacing: 0.18em;
+    fill: var(--faint);
+  }
+  .f-chip { font-size: 10.5px; fill: var(--muted); }
+  .f-note {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-anchor: middle;
+  }
+
   .fill {
     color: var(--reg);
     border: 1px dashed currentColor;
@@ -682,6 +709,74 @@
     </section>
 
     <!-- 6 ----------------------------------------------------------------- -->
+    <section class="slide" data-accent="clip" data-label="How it works">
+      <p class="eyebrow">The same idea, without the jargon</p>
+      <h2>What happens when you press <b>run</b>.</h2>
+
+      <svg class="flow" viewBox="0 0 850 210" role="img" aria-label="Plain-language workflow: you give it a trial number; step one finds everything published about the drug; step two reads it topic by topic and notes each fact with its source; step three scores it against a fixed checklist using only those sourced notes; you get back a cited report with a probability.">
+        <defs>
+          <marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="oklch(0.62 0.014 250)"/>
+          </marker>
+        </defs>
+
+        <!-- you give it -->
+        <rect x="0" y="76" width="80" height="52" rx="8" fill="oklch(0.1 0.014 250 / 0.7)" stroke="oklch(1 0 0 / 0.14)"/>
+        <text class="f-cap" x="12" y="96">YOU GIVE IT</text>
+        <text class="f-chip" x="12" y="114">a trial number</text>
+
+        <line x1="80" y1="102" x2="98" y2="102" stroke="oklch(0.62 0.014 250)" stroke-width="1.4" marker-end="url(#fa)"/>
+
+        <!-- step 1 -->
+        <rect x="100" y="36" width="196" height="132" rx="11" fill="oklch(0.86 0.13 195 / 0.09)" stroke="oklch(0.86 0.13 195 / 0.45)"/>
+        <text class="f-step" x="116" y="62">STEP 1</text>
+        <text class="f-title" x="116" y="88">Find</text>
+        <text class="f-body" x="116" y="112">Search everything ever</text>
+        <text class="f-body" x="116" y="128">published about this drug —</text>
+        <text class="f-body" x="116" y="144">registries, FDA files, journals.</text>
+
+        <line x1="296" y1="102" x2="314" y2="102" stroke="oklch(0.62 0.014 250)" stroke-width="1.4" marker-end="url(#fa)"/>
+
+        <!-- step 2 -->
+        <rect x="316" y="36" width="196" height="132" rx="11" fill="oklch(0.82 0.13 45 / 0.09)" stroke="oklch(0.82 0.13 45 / 0.45)"/>
+        <text class="f-step" x="332" y="62" fill="oklch(0.82 0.13 45)">STEP 2</text>
+        <text class="f-title" x="332" y="88">Read</text>
+        <text class="f-body" x="332" y="112">Go topic by topic and write</text>
+        <text class="f-body" x="332" y="128">down what is known — pinning</text>
+        <text class="f-body" x="332" y="144">the source to every fact.</text>
+
+        <line x1="512" y1="102" x2="530" y2="102" stroke="oklch(0.62 0.014 250)" stroke-width="1.4" marker-end="url(#fa)"/>
+
+        <!-- step 3 -->
+        <rect x="532" y="36" width="196" height="132" rx="11" fill="oklch(0.84 0.14 78 / 0.09)" stroke="oklch(0.84 0.14 78 / 0.45)"/>
+        <text class="f-step" x="548" y="62" fill="oklch(0.84 0.14 78)">STEP 3</text>
+        <text class="f-title" x="548" y="88">Judge</text>
+        <text class="f-body" x="548" y="112">Score it against the same</text>
+        <text class="f-body" x="548" y="128">checklist every time, using</text>
+        <text class="f-body" x="548" y="144">only those sourced notes.</text>
+
+        <line x1="728" y1="102" x2="746" y2="102" stroke="oklch(0.62 0.014 250)" stroke-width="1.4" marker-end="url(#fa)"/>
+
+        <!-- you get -->
+        <rect x="748" y="66" width="102" height="72" rx="8" fill="oklch(0.88 0.16 140 / 0.09)" stroke="oklch(0.88 0.16 140 / 0.45)"/>
+        <text class="f-cap" x="760" y="86" fill="oklch(0.88 0.16 140)">YOU GET</text>
+        <text class="f-chip" x="760" y="104">a score, and a</text>
+        <text class="f-chip" x="760" y="120">report where every</text>
+        <text class="f-chip" x="760" y="136">line is clickable</text>
+
+        <!-- the constraint -->
+        <path d="M 198 168 L 198 186 L 630 186 L 630 168" fill="none" stroke="oklch(0.68 0.19 22 / 0.55)" stroke-width="1.2" stroke-dasharray="4 4"/>
+        <text class="f-note" x="414" y="200" fill="oklch(0.68 0.19 22)">each step is only ever shown what the step before it found</text>
+      </svg>
+
+      <p class="pull">
+        So nothing in the report can come from the model's memory. If the evidence isn't out there,
+        it says so — <b>and the score goes down.</b>
+      </p>
+      <p class="notes-source"><span class="cue">2:50</span> — Say it in one breath: find, read, judge. The only unusual thing is the dashed line — each step is handed only what the step before it found, which is why nothing in the report can come from the model's memory. Then move on; don't linger.</p>
+    </section>
+
+    <!-- 7 ----------------------------------------------------------------- -->
     <section class="slide" data-accent="bench" data-label="The lab">
       <p class="eyebrow">The product</p>
       <h2>The graph in the middle is not a picture of the run. <b>It is the run.</b></h2>
@@ -873,7 +968,7 @@ point = clamp(point, low, high);</pre>
 <button id="next" class="arrow" type="button" aria-label="Next slide">›</button>
 
 <div class="hud">
-  <span><b id="hud-n">01</b> / 12</span>
+  <span><b id="hud-n">01</b> / 13</span>
   <span id="hud-label">CLARITY</span>
   <button id="notes-toggle" type="button" aria-pressed="false" title="Toggle speaker notes (N)">notes</button>
 </div>
