@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { paths } from '../config.js';
+import { EVIDENCE_DOSSIER_VERSION } from '../evidence/domains.js';
 import { evaluateTrial } from './evaluate.js';
 
 /** Registry IDs are alphanumeric with dashes; anything else is not a real ID. */
@@ -60,7 +61,7 @@ export function runEvaluation(trial, { onStep, force = false } = {}) {
   const promise = (async () => {
     if (!force) {
       const cached = await readEvaluation(trial.trialId);
-      if (cached) {
+      if (cached?.meta?.evidenceDossierVersion === EVIDENCE_DOSSIER_VERSION) {
         emit({ stage: 'cache', message: 'Returning cached review' });
         return { ...cached, cached: true };
       }

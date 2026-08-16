@@ -1,5 +1,7 @@
 import { structuredCall } from '../anthropic.js';
-import { gatherEvidence, renderEvidence } from '../paperclip/queries.js';
+import { synthesizeEvidenceDossier, renderEvidenceDossier } from '../evidence/dossier.js';
+import { EVIDENCE_DOSSIER_VERSION } from '../evidence/domains.js';
+import { gatherEvidence } from '../paperclip/queries.js';
 import { reviewSchema } from './schema.js';
 import { DIMENSIONS, RUBRIC_VERSION, renderRubric, weightedScore } from './rubric.js';
 import { config } from '../config.js';
@@ -116,10 +118,14 @@ export async function evaluateTrial(trial, { onStep, deepRead = true } = {}) {
   }
 
   onStep?.({
+    stage: 'dossier',
+    message: `Organizing ${bundle.stats.sectionsWithContent} evidence sections into the CLARITY dossier`,
+  });
+  const dossier = await synthesizeEvidenceDossier(trial, bundle, { onStep });
+
+  onStep?.({
     stage: 'review',
-    message: `Scoring ${bundle.stats.sectionsWithContent} evidence sections (${Math.round(
-      bundle.stats.totalChars / 1000,
-    )}k chars) against the rubric`,
+    message: `Scoring the cited ${dossier.domains.filter((domain) => domain.status === 'evaluated').length}-domain dossier against the rubric`,
   });
 
   const userContent = [
@@ -129,9 +135,9 @@ export async function evaluateTrial(trial, { onStep, deepRead = true } = {}) {
     JSON.stringify(trial, null, 2),
     '```',
     '',
-    '# Evidence bundle',
+    '# Evidence dossier',
     '',
-    renderEvidence(bundle),
+    renderEvidenceDossier(dossier),
     '',
     '# Task',
     '',
@@ -164,9 +170,11 @@ export async function evaluateTrial(trial, { onStep, deepRead = true } = {}) {
         error: error ?? null,
         chars: text?.length ?? 0,
       })),
+      dossier,
     },
     meta: {
       rubricVersion: RUBRIC_VERSION,
+      evidenceDossierVersion: EVIDENCE_DOSSIER_VERSION,
       model,
       effort: config.anthropic.evalEffort,
       usage,
