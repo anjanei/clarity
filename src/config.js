@@ -7,6 +7,26 @@ const dataDirectory = process.env.DATA_DIR
   ? path.resolve(process.env.DATA_DIR)
   : path.resolve(here, '..', 'data');
 
+/**
+ * One Modal task's wiring. `MODAL_<TASK>_URL` wins over the shared
+ * `MODAL_ENDPOINT_URL`, so a deployment can point grounding at an LLM and
+ * folding at a structure predictor without either knowing about the other.
+ *
+ * Modal web functions live at https://<workspace>--<app>-<fn>.modal.run and
+ * Auto Endpoints at https://<endpoint>.<region>.modal.direct.
+ */
+function modalTask(name, defaultMode) {
+  const url = process.env[`MODAL_${name}_URL`] || process.env.MODAL_ENDPOINT_URL || '';
+  const mode = (process.env[`MODAL_${name}_MODE`] || process.env.MODAL_MODE || defaultMode).toLowerCase();
+  return {
+    url: url.replace(/\/+$/, ''),
+    // `json` posts the task payload as-is, for a hand-written web function.
+    // `openai` wraps it as a chat completion, for an OpenAI-compatible server.
+    mode: mode === 'openai' ? 'openai' : 'json',
+    model: process.env[`MODAL_${name}_MODEL`] || process.env.MODAL_MODEL || '',
+  };
+}
+
 export const paths = {
   root: path.resolve(here, '..'),
   public: path.resolve(here, '..', 'public'),
@@ -59,20 +79,18 @@ export const config = {
   // structure, and grounding a reviewer's claim to the exact passage that
   // supports it. Both are additive — every surface that uses Modal has a defined
   // behaviour when it is not configured, and that is the default.
+  // The two tasks are almost never the same deployment: grounding wants a
+  // language model, folding wants a structure predictor. They therefore get
+  // their own endpoint and their own protocol, each falling back to the shared
+  // MODAL_ENDPOINT_URL when a deployment really does serve both.
   modal: {
-    // The deployed endpoint's URL. Modal web functions are
-    // https://<workspace>--<app>-<fn>.modal.run; Auto Endpoints are
-    // https://<endpoint>.<region>.modal.direct.
-    url: (process.env.MODAL_ENDPOINT_URL || '').replace(/\/+$/, ''),
-    // Proxy-auth token pair. The id is `wk-…`, the secret `ws-…`; the secret is
-    // shown once at creation and lives only in the server environment.
     tokenId: process.env.MODAL_TOKEN_ID || '',
     tokenSecret: process.env.MODAL_TOKEN_SECRET || '',
-    // `json` posts the task payload as-is. `openai` wraps it as a chat
-    // completion, which is what Modal's OpenAI-compatible endpoints expect.
-    mode: (process.env.MODAL_MODE || 'json').toLowerCase() === 'openai' ? 'openai' : 'json',
-    model: process.env.MODAL_MODEL || '',
     timeoutMs: Math.max(1000, Number(process.env.MODAL_TIMEOUT_MS) || 120_000),
+    tasks: {
+      ground: modalTask('GROUND', 'openai'),
+      fold: modalTask('FOLD', 'json'),
+    },
   },
 
   // Benchling is tenant-scoped: the same app credentials are meaningless without
@@ -87,9 +105,15 @@ export const config = {
   },
 };
 
-/** Modal needs a destination and both halves of the proxy token to be usable. */
-export const modalConfigured = () =>
-  Boolean(config.modal.url && config.modal.tokenId && config.modal.tokenSecret);
+/**
+ * Modal needs a destination and both halves of the proxy token to be usable, and
+ * it is answered per task — a deployment may well have grounding and not folding.
+ */
+export const modalConfigured = (task) => {
+  if (!config.modal.tokenId || !config.modal.tokenSecret) return false;
+  if (task) return Boolean(config.modal.tasks[task]?.url);
+  return Object.values(config.modal.tasks).some((entry) => entry.url);
+};
 
 export const benchlingConfigured = () =>
   Boolean(

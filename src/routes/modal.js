@@ -20,17 +20,25 @@ import { createConcurrencyGate, createRateLimiter } from '../utils/rate-limit.js
 
 export const modalRouter = Router();
 
-const requireModal = (_req, res, next) => {
-  if (modalConfigured()) return next();
+/**
+ * Grounding wants a language model and folding wants a structure predictor, so
+ * a deployment can perfectly well have one and not the other. Each route checks
+ * its own task rather than a global flag.
+ */
+const requireModal = (task) => (_req, res, next) => {
+  if (modalConfigured(task)) return next();
   return res.status(503).json({
     error: 'modal_unconfigured',
-    message: 'Modal is not configured on this deployment. Set MODAL_ENDPOINT_URL, MODAL_TOKEN_ID and MODAL_TOKEN_SECRET.',
+    task,
+    message:
+      `Modal ${task} is not configured on this deployment. Set MODAL_${task.toUpperCase()}_URL ` +
+      '(or MODAL_ENDPOINT_URL), MODAL_TOKEN_ID and MODAL_TOKEN_SECRET.',
   });
 };
 
 /** GPU work is charged by the second; treat it like the review routes. */
-const guardModal = [
-  requireModal,
+const guardModal = (task) => [
+  requireModal(task),
   createRateLimiter({
     windowMs: config.runs.windowMs,
     max: config.runs.perWindow,
@@ -56,7 +64,7 @@ function reportModalError(res, err) {
  * no sequence, so there is nothing to fold, and the route says so rather than
  * folding something plausible and labelling it with the construct's name.
  */
-modalRouter.post('/structure/:trialId/predict', guardModal, async (req, res, next) => {
+modalRouter.post('/structure/:trialId/predict', guardModal('fold'), async (req, res, next) => {
   try {
     const trial = await getTrial(req.params.trialId);
     if (!trial) return res.status(404).json({ error: 'not_found', message: 'Unknown trial id.' });
@@ -101,7 +109,7 @@ modalRouter.post('/structure/:trialId/predict', guardModal, async (req, res, nex
  * the route says so, which is the same answer the proof drawer already gives for
  * a chain link that does not exist.
  */
-modalRouter.post('/ground/:trialId', guardModal, async (req, res, next) => {
+modalRouter.post('/ground/:trialId', guardModal('ground'), async (req, res, next) => {
   try {
     const trial = await getTrial(req.params.trialId);
     if (!trial) return res.status(404).json({ error: 'not_found', message: 'Unknown trial id.' });

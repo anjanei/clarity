@@ -182,8 +182,9 @@ function renderStatus(health) {
   if (health.benchling?.reachable) chips.push(chip('Benchling live', 'bench'));
   else if (health.benchling?.configured) chips.push(chip('Benchling configured', 'gap'));
   else chips.push(chip('Derived structures', 'unknown'));
-  if (health.modal?.configured) chips.push(chip('Modal live', 'clip'));
-  enableGrounding(Boolean(health.modal?.configured));
+  if (health.modal?.tasks?.ground?.configured) chips.push(chip('Modal grounding', 'clip'));
+  if (health.modal?.tasks?.fold?.configured) chips.push(chip('Modal folding', 'bench'));
+  enableGrounding(Boolean(health.modal?.tasks?.ground?.configured));
   if (health.runs && health.runs.enabled === false) chips.push(chip('Cached reviews only', 'gap'));
   el.statusStrip.innerHTML = chips.join('');
   renderSelectedTrial();
@@ -1004,7 +1005,7 @@ function structureTab() {
       <div class="mt-2 flex flex-wrap items-center justify-between gap-2">
         <p class="font-mono text-[10px] text-ghost">drag to turn · scroll to zoom · the flat map below is the measurable view</p>
         ${
-          state.health?.modal?.configured
+          state.health?.modal?.tasks?.fold?.configured
             ? `<button type="button" class="btn-quiet" data-predict-structure>predict fold</button>`
             : ''
         }

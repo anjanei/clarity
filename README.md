@@ -14,7 +14,7 @@ single number down to the paper it came from and the search command that found t
 &nbsp;
 ![Browser dependencies](https://img.shields.io/badge/browser_dependencies-zero-F0A07A?style=for-the-badge&labelColor=0B1120)
 &nbsp;
-![Tests](https://img.shields.io/badge/tests-42_passing-6EE7A0?style=for-the-badge&labelColor=0B1120)
+![Tests](https://img.shields.io/badge/tests-53_passing-6EE7A0?style=for-the-badge&labelColor=0B1120)
 
 *Evidence retrieval by **Paperclip** · reasoning by **Claude** · structure by **Benchling***
 
@@ -489,9 +489,9 @@ Concurrent requests for the same trial share one run, so a double-click does not
 | `PUBLIC_RUNS` | `on` | `off` serves cached reviews only |
 | `RUN_LIMIT` / `RUN_WINDOW_MS` | `6` / `600000` | Run starts per address per window |
 | `RUN_CONCURRENCY` | `2` | Concurrent reviews per instance |
-| `MODAL_ENDPOINT_URL` | — | Deployed Modal endpoint; both Modal surfaces are inert without it |
 | `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` | — | Proxy token pair (`wk-…` / `ws-…`), server-side only |
-| `MODAL_MODE` | `json` | `json` posts the task as-is; `openai` wraps it as a chat completion |
+| `MODAL_GROUND_URL` / `MODAL_FOLD_URL` | — | Per-task endpoints; either works alone. Fall back to `MODAL_ENDPOINT_URL` |
+| `MODAL_GROUND_MODE` / `MODAL_FOLD_MODE` | `openai` / `json` | `json` posts the task as-is; `openai` wraps it as a chat completion |
 | `MODAL_TIMEOUT_MS` | `120000` | GPU jobs are slow; this is the ceiling |
 | `BENCHLING_TENANT` | — | Tenant subdomain or origin; required for live Benchling calls |
 | `BENCHLING_API_KEY` | — | Personal key, server-side only, HTTP Basic |
@@ -548,11 +548,24 @@ too (`409 no_retained_text`).
 Both routes sit behind the same rate limit, concurrency cap and kill switch as the
 review routes, because both cost GPU seconds.
 
+Grounding wants a language model and folding wants a structure predictor, so they
+get their own endpoint and protocol. Either may be configured without the other,
+and the lab only offers the control it can actually serve.
+
 ```bash
-MODAL_ENDPOINT_URL=https://<workspace>--<app>-<fn>.modal.run
 MODAL_TOKEN_ID=wk-...        # proxy token id
 MODAL_TOKEN_SECRET=ws-...    # shown once at creation
-MODAL_MODE=json              # or `openai` for OpenAI-compatible Auto Endpoints
+
+# An OpenAI-compatible LLM (vLLM, SGLang, Kimi, an Auto Endpoint):
+MODAL_GROUND_URL=https://<workspace>--<app>-<fn>.modal.run
+MODAL_GROUND_MODE=openai     # the default for ground
+MODAL_GROUND_MODEL=kimi
+
+# A structure predictor (ESMFold, Boltz, Chai) as a plain web function:
+MODAL_FOLD_URL=https://<workspace>--<app>-<fn>.modal.run
+MODAL_FOLD_MODE=json         # the default for fold
+
+# Or MODAL_ENDPOINT_URL alone, when one deployment really serves both.
 ```
 
 > **Never commit these.** On Vercel they are project environment variables. The

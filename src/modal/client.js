@@ -56,8 +56,13 @@ export function redact(text) {
  * task definitions work against either shape without the callers knowing which.
  */
 export async function callModal(task, payload, { signal, timeoutMs = config.modal.timeoutMs } = {}) {
-  if (!modalConfigured()) {
-    throw new ModalError('Modal is not configured. Set MODAL_ENDPOINT_URL, MODAL_TOKEN_ID and MODAL_TOKEN_SECRET.');
+  const wiring = config.modal.tasks[task];
+  if (!wiring) throw new ModalError(`Unknown Modal task "${task}".`);
+  if (!modalConfigured(task)) {
+    throw new ModalError(
+      `Modal ${task} is not configured. Set MODAL_${task.toUpperCase()}_URL (or MODAL_ENDPOINT_URL), ` +
+        'MODAL_TOKEN_ID and MODAL_TOKEN_SECRET.',
+    );
   }
 
   const controller = new AbortController();
@@ -67,11 +72,11 @@ export async function callModal(task, payload, { signal, timeoutMs = config.moda
   const abort = () => controller.abort();
   signal?.addEventListener('abort', abort, { once: true });
 
-  const openai = config.modal.mode === 'openai';
-  const url = openai ? `${config.modal.url}/v1/chat/completions` : config.modal.url;
+  const openai = wiring.mode === 'openai';
+  const url = openai ? `${wiring.url}/v1/chat/completions` : wiring.url;
   const body = openai
     ? {
-        model: config.modal.model || 'default',
+        model: wiring.model || 'default',
         messages: [
           { role: 'system', content: `You are the ${task} worker for a regulatory evidence pipeline. Reply with JSON only.` },
           { role: 'user', content: JSON.stringify({ task, ...payload }) },
@@ -128,16 +133,29 @@ export async function callModal(task, payload, { signal, timeoutMs = config.moda
   }
 }
 
-/** Presence only — this is served to the browser and must expose no secret. */
+/**
+ * Presence only — this is served to the browser and must expose no secret.
+ * Reported per task, so the lab can offer grounding on a deployment that has an
+ * LLM and no folder, rather than showing a control that can only fail.
+ */
 export function modalStatus() {
+  const tasks = Object.fromEntries(
+    Object.entries(config.modal.tasks).map(([task, wiring]) => [
+      task,
+      {
+        configured: modalConfigured(task),
+        mode: wiring.mode,
+        model: wiring.model || null,
+        // The host helps debug a misconfiguration; the token never does.
+        host: wiring.url ? safeHost(wiring.url) : null,
+      },
+    ]),
+  );
   return {
     configured: modalConfigured(),
-    mode: config.modal.mode,
-    model: config.modal.model || null,
-    // The host is useful for debugging a misconfiguration; the token is not.
-    host: config.modal.url ? safeHost(config.modal.url) : null,
     hasTokenId: Boolean(config.modal.tokenId),
     hasTokenSecret: Boolean(config.modal.tokenSecret),
+    tasks,
   };
 }
 

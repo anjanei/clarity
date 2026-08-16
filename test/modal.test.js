@@ -16,14 +16,42 @@ test('an unconfigured Modal is inert rather than broken', async () => {
   const status = modalStatus();
   assert.equal(status.configured, false);
   assert.equal(status.hasTokenSecret, false);
-  assert.equal(status.host, null);
+  assert.equal(status.tasks.ground.host, null);
+  assert.equal(status.tasks.fold.host, null);
 });
 
 test('status never carries the token itself', () => {
   const status = modalStatus();
   assert.equal('tokenId' in status, false);
   assert.equal('tokenSecret' in status, false);
-  assert.deepEqual(Object.keys(status).sort(), ['configured', 'hasTokenId', 'hasTokenSecret', 'host', 'mode', 'model']);
+  assert.deepEqual(Object.keys(status).sort(), ['configured', 'hasTokenId', 'hasTokenSecret', 'tasks']);
+  for (const task of Object.values(status.tasks)) {
+    assert.deepEqual(Object.keys(task).sort(), ['configured', 'host', 'mode', 'model']);
+  }
+});
+
+test('one task can be configured without the other', async () => {
+  // A workspace with a language model and no folder is the normal case: an LLM
+  // and a structure predictor are separate deployments.
+  config.modal.tokenId = 'wk-test';
+  config.modal.tokenSecret = 'ws-test';
+  config.modal.tasks.ground.url = 'https://example--kimi.modal.run';
+  config.modal.tasks.fold.url = '';
+  try {
+    const status = modalStatus();
+    assert.equal(status.configured, true);
+    assert.equal(status.tasks.ground.configured, true);
+    assert.equal(status.tasks.fold.configured, false);
+    assert.equal(status.tasks.ground.host, 'example--kimi.modal.run');
+
+    // Folding stays inert rather than borrowing the grounding endpoint.
+    assert.equal(await foldSequence({ sequence: 'MKTAYIAKQRQISFVKSHFSRQ' }), null);
+  } finally {
+    config.modal.tokenId = '';
+    config.modal.tokenSecret = '';
+    config.modal.tasks.ground.url = '';
+    config.modal.tasks.fold.url = '';
+  }
 });
 
 test('redaction catches every token shape that could reach a log', () => {
@@ -72,21 +100,23 @@ test('the backbone keeps one point per residue and reads its confidence column',
 
 test('a sequence that cannot honestly be folded is refused before it costs anything', async () => {
   // Configure just enough that the guard is the length check, not the config check.
-  config.modal.url = 'https://example--fold.modal.run';
+  config.modal.tasks.fold.url = 'https://example--fold.modal.run';
   config.modal.tokenId = 'wk-test';
   config.modal.tokenSecret = 'ws-test';
   try {
     await assert.rejects(() => foldSequence({ sequence: 'MKTA' }), /too short/i);
     await assert.rejects(() => foldSequence({ sequence: 'A'.repeat(2400) }), /capped at 2000/);
   } finally {
-    config.modal.url = '';
+    config.modal.tasks.fold.url = '';
+    config.modal.tasks.ground.url = '';
     config.modal.tokenId = '';
     config.modal.tokenSecret = '';
   }
 });
 
 test('grounding verifies every span against its own passage', async (t) => {
-  config.modal.url = 'https://example--ground.modal.run';
+  config.modal.tasks.ground.url = 'https://example--ground.modal.run';
+  config.modal.tasks.ground.mode = 'json';
   config.modal.tokenId = 'wk-test';
   config.modal.tokenSecret = 'ws-test';
 
@@ -113,7 +143,9 @@ test('grounding verifies every span against its own passage', async (t) => {
     );
   t.after(() => {
     globalThis.fetch = originalFetch;
-    config.modal.url = '';
+    config.modal.tasks.fold.url = '';
+    config.modal.tasks.ground.url = '';
+    config.modal.tasks.ground.mode = 'openai';
     config.modal.tokenId = '';
     config.modal.tokenSecret = '';
   });
@@ -128,8 +160,54 @@ test('grounding verifies every span against its own passage', async (t) => {
   }
 });
 
+test('an OpenAI-compatible LLM endpoint is unwrapped, fences and all', async (t) => {
+  // This is the shape a Kimi/vLLM deployment on Modal actually answers with:
+  // a chat completion whose content is JSON, often inside a fenced block.
+  config.modal.tasks.ground.url = 'https://workspace--kimi.modal.run';
+  config.modal.tasks.ground.mode = 'openai';
+  config.modal.tasks.ground.model = 'kimi';
+  config.modal.tokenId = 'wk-test';
+  config.modal.tokenSecret = 'ws-test';
+
+  const passage = { id: 'p1', title: 'Registry', text: 'The trial enrolled 24 participants across six sites.' };
+  let sentTo = null;
+  let sentBody = null;
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url, init) => {
+    sentTo = url;
+    sentBody = JSON.parse(init.body);
+    return new Response(
+      JSON.stringify({
+        choices: [
+          {
+            message: {
+              content: '```json\n{"spans":[{"id":"p1","quote":"enrolled 24 participants across six sites","score":0.9}]}\n```',
+            },
+          },
+        ],
+      }),
+      { status: 200, headers: { 'content-type': 'application/json' } },
+    );
+  };
+  t.after(() => {
+    globalThis.fetch = originalFetch;
+    config.modal.tasks.ground.url = '';
+    config.modal.tasks.ground.model = '';
+    config.modal.tokenId = '';
+    config.modal.tokenSecret = '';
+  });
+
+  const result = await groundClaim({ claim: 'Twenty-four people were enrolled.', passages: [passage] });
+
+  assert.equal(sentTo, 'https://workspace--kimi.modal.run/v1/chat/completions');
+  assert.equal(sentBody.model, 'kimi');
+  assert.equal(result.spans.length, 1);
+  assert.equal(passage.text.slice(result.spans[0].start, result.spans[0].end), 'enrolled 24 participants across six sites');
+});
+
 test('a non-JSON reply fails loudly instead of producing an empty citation', async (t) => {
-  config.modal.url = 'https://example--ground.modal.run';
+  config.modal.tasks.ground.url = 'https://example--ground.modal.run';
+  config.modal.tasks.ground.mode = 'json';
   config.modal.tokenId = 'wk-test';
   config.modal.tokenSecret = 'ws-test';
 
@@ -137,7 +215,8 @@ test('a non-JSON reply fails loudly instead of producing an empty citation', asy
   globalThis.fetch = async () => new Response('<html>gateway error</html>', { status: 200 });
   t.after(() => {
     globalThis.fetch = originalFetch;
-    config.modal.url = '';
+    config.modal.tasks.fold.url = '';
+    config.modal.tasks.ground.url = '';
     config.modal.tokenId = '';
     config.modal.tokenSecret = '';
   });

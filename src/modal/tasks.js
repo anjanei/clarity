@@ -89,7 +89,7 @@ export function parseBackbone(pdbText) {
  *   keeps whatever it already had.
  */
 export async function foldSequence({ sequence, name = '', unit = 'aa' }, options = {}) {
-  if (!modalConfigured()) return null;
+  if (!modalConfigured('fold')) return null;
 
   const cleaned = String(sequence ?? '').replace(CLEAN_SEQUENCE, '').toUpperCase();
   if (cleaned.length < 16) {
@@ -165,7 +165,7 @@ export function locateQuote(haystack, quote) {
  * @returns {Promise<{spans: Array<object>, checked: number, rejected: number}|null>}
  */
 export async function groundClaim({ claim, passages = [] }, options = {}) {
-  if (!modalConfigured()) return null;
+  if (!modalConfigured('ground')) return null;
 
   const claimText = squash(claim);
   if (!claimText) throw new ModalError('Grounding needs a claim.');
