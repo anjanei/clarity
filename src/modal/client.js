@@ -39,7 +39,11 @@ function authHeaders({ openai = false } = {}) {
     accept: 'application/json',
   };
   if (openai) {
-    headers.Authorization = `Bearer ${config.modal.tokenId}.${config.modal.tokenSecret}`;
+    headers.Authorization = config.modal.tokenId && config.modal.tokenSecret
+      ? `Bearer ${config.modal.tokenId}.${config.modal.tokenSecret}`
+      : `Bearer ${config.modal.apiToken}`;
+  } else if (config.modal.apiToken && (!config.modal.tokenId || !config.modal.tokenSecret)) {
+    headers.Authorization = `Bearer ${config.modal.apiToken}`;
   } else {
     headers['Modal-Key'] = config.modal.tokenId;
     headers['Modal-Secret'] = config.modal.tokenSecret;
@@ -66,7 +70,7 @@ export async function callModal(task, payload, { signal, timeoutMs = config.moda
   if (!modalConfigured(task)) {
     throw new ModalError(
       `Modal ${task} is not configured. Set MODAL_${task.toUpperCase()}_URL (or MODAL_ENDPOINT_URL), ` +
-        'MODAL_TOKEN_ID and MODAL_TOKEN_SECRET.',
+        'plus MODAL_API_TOKEN or MODAL_TOKEN_ID and MODAL_TOKEN_SECRET.',
     );
   }
 
@@ -158,6 +162,7 @@ export function modalStatus() {
   );
   return {
     configured: modalConfigured(),
+    hasApiToken: Boolean(config.modal.apiToken),
     hasTokenId: Boolean(config.modal.tokenId),
     hasTokenSecret: Boolean(config.modal.tokenSecret),
     tasks,

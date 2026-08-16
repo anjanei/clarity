@@ -6,6 +6,7 @@ process.env.MODAL_GROUND_URL = '';
 process.env.MODAL_FOLD_URL = '';
 process.env.MODAL_TOKEN_ID = '';
 process.env.MODAL_TOKEN_SECRET = '';
+process.env.MODAL_API_TOKEN = '';
 process.env.MODAL_GROUND_MODEL = '';
 process.env.MODAL_FOLD_MODEL = '';
 
@@ -28,10 +29,42 @@ test('status never carries the token itself', () => {
   const status = modalStatus();
   assert.equal('tokenId' in status, false);
   assert.equal('tokenSecret' in status, false);
-  assert.deepEqual(Object.keys(status).sort(), ['configured', 'hasTokenId', 'hasTokenSecret', 'tasks']);
+  assert.deepEqual(Object.keys(status).sort(), ['configured', 'hasApiToken', 'hasTokenId', 'hasTokenSecret', 'tasks']);
   for (const task of Object.values(status.tasks)) {
     assert.deepEqual(Object.keys(task).sort(), ['configured', 'host', 'mode', 'model']);
   }
+});
+
+test('OpenAI-compatible Modal endpoints can use a single API token', async (t) => {
+  config.modal.tasks.ground.url = 'https://workspace--kimi.modal.run';
+  config.modal.tasks.ground.mode = 'openai';
+  config.modal.tasks.ground.model = 'kimi';
+  config.modal.apiToken = 'ak-test';
+
+  const passage = { id: 'p1', title: 'Registry', text: 'The trial enrolled 24 participants across six sites.' };
+  let sentHeaders = null;
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (_url, init) => {
+    sentHeaders = init.headers;
+    return new Response(
+      JSON.stringify({
+        choices: [{ message: { content: '{"spans":[{"id":"p1","quote":"enrolled 24 participants across six sites"}]}' } }],
+      }),
+      { status: 200, headers: { 'content-type': 'application/json' } },
+    );
+  };
+  t.after(() => {
+    globalThis.fetch = originalFetch;
+    config.modal.tasks.ground.url = '';
+    config.modal.tasks.ground.model = '';
+    config.modal.apiToken = '';
+  });
+
+  const result = await groundClaim({ claim: 'Twenty-four people were enrolled.', passages: [passage] });
+
+  assert.equal(sentHeaders.Authorization, 'Bearer ak-test');
+  assert.equal(sentHeaders['Modal-Secret'], undefined);
+  assert.equal(result.spans.length, 1);
 });
 
 test('one task can be configured without the other', async () => {

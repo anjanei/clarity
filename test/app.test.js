@@ -9,7 +9,12 @@ import test from 'node:test';
 const dataDirectory = await fs.mkdtemp(path.join(os.tmpdir(), 'fdaapproval-test-'));
 process.env.DATA_DIR = dataDirectory;
 process.env.PAPERCLIP_API_KEY = '';
+process.env.MODEL_PROVIDER = 'anthropic';
+process.env.MODEL_API_KEY = '';
 process.env.ANTHROPIC_API_KEY = '';
+process.env.OPENAI_API_KEY = '';
+process.env.AUDIT_STORE = '';
+process.env.MONGODB_URI = '';
 
 const { createApp } = await import('../src/server.js');
 const app = createApp();
@@ -33,7 +38,8 @@ test('reports a usable health response without external-service keys', async () 
   const { response, body } = await request('/api/health');
   assert.equal(response.status, 200);
   assert.equal(body.ok, false);
-  assert.deepEqual(body.keys, { paperclip: false, anthropic: false });
+  assert.deepEqual(body.keys, { paperclip: false, model: false });
+  assert.equal(body.auditMemory.store, 'filesystem');
   assert.equal(body.catalog, null);
 });
 
@@ -74,6 +80,10 @@ test('serves the frontend and API routes from an isolated catalog', async () => 
   const traces = await request('/api/evaluations/NCT00000001/traces');
   assert.equal(traces.response.status, 200);
   assert.deepEqual(traces.body, { trialId: 'NCT00000001', traces: [] });
+
+  const audits = await request('/api/evaluations/NCT00000001/audits');
+  assert.equal(audits.response.status, 200);
+  assert.deepEqual(audits.body, { trialId: 'NCT00000001', audits: [] });
 
   const missingTrace = await request('/api/evaluations/NCT00000001/traces/not-a-trace');
   assert.equal(missingTrace.response.status, 404);

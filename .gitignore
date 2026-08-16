@@ -12,6 +12,7 @@ render-cli-*.zip
 # data/evaluations/
 # data/probe/
 data/traces/
+data/audits/
 
 *.log
 .DS_Store

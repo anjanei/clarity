@@ -56,6 +56,7 @@ const state = {
   benchmarks: null,
   selected: null,
   evaluation: null,
+  auditHistory: null,
   geneModel: null,
   running: false,
   stream: null,
@@ -63,7 +64,7 @@ const state = {
   tab: 'review',
   selection: null,
   matrixCell: null,
-  counters: { paperclip: 0, claude: 0 },
+  counters: { paperclip: 0, model: 0 },
   captureFullTrace: readFlag('fdaapproval.captureFullTrace', false),
   theme: readTheme(),
   focus: false,
@@ -174,7 +175,7 @@ function renderStatus(health) {
   state.health = health;
   const chips = [
     health.keys?.paperclip ? chip('Paperclip live', 'clip') : chip('Paperclip missing', 'stop'),
-    health.keys?.anthropic ? chip(`Claude ${health.model}`, 'claude') : chip('Claude missing', 'stop'),
+    health.keys?.model ? chip(`${health.provider || 'model'} ${health.model}`, 'claude') : chip('Model missing', 'stop'),
   ];
   if (health.benchling?.reachable) chips.push(chip('Benchling live', 'bench'));
   else if (health.benchling?.configured) chips.push(chip('Benchling configured', 'gap'));
@@ -238,7 +239,7 @@ function renderCounters() {
   if (!el.hudCounters) return;
   const rows = [
     ['paperclip', state.counters.paperclip, 'text-clip-400'],
-    ['claude', state.counters.claude, 'text-claude-400'],
+    ['model', state.counters.model, 'text-claude-400'],
     ['tokens', tokenCount(state.evaluation).toLocaleString(), 'text-bench-400'],
     ['nodes', graph?.nodeCount ?? 0, 'text-ink'],
   ];
@@ -365,6 +366,19 @@ async function loadBenchmarks() {
   if (state.tab === 'benchmarks') renderInspector();
 }
 
+async function loadAuditHistory(trialId = state.selected?.trialId) {
+  if (!trialId) return;
+  try {
+    const payload = await getJSON(`/api/evaluations/${encodeURIComponent(trialId)}/audits`);
+    if (state.selected?.trialId !== trialId) return;
+    state.auditHistory = payload.audits ?? [];
+  } catch {
+    if (state.selected?.trialId !== trialId) return;
+    state.auditHistory = [];
+  }
+  if (state.tab === 'history' || state.tab === 'evidence') renderInspector();
+}
+
 async function loadCatalog() {
   const params = new URLSearchParams();
   const query = el.trialSearch.value.trim();
@@ -446,10 +460,11 @@ async function selectTrial(trialId) {
   state.running = false;
   state.selected = trial;
   state.evaluation = null;
+  state.auditHistory = null;
   state.geneModel = null;
   state.selection = null;
   state.runError = null;
-  state.counters = { paperclip: 0, claude: 0 };
+  state.counters = { paperclip: 0, model: 0 };
 
   el.trialSearch.value = `${trial.therapeuticName} · ${trial.trialId}`;
   closeCombo();
@@ -477,6 +492,8 @@ async function selectTrial(trialId) {
       if (state.selected?.trialId !== trial.trialId) return;
       renderInspector();
     });
+
+  loadAuditHistory(trial.trialId);
 
   getJSON(`/api/gene-model/${encodeURIComponent(trial.trialId)}`)
     .then((payload) => {
@@ -518,7 +535,7 @@ function renderSelectedTrial() {
 /* ------------------------------------------------------------------ console */
 
 function consoleLine(tag, body) {
-  const tone = tag === 'paperclip' ? 'tag-clip' : tag === 'claude' ? 'tag-claude' : tag === 'benchling' ? 'tag-bench' : 'tag-sys';
+  const tone = tag === 'paperclip' ? 'tag-clip' : tag === 'model' ? 'tag-claude' : tag === 'benchling' ? 'tag-bench' : 'tag-sys';
   return `<li class="console-line"><span class="console-tag ${tone}">${esc(tag)}</span><span class="console-body">${esc(body)}</span></li>`;
 }
 
@@ -543,7 +560,7 @@ function setConsoleState(text) {
 function stepTag(step) {
   const message = `${step.stage || ''} ${step.message || ''}`;
   if (/bench/i.test(message)) return 'benchling';
-  if (/review|dossier|synth|scor/i.test(message)) return 'claude';
+  if (/review|dossier|synth|scor/i.test(message)) return 'model';
   if (/evidence|search|paperclip|retriev/i.test(message)) return 'paperclip';
   return 'sys';
 }
@@ -552,7 +569,7 @@ function onProgress(step) {
   const tag = stepTag(step);
   appendConsole(tag, step.message || step.stage);
   if (tag === 'paperclip') state.counters.paperclip += 1;
-  if (tag === 'claude') state.counters.claude += 1;
+  if (tag === 'model') state.counters.model += 1;
 
   const message = `${step.stage || ''} ${step.message || ''}`.toLowerCase();
 
@@ -596,7 +613,7 @@ function runReview({ force = false } = {}) {
   state.running = true;
   state.evaluation = null;
   state.runError = null;
-  state.counters = { paperclip: 0, claude: 0 };
+  state.counters = { paperclip: 0, model: 0 };
   el.runReview.disabled = true;
   el.runReview.textContent = 'Reviewing…';
   graph?.reset();
@@ -641,6 +658,7 @@ function runReview({ force = false } = {}) {
     graph?.completeAll();
     setConsoleState('complete');
     appendConsole('sys', `review complete · ${tokenCount(evaluation).toLocaleString()} tokens of context`);
+    loadAuditHistory(evaluation.trial?.trialId);
     finishRun(null);
   });
 
@@ -704,6 +722,8 @@ function renderInspector() {
     html = benchmarksTab(review);
   } else if (state.tab === 'structure') {
     html = structureTab();
+  } else if (state.tab === 'history') {
+    html = historyTab();
   } else if (state.running) {
     html = `<div class="panel panel-pad"><p class="text-[13px] leading-relaxed text-faint">Review running. The graph is the live state; results will unfold here when the stream returns.</p></div>`;
   } else if (!review) {
@@ -882,15 +902,20 @@ function evidenceTab(evaluation) {
   const sections = evaluation.evidence?.sections ?? [];
   const usage = evaluation.meta?.usage ?? {};
   const trace = evaluation.meta?.trace;
+  const audit = evaluation.meta?.audit;
   const traceUrl = trace?.traceId
     ? `/api/evaluations/${encodeURIComponent(evaluation.trial?.trialId ?? '')}/traces/${encodeURIComponent(trace.traceId)}`
+    : '';
+  const auditUrl = audit?.auditId
+    ? `/api/evaluations/${encodeURIComponent(evaluation.trial?.trialId ?? '')}/audits/${encodeURIComponent(audit.auditId)}`
     : '';
 
   return `
     <section class="panel panel-pad rise">
-      <p class="label">Paperclip + Claude run</p>
+      <p class="label">Paperclip + model run</p>
       <p class="mt-1 text-[13px] font-semibold text-ink">${sections.length} retrieval sections · ${tokenCount(evaluation).toLocaleString()} tokens/context</p>
       <dl class="mt-3 grid grid-cols-2 gap-2 font-mono text-[10px] text-faint">
+        <div><dt class="text-ghost">provider</dt><dd class="text-ink">${esc(evaluation.meta?.provider ?? '—')}</dd></div>
         <div><dt class="text-ghost">model</dt><dd class="text-ink">${esc(evaluation.meta?.model ?? '—')}</dd></div>
         <div><dt class="text-ghost">effort</dt><dd class="text-ink">${esc(evaluation.meta?.effort ?? '—')}</dd></div>
         <div><dt class="text-ghost">input</dt><dd>${num(usage.input_tokens ?? 0)}</dd></div>
@@ -898,6 +923,7 @@ function evidenceTab(evaluation) {
         <div><dt class="text-ghost">cache write</dt><dd>${num(usage.cache_creation_input_tokens ?? 0)}</dd></div>
         <div><dt class="text-ghost">output</dt><dd>${num(usage.output_tokens ?? 0)}</dd></div>
       </dl>
+      ${auditUrl ? `<p class="mt-3"><a class="src-link" href="${esc(auditUrl)}" target="_blank" rel="noreferrer noopener">open audit record${ICON_EXTERNAL}</a></p>` : ''}
       ${traceUrl ? `<p class="mt-3"><a class="src-link" href="${esc(traceUrl)}" target="_blank" rel="noreferrer noopener">open ${esc(trace.mode)} trace${ICON_EXTERNAL}</a></p>` : ''}
       <div class="console mt-3">
         <ul class="space-y-1">${sections
@@ -917,6 +943,59 @@ function evidenceTab(evaluation) {
           </section>`
         : '<div class="panel panel-pad"><p class="text-[12px] text-faint">This review has no cited dossier — it predates the dossier pass.</p></div>'
     }`;
+}
+
+function historyTab() {
+  if (!state.selected) return '';
+  if (state.auditHistory == null) {
+    loadAuditHistory(state.selected.trialId);
+    return '<div class="panel panel-pad"><p class="text-[12px] text-faint">Loading audit history…</p></div>';
+  }
+  const rows = state.auditHistory ?? [];
+  return `
+    <section class="panel panel-pad rise">
+      <p class="eyebrow">Run memory</p>
+      <h3 class="mt-2 text-[16px] font-semibold tracking-tight text-ink">Audit history</h3>
+      <p class="mt-2 text-[12px] leading-relaxed text-faint">
+        Every run request is retained as an audit record, including cache returns, errors, model configuration, trace reference, timing and score summary.
+      </p>
+      <div class="mt-4 space-y-2">
+        ${
+          rows.length
+            ? rows.map(auditRow).join('')
+            : '<div class="inset px-3 py-2.5"><p class="text-[12px] text-faint">No audit records for this programme yet.</p></div>'
+        }
+      </div>
+    </section>`;
+}
+
+function auditRow(audit) {
+  const trialId = state.selected?.trialId ?? '';
+  const auditUrl = `/api/evaluations/${encodeURIComponent(trialId)}/audits/${encodeURIComponent(audit.auditId)}`;
+  const traceUrl = audit.trace?.traceId
+    ? `/api/evaluations/${encodeURIComponent(trialId)}/traces/${encodeURIComponent(audit.trace.traceId)}`
+    : '';
+  const probability = audit.probabilityOfTrialSuccess?.pointEstimate;
+  const statusTone = audit.status === 'completed' ? (audit.cached ? 'unknown' : 'ok') : audit.status === 'error' ? 'stop' : 'gap';
+  return `<div class="inset px-3 py-2.5">
+    <div class="flex items-start justify-between gap-3">
+      <div class="min-w-0">
+        <p class="text-[13px] font-semibold text-ink">${esc(fmtDate(audit.startedAt))}</p>
+        <p class="mt-1 font-mono text-[10px] text-ghost">${esc(audit.model?.provider ?? 'model')} · ${esc(audit.model?.name ?? '—')} · ${esc(audit.model?.evalEffort ?? '—')}</p>
+      </div>
+      ${chip(audit.cached ? 'cache' : audit.status, statusTone)}
+    </div>
+    <dl class="mt-2 grid grid-cols-3 gap-2 font-mono text-[10px] text-faint">
+      <div><dt class="text-ghost">duration</dt><dd>${audit.durationMs == null ? '—' : `${num(Math.round(audit.durationMs / 1000))}s`}</dd></div>
+      <div><dt class="text-ghost">probability</dt><dd>${probability == null ? '—' : `${num(probability)}%`}</dd></div>
+      <div><dt class="text-ghost">score</dt><dd>${audit.weightedRubricScore == null ? '—' : Number(audit.weightedRubricScore).toFixed(2)}</dd></div>
+    </dl>
+    ${audit.error ? `<p class="mt-2 text-[12px] leading-snug text-stop prose-wrap">${esc(audit.error.message)}</p>` : ''}
+    <div class="mt-2 flex flex-wrap gap-1.5">
+      <a class="src-link" href="${esc(auditUrl)}" target="_blank" rel="noreferrer noopener">audit${ICON_EXTERNAL}</a>
+      ${traceUrl ? `<a class="src-link" href="${esc(traceUrl)}" target="_blank" rel="noreferrer noopener">${esc(audit.trace.mode ?? 'trace')} trace${ICON_EXTERNAL}</a>` : ''}
+    </div>
+  </div>`;
 }
 
 function dossierDomain(domain) {
@@ -1113,7 +1192,7 @@ function methodTab() {
   const steps = [
     ['Paperclip retrieval', 'Source-scoped searches across trial registries, FDA review files and primary literature.'],
     ['CLARITY dossier', 'Nine domain passes produce citation-bearing findings, gaps, rationales and confidence.'],
-    ['Claude FDA review', 'A rubric-scored reviewer pass consumes only the retrieved evidence and cited dossier.'],
+    ['Model FDA review', 'A rubric-scored reviewer pass consumes only the retrieved evidence and cited dossier.'],
     ['Benchling structure', 'Live sequence when tenant credentials resolve; otherwise an explicitly derived schematic.'],
   ];
   return `

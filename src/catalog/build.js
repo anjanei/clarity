@@ -94,7 +94,7 @@ async function extract(record, { effort }) {
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
-  requireKeys('paperclip', 'anthropic');
+  requireKeys('paperclip', 'model');
 
   console.log(`Paperclip: ${config.paperclip.mcpUrl}`);
   const connection = await checkConnection();
@@ -117,7 +117,7 @@ async function main() {
     );
   }
 
-  console.log(`\nExtracting structured records (effort: ${config.anthropic.extractEffort})…`);
+  console.log(`\nExtracting structured records (effort: ${config.model.extractEffort})…`);
   const byId = new Map();
 
   if (!args.replace) {
@@ -131,7 +131,7 @@ async function main() {
 
   for (const record of usable) {
     try {
-      const trials = await extract(record, { effort: config.anthropic.extractEffort });
+      const trials = await extract(record, { effort: config.model.extractEffort });
       let added = 0;
       for (const raw of trials) {
         if (!isPlausible(raw)) {
@@ -177,8 +177,9 @@ async function main() {
   const catalog = {
     generatedAt: new Date().toISOString(),
     generator: {
-      model: config.anthropic.model,
-      extractEffort: config.anthropic.extractEffort,
+      provider: config.model.provider,
+      model: config.model.name,
+      extractEffort: config.model.extractEffort,
       paperclipUrl: config.paperclip.mcpUrl,
       searchLimit: args.limit,
     },

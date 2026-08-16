@@ -2,7 +2,7 @@ import { networkInterfaces } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
-import { config, paths } from './config.js';
+import { config, modelConfigured, paths } from './config.js';
 import { trialsRouter } from './routes/trials.js';
 import { evaluateRouter } from './routes/evaluate.js';
 import { labRouter } from './routes/lab.js';
@@ -75,18 +75,25 @@ export function createApp() {
     }
 
     res.json({
-      ok: Boolean(config.paperclip.apiKey && config.anthropic.apiKey && catalog),
+      ok: Boolean(config.paperclip.apiKey && modelConfigured() && catalog),
       keys: {
         paperclip: Boolean(config.paperclip.apiKey),
-        anthropic: Boolean(config.anthropic.apiKey),
+        model: modelConfigured(),
       },
-      model: config.anthropic.model,
-      effort: config.anthropic.evalEffort,
+      provider: config.model.provider,
+      model: config.model.name,
+      effort: config.model.evalEffort,
       runs: {
         enabled: config.runs.enabled,
         perWindow: config.runs.perWindow,
         windowMinutes: Math.round(config.runs.windowMs / 60000),
         concurrent: config.runs.concurrent,
+      },
+      auditMemory: {
+        store: config.auditMemory.store,
+        mongodbConfigured: Boolean(config.auditMemory.mongodbUri),
+        database: config.auditMemory.mongodbUri ? config.auditMemory.mongodbDb : null,
+        collection: config.auditMemory.mongodbUri ? config.auditMemory.mongodbCollection : null,
       },
       catalog: catalog
         ? { generatedAt: catalog.generatedAt, trials: catalog.trials.length }
@@ -127,7 +134,7 @@ export function startServer() {
       console.log('  ! bound to all interfaces — no authentication on /api routes');
     }
     if (!config.paperclip.apiKey) console.warn('  ! PAPERCLIP_API_KEY is not set');
-    if (!config.anthropic.apiKey) console.warn('  ! ANTHROPIC_API_KEY is not set');
+    if (!modelConfigured()) console.warn(`  ! ${config.model.provider === 'openai' ? 'MODEL_API_KEY or OPENAI_API_KEY' : 'MODEL_API_KEY or ANTHROPIC_API_KEY'} is not set`);
     console.log(
       config.runs.enabled
         ? `  runs: ${config.runs.perWindow} per ${Math.round(config.runs.windowMs / 60000)} min per address, ${config.runs.concurrent} concurrent`

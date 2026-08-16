@@ -15,8 +15,8 @@ export function supportsEffort(model) {
 }
 
 function getClient() {
-  requireKeys('anthropic');
-  client ??= new Anthropic({ apiKey: config.anthropic.apiKey });
+  requireKeys('model');
+  client ??= new Anthropic({ apiKey: config.model.apiKey });
   return client;
 }
 
@@ -71,30 +71,43 @@ export async function structuredCall({
   system,
   userContent,
   schema,
-  effort = config.anthropic.evalEffort,
+  effort = config.model.evalEffort,
   maxTokens = 32000,
   cacheSystem = true,
   useFallbacks = true,
   onProgress,
   trace,
-  traceLabel = 'claude',
+  traceLabel = 'model',
 }) {
+  if (config.model.provider === 'openai') {
+    return structuredOpenAICompatibleCall({
+      system,
+      userContent,
+      schema,
+      effort,
+      maxTokens,
+      onProgress,
+      trace,
+      traceLabel,
+    });
+  }
+
   const anthropic = getClient();
   const systemBlocks = buildSystemBlocks(system, { cacheSystem });
 
   const outputConfig = {
     format: { type: 'json_schema', schema },
   };
-  if (supportsEffort(config.anthropic.model)) outputConfig.effort = effort;
+  if (supportsEffort(config.model.name)) outputConfig.effort = effort;
 
   const params = {
-    model: config.anthropic.model,
+    model: config.model.name,
     max_tokens: maxTokens,
     system: systemBlocks,
     messages: [{ role: 'user', content: userContent }],
     output_config: outputConfig,
   };
-  if (supportsAdaptiveThinking(config.anthropic.model)) {
+  if (supportsAdaptiveThinking(config.model.name)) {
     params.thinking = { type: 'adaptive' };
   }
 
@@ -123,6 +136,7 @@ export async function structuredCall({
       startedAt,
       completedAt: new Date().toISOString(),
       durationMs: Date.now() - started,
+      provider: config.model.provider,
       model: message.model,
       effort,
       maxTokens,
@@ -141,7 +155,8 @@ export async function structuredCall({
       startedAt,
       completedAt: new Date().toISOString(),
       durationMs: Date.now() - started,
-      model: message?.model ?? config.anthropic.model,
+      provider: config.model.provider,
+      model: message?.model ?? config.model.name,
       effort,
       maxTokens,
       usage: message?.usage ?? null,
@@ -151,6 +166,123 @@ export async function structuredCall({
       userContent,
       schema,
       responseText: jsonText,
+    });
+    throw err;
+  }
+}
+
+function systemText(system) {
+  return (Array.isArray(system) ? system : [system])
+    .map((block) => (block && typeof block === 'object' && !Array.isArray(block) ? block.text : block))
+    .map((text) => String(text ?? ''))
+    .filter(Boolean)
+    .join('\n\n');
+}
+
+function jsonFromText(text) {
+  const fenced = String(text ?? '').match(/```(?:json)?\s*([\s\S]*?)```/);
+  return JSON.parse(fenced ? fenced[1] : text);
+}
+
+function normalizeOpenAIUsage(usage = {}) {
+  return {
+    input_tokens: usage.prompt_tokens ?? usage.input_tokens ?? 0,
+    output_tokens: usage.completion_tokens ?? usage.output_tokens ?? 0,
+    total_tokens: usage.total_tokens ?? 0,
+  };
+}
+
+async function structuredOpenAICompatibleCall({
+  system,
+  userContent,
+  schema,
+  effort,
+  maxTokens,
+  onProgress,
+  trace,
+  traceLabel,
+}) {
+  requireKeys('model');
+  const baseUrl = config.model.baseUrl.replace(/\/+$/, '') || 'https://api.openai.com/v1';
+  const url = `${baseUrl}/chat/completions`;
+  const startedAt = new Date().toISOString();
+  const started = Date.now();
+  let responseText = '';
+  let parsedBody = null;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${config.model.apiKey}`,
+        'content-type': 'application/json',
+        accept: 'application/json',
+      },
+      body: JSON.stringify({
+        model: config.model.name,
+        messages: [
+          { role: 'system', content: systemText(system) },
+          { role: 'user', content: userContent },
+        ],
+        max_tokens: maxTokens,
+        response_format: {
+          type: 'json_schema',
+          json_schema: {
+            name: 'clarity_structured_output',
+            strict: true,
+            schema,
+          },
+        },
+      }),
+    });
+    responseText = await response.text();
+    if (!response.ok) {
+      throw new Error(`Model endpoint failed (${response.status}): ${responseText.slice(0, 300)}`);
+    }
+    parsedBody = JSON.parse(responseText);
+    const content = parsedBody?.choices?.[0]?.message?.content;
+    if (typeof content !== 'string' || !content.trim()) {
+      throw new Error('Model endpoint returned no assistant content.');
+    }
+    onProgress?.(content);
+    const data = jsonFromText(content);
+    const usage = normalizeOpenAIUsage(parsedBody.usage);
+    recordModelCall(trace, {
+      label: traceLabel,
+      status: 'ok',
+      startedAt,
+      completedAt: new Date().toISOString(),
+      durationMs: Date.now() - started,
+      provider: config.model.provider,
+      model: parsedBody.model ?? config.model.name,
+      effort,
+      maxTokens,
+      usage,
+      stopReason: parsedBody?.choices?.[0]?.finish_reason ?? null,
+      system,
+      userContent,
+      schema,
+      responseText: content,
+    });
+    return { data, usage, model: parsedBody.model ?? config.model.name, provider: config.model.provider };
+  } catch (err) {
+    recordModelCall(trace, {
+      label: traceLabel,
+      status: 'error',
+      startedAt,
+      completedAt: new Date().toISOString(),
+      durationMs: Date.now() - started,
+      provider: config.model.provider,
+      model: parsedBody?.model ?? config.model.name,
+      effort,
+      maxTokens,
+      usage: normalizeOpenAIUsage(parsedBody?.usage),
+      stopReason: parsedBody?.choices?.[0]?.finish_reason ?? null,
+      error: { name: err.name, message: err.message },
+      system,
+      userContent,
+      schema,
+      responseText,
     });
     throw err;
   }

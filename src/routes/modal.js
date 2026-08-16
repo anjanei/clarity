@@ -32,7 +32,7 @@ const requireModal = (task) => (_req, res, next) => {
     task,
     message:
       `Modal ${task} is not configured on this deployment. Set MODAL_${task.toUpperCase()}_URL ` +
-      '(or MODAL_ENDPOINT_URL), MODAL_TOKEN_ID and MODAL_TOKEN_SECRET.',
+      '(or MODAL_ENDPOINT_URL), plus MODAL_API_TOKEN or MODAL_TOKEN_ID and MODAL_TOKEN_SECRET.',
   });
 };
 

@@ -302,7 +302,7 @@ export async function synthesizeEvidenceDossier(
       system: domainSystemPrompt(orchestrator, domainSkills[index]),
       userContent: domainUserContent(trial, domain, phase, sections),
       schema: domainDossierSchema,
-      effort: config.anthropic.extractEffort,
+      effort: config.model.extractEffort,
       maxTokens: 14000,
       trace,
       traceLabel: `dossier.${domain.id}`,

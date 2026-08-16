@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Evaluate clinical trial programs under the lens of an FDA approver, using Paperclip for evidence and Claude for rubric scoring.",
+  "description": "Evaluate clinical trial programs under the lens of an FDA approver, using Paperclip for evidence and a configured model for rubric scoring.",
   "engines": {
     "node": ">=20"
   },
@@ -24,7 +24,8 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.70.0",
     "dotenv": "^17.0.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mongodb": "^6.21.0"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.0",

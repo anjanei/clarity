@@ -5,6 +5,11 @@ import { EVIDENCE_DOSSIER_VERSION } from '../evidence/domains.js';
 import { evaluateTrial } from './evaluate.js';
 import { config } from '../config.js';
 import {
+  createEvaluationAudit,
+  finishEvaluationAudit,
+  writeEvaluationAudit,
+} from './audits.js';
+import {
   createRunTrace,
   finishRunTrace,
   normalizeTraceMode,
@@ -75,6 +80,7 @@ export function runEvaluation(trial, { onStep, force = false, traceMode } = {}) 
 
   const listeners = new Set(onStep ? [onStep] : []);
   const trace = createRunTrace(trial, { mode });
+  const audit = createEvaluationAudit(trial, { force, traceMode: mode });
   const emit = (step) => {
     traceEvent(trace, 'progress', step);
     for (const listener of listeners) {
@@ -105,9 +111,16 @@ export function runEvaluation(trial, { onStep, force = false, traceMode } = {}) 
           emit({ stage: 'cache', message: 'Returning cached review' });
           traceEvent(trace, 'cache_hit');
           const traceRef = await completeTrace();
-          return {
+          const evaluation = {
             ...cached,
             meta: traceRef ? { ...cached.meta, trace: traceRef } : cached.meta,
+          };
+          const auditRef = await writeEvaluationAudit(
+            finishEvaluationAudit(audit, { cached: true, evaluation, trace: traceRef }),
+          );
+          return {
+            ...evaluation,
+            meta: auditRef ? { ...evaluation.meta, audit: auditRef } : evaluation.meta,
             cached: true,
           };
         }
@@ -115,10 +128,15 @@ export function runEvaluation(trial, { onStep, force = false, traceMode } = {}) 
       const evaluation = await evaluateTrial(trial, { onStep: emit, trace });
       const traceRef = await completeTrace();
       if (traceRef) evaluation.meta.trace = traceRef;
+      const auditRef = await writeEvaluationAudit(
+        finishEvaluationAudit(audit, { cached: false, evaluation, trace: traceRef }),
+      );
+      if (auditRef) evaluation.meta.audit = auditRef;
       await writeEvaluation(trial.trialId, evaluation);
       return { ...evaluation, cached: false };
     } catch (err) {
-      await completeTrace(err);
+      const traceRef = await completeTrace(err);
+      await writeEvaluationAudit(finishEvaluationAudit(audit, { error: err, trace: traceRef }));
       throw err;
     }
   })().finally(() => {

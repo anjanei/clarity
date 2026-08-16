@@ -68,7 +68,7 @@ async function classify(trial) {
       `Sponsor: ${trial.sponsor}`,
     ].join('\n'),
     schema: classifySchema,
-    effort: config.anthropic.extractEffort,
+    effort: config.model.extractEffort,
     maxTokens: 2000,
     useFallbacks: false,
   });
@@ -89,7 +89,7 @@ async function main() {
     );
   }
 
-  requireKeys('anthropic');
+  requireKeys('model');
 
   const catalog = (await loadCatalog()) ?? {
     generatedAt: new Date().toISOString(),

@@ -24,6 +24,12 @@ services:
         sync: false
       - key: PAPERCLIP_MCP_URL
         value: https://paperclip.gxl.ai/mcp
+      - key: MODEL_PROVIDER
+        value: anthropic
+      - key: MODEL_NAME
+        value: claude-opus-5
+      - key: MODEL_API_KEY
+        sync: false
       - key: ANTHROPIC_API_KEY
         sync: false
       - key: ANTHROPIC_MODEL
@@ -32,6 +38,16 @@ services:
         value: high
       - key: EXTRACT_EFFORT
         value: low
+      - key: AUDIT_STORE
+        value: mongodb
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB
+        value: fdaapproval
+      - key: MONGODB_AUDITS_COLLECTION
+        value: evaluation_audits
+      - key: MODAL_API_TOKEN
+        sync: false
       - key: MODAL_TOKEN_ID
         sync: false
       - key: MODAL_TOKEN_SECRET
@@ -41,7 +57,7 @@ services:
       - key: MODAL_GROUND_MODE
         value: openai
       - key: MODAL_GROUND_MODEL
-        sync: false
+        value: sameernagar-hub--ep-kimi-k3-server.us-west.modal.direct
       - key: MODAL_FOLD_URL
         sync: false
       - key: MODAL_FOLD_MODE

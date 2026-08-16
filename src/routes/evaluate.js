@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { config } from '../config.js';
 import { getTrial } from '../catalog/store.js';
+import { listEvaluationAudits, readEvaluationAudit } from '../evaluate/audits.js';
 import { readEvaluation, runEvaluation } from '../evaluate/store.js';
 import { listRunTraces, normalizeTraceMode, readRunTrace } from '../evaluate/trace.js';
 import { createConcurrencyGate, createRateLimiter, createRunSwitch } from '../utils/rate-limit.js';
@@ -68,6 +69,29 @@ evaluateRouter.get('/evaluations/:trialId/traces/:traceId', async (req, res, nex
     const trace = await readRunTrace(trial.trialId, req.params.traceId);
     if (!trace) return res.status(404).json({ error: 'not_found', message: 'Unknown evaluation trace.' });
     res.json(trace);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** Every requested run produces an audit record, even when it returns cache. */
+evaluateRouter.get('/evaluations/:trialId/audits', async (req, res, next) => {
+  try {
+    const trial = await requireTrial(req, res);
+    if (!trial) return;
+    res.json({ trialId: trial.trialId, audits: await listEvaluationAudits(trial.trialId) });
+  } catch (err) {
+    next(err);
+  }
+});
+
+evaluateRouter.get('/evaluations/:trialId/audits/:auditId', async (req, res, next) => {
+  try {
+    const trial = await requireTrial(req, res);
+    if (!trial) return;
+    const audit = await readEvaluationAudit(trial.trialId, req.params.auditId);
+    if (!audit) return res.status(404).json({ error: 'not_found', message: 'Unknown evaluation audit.' });
+    res.json(audit);
   } catch (err) {
     next(err);
   }

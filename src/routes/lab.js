@@ -43,7 +43,8 @@ labRouter.get('/pipeline', (req, res) => {
     rubricVersion: RUBRIC_VERSION,
     phase,
     phaseLabel: phase ? clarityPhaseLabel(phase) : null,
-    model: config.anthropic.model,
+    provider: config.model.provider,
+    model: config.model.name,
     concurrency: {
       paperclip: config.evidence.paperclipConcurrency,
       domain: config.evidence.domainConcurrency,

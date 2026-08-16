@@ -111,7 +111,7 @@ function normalizeReview(review) {
 
 /**
  * Full pipeline for one trial: retrieve evidence from Paperclip, then score it
- * with Claude against the rubric.
+ * with the configured language model against the rubric.
  */
 export async function evaluateTrial(trial, { onStep, deepRead = true, trace } = {}) {
   traceEvent(trace, 'evaluation_started', { phase: trial.phase });
@@ -192,7 +192,7 @@ export async function evaluateTrial(trial, { onStep, deepRead = true, trace } = 
       system: SYSTEM_PROMPT,
       userContent,
       schema: reviewSchema,
-      effort: config.anthropic.evalEffort,
+      effort: config.model.evalEffort,
       maxTokens: 32000,
       trace,
       traceLabel: 'rubric_review',
@@ -230,8 +230,9 @@ export async function evaluateTrial(trial, { onStep, deepRead = true, trace } = 
     meta: {
       rubricVersion: RUBRIC_VERSION,
       evidenceDossierVersion: EVIDENCE_DOSSIER_VERSION,
+      provider: config.model.provider,
       model,
-      effort: config.anthropic.evalEffort,
+      effort: config.model.evalEffort,
       usage,
       usageByStage: {
         dossier: dossier.usage,
