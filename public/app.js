@@ -13,7 +13,6 @@
 import { SOURCE_TYPE_LABEL, citationIndex, inferType, parseSources, safeHttpsUrl } from './citations.js';
 import { createEvidenceGraph } from './lab/graph3d.js';
 import { setStageTheme } from './lab/engine3d.js';
-import { createCrew } from './lab/agents.js';
 import { createConstructViewer } from './lab/genome3d.js';
 import { createPipelineGraph } from './lab/graph.js';
 import { renderGeneModel } from './lab/genome.js';
@@ -66,7 +65,6 @@ const state = {
   matrixCell: null,
   counters: { paperclip: 0, claude: 0 },
   captureFullTrace: readFlag('fdaapproval.captureFullTrace', false),
-  crewEnabled: readFlag('fdaapproval.crew', true),
   theme: readTheme(),
   focus: false,
 };
@@ -104,13 +102,12 @@ const ids = [
   'pipeline-matrix', 'matrix-meta', 'selected-trial', 'run-review',
   'graph-canvas', 'graph-fallback', 'breadcrumbs', 'hud-counters',
   'progress-log', 'console-shell', 'console-toggle', 'console-body', 'console-state',
-  'inspector', 'inspector-body', 'inspector-selection', 'capture-full-trace', 'toggle-crew',
-  'crew-layer', 'dock', 'stage', 'pane-bar',
+  'inspector', 'inspector-body', 'inspector-selection', 'capture-full-trace',
+  'dock', 'stage', 'pane-bar',
 ];
 for (const id of ids) el[id.replace(/-(\w)/g, (_, c) => c.toUpperCase())] = document.getElementById(id);
 
 let graph = null;
-let crew = null;
 let constructViewer = null;
 
 /* ------------------------------------------------------------------- helpers */
@@ -569,12 +566,6 @@ function onProgress(step) {
     graph?.activate('retrieval');
     if (step.key) {
       graph.addLiveSection({ key: step.key, label: step.label ?? step.source, source: step.source ?? '', domainId: step.domainId });
-      // A courier actually carries this document to the domain that asked for it.
-      crew?.ferry({
-        role: 'retrieval',
-        from: () => graph?.screenPointOf('retrieval'),
-        to: () => graph?.screenPointOf(step.domainId) ?? graph?.screenPointOf('dossier'),
-      });
     }
   }
 
@@ -583,14 +574,7 @@ function onProgress(step) {
     graph?.activate('dossier');
     if (step.domainId) {
       graph?.activate(step.domainId);
-      // The courier is a courtesy; the node completes on its own schedule so the
-      // graph never depends on the overlay being enabled or reachable.
       setTimeout(() => graph?.complete(step.domainId), 1400);
-      crew?.ferry({
-        role: 'reasoning',
-        from: () => graph?.screenPointOf(step.domainId),
-        to: () => graph?.screenPointOf('dossier'),
-      });
     }
   }
 
@@ -656,7 +640,6 @@ function runReview({ force = false } = {}) {
     state.evaluation = evaluation;
     graph?.setEvaluation(evaluation);
     graph?.completeAll();
-    crew?.cheer(() => graph?.screenPointOf('report'));
     setConsoleState('complete');
     appendConsole('sys', `review complete · ${tokenCount(evaluation).toLocaleString()} tokens of context`);
     finishRun(null);
@@ -1305,14 +1288,12 @@ function wireInspector() {
     button.addEventListener('click', () => selectTrial(button.dataset.selectTrial));
   });
 
-  el.inspectorBody.querySelector('[data-focus-search]')?.addEventListener('click', (event) => {
-    crew?.popFrom(event.currentTarget);
+  el.inspectorBody.querySelector('[data-focus-search]')?.addEventListener('click', () => {
     showPane('dock');
     el.trialSearch.focus();
   });
 
-  el.inspectorBody.querySelector('[data-open-method]')?.addEventListener('click', (event) => {
-    crew?.popFrom(event.currentTarget);
+  el.inspectorBody.querySelector('[data-open-method]')?.addEventListener('click', () => {
     setTab('method');
   });
 
@@ -1322,16 +1303,7 @@ function wireInspector() {
       if (card) {
         card.open = true;
         card.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-        crew?.tug(card.querySelector('summary'));
       }
-    });
-  });
-
-  // The crew physically pull disclosures open. It is a courtesy, not a mechanism:
-  // the disclosure has already opened by the time anyone walks over.
-  el.inspectorBody.querySelectorAll('details').forEach((details) => {
-    details.addEventListener('toggle', () => {
-      if (details.open) crew?.tug(details.querySelector('summary'));
     });
   });
 
@@ -1599,24 +1571,12 @@ function wire() {
   el.filterPhase.addEventListener('change', loadCatalog);
   el.filterArea.addEventListener('change', loadCatalog);
 
-  const run = (event) => {
-    crew?.popFrom(event.currentTarget);
-    runReview({ force: Boolean(state.evaluation) });
-  };
+  const run = () => runReview({ force: Boolean(state.evaluation) });
   el.runReview.addEventListener('click', run);
   el.captureFullTrace.checked = state.captureFullTrace;
   el.captureFullTrace.addEventListener('change', (event) => {
     state.captureFullTrace = event.target.checked;
     writeFlag('fdaapproval.captureFullTrace', state.captureFullTrace);
-  });
-
-  el.toggleCrew.setAttribute('aria-pressed', String(state.crewEnabled));
-  el.toggleCrew.addEventListener('click', () => {
-    state.crewEnabled = !state.crewEnabled;
-    writeFlag('fdaapproval.crew', state.crewEnabled);
-    el.toggleCrew.setAttribute('aria-pressed', String(state.crewEnabled));
-    crew?.setEnabled(state.crewEnabled);
-    if (state.crewEnabled) crew?.popFrom(el.toggleCrew);
   });
 
   el.consoleToggle.addEventListener('click', () => {
@@ -1632,9 +1592,8 @@ function wire() {
     tab.addEventListener('click', () => showPane(tab.dataset.pane));
   });
 
-  document.getElementById('toggle-theme')?.addEventListener('click', (event) => {
+  document.getElementById('toggle-theme')?.addEventListener('click', () => {
     cycleTheme();
-    crew?.popFrom(event.currentTarget);
   });
 
   // A reader on "system" who changes their OS theme mid-session should follow.
@@ -1652,8 +1611,7 @@ function wire() {
   document.getElementById('graph-open')?.addEventListener('click', () => {
     graph?.descendSelected();
   });
-  document.getElementById('stage-expand')?.addEventListener('click', (event) => {
-    crew?.popFrom(event.currentTarget);
+  document.getElementById('stage-expand')?.addEventListener('click', () => {
     setFocusMode(!state.focus);
   });
 
@@ -1688,8 +1646,6 @@ function wire() {
   initLayout();
   showPane('stage');
 
-  crew = createCrew({ mount: el.crewLayer, enabled: state.crewEnabled });
-
   graph = createEvidenceGraph(el.graphCanvas, {
     onSelect: (node) => {
       state.selection = node;
@@ -1713,7 +1669,12 @@ function wire() {
   renderCounters();
   renderInspector();
 
-  Promise.all([loadHealth(), loadPipeline(), loadCatalog(), loadBenchmarks()]).catch((error) => {
-    console.error('startup failed', error);
-  });
+  Promise.all([loadHealth(), loadPipeline(), loadCatalog(), loadBenchmarks()])
+    .then(() => {
+      const initialTrial = new URLSearchParams(window.location.search).get('trial');
+      if (initialTrial && !state.selected) selectTrial(initialTrial);
+    })
+    .catch((error) => {
+      console.error('startup failed', error);
+    });
 })();

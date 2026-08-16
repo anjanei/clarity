@@ -18,6 +18,7 @@
     "test:watch": "node --test --watch",
     "catalog": "node src/catalog/build.js",
     "catalog:add": "node src/catalog/add.js",
+    "review": "node src/scripts/review.js",
     "probe": "node src/scripts/probe.js"
   },
   "dependencies": {

@@ -6,6 +6,12 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const dataDirectory = process.env.DATA_DIR
   ? path.resolve(process.env.DATA_DIR)
   : path.resolve(here, '..', 'data');
+const evaluationsDirectory = process.env.EVALUATIONS_DIR
+  ? path.resolve(process.env.EVALUATIONS_DIR)
+  : path.join(dataDirectory, 'evaluations');
+const tracesDirectory = process.env.TRACES_DIR
+  ? path.resolve(process.env.TRACES_DIR)
+  : path.join(dataDirectory, 'traces');
 
 /**
  * One Modal task's wiring. `MODAL_<TASK>_URL` wins over the shared
@@ -32,8 +38,8 @@ export const paths = {
   public: path.resolve(here, '..', 'public'),
   data: dataDirectory,
   catalog: path.join(dataDirectory, 'trials.json'),
-  evaluations: path.join(dataDirectory, 'evaluations'),
-  traces: path.join(dataDirectory, 'traces'),
+  evaluations: evaluationsDirectory,
+  traces: tracesDirectory,
   probe: path.join(dataDirectory, 'probe'),
 };
 

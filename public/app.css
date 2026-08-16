@@ -283,6 +283,8 @@ body::after {
   background: linear-gradient(180deg, rgb(var(--tint) / 0.045), rgb(var(--tint) / 0.018));
   border: 1px solid rgb(var(--tint) / 0.085);
   backdrop-filter: blur(14px);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .panel-pad { @apply p-4 sm:p-5; }
@@ -302,6 +304,8 @@ body::after {
   @apply rounded-xl;
   background: var(--bg-sunken);
   border: 1px solid rgb(var(--tint) / 0.06);
+  min-width: 0;
+  max-width: 100%;
 }
 
 /* --- chips ----------------------------------------------------------------*/
@@ -310,6 +314,7 @@ body::after {
 .chip-stop, .chip-gap, .chip-ok, .chip-unknown, .chip-info, .chip-clip, .chip-claude, .chip-bench {
   @apply inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 font-mono text-[10px] font-medium uppercase;
   letter-spacing: 0.08em;
+  max-width: 100%;
   white-space: nowrap;
 }
 
@@ -796,10 +801,12 @@ details[open] > summary .disclosure-caret { transform: rotate(90deg); }
 }
 
 .rail-status {
-  @apply flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto;
+  @apply flex min-w-0 flex-1 flex-wrap items-center justify-end gap-1.5 overflow-hidden;
   scrollbar-width: none;
 }
 .rail-status::-webkit-scrollbar { display: none; }
+
+.rail-status > * { min-width: 0; }
 
 .rail-actions { @apply flex shrink-0 items-center gap-2; }
 
@@ -1007,6 +1014,9 @@ body.is-resizing canvas { pointer-events: none; }
 }
 
 .inspector-body { @apply min-h-0 flex-1 overflow-y-auto overscroll-contain p-3; }
+.inspector-body,
+.inspector-body * { min-width: 0; }
+.inspector-body > * { max-width: 100%; }
 
 .inspector-foot { @apply shrink-0 border-t px-3 py-2; border-color: rgb(var(--tint) / 0.07); }
 
@@ -1099,6 +1109,40 @@ body.is-resizing canvas { pointer-events: none; }
 .matrix-row:last-child { border-bottom: 0; }
 .matrix-row:hover { background: rgb(var(--tint) / 0.04); }
 
+@media (max-width: 1399px) {
+  .matrix-head { display: none; }
+
+  .matrix-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "dimension evidence"
+      "bar bar"
+      "weight score";
+    gap: 0.35rem 0.5rem;
+  }
+
+  .matrix-row > :nth-child(1) { grid-area: dimension; }
+  .matrix-row > :nth-child(2) {
+    grid-area: weight;
+    text-align: left;
+  }
+  .matrix-row > :nth-child(2)::before {
+    content: "weight ";
+    color: var(--color-ghost);
+  }
+  .matrix-row > :nth-child(3) { grid-area: score; }
+  .matrix-row > :nth-child(3)::before {
+    content: "score ";
+    color: var(--color-ghost);
+  }
+  .matrix-row > :nth-child(4) { display: none; }
+  .matrix-row > :nth-child(5) { grid-area: bar; }
+  .matrix-row > :nth-child(6) {
+    grid-area: evidence;
+    justify-self: end;
+  }
+}
+
 .matrix-bar { @apply block h-1.5 w-full overflow-hidden rounded-full; background: rgb(var(--tint) / 0.07); }
 .matrix-fill { @apply block h-full rounded-full; transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .matrix-fill[data-tone="ok"] { background: var(--color-ok); }
@@ -1175,19 +1219,6 @@ body.is-resizing canvas { pointer-events: none; }
   @apply pointer-events-none absolute inset-x-2 bottom-2 truncate font-mono text-[10px] text-bench-400;
 }
 
-/* --- crew -----------------------------------------------------------------*/
-
-.crew-layer { @apply pointer-events-none fixed inset-0 z-[80]; }
-.crew-canvas { @apply block size-full; }
-
-/* Something was pulled open, and you can see what pulled it. */
-.is-tugged { animation: tug 0.44s cubic-bezier(0.3, 1.4, 0.4, 1); }
-@keyframes tug {
-  0%   { transform: translateY(0); }
-  35%  { transform: translateY(3px); }
-  100% { transform: translateY(0); }
-}
-
 /* --- print ----------------------------------------------------------------
    The screen is an instrument; the export is a regulatory dossier. Invert to
    ink-on-paper, drop the chrome, and print every domain in full. */
@@ -1204,7 +1235,7 @@ body.is-resizing canvas { pointer-events: none; }
   /* The viewport-locked workstation becomes an ordinary document. */
   body.workstation { display: block !important; height: auto !important; overflow: visible !important; }
   .deck { display: block !important; }
-  .dock, .stage, .rail, .pane-bar, .crew-layer, .inspector-tabs, .stage-console { display: none !important; }
+    .dock, .stage, .rail, .pane-bar, .inspector-tabs, .stage-console { display: none !important; }
   .inspector { display: block !important; border: 0 !important; background: none !important; }
   .inspector-body { overflow: visible !important; height: auto !important; max-height: none !important; }
 

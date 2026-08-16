@@ -1,0 +1,1687 @@
+{
+  "version": "1.0.0",
+  "traceId": "ee05997c-7ccd-43d9-91c4-a4ebc7916b32",
+  "mode": "metadata",
+  "status": "completed",
+  "startedAt": "2026-08-16T10:09:49.382Z",
+  "trial": {
+    "trialId": "NCT05951205",
+    "therapeuticName": "Exa-cel",
+    "sponsor": "Vertex Pharmaceuticals Incorporated",
+    "phase": "Phase 3",
+    "startDate": "2027-07-31",
+    "registry": "ClinicalTrials.gov",
+    "condition": "Sickle Cell Disease",
+    "modality": "Cell therapy",
+    "title": "Evaluation of Efficacy and Safety of a Single Dose of Exa-cel in Participants With Severe Sickle Cell Disease, βS/ βC Genotype",
+    "therapeuticArea": "Hematology",
+    "therapeuticDescription": "",
+    "overallStatus": "WITHDRAWN",
+    "studyType": "INTERVENTIONAL",
+    "registryProducts": [
+      "Exa-cel"
+    ],
+    "registryEnriched": true,
+    "addedManuallyAt": "2026-08-16T01:41:01.340Z"
+  },
+  "events": [
+    {
+      "name": "run_started",
+      "at": "2026-08-16T10:09:49.383Z",
+      "elapsedMs": 0
+    },
+    {
+      "name": "evaluation_started",
+      "at": "2026-08-16T10:09:49.384Z",
+      "elapsedMs": 1,
+      "phase": "Phase 3"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:49.384Z",
+      "elapsedMs": 1,
+      "stage": "evidence",
+      "message": "Retrieving evidence from Paperclip"
+    },
+    {
+      "name": "stage_started",
+      "at": "2026-08-16T10:09:49.384Z",
+      "elapsedMs": 1,
+      "stage": "paperclip_evidence",
+      "phase": "Phase 3"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:49.385Z",
+      "elapsedMs": 2,
+      "stage": "evidence",
+      "key": "registry",
+      "domainId": "disease_context_mechanism",
+      "label": "Disease Context & Mechanism: Trial registry context",
+      "source": "/trials/us",
+      "message": "Disease Context & Mechanism: Trial registry context — /trials/us"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:49.408Z",
+      "elapsedMs": 25,
+      "stage": "evidence",
+      "key": "registry",
+      "domainId": "disease_context_mechanism",
+      "label": "Disease Context & Mechanism: Trial registry context",
+      "source": "/trials/intl",
+      "message": "Disease Context & Mechanism: Trial registry context — /trials/intl"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:49.408Z",
+      "elapsedMs": 25,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "disease_context_mechanism",
+      "label": "Disease Context & Mechanism: Primary literature: disease context and mechanism",
+      "source": "-s pmc,arxiv",
+      "message": "Disease Context & Mechanism: Primary literature: disease context and mechanism — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:49.408Z",
+      "elapsedMs": 25,
+      "stage": "evidence",
+      "key": "regulatory",
+      "domainId": "disease_context_mechanism",
+      "label": "Disease Context & Mechanism: Regulatory precedents",
+      "source": "-s fda",
+      "message": "Disease Context & Mechanism: Regulatory precedents — -s fda"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:51.484Z",
+      "elapsedMs": 2101,
+      "stage": "evidence",
+      "key": "registry",
+      "domainId": "trial_design",
+      "label": "Trial Design: Trial registry design",
+      "source": "/trials/us",
+      "message": "Trial Design: Trial registry design — /trials/us"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:51.966Z",
+      "elapsedMs": 2583,
+      "stage": "evidence",
+      "key": "registry",
+      "domainId": "trial_design",
+      "label": "Trial Design: Trial registry design",
+      "source": "/trials/intl",
+      "message": "Trial Design: Trial registry design — /trials/intl"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:52.038Z",
+      "elapsedMs": 2655,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "trial_design",
+      "label": "Trial Design: Primary literature: trial design and efficacy",
+      "source": "-s pmc,arxiv",
+      "message": "Trial Design: Primary literature: trial design and efficacy — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:52.402Z",
+      "elapsedMs": 3019,
+      "stage": "evidence",
+      "key": "regulatory",
+      "domainId": "trial_design",
+      "label": "Trial Design: Regulatory design precedents",
+      "source": "-s fda",
+      "message": "Trial Design: Regulatory design precedents — -s fda"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:53.552Z",
+      "elapsedMs": 4169,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "acute_safety_tolerability",
+      "label": "Acute Safety & Tolerability: Primary literature: acute safety",
+      "source": "-s pmc,arxiv",
+      "message": "Acute Safety & Tolerability: Primary literature: acute safety — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:53.810Z",
+      "elapsedMs": 4427,
+      "stage": "evidence",
+      "key": "registry",
+      "domainId": "acute_safety_tolerability",
+      "label": "Acute Safety & Tolerability: Trial registry safety reporting",
+      "source": "/trials/us",
+      "message": "Acute Safety & Tolerability: Trial registry safety reporting — /trials/us"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:54.168Z",
+      "elapsedMs": 4785,
+      "stage": "evidence",
+      "key": "registry",
+      "domainId": "acute_safety_tolerability",
+      "label": "Acute Safety & Tolerability: Trial registry safety reporting",
+      "source": "/trials/intl",
+      "message": "Acute Safety & Tolerability: Trial registry safety reporting — /trials/intl"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:54.439Z",
+      "elapsedMs": 5056,
+      "stage": "evidence",
+      "key": "regulatory",
+      "domainId": "acute_safety_tolerability",
+      "label": "Acute Safety & Tolerability: Regulatory safety evidence",
+      "source": "-s fda",
+      "message": "Acute Safety & Tolerability: Regulatory safety evidence — -s fda"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:55.763Z",
+      "elapsedMs": 6380,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "long_term_genetic_risk",
+      "label": "Long-Term Genetic Risk: Primary literature: long-term genetic risk",
+      "source": "-s pmc,arxiv",
+      "message": "Long-Term Genetic Risk: Primary literature: long-term genetic risk — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:55.772Z",
+      "elapsedMs": 6389,
+      "stage": "evidence",
+      "key": "regulatory",
+      "domainId": "long_term_genetic_risk",
+      "label": "Long-Term Genetic Risk: Regulatory long-term follow-up evidence",
+      "source": "-s fda",
+      "message": "Long-Term Genetic Risk: Regulatory long-term follow-up evidence — -s fda"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:56.010Z",
+      "elapsedMs": 6627,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "biodistribution_pharmacology",
+      "label": "Biodistribution & Pharmacology: Primary literature: biodistribution and pharmacology",
+      "source": "-s pmc,arxiv",
+      "message": "Biodistribution & Pharmacology: Primary literature: biodistribution and pharmacology — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:56.391Z",
+      "elapsedMs": 7008,
+      "stage": "evidence",
+      "key": "regulatory",
+      "domainId": "biodistribution_pharmacology",
+      "label": "Biodistribution & Pharmacology: Regulatory pharmacology evidence",
+      "source": "-s fda",
+      "message": "Biodistribution & Pharmacology: Regulatory pharmacology evidence — -s fda"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:57.148Z",
+      "elapsedMs": 7765,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "immunogenicity_special_populations",
+      "label": "Immunogenicity & Special Populations: Primary literature: immunogenicity and special populations",
+      "source": "-s pmc,arxiv",
+      "message": "Immunogenicity & Special Populations: Primary literature: immunogenicity and special populations — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:57.750Z",
+      "elapsedMs": 8367,
+      "stage": "evidence",
+      "key": "registry",
+      "domainId": "immunogenicity_special_populations",
+      "label": "Immunogenicity & Special Populations: Trial registry population criteria",
+      "source": "/trials/us",
+      "message": "Immunogenicity & Special Populations: Trial registry population criteria — /trials/us"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:57.967Z",
+      "elapsedMs": 8584,
+      "stage": "evidence",
+      "key": "registry",
+      "domainId": "immunogenicity_special_populations",
+      "label": "Immunogenicity & Special Populations: Trial registry population criteria",
+      "source": "/trials/intl",
+      "message": "Immunogenicity & Special Populations: Trial registry population criteria — /trials/intl"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:57.978Z",
+      "elapsedMs": 8595,
+      "stage": "evidence",
+      "key": "regulatory",
+      "domainId": "immunogenicity_special_populations",
+      "label": "Immunogenicity & Special Populations: Regulatory immunogenicity evidence",
+      "source": "-s fda",
+      "message": "Immunogenicity & Special Populations: Regulatory immunogenicity evidence — -s fda"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:59.264Z",
+      "elapsedMs": 9881,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "product_quality_cmc",
+      "label": "Product Quality & CMC: Primary literature: product quality and CMC",
+      "source": "-s pmc,arxiv",
+      "message": "Product Quality & CMC: Primary literature: product quality and CMC — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:59.417Z",
+      "elapsedMs": 10034,
+      "stage": "evidence",
+      "key": "regulatory",
+      "domainId": "product_quality_cmc",
+      "label": "Product Quality & CMC: Regulatory CMC evidence",
+      "source": "-s fda",
+      "message": "Product Quality & CMC: Regulatory CMC evidence — -s fda"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:09:59.883Z",
+      "elapsedMs": 10500,
+      "stage": "evidence",
+      "key": "registry",
+      "domainId": "trial_integrity_governance",
+      "label": "Trial Integrity, Governance & Operational Infrastructure: Trial registry governance evidence",
+      "source": "/trials/us",
+      "message": "Trial Integrity, Governance & Operational Infrastructure: Trial registry governance evidence — /trials/us"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:00.205Z",
+      "elapsedMs": 10822,
+      "stage": "evidence",
+      "key": "registry",
+      "domainId": "trial_integrity_governance",
+      "label": "Trial Integrity, Governance & Operational Infrastructure: Trial registry governance evidence",
+      "source": "/trials/intl",
+      "message": "Trial Integrity, Governance & Operational Infrastructure: Trial registry governance evidence — /trials/intl"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:00.769Z",
+      "elapsedMs": 11386,
+      "stage": "evidence",
+      "key": "regulatory",
+      "domainId": "trial_integrity_governance",
+      "label": "Trial Integrity, Governance & Operational Infrastructure: Regulatory trial integrity evidence",
+      "source": "-s fda",
+      "message": "Trial Integrity, Governance & Operational Infrastructure: Regulatory trial integrity evidence — -s fda"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:01.617Z",
+      "elapsedMs": 12234,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "trial_integrity_governance",
+      "label": "Trial Integrity, Governance & Operational Infrastructure: Primary literature: trial operations",
+      "source": "-s pmc,arxiv",
+      "message": "Trial Integrity, Governance & Operational Infrastructure: Primary literature: trial operations — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:01.907Z",
+      "elapsedMs": 12524,
+      "stage": "evidence",
+      "key": "regulatory",
+      "domainId": "benefit_risk_postmarketing",
+      "label": "Benefit–Risk & Postmarketing Controls: Regulatory benefit-risk and postmarketing evidence",
+      "source": "-s fda",
+      "message": "Benefit–Risk & Postmarketing Controls: Regulatory benefit-risk and postmarketing evidence — -s fda"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:02.307Z",
+      "elapsedMs": 12924,
+      "stage": "evidence",
+      "key": "registry",
+      "domainId": "benefit_risk_postmarketing",
+      "label": "Benefit–Risk & Postmarketing Controls: Trial registry long-term follow-up",
+      "source": "/trials/us",
+      "message": "Benefit–Risk & Postmarketing Controls: Trial registry long-term follow-up — /trials/us"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:02.408Z",
+      "elapsedMs": 13025,
+      "stage": "evidence",
+      "key": "registry",
+      "domainId": "benefit_risk_postmarketing",
+      "label": "Benefit–Risk & Postmarketing Controls: Trial registry long-term follow-up",
+      "source": "/trials/intl",
+      "message": "Benefit–Risk & Postmarketing Controls: Trial registry long-term follow-up — /trials/intl"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:03.408Z",
+      "elapsedMs": 14025,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "benefit_risk_postmarketing",
+      "label": "Benefit–Risk & Postmarketing Controls: Primary literature: long-term follow-up",
+      "source": "-s pmc,arxiv",
+      "message": "Benefit–Risk & Postmarketing Controls: Primary literature: long-term follow-up — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:05.532Z",
+      "elapsedMs": 16149,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "disease_context_mechanism",
+      "label": "Disease Context & Mechanism: Primary literature: disease context and mechanism (source extraction)",
+      "source": "-s pmc,arxiv",
+      "message": "Disease Context & Mechanism: Primary literature: disease context and mechanism (source extraction) — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:05.533Z",
+      "elapsedMs": 16150,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "trial_design",
+      "label": "Trial Design: Primary literature: trial design and efficacy (source extraction)",
+      "source": "-s pmc,arxiv",
+      "message": "Trial Design: Primary literature: trial design and efficacy (source extraction) — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:05.533Z",
+      "elapsedMs": 16150,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "acute_safety_tolerability",
+      "label": "Acute Safety & Tolerability: Primary literature: acute safety (source extraction)",
+      "source": "-s pmc,arxiv",
+      "message": "Acute Safety & Tolerability: Primary literature: acute safety (source extraction) — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:05.533Z",
+      "elapsedMs": 16150,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "long_term_genetic_risk",
+      "label": "Long-Term Genetic Risk: Primary literature: long-term genetic risk (source extraction)",
+      "source": "-s pmc,arxiv",
+      "message": "Long-Term Genetic Risk: Primary literature: long-term genetic risk (source extraction) — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:22.855Z",
+      "elapsedMs": 33472,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "biodistribution_pharmacology",
+      "label": "Biodistribution & Pharmacology: Primary literature: biodistribution and pharmacology (source extraction)",
+      "source": "-s pmc,arxiv",
+      "message": "Biodistribution & Pharmacology: Primary literature: biodistribution and pharmacology (source extraction) — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:23.208Z",
+      "elapsedMs": 33825,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "immunogenicity_special_populations",
+      "label": "Immunogenicity & Special Populations: Primary literature: immunogenicity and special populations (source extraction)",
+      "source": "-s pmc,arxiv",
+      "message": "Immunogenicity & Special Populations: Primary literature: immunogenicity and special populations (source extraction) — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:23.223Z",
+      "elapsedMs": 33840,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "product_quality_cmc",
+      "label": "Product Quality & CMC: Primary literature: product quality and CMC (source extraction)",
+      "source": "-s pmc,arxiv",
+      "message": "Product Quality & CMC: Primary literature: product quality and CMC (source extraction) — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:25.640Z",
+      "elapsedMs": 36257,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "trial_integrity_governance",
+      "label": "Trial Integrity, Governance & Operational Infrastructure: Primary literature: trial operations (source extraction)",
+      "source": "-s pmc,arxiv",
+      "message": "Trial Integrity, Governance & Operational Infrastructure: Primary literature: trial operations (source extraction) — -s pmc,arxiv"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:10:35.051Z",
+      "elapsedMs": 45668,
+      "stage": "evidence",
+      "key": "literature",
+      "domainId": "benefit_risk_postmarketing",
+      "label": "Benefit–Risk & Postmarketing Controls: Primary literature: long-term follow-up (source extraction)",
+      "source": "-s pmc,arxiv",
+      "message": "Benefit–Risk & Postmarketing Controls: Primary literature: long-term follow-up (source extraction) — -s pmc,arxiv"
+    },
+    {
+      "name": "stage_completed",
+      "at": "2026-08-16T10:11:06.979Z",
+      "elapsedMs": 77596,
+      "stage": "paperclip_evidence",
+      "durationMs": 77595
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:11:06.979Z",
+      "elapsedMs": 77596,
+      "stage": "dossier",
+      "message": "Organizing 39 evidence sections into the CLARITY dossier"
+    },
+    {
+      "name": "stage_started",
+      "at": "2026-08-16T10:11:06.979Z",
+      "elapsedMs": 77596,
+      "stage": "clarity_dossier",
+      "activeDomains": 9
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:11:06.988Z",
+      "elapsedMs": 77605,
+      "stage": "dossier",
+      "domainId": "disease_context_mechanism",
+      "message": "Synthesizing cited evidence for Disease Context & Mechanism"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:11:06.996Z",
+      "elapsedMs": 77613,
+      "stage": "dossier",
+      "domainId": "trial_design",
+      "message": "Synthesizing cited evidence for Trial Design"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:11:51.679Z",
+      "elapsedMs": 122296,
+      "stage": "dossier",
+      "domainId": "acute_safety_tolerability",
+      "message": "Synthesizing cited evidence for Acute Safety & Tolerability"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:11:56.340Z",
+      "elapsedMs": 126957,
+      "stage": "dossier",
+      "domainId": "long_term_genetic_risk",
+      "message": "Synthesizing cited evidence for Long-Term Genetic Risk"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:12:14.393Z",
+      "elapsedMs": 145010,
+      "stage": "dossier",
+      "domainId": "biodistribution_pharmacology",
+      "message": "Synthesizing cited evidence for Biodistribution & Pharmacology"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:12:35.211Z",
+      "elapsedMs": 165828,
+      "stage": "dossier",
+      "domainId": "immunogenicity_special_populations",
+      "message": "Synthesizing cited evidence for Immunogenicity & Special Populations"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:12:41.770Z",
+      "elapsedMs": 172387,
+      "stage": "dossier",
+      "domainId": "product_quality_cmc",
+      "message": "Synthesizing cited evidence for Product Quality & CMC"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:13:00.229Z",
+      "elapsedMs": 190846,
+      "stage": "dossier",
+      "domainId": "trial_integrity_governance",
+      "message": "Synthesizing cited evidence for Trial Integrity, Governance & Operational Infrastructure"
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:13:22.984Z",
+      "elapsedMs": 213601,
+      "stage": "dossier",
+      "domainId": "benefit_risk_postmarketing",
+      "message": "Synthesizing cited evidence for Benefit–Risk & Postmarketing Controls"
+    },
+    {
+      "name": "stage_completed",
+      "at": "2026-08-16T10:14:00.543Z",
+      "elapsedMs": 251160,
+      "stage": "clarity_dossier",
+      "durationMs": 173564
+    },
+    {
+      "name": "progress",
+      "at": "2026-08-16T10:14:00.543Z",
+      "elapsedMs": 251160,
+      "stage": "review",
+      "message": "Scoring the cited 9-domain dossier against the rubric"
+    },
+    {
+      "name": "stage_started",
+      "at": "2026-08-16T10:14:00.544Z",
+      "elapsedMs": 251161,
+      "stage": "rubric_review"
+    },
+    {
+      "name": "stage_completed",
+      "at": "2026-08-16T10:17:56.931Z",
+      "elapsedMs": 487548,
+      "stage": "rubric_review",
+      "durationMs": 236387
+    },
+    {
+      "name": "evaluation_completed",
+      "at": "2026-08-16T10:17:56.932Z",
+      "elapsedMs": 487549,
+      "usage": {
+        "input_tokens": 169362,
+        "cache_creation_input_tokens": 12676,
+        "cache_read_input_tokens": 19838,
+        "output_tokens": 48104
+      }
+    },
+    {
+      "name": "run_completed",
+      "at": "2026-08-16T10:17:56.932Z",
+      "elapsedMs": 487549,
+      "status": "completed",
+      "durationMs": 487549
+    }
+  ],
+  "stages": [
+    {
+      "name": "paperclip_evidence",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:49.384Z",
+      "completedAt": "2026-08-16T10:11:06.979Z",
+      "durationMs": 77595,
+      "phase": "Phase 3"
+    },
+    {
+      "name": "clarity_dossier",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:11:06.979Z",
+      "completedAt": "2026-08-16T10:14:00.543Z",
+      "durationMs": 173564,
+      "activeDomains": 9
+    },
+    {
+      "name": "rubric_review",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:14:00.544Z",
+      "completedAt": "2026-08-16T10:17:56.931Z",
+      "durationMs": 236387
+    }
+  ],
+  "paperclipCalls": [
+    {
+      "operation": "search",
+      "domainId": "disease_context_mechanism",
+      "evidenceKey": "regulatory",
+      "source": "-s fda",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy approved treatment review indication",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:49.408Z",
+      "completedAt": "2026-08-16T10:09:51.484Z",
+      "durationMs": 2076,
+      "command": "search -s fda -n 12 \"Exa-cel Sickle Cell Disease Cell therapy approved treatment review indication\"",
+      "resultChars": 10572
+    },
+    {
+      "operation": "search",
+      "domainId": "disease_context_mechanism",
+      "evidenceKey": "registry",
+      "source": "/trials/us",
+      "query": "NCT05951205 Exa-cel Sickle Cell Disease condition intervention rationale",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:49.385Z",
+      "completedAt": "2026-08-16T10:09:51.966Z",
+      "durationMs": 2581,
+      "command": "search -n 12 \"NCT05951205 Exa-cel Sickle Cell Disease condition intervention rationale\" /trials/us",
+      "resultChars": 4981
+    },
+    {
+      "operation": "search",
+      "domainId": "disease_context_mechanism",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy disease natural history mechanism of action treatment landscape",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:49.408Z",
+      "completedAt": "2026-08-16T10:09:52.038Z",
+      "durationMs": 2630,
+      "command": "search -s pmc,arxiv -n 12 \"Exa-cel Sickle Cell Disease Cell therapy disease natural history mechanism of action treatment landscape\"",
+      "resultChars": 6162
+    },
+    {
+      "operation": "search",
+      "domainId": "disease_context_mechanism",
+      "evidenceKey": "registry",
+      "source": "/trials/intl",
+      "query": "NCT05951205 Exa-cel Sickle Cell Disease condition intervention rationale",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:49.408Z",
+      "completedAt": "2026-08-16T10:09:52.402Z",
+      "durationMs": 2994,
+      "command": "search -n 12 \"NCT05951205 Exa-cel Sickle Cell Disease condition intervention rationale\" /trials/intl",
+      "resultChars": 4511
+    },
+    {
+      "operation": "search",
+      "domainId": "trial_design",
+      "evidenceKey": "registry",
+      "source": "/trials/us",
+      "query": "NCT05951205 Exa-cel Sickle Cell Disease protocol endpoints eligibility arms outcomes",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:51.484Z",
+      "completedAt": "2026-08-16T10:09:53.552Z",
+      "durationMs": 2068,
+      "command": "search -n 12 \"NCT05951205 Exa-cel Sickle Cell Disease protocol endpoints eligibility arms outcomes\" /trials/us",
+      "resultChars": 4917
+    },
+    {
+      "operation": "search",
+      "domainId": "trial_design",
+      "evidenceKey": "regulatory",
+      "source": "-s fda",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy clinical review endpoint trial design approval",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:52.402Z",
+      "completedAt": "2026-08-16T10:09:53.810Z",
+      "durationMs": 1408,
+      "command": "search -s fda -n 12 \"Exa-cel Sickle Cell Disease Cell therapy clinical review endpoint trial design approval\"",
+      "resultChars": 10546
+    },
+    {
+      "operation": "search",
+      "domainId": "trial_design",
+      "evidenceKey": "registry",
+      "source": "/trials/intl",
+      "query": "NCT05951205 Exa-cel Sickle Cell Disease protocol endpoints eligibility arms outcomes",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:51.966Z",
+      "completedAt": "2026-08-16T10:09:54.168Z",
+      "durationMs": 2202,
+      "command": "search -n 12 \"NCT05951205 Exa-cel Sickle Cell Disease protocol endpoints eligibility arms outcomes\" /trials/intl",
+      "resultChars": 4342
+    },
+    {
+      "operation": "search",
+      "domainId": "trial_design",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy clinical trial primary endpoint response rate dose response control randomization",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:52.038Z",
+      "completedAt": "2026-08-16T10:09:54.439Z",
+      "durationMs": 2401,
+      "command": "search -s pmc,arxiv -n 12 \"Exa-cel Sickle Cell Disease Cell therapy clinical trial primary endpoint response rate dose response control randomization\"",
+      "resultChars": 5385
+    },
+    {
+      "operation": "search",
+      "domainId": "acute_safety_tolerability",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy adverse events serious adverse events toxicity dose limiting laboratory organ function safety",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:53.552Z",
+      "completedAt": "2026-08-16T10:09:55.763Z",
+      "durationMs": 2211,
+      "command": "search -s pmc,arxiv -n 12 \"Exa-cel Sickle Cell Disease Cell therapy adverse events serious adverse events toxicity dose limiting laboratory organ function safety\"",
+      "resultChars": 4911
+    },
+    {
+      "operation": "search",
+      "domainId": "acute_safety_tolerability",
+      "evidenceKey": "registry",
+      "source": "/trials/us",
+      "query": "NCT05951205 Exa-cel Sickle Cell Disease adverse events safety monitoring",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:53.810Z",
+      "completedAt": "2026-08-16T10:09:55.772Z",
+      "durationMs": 1962,
+      "command": "search -n 12 \"NCT05951205 Exa-cel Sickle Cell Disease adverse events safety monitoring\" /trials/us",
+      "resultChars": 5079
+    },
+    {
+      "operation": "search",
+      "domainId": "acute_safety_tolerability",
+      "evidenceKey": "regulatory",
+      "source": "-s fda",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy safety review adverse events warning",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:54.439Z",
+      "completedAt": "2026-08-16T10:09:56.010Z",
+      "durationMs": 1571,
+      "command": "search -s fda -n 12 \"Exa-cel Sickle Cell Disease Cell therapy safety review adverse events warning\"",
+      "resultChars": 10552
+    },
+    {
+      "operation": "search",
+      "domainId": "acute_safety_tolerability",
+      "evidenceKey": "registry",
+      "source": "/trials/intl",
+      "query": "NCT05951205 Exa-cel Sickle Cell Disease adverse events safety monitoring",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:54.168Z",
+      "completedAt": "2026-08-16T10:09:56.391Z",
+      "durationMs": 2223,
+      "command": "search -n 12 \"NCT05951205 Exa-cel Sickle Cell Disease adverse events safety monitoring\" /trials/intl",
+      "resultChars": 4615
+    },
+    {
+      "operation": "search",
+      "domainId": "long_term_genetic_risk",
+      "evidenceKey": "regulatory",
+      "source": "-s fda",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy gene therapy long term follow-up integration oncogenesis review",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:55.773Z",
+      "completedAt": "2026-08-16T10:09:57.148Z",
+      "durationMs": 1375,
+      "command": "search -s fda -n 12 \"Exa-cel Sickle Cell Disease Cell therapy gene therapy long term follow-up integration oncogenesis review\"",
+      "resultChars": 10586
+    },
+    {
+      "operation": "search",
+      "domainId": "biodistribution_pharmacology",
+      "evidenceKey": "regulatory",
+      "source": "-s fda",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy clinical pharmacology biodistribution pharmacokinetics review",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:56.391Z",
+      "completedAt": "2026-08-16T10:09:57.750Z",
+      "durationMs": 1359,
+      "command": "search -s fda -n 12 \"Exa-cel Sickle Cell Disease Cell therapy clinical pharmacology biodistribution pharmacokinetics review\"",
+      "resultChars": 10444
+    },
+    {
+      "operation": "search",
+      "domainId": "biodistribution_pharmacology",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy biodistribution transgene expression cellular kinetics persistence shedding pharmacokinetics exposure",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:56.010Z",
+      "completedAt": "2026-08-16T10:09:57.967Z",
+      "durationMs": 1957,
+      "command": "search -s pmc,arxiv -n 12 \"Exa-cel Sickle Cell Disease Cell therapy biodistribution transgene expression cellular kinetics persistence shedding pharmacokinetics exposure\"",
+      "resultChars": 6041
+    },
+    {
+      "operation": "search",
+      "domainId": "long_term_genetic_risk",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy off-target editing integration site insertional oncogenesis clonality genomic stability malignancy",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:55.763Z",
+      "completedAt": "2026-08-16T10:09:57.978Z",
+      "durationMs": 2215,
+      "command": "search -s pmc,arxiv -n 12 \"Exa-cel Sickle Cell Disease Cell therapy off-target editing integration site insertional oncogenesis clonality genomic stability malignancy\"",
+      "resultChars": 6553
+    },
+    {
+      "operation": "search",
+      "domainId": "immunogenicity_special_populations",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy immunogenicity anti-drug antibodies neutralizing antibodies T-cell response pediatric renal hepatic impairment",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:57.148Z",
+      "completedAt": "2026-08-16T10:09:59.264Z",
+      "durationMs": 2116,
+      "command": "search -s pmc,arxiv -n 12 \"Exa-cel Sickle Cell Disease Cell therapy immunogenicity anti-drug antibodies neutralizing antibodies T-cell response pediatric renal hepatic impairment\"",
+      "resultChars": 5834
+    },
+    {
+      "operation": "search",
+      "domainId": "immunogenicity_special_populations",
+      "evidenceKey": "regulatory",
+      "source": "-s fda",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy immunogenicity clinical review special populations",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:57.978Z",
+      "completedAt": "2026-08-16T10:09:59.417Z",
+      "durationMs": 1439,
+      "command": "search -s fda -n 12 \"Exa-cel Sickle Cell Disease Cell therapy immunogenicity clinical review special populations\"",
+      "resultChars": 10703
+    },
+    {
+      "operation": "search",
+      "domainId": "immunogenicity_special_populations",
+      "evidenceKey": "registry",
+      "source": "/trials/us",
+      "query": "NCT05951205 Exa-cel Sickle Cell Disease demographics comorbidities pediatric renal hepatic eligibility",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:57.750Z",
+      "completedAt": "2026-08-16T10:09:59.883Z",
+      "durationMs": 2133,
+      "command": "search -n 12 \"NCT05951205 Exa-cel Sickle Cell Disease demographics comorbidities pediatric renal hepatic eligibility\" /trials/us",
+      "resultChars": 4924
+    },
+    {
+      "operation": "search",
+      "domainId": "immunogenicity_special_populations",
+      "evidenceKey": "registry",
+      "source": "/trials/intl",
+      "query": "NCT05951205 Exa-cel Sickle Cell Disease demographics comorbidities pediatric renal hepatic eligibility",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:57.967Z",
+      "completedAt": "2026-08-16T10:10:00.205Z",
+      "durationMs": 2238,
+      "command": "search -n 12 \"NCT05951205 Exa-cel Sickle Cell Disease demographics comorbidities pediatric renal hepatic eligibility\" /trials/intl",
+      "resultChars": 4149
+    },
+    {
+      "operation": "search",
+      "domainId": "product_quality_cmc",
+      "evidenceKey": "regulatory",
+      "source": "-s fda",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy chemistry manufacturing controls inspection comparability review",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:59.417Z",
+      "completedAt": "2026-08-16T10:10:00.769Z",
+      "durationMs": 1352,
+      "command": "search -s fda -n 12 \"Exa-cel Sickle Cell Disease Cell therapy chemistry manufacturing controls inspection comparability review\"",
+      "resultChars": 10619
+    },
+    {
+      "operation": "search",
+      "domainId": "product_quality_cmc",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy manufacturing CMC release specification potency assay validation comparability stability scale-up",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:59.265Z",
+      "completedAt": "2026-08-16T10:10:01.617Z",
+      "durationMs": 2352,
+      "command": "search -s pmc,arxiv -n 12 \"Exa-cel Sickle Cell Disease Cell therapy manufacturing CMC release specification potency assay validation comparability stability scale-up\"",
+      "resultChars": 4960
+    },
+    {
+      "operation": "search",
+      "domainId": "trial_integrity_governance",
+      "evidenceKey": "registry",
+      "source": "/trials/us",
+      "query": "NCT05951205 Exa-cel Sickle Cell Disease protocol deviations investigator conflicts disclosures monitoring",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:09:59.883Z",
+      "completedAt": "2026-08-16T10:10:01.907Z",
+      "durationMs": 2024,
+      "command": "search -n 12 \"NCT05951205 Exa-cel Sickle Cell Disease protocol deviations investigator conflicts disclosures monitoring\" /trials/us",
+      "resultChars": 5314
+    },
+    {
+      "operation": "search",
+      "domainId": "trial_integrity_governance",
+      "evidenceKey": "regulatory",
+      "source": "-s fda",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy GCP inspection protocol deviation clinical trial integrity financial disclosure",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:00.769Z",
+      "completedAt": "2026-08-16T10:10:02.307Z",
+      "durationMs": 1538,
+      "command": "search -s fda -n 12 \"Exa-cel Sickle Cell Disease Cell therapy GCP inspection protocol deviation clinical trial integrity financial disclosure\"",
+      "resultChars": 10470
+    },
+    {
+      "operation": "search",
+      "domainId": "trial_integrity_governance",
+      "evidenceKey": "registry",
+      "source": "/trials/intl",
+      "query": "NCT05951205 Exa-cel Sickle Cell Disease protocol deviations investigator conflicts disclosures monitoring",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:00.205Z",
+      "completedAt": "2026-08-16T10:10:02.408Z",
+      "durationMs": 2203,
+      "command": "search -n 12 \"NCT05951205 Exa-cel Sickle Cell Disease protocol deviations investigator conflicts disclosures monitoring\" /trials/intl",
+      "resultChars": 4114
+    },
+    {
+      "operation": "search",
+      "domainId": "benefit_risk_postmarketing",
+      "evidenceKey": "regulatory",
+      "source": "-s fda",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy benefit risk REMS pharmacovigilance postmarketing long term follow-up review",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:01.907Z",
+      "completedAt": "2026-08-16T10:10:03.408Z",
+      "durationMs": 1501,
+      "command": "search -s fda -n 12 \"Exa-cel Sickle Cell Disease Cell therapy benefit risk REMS pharmacovigilance postmarketing long term follow-up review\"",
+      "resultChars": 10473
+    },
+    {
+      "operation": "search",
+      "domainId": "trial_integrity_governance",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy clinical trial protocol deviations governance investigator conflict",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:01.617Z",
+      "completedAt": "2026-08-16T10:10:03.735Z",
+      "durationMs": 2118,
+      "command": "search -s pmc,arxiv -n 12 \"Exa-cel Sickle Cell Disease Cell therapy clinical trial protocol deviations governance investigator conflict\"",
+      "resultChars": 5667
+    },
+    {
+      "operation": "search",
+      "domainId": "benefit_risk_postmarketing",
+      "evidenceKey": "registry",
+      "source": "/trials/us",
+      "query": "NCT05951205 Exa-cel Sickle Cell Disease long term follow-up safety monitoring",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:02.307Z",
+      "completedAt": "2026-08-16T10:10:04.382Z",
+      "durationMs": 2075,
+      "command": "search -n 12 \"NCT05951205 Exa-cel Sickle Cell Disease long term follow-up safety monitoring\" /trials/us",
+      "resultChars": 5106
+    },
+    {
+      "operation": "search",
+      "domainId": "benefit_risk_postmarketing",
+      "evidenceKey": "registry",
+      "source": "/trials/intl",
+      "query": "NCT05951205 Exa-cel Sickle Cell Disease long term follow-up safety monitoring",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:02.409Z",
+      "completedAt": "2026-08-16T10:10:04.601Z",
+      "durationMs": 2192,
+      "command": "search -n 12 \"NCT05951205 Exa-cel Sickle Cell Disease long term follow-up safety monitoring\" /trials/intl",
+      "resultChars": 4266
+    },
+    {
+      "operation": "search",
+      "domainId": "benefit_risk_postmarketing",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "query": "Exa-cel Sickle Cell Disease Cell therapy long term follow-up pharmacovigilance benefit risk",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:03.409Z",
+      "completedAt": "2026-08-16T10:10:05.531Z",
+      "durationMs": 2123,
+      "command": "search -s pmc,arxiv -n 12 \"Exa-cel Sickle Cell Disease Cell therapy long term follow-up pharmacovigilance benefit risk\"",
+      "resultChars": 5883
+    },
+    {
+      "operation": "map",
+      "domainId": "long_term_genetic_risk",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "s_86a65141",
+      "prompt": "For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Long-Term Genetic Risk. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \"not reported\" when an element is absent.",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:05.533Z",
+      "completedAt": "2026-08-16T10:10:18.825Z",
+      "durationMs": 13292,
+      "command": "map --from s_86a65141 \"For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Long-Term Genetic Risk. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \\\"not reported\\\" when an element is absent.\"",
+      "resultChars": 24848
+    },
+    {
+      "operation": "map",
+      "domainId": "acute_safety_tolerability",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "s_2ef703b1",
+      "prompt": "For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Acute Safety & Tolerability. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \"not reported\" when an element is absent.",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:05.533Z",
+      "completedAt": "2026-08-16T10:10:18.856Z",
+      "durationMs": 13323,
+      "command": "map --from s_2ef703b1 \"For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Acute Safety & Tolerability. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \\\"not reported\\\" when an element is absent.\"",
+      "resultChars": 8459
+    },
+    {
+      "operation": "map",
+      "domainId": "disease_context_mechanism",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "s_e2767b15",
+      "prompt": "For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Disease Context & Mechanism. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \"not reported\" when an element is absent.",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:05.532Z",
+      "completedAt": "2026-08-16T10:10:18.859Z",
+      "durationMs": 13327,
+      "command": "map --from s_e2767b15 \"For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Disease Context & Mechanism. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \\\"not reported\\\" when an element is absent.\"",
+      "resultChars": 14709
+    },
+    {
+      "operation": "map",
+      "domainId": "trial_design",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "s_077a5d52",
+      "prompt": "For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Trial Design. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \"not reported\" when an element is absent.",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:05.533Z",
+      "completedAt": "2026-08-16T10:10:20.692Z",
+      "durationMs": 15159,
+      "command": "map --from s_077a5d52 \"For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Trial Design. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \\\"not reported\\\" when an element is absent.\"",
+      "resultChars": 17834
+    },
+    {
+      "operation": "reduce",
+      "domainId": "acute_safety_tolerability",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "m_bab4b602",
+      "prompt": "Synthesize the per-source findings for Acute Safety & Tolerability for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.",
+      "strategy": "summarize",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:18.856Z",
+      "completedAt": "2026-08-16T10:10:22.855Z",
+      "durationMs": 3999,
+      "command": "reduce --from m_bab4b602 --strategy summarize \"Synthesize the per-source findings for Acute Safety & Tolerability for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.\"",
+      "resultChars": 2396
+    },
+    {
+      "operation": "reduce",
+      "domainId": "disease_context_mechanism",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "m_67523498",
+      "prompt": "Synthesize the per-source findings for Disease Context & Mechanism for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.",
+      "strategy": "summarize",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:18.859Z",
+      "completedAt": "2026-08-16T10:10:23.208Z",
+      "durationMs": 4349,
+      "command": "reduce --from m_67523498 --strategy summarize \"Synthesize the per-source findings for Disease Context & Mechanism for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.\"",
+      "resultChars": 2897
+    },
+    {
+      "operation": "reduce",
+      "domainId": "long_term_genetic_risk",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "m_c3297c87",
+      "prompt": "Synthesize the per-source findings for Long-Term Genetic Risk for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.",
+      "strategy": "summarize",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:18.825Z",
+      "completedAt": "2026-08-16T10:10:23.223Z",
+      "durationMs": 4398,
+      "command": "reduce --from m_c3297c87 --strategy summarize \"Synthesize the per-source findings for Long-Term Genetic Risk for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.\"",
+      "resultChars": 2334
+    },
+    {
+      "operation": "reduce",
+      "domainId": "trial_design",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "m_2b5a3851",
+      "prompt": "Synthesize the per-source findings for Trial Design for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.",
+      "strategy": "summarize",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:20.692Z",
+      "completedAt": "2026-08-16T10:10:25.640Z",
+      "durationMs": 4948,
+      "command": "reduce --from m_2b5a3851 --strategy summarize \"Synthesize the per-source findings for Trial Design for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.\"",
+      "resultChars": 2895
+    },
+    {
+      "operation": "map",
+      "domainId": "biodistribution_pharmacology",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "s_466c96f5",
+      "prompt": "For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Biodistribution & Pharmacology. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \"not reported\" when an element is absent.",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:22.855Z",
+      "completedAt": "2026-08-16T10:10:30.043Z",
+      "durationMs": 7188,
+      "command": "map --from s_466c96f5 \"For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Biodistribution & Pharmacology. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \\\"not reported\\\" when an element is absent.\"",
+      "resultChars": 13099
+    },
+    {
+      "operation": "reduce",
+      "domainId": "biodistribution_pharmacology",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "m_0be61ab6",
+      "prompt": "Synthesize the per-source findings for Biodistribution & Pharmacology for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.",
+      "strategy": "summarize",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:30.043Z",
+      "completedAt": "2026-08-16T10:10:35.051Z",
+      "durationMs": 5008,
+      "command": "reduce --from m_0be61ab6 --strategy summarize \"Synthesize the per-source findings for Biodistribution & Pharmacology for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.\"",
+      "resultChars": 3015
+    },
+    {
+      "operation": "map",
+      "domainId": "immunogenicity_special_populations",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "s_1b7305dd",
+      "prompt": "For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Immunogenicity & Special Populations. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \"not reported\" when an element is absent.",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:23.208Z",
+      "completedAt": "2026-08-16T10:10:36.416Z",
+      "durationMs": 13208,
+      "command": "map --from s_1b7305dd \"For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Immunogenicity & Special Populations. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \\\"not reported\\\" when an element is absent.\"",
+      "resultChars": 15308
+    },
+    {
+      "operation": "map",
+      "domainId": "trial_integrity_governance",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "s_47264e8e",
+      "prompt": "For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Trial Integrity, Governance & Operational Infrastructure. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \"not reported\" when an element is absent.",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:25.640Z",
+      "completedAt": "2026-08-16T10:10:36.821Z",
+      "durationMs": 11181,
+      "command": "map --from s_47264e8e \"For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Trial Integrity, Governance & Operational Infrastructure. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \\\"not reported\\\" when an element is absent.\"",
+      "resultChars": 16579
+    },
+    {
+      "operation": "map",
+      "domainId": "product_quality_cmc",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "s_734bc57b",
+      "prompt": "For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Product Quality & CMC. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \"not reported\" when an element is absent.",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:23.223Z",
+      "completedAt": "2026-08-16T10:10:38.424Z",
+      "durationMs": 15201,
+      "command": "map --from s_734bc57b \"For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Product Quality & CMC. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \\\"not reported\\\" when an element is absent.\"",
+      "resultChars": 13931
+    },
+    {
+      "operation": "reduce",
+      "domainId": "immunogenicity_special_populations",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "m_f80669e3",
+      "prompt": "Synthesize the per-source findings for Immunogenicity & Special Populations for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.",
+      "strategy": "summarize",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:36.416Z",
+      "completedAt": "2026-08-16T10:10:40.458Z",
+      "durationMs": 4042,
+      "command": "reduce --from m_f80669e3 --strategy summarize \"Synthesize the per-source findings for Immunogenicity & Special Populations for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.\"",
+      "resultChars": 2435
+    },
+    {
+      "operation": "reduce",
+      "domainId": "trial_integrity_governance",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "m_4ba121ce",
+      "prompt": "Synthesize the per-source findings for Trial Integrity, Governance & Operational Infrastructure for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.",
+      "strategy": "summarize",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:36.821Z",
+      "completedAt": "2026-08-16T10:10:40.926Z",
+      "durationMs": 4105,
+      "command": "reduce --from m_4ba121ce --strategy summarize \"Synthesize the per-source findings for Trial Integrity, Governance & Operational Infrastructure for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.\"",
+      "resultChars": 2019
+    },
+    {
+      "operation": "reduce",
+      "domainId": "product_quality_cmc",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "m_a346202b",
+      "prompt": "Synthesize the per-source findings for Product Quality & CMC for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.",
+      "strategy": "summarize",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:38.424Z",
+      "completedAt": "2026-08-16T10:10:43.060Z",
+      "durationMs": 4636,
+      "command": "reduce --from m_a346202b --strategy summarize \"Synthesize the per-source findings for Product Quality & CMC for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.\"",
+      "resultChars": 2638
+    },
+    {
+      "operation": "map",
+      "domainId": "benefit_risk_postmarketing",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "s_d6562d13",
+      "prompt": "For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Benefit–Risk & Postmarketing Controls. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \"not reported\" when an element is absent.",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:10:35.051Z",
+      "completedAt": "2026-08-16T10:11:02.254Z",
+      "durationMs": 27203,
+      "command": "map --from s_d6562d13 \"For Exa-cel in Sickle Cell Disease, extract every concrete finding relevant to Benefit–Risk & Postmarketing Controls. Preserve numbers and units, record explicit limitations, and identify each primary source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip commands as sources. Say \\\"not reported\\\" when an element is absent.\"",
+      "resultChars": 27583
+    },
+    {
+      "operation": "reduce",
+      "domainId": "benefit_risk_postmarketing",
+      "evidenceKey": "literature",
+      "source": "-s pmc,arxiv",
+      "from": "m_4bd2f916",
+      "prompt": "Synthesize the per-source findings for Benefit–Risk & Postmarketing Controls for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.",
+      "strategy": "summarize",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:11:02.254Z",
+      "completedAt": "2026-08-16T10:11:06.979Z",
+      "durationMs": 4724,
+      "command": "reduce --from m_4bd2f916 --strategy summarize \"Synthesize the per-source findings for Benefit–Risk & Postmarketing Controls for Exa-cel, preserving source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.\"",
+      "resultChars": 3516
+    }
+  ],
+  "modelCalls": [
+    {
+      "label": "dossier.trial_design",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:11:06.996Z",
+      "completedAt": "2026-08-16T10:11:51.678Z",
+      "durationMs": 44682,
+      "model": "claude-opus-5",
+      "effort": "low",
+      "maxTokens": 14000,
+      "usage": {
+        "input_tokens": 18492,
+        "cache_creation_input_tokens": 2834,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 2834,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 4303,
+        "service_tier": "standard",
+        "inference_geo": "global"
+      },
+      "stopReason": "end_turn",
+      "systemChars": 8536,
+      "userContentChars": 41921,
+      "schemaChars": 1802,
+      "responseChars": 10136
+    },
+    {
+      "label": "dossier.disease_context_mechanism",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:11:06.990Z",
+      "completedAt": "2026-08-16T10:11:56.339Z",
+      "durationMs": 49349,
+      "model": "claude-opus-5",
+      "effort": "low",
+      "maxTokens": 14000,
+      "usage": {
+        "input_tokens": 17177,
+        "cache_creation_input_tokens": 2834,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 2834,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 4721,
+        "service_tier": "standard",
+        "inference_geo": "global"
+      },
+      "stopReason": "end_turn",
+      "systemChars": 8378,
+      "userContentChars": 39029,
+      "schemaChars": 1802,
+      "responseChars": 11123
+    },
+    {
+      "label": "dossier.acute_safety_tolerability",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:11:51.680Z",
+      "completedAt": "2026-08-16T10:12:14.392Z",
+      "durationMs": 22712,
+      "model": "claude-opus-5",
+      "effort": "low",
+      "maxTokens": 14000,
+      "usage": {
+        "input_tokens": 14572,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 2834,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1872,
+        "service_tier": "standard",
+        "inference_geo": "global"
+      },
+      "stopReason": "end_turn",
+      "systemChars": 8741,
+      "userContentChars": 32503,
+      "schemaChars": 1802,
+      "responseChars": 4939
+    },
+    {
+      "label": "dossier.long_term_genetic_risk",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:11:56.340Z",
+      "completedAt": "2026-08-16T10:12:35.211Z",
+      "durationMs": 38871,
+      "model": "claude-opus-5",
+      "effort": "low",
+      "maxTokens": 14000,
+      "usage": {
+        "input_tokens": 15533,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 2834,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3575,
+        "service_tier": "standard",
+        "inference_geo": "global"
+      },
+      "stopReason": "end_turn",
+      "systemChars": 8370,
+      "userContentChars": 35824,
+      "schemaChars": 1802,
+      "responseChars": 8829
+    },
+    {
+      "label": "dossier.biodistribution_pharmacology",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:12:14.393Z",
+      "completedAt": "2026-08-16T10:12:41.770Z",
+      "durationMs": 27377,
+      "model": "claude-opus-5",
+      "effort": "low",
+      "maxTokens": 14000,
+      "usage": {
+        "input_tokens": 12589,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 2834,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2461,
+        "service_tier": "standard",
+        "inference_geo": "global"
+      },
+      "stopReason": "end_turn",
+      "systemChars": 8413,
+      "userContentChars": 27779,
+      "schemaChars": 1802,
+      "responseChars": 6016
+    },
+    {
+      "label": "dossier.immunogenicity_special_populations",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:12:35.212Z",
+      "completedAt": "2026-08-16T10:13:00.229Z",
+      "durationMs": 25017,
+      "model": "claude-opus-5",
+      "effort": "low",
+      "maxTokens": 14000,
+      "usage": {
+        "input_tokens": 17177,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 2834,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2255,
+        "service_tier": "standard",
+        "inference_geo": "global"
+      },
+      "stopReason": "end_turn",
+      "systemChars": 8541,
+      "userContentChars": 38947,
+      "schemaChars": 1802,
+      "responseChars": 5770
+    },
+    {
+      "label": "dossier.product_quality_cmc",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:12:41.770Z",
+      "completedAt": "2026-08-16T10:13:22.983Z",
+      "durationMs": 41213,
+      "model": "claude-opus-5",
+      "effort": "low",
+      "maxTokens": 14000,
+      "usage": {
+        "input_tokens": 12567,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 2834,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3400,
+        "service_tier": "standard",
+        "inference_geo": "global"
+      },
+      "stopReason": "end_turn",
+      "systemChars": 8419,
+      "userContentChars": 28391,
+      "schemaChars": 1802,
+      "responseChars": 6632
+    },
+    {
+      "label": "dossier.trial_integrity_governance",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:13:00.230Z",
+      "completedAt": "2026-08-16T10:13:33.992Z",
+      "durationMs": 33762,
+      "model": "claude-opus-5",
+      "effort": "low",
+      "maxTokens": 14000,
+      "usage": {
+        "input_tokens": 17152,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 2834,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2869,
+        "service_tier": "standard",
+        "inference_geo": "global"
+      },
+      "stopReason": "end_turn",
+      "systemChars": 8609,
+      "userContentChars": 39899,
+      "schemaChars": 1802,
+      "responseChars": 6450
+    },
+    {
+      "label": "dossier.benefit_risk_postmarketing",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:13:22.984Z",
+      "completedAt": "2026-08-16T10:14:00.543Z",
+      "durationMs": 37559,
+      "model": "claude-opus-5",
+      "effort": "low",
+      "maxTokens": 14000,
+      "usage": {
+        "input_tokens": 19718,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 2834,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3088,
+        "service_tier": "standard",
+        "inference_geo": "global"
+      },
+      "stopReason": "end_turn",
+      "systemChars": 8377,
+      "userContentChars": 45300,
+      "schemaChars": 1802,
+      "responseChars": 7601
+    },
+    {
+      "label": "rubric_review",
+      "status": "ok",
+      "startedAt": "2026-08-16T10:14:00.544Z",
+      "completedAt": "2026-08-16T10:17:56.930Z",
+      "durationMs": 236386,
+      "model": "claude-opus-5",
+      "effort": "high",
+      "maxTokens": 32000,
+      "usage": {
+        "input_tokens": 24385,
+        "cache_creation_input_tokens": 7008,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 7008,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 19560,
+        "service_tier": "standard",
+        "inference_geo": "global"
+      },
+      "stopReason": "end_turn",
+      "systemChars": 10294,
+      "userContentChars": 61154,
+      "schemaChars": 6442,
+      "responseChars": 44370
+    }
+  ],
+  "artifacts": {
+    "evidenceBundle": {
+      "stats": {
+        "sectionsRequested": 39,
+        "sectionsWithContent": 39,
+        "sectionsFailed": 0,
+        "domainsRequested": 9,
+        "totalChars": 369051
+      },
+      "phase": "phase3"
+    },
+    "dossier": {
+      "phase": "phase3",
+      "domains": [
+        {
+          "domainId": "disease_context_mechanism",
+          "status": "evaluated"
+        },
+        {
+          "domainId": "trial_design",
+          "status": "evaluated"
+        },
+        {
+          "domainId": "acute_safety_tolerability",
+          "status": "evaluated"
+        },
+        {
+          "domainId": "long_term_genetic_risk",
+          "status": "evaluated"
+        },
+        {
+          "domainId": "biodistribution_pharmacology",
+          "status": "evaluated"
+        },
+        {
+          "domainId": "immunogenicity_special_populations",
+          "status": "evaluated"
+        },
+        {
+          "domainId": "product_quality_cmc",
+          "status": "evaluated"
+        },
+        {
+          "domainId": "trial_integrity_governance",
+          "status": "evaluated"
+        },
+        {
+          "domainId": "benefit_risk_postmarketing",
+          "status": "evaluated"
+        }
+      ],
+      "usage": {
+        "input_tokens": 144977,
+        "cache_creation_input_tokens": 5668,
+        "cache_read_input_tokens": 19838,
+        "output_tokens": 28544
+      }
+    },
+    "review": {
+      "weightedRubricScore": 3.21,
+      "criteria": [
+        {
+          "id": "disease_context_mechanism",
+          "score": 4,
+          "evidenceStrength": "moderate"
+        },
+        {
+          "id": "efficacy_clinical_evidence",
+          "score": 3,
+          "evidenceStrength": "weak"
+        },
+        {
+          "id": "safety",
+          "score": 3,
+          "evidenceStrength": "moderate"
+        },
+        {
+          "id": "long_term_genetic_risk",
+          "score": 3,
+          "evidenceStrength": "moderate"
+        },
+        {
+          "id": "biodistribution_pharmacology",
+          "score": 4,
+          "evidenceStrength": "moderate"
+        },
+        {
+          "id": "immunogenicity",
+          "score": 3,
+          "evidenceStrength": "absent"
+        },
+        {
+          "id": "manufacturability",
+          "score": 4,
+          "evidenceStrength": "moderate"
+        },
+        {
+          "id": "pkpd_dosing",
+          "score": 3,
+          "evidenceStrength": "moderate"
+        },
+        {
+          "id": "trial_design_regulatory",
+          "score": 2,
+          "evidenceStrength": "weak"
+        },
+        {
+          "id": "trial_integrity_governance",
+          "score": 4,
+          "evidenceStrength": "moderate"
+        }
+      ]
+    }
+  },
+  "completedAt": "2026-08-16T10:17:56.932Z",
+  "durationMs": 487549
+}

@@ -434,8 +434,21 @@ run is guarded three ways:
 
 The counters are in-memory, so on a serverless host the limit is per instance rather than global.
 That is a weaker guarantee than a shared store, but it needs no external dependency and **cannot fail
-closed and lock you out of your own lab.** A deployment that needs a hard ceiling should set
-`PUBLIC_RUNS=off` and run reviews from the CLI.
+closed and lock you out of your own lab.** A deployment that needs a hard ceiling, or any Vercel
+Hobby deployment that cannot guarantee a review will finish inside the 300-second function limit,
+should set `PUBLIC_RUNS=off` and run reviews from the CLI:
+
+```bash
+npm run review -- NCT05951205 --trace=metadata
+```
+
+For a live hosted runner, Render is a better match than Vercel Hobby: the app is
+a plain Express service and binds to `0.0.0.0:$PORT`. The committed
+`render.yaml` uses Render's free web-service plan so a workspace without billing
+can deploy it immediately. After a payment method is added, switch `plan` to
+`starter` and add a disk mounted at `/var/data`, then set `EVALUATIONS_DIR` and
+`TRACES_DIR` to `/var/data/evaluations` and `/var/data/traces` for persistent
+generated reviews.
 
 Every response carries a content-security policy forbidding third-party script, framing and plugins.
 The page loads no external code, no external fonts and no external images, so the policy is `'self'`
@@ -490,7 +503,7 @@ Concurrent requests for the same trial share one run, so a double-click does not
 | `RUN_LIMIT` / `RUN_WINDOW_MS` | `6` / `600000` | Run starts per address per window |
 | `RUN_CONCURRENCY` | `2` | Concurrent reviews per instance |
 | `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` | — | Proxy token pair (`wk-…` / `ws-…`), server-side only |
-| `MODAL_GROUND_URL` / `MODAL_FOLD_URL` | — | Per-task endpoints; either works alone. Fall back to `MODAL_ENDPOINT_URL` |
+| `MODAL_GROUND_URL` / `MODAL_FOLD_URL` | — | Per-task endpoints; either works alone. Shared LLM Endpoints use `https://inference.us-west.modal.direct` |
 | `MODAL_GROUND_MODE` / `MODAL_FOLD_MODE` | `openai` / `json` | `json` posts the task as-is; `openai` wraps it as a chat completion |
 | `MODAL_TIMEOUT_MS` | `120000` | GPU jobs are slow; this is the ceiling |
 | `BENCHLING_TENANT` | — | Tenant subdomain or origin; required for live Benchling calls |
@@ -556,16 +569,25 @@ and the lab only offers the control it can actually serve.
 MODAL_TOKEN_ID=wk-...        # proxy token id
 MODAL_TOKEN_SECRET=ws-...    # shown once at creation
 
-# An OpenAI-compatible LLM (vLLM, SGLang, Kimi, an Auto Endpoint):
-MODAL_GROUND_URL=https://<workspace>--<app>-<fn>.modal.run
+# An OpenAI-compatible LLM. For the current Modal Shared Endpoint:
+MODAL_GROUND_URL=https://inference.us-west.modal.direct
 MODAL_GROUND_MODE=openai     # the default for ground
-MODAL_GROUND_MODEL=kimi
+MODAL_GROUND_MODEL=<model id returned by /v1/models>
 
 # A structure predictor (ESMFold, Boltz, Chai) as a plain web function:
 MODAL_FOLD_URL=https://<workspace>--<app>-<fn>.modal.run
 MODAL_FOLD_MODE=json         # the default for fold
+MODAL_FOLD_MODEL=boltz-2     # optional label shown in health/status
 
 # Or MODAL_ENDPOINT_URL alone, when one deployment really serves both.
+```
+
+For a Modal Shared Endpoint, do not guess the model id from the endpoint name.
+Ask Modal for the exact routed id:
+
+```bash
+curl https://inference.us-west.modal.direct/v1/models \
+  -H "Authorization: Bearer $MODAL_TOKEN_ID.$MODAL_TOKEN_SECRET"
 ```
 
 > **Never commit these.** On Vercel they are project environment variables. The
@@ -580,6 +602,12 @@ The worker contract, if you are deploying your own:
 | --- | --- | --- |
 | `fold` | `{task, sequence, name, unit}` | `{format: "pdb"\|"mmcif", data, plddt?, mean_plddt?, model?}` |
 | `ground` | `{task, claim, passages: [{id, title, text}]}` | `{spans: [{id, quote, score?}]}` |
+
+The browser renders the returned structure as an animated 3D construct: first as
+the explicit Benchling/derived architecture, then as a confidence-coloured
+backbone when the fold endpoint returns PDB/mmCIF data. Modal supplies the
+structure; the UI keeps rendering local so the browser never receives a Modal
+token.
 
 </details>
 

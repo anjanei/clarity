@@ -30,16 +30,21 @@ export class ModalError extends Error {
 
 /**
  * Proxy-auth headers. Modal accepts the pair either as one bearer token joined
- * by a period, or as two headers — the two-header form is used here so the
- * Authorization header stays free for anything a deployment puts in front.
+ * by a period, or as two headers. Shared OpenAI-compatible Endpoints expect the
+ * bearer form; plain Web Functions use the key/secret headers.
  */
-function authHeaders() {
-  return {
-    'Modal-Key': config.modal.tokenId,
-    'Modal-Secret': config.modal.tokenSecret,
+function authHeaders({ openai = false } = {}) {
+  const headers = {
     'content-type': 'application/json',
     accept: 'application/json',
   };
+  if (openai) {
+    headers.Authorization = `Bearer ${config.modal.tokenId}.${config.modal.tokenSecret}`;
+  } else {
+    headers['Modal-Key'] = config.modal.tokenId;
+    headers['Modal-Secret'] = config.modal.tokenSecret;
+  }
+  return headers;
 }
 
 /** Never let a token reach a log line, a response body or a trace. */
@@ -89,7 +94,7 @@ export async function callModal(task, payload, { signal, timeoutMs = config.moda
   try {
     response = await fetch(url, {
       method: 'POST',
-      headers: authHeaders(),
+      headers: authHeaders({ openai }),
       body: JSON.stringify(body),
       signal: controller.signal,
     });

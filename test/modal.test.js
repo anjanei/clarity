@@ -2,8 +2,12 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 process.env.MODAL_ENDPOINT_URL = '';
+process.env.MODAL_GROUND_URL = '';
+process.env.MODAL_FOLD_URL = '';
 process.env.MODAL_TOKEN_ID = '';
 process.env.MODAL_TOKEN_SECRET = '';
+process.env.MODAL_GROUND_MODEL = '';
+process.env.MODAL_FOLD_MODEL = '';
 
 const { locateQuote, parseBackbone, foldSequence, groundClaim } = await import('../src/modal/tasks.js');
 const { redact, modalStatus } = await import('../src/modal/client.js');
@@ -172,9 +176,11 @@ test('an OpenAI-compatible LLM endpoint is unwrapped, fences and all', async (t)
   const passage = { id: 'p1', title: 'Registry', text: 'The trial enrolled 24 participants across six sites.' };
   let sentTo = null;
   let sentBody = null;
+  let sentHeaders = null;
   const originalFetch = globalThis.fetch;
   globalThis.fetch = async (url, init) => {
     sentTo = url;
+    sentHeaders = init.headers;
     sentBody = JSON.parse(init.body);
     return new Response(
       JSON.stringify({
@@ -200,6 +206,8 @@ test('an OpenAI-compatible LLM endpoint is unwrapped, fences and all', async (t)
   const result = await groundClaim({ claim: 'Twenty-four people were enrolled.', passages: [passage] });
 
   assert.equal(sentTo, 'https://workspace--kimi.modal.run/v1/chat/completions');
+  assert.equal(sentHeaders.Authorization, 'Bearer wk-test.ws-test');
+  assert.equal(sentHeaders['Modal-Secret'], undefined);
   assert.equal(sentBody.model, 'kimi');
   assert.equal(result.spans.length, 1);
   assert.equal(passage.text.slice(result.spans[0].start, result.spans[0].end), 'enrolled 24 participants across six sites');

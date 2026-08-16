@@ -1,0 +1,48 @@
+services:
+  - type: web
+    name: fdaapproval
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: HOST
+        value: 0.0.0.0
+      - key: PUBLIC_RUNS
+        value: "on"
+      - key: RUN_LIMIT
+        value: "6"
+      - key: RUN_WINDOW_MS
+        value: "600000"
+      - key: RUN_CONCURRENCY
+        value: "1"
+      - key: PAPERCLIP_API_KEY
+        sync: false
+      - key: PAPERCLIP_MCP_URL
+        value: https://paperclip.gxl.ai/mcp
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: ANTHROPIC_MODEL
+        value: claude-opus-5
+      - key: EVAL_EFFORT
+        value: high
+      - key: EXTRACT_EFFORT
+        value: low
+      - key: MODAL_TOKEN_ID
+        sync: false
+      - key: MODAL_TOKEN_SECRET
+        sync: false
+      - key: MODAL_GROUND_URL
+        value: https://inference.us-west.modal.direct
+      - key: MODAL_GROUND_MODE
+        value: openai
+      - key: MODAL_GROUND_MODEL
+        sync: false
+      - key: MODAL_FOLD_URL
+        sync: false
+      - key: MODAL_FOLD_MODE
+        value: json
