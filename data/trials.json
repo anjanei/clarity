@@ -1438,6 +1438,26 @@
       "addedManuallyAt": "2026-08-16T01:40:01.719Z"
     },
     {
+      "trialId": "NCT04566445",
+      "therapeuticName": "GT005",
+      "sponsor": "Gyroscope Therapeutics Limited",
+      "phase": "Phase 2",
+      "startDate": "2020-09-28",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Dry Age-related Macular Degeneration",
+      "modality": "Gene therapy",
+      "title": "HORIZON: A Phase II Study to Evaluate the Safety and Efficacy of Two Doses of GT005",
+      "therapeuticArea": "Ophthalmology",
+      "therapeuticDescription": "",
+      "overallStatus": "TERMINATED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "GT005"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T16:40:26.557Z"
+    },
+    {
       "trialId": "NCT06031727",
       "therapeuticName": "HG202",
       "sponsor": "HuidaGene Therapeutics Co., Ltd.",
@@ -2889,6 +2909,10 @@
     {
       "trialId": "NCT07708350",
       "addedAt": "2026-08-16T01:43:13.174Z"
+    },
+    {
+      "trialId": "NCT04566445",
+      "addedAt": "2026-08-16T16:40:26.557Z"
     }
   ]
 }
