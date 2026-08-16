@@ -4,6 +4,9 @@ import {
   clarityPhaseLabel,
   normalizeClarityPhase,
 } from '../evidence/domains.js';
+import { config } from '../config.js';
+import { recordPaperclipCall } from '../evaluate/trace.js';
+import { mapWithConcurrency } from '../utils/concurrency.js';
 
 /** Result IDs look like `s_1907a2d0` / `m_def456` and feed --from. */
 const RESULT_ID = /\b([smrf]_[0-9a-z]{5,})\b/i;
@@ -17,6 +20,37 @@ function clip(text, max) {
   if (!text) return '';
   if (text.length <= max) return text;
   return `${text.slice(0, max)}\n…[truncated ${text.length - max} chars]`;
+}
+
+/** Time every remote Paperclip command and retain its complete public response in a full trace. */
+async function tracedPaperclip(trace, details, operation) {
+  const startedAt = new Date().toISOString();
+  const started = Date.now();
+  try {
+    const result = await operation();
+    recordPaperclipCall(trace, {
+      ...details,
+      status: 'ok',
+      startedAt,
+      completedAt: new Date().toISOString(),
+      durationMs: Date.now() - started,
+      command: result.command,
+      resultChars: result.text?.length ?? 0,
+      rawText: result.text,
+      structured: result.structured,
+    });
+    return result;
+  } catch (err) {
+    recordPaperclipCall(trace, {
+      ...details,
+      status: 'error',
+      startedAt,
+      completedAt: new Date().toISOString(),
+      durationMs: Date.now() - started,
+      error: { name: err.name, message: err.message },
+    });
+    throw err;
+  }
 }
 
 /**
@@ -84,7 +118,16 @@ const EVIDENCE_SCOPES = {
  * Evidence bundle for one selected therapeutic, organised around the active
  * CLARITY evidence-skill domains. Scoring is deliberately not done here.
  */
-export async function gatherEvidence(trial, { perQueryLimit = 12, deepRead = true, onStep } = {}) {
+export async function gatherEvidence(
+  trial,
+  {
+    perQueryLimit = 12,
+    deepRead = true,
+    onStep,
+    trace,
+    paperclipConcurrency = config.evidence.paperclipConcurrency,
+  } = {},
+) {
   const phase = normalizeClarityPhase(trial.phase);
   if (!phase) {
     throw new Error(
@@ -93,61 +136,73 @@ export async function gatherEvidence(trial, { perQueryLimit = 12, deepRead = tru
   }
   const domains = activeDomainsForPhase(phase);
 
-  const sections = [];
+  const searchPlans = [];
 
   for (const domain of domains) {
     for (const step of domain.searches) {
       const query = step.query(trial);
       if (!query) {
-        sections.push({
-          key: step.key,
-          label: step.label,
-          domainId: domain.id,
-          domainLabel: domain.label,
-          source: step.scope,
-          error: 'No searchable asset identity was available for this evidence request.',
+        searchPlans.push({
+          section: {
+            key: step.key,
+            label: step.label,
+            domainId: domain.id,
+            domainLabel: domain.label,
+            source: step.scope,
+            error: 'No searchable asset identity was available for this evidence request.',
+          },
         });
         continue;
       }
       for (const scope of EVIDENCE_SCOPES[step.scope]) {
-        const label = scopeLabel(scope);
-        onStep?.({
-          key: step.key,
-          domainId: domain.id,
-          label: `${domain.label}: ${step.label}`,
-          source: label,
-        });
-        try {
-          const result = await search(query, { ...scope, limit: perQueryLimit });
-          const text = result.text?.trim();
-          if (!text) continue;
-          sections.push({
-            key: step.key,
-            label: step.label,
-            domainId: domain.id,
-            domainLabel: domain.label,
-            query,
-            scope: step.scope,
-            source: label,
-            command: result.command,
-            resultId: firstResultId(text),
-            text: clip(text, 20000),
-          });
-        } catch (err) {
-          sections.push({
-            key: step.key,
-            label: step.label,
-            domainId: domain.id,
-            domainLabel: domain.label,
-            query,
-            scope: step.scope,
-            source: label,
-            error: err.message,
-          });
-        }
+        searchPlans.push({ domain, step, query, scope, source: scopeLabel(scope) });
       }
     }
   }
+
+  // Searches do not depend on one another. Preserve plan order while limiting concurrent calls.
+  const sections = (await mapWithConcurrency(searchPlans, paperclipConcurrency, async (plan) => {
+    if (plan.section) return plan.section;
+    const { domain, step, query, scope, source } = plan;
+    onStep?.({
+      key: step.key,
+      domainId: domain.id,
+      label: `${domain.label}: ${step.label}`,
+      source,
+    });
+    try {
+      const result = await tracedPaperclip(
+        trace,
+        { operation: 'search', domainId: domain.id, evidenceKey: step.key, source, query },
+        () => search(query, { ...scope, limit: perQueryLimit }),
+      );
+      const text = result.text?.trim();
+      if (!text) return null;
+      return {
+        key: step.key,
+        label: step.label,
+        domainId: domain.id,
+        domainLabel: domain.label,
+        query,
+        scope: step.scope,
+        source,
+        command: result.command,
+        resultId: firstResultId(text),
+        text: clip(text, 20000),
+      };
+    } catch (err) {
+      return {
+        key: step.key,
+        label: step.label,
+        domainId: domain.id,
+        domainLabel: domain.label,
+        query,
+        scope: step.scope,
+        source,
+        error: err.message,
+      };
+    }
+  })).filter(Boolean);
 
   // Ask Paperclip's reader to extract one balanced source set per domain. This
   // preserves domain coverage without unbounded map calls for every result set.
@@ -159,7 +214,7 @@ export async function gatherEvidence(trial, { perQueryLimit = 12, deepRead = tru
       })
       .filter(Boolean);
 
-    for (const section of readable) {
+    const deepSections = await mapWithConcurrency(readable, paperclipConcurrency, async (section) => {
       onStep?.({
         key: section.key,
         domainId: section.domainId,
@@ -167,23 +222,34 @@ export async function gatherEvidence(trial, { perQueryLimit = 12, deepRead = tru
         source: section.source,
       });
       try {
-        const mapped = await map(
-          section.resultId,
+        const mapPrompt =
           `For ${trial.therapeuticName}${trial.condition ? ` in ${trial.condition}` : ''}, extract every concrete finding relevant to ` +
-            `${section.domainLabel}. Preserve numbers and units, record explicit limitations, and identify each primary ` +
-            `source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip ` +
-            `commands as sources. Say "not reported" when an element is absent.`,
+          `${section.domainLabel}. Preserve numbers and units, record explicit limitations, and identify each primary ` +
+          `source with title, DOI/PMCID/NCT/FDA identifier, and a direct URL when available. Do not cite Paperclip ` +
+          `commands as sources. Say "not reported" when an element is absent.`;
+        const mapped = await tracedPaperclip(
+          trace,
+          {
+            operation: 'map', domainId: section.domainId, evidenceKey: section.key, source: section.source,
+            from: section.resultId, prompt: mapPrompt,
+          },
+          () => map(section.resultId, mapPrompt),
         );
 
         let text = mapped.text || '';
         const mapId = firstResultId(text);
         if (mapId) {
           try {
-            const reduced = await reduce(
-              mapId,
+            const reducePrompt =
               `Synthesize the per-source findings for ${section.domainLabel} for ${trial.therapeuticName}, preserving ` +
-                'source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.',
-              { strategy: 'summarize' },
+              'source identifiers, direct URLs, numerical values, and disagreements. Do not infer missing data.';
+            const reduced = await tracedPaperclip(
+              trace,
+              {
+                operation: 'reduce', domainId: section.domainId, evidenceKey: section.key, source: section.source,
+                from: mapId, prompt: reducePrompt, strategy: 'summarize',
+              },
+              () => reduce(mapId, reducePrompt, { strategy: 'summarize' }),
             );
             if (reduced.text) text = `${text}\n\n--- synthesis ---\n${reduced.text}`;
           } catch {
@@ -192,7 +258,7 @@ export async function gatherEvidence(trial, { perQueryLimit = 12, deepRead = tru
         }
 
         if (text.trim()) {
-          sections.push({
+          return {
             key: `${section.key}_deep`,
             label: `${section.label} — LLM reader extraction`,
             domainId: section.domainId,
@@ -202,10 +268,10 @@ export async function gatherEvidence(trial, { perQueryLimit = 12, deepRead = tru
             source: `${section.source} (map/reduce)`,
             command: mapped.command,
             text: clip(text, 24000),
-          });
+          };
         }
       } catch (err) {
-        sections.push({
+        return {
           key: `${section.key}_deep`,
           label: `${section.label} — LLM reader extraction`,
           domainId: section.domainId,
@@ -214,9 +280,11 @@ export async function gatherEvidence(trial, { perQueryLimit = 12, deepRead = tru
           scope: section.scope,
           source: `${section.source} (map/reduce)`,
           error: err.message,
-        });
+        };
       }
-    }
+      return null;
+    });
+    sections.push(...deepSections.filter(Boolean));
   }
 
   const withText = sections.filter((s) => s.text);

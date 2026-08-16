@@ -71,6 +71,14 @@ test('serves the frontend and API routes from an isolated catalog', async () => 
   assert.equal(rubric.response.status, 200);
   assert.equal(rubric.body.dimensions.length, 10);
 
+  const traces = await request('/api/evaluations/NCT00000001/traces');
+  assert.equal(traces.response.status, 200);
+  assert.deepEqual(traces.body, { trialId: 'NCT00000001', traces: [] });
+
+  const missingTrace = await request('/api/evaluations/NCT00000001/traces/not-a-trace');
+  assert.equal(missingTrace.response.status, 404);
+  assert.equal(missingTrace.body.error, 'not_found');
+
   const page = await fetch(`${baseUrl}/`);
   assert.equal(page.status, 200);
   assert.match(await page.text(), /FDA Approval Review/);

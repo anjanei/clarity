@@ -3,6 +3,14 @@ import path from 'node:path';
 import { paths } from '../config.js';
 import { EVIDENCE_DOSSIER_VERSION } from '../evidence/domains.js';
 import { evaluateTrial } from './evaluate.js';
+import { config } from '../config.js';
+import {
+  createRunTrace,
+  finishRunTrace,
+  normalizeTraceMode,
+  traceEvent,
+  writeRunTrace,
+} from './trace.js';
 
 /** Registry IDs are alphanumeric with dashes; anything else is not a real ID. */
 function safeName(trialId) {
@@ -38,8 +46,11 @@ const inFlight = new Map();
  * run so a double-click does not pay for two reviews; `onStep` is fanned out to
  * every listener.
  */
-export function runEvaluation(trial, { onStep, force = false } = {}) {
-  const key = trial.trialId.toLowerCase();
+export function runEvaluation(trial, { onStep, force = false, traceMode } = {}) {
+  const mode = normalizeTraceMode(traceMode, config.trace.mode);
+  // A full trace is intentionally independent from a normal in-flight run: it
+  // must not silently join a run that was not retaining prompts and artifacts.
+  const key = `${trial.trialId.toLowerCase()}:${mode === 'full' ? 'full' : 'standard'}`;
   const existing = inFlight.get(key);
 
   if (existing) {
@@ -48,7 +59,9 @@ export function runEvaluation(trial, { onStep, force = false } = {}) {
   }
 
   const listeners = new Set(onStep ? [onStep] : []);
+  const trace = createRunTrace(trial, { mode });
   const emit = (step) => {
+    traceEvent(trace, 'progress', step);
     for (const listener of listeners) {
       try {
         listener(step);
@@ -58,17 +71,41 @@ export function runEvaluation(trial, { onStep, force = false } = {}) {
     }
   };
 
-  const promise = (async () => {
-    if (!force) {
-      const cached = await readEvaluation(trial.trialId);
-      if (cached?.meta?.evidenceDossierVersion === EVIDENCE_DOSSIER_VERSION) {
-        emit({ stage: 'cache', message: 'Returning cached review' });
-        return { ...cached, cached: true };
-      }
+  const completeTrace = async (error) => {
+    if (!trace) return null;
+    finishRunTrace(trace, { error });
+    try {
+      return await writeRunTrace(trace);
+    } catch (traceError) {
+      console.error('Unable to persist evaluation trace:', traceError);
+      return { mode: trace.mode, status: 'write_error', error: traceError.message };
     }
-    const evaluation = await evaluateTrial(trial, { onStep: emit });
-    await writeEvaluation(trial.trialId, evaluation);
-    return { ...evaluation, cached: false };
+  };
+
+  const promise = (async () => {
+    try {
+      if (!force) {
+        const cached = await readEvaluation(trial.trialId);
+        if (cached?.meta?.evidenceDossierVersion === EVIDENCE_DOSSIER_VERSION) {
+          emit({ stage: 'cache', message: 'Returning cached review' });
+          traceEvent(trace, 'cache_hit');
+          const traceRef = await completeTrace();
+          return {
+            ...cached,
+            meta: traceRef ? { ...cached.meta, trace: traceRef } : cached.meta,
+            cached: true,
+          };
+        }
+      }
+      const evaluation = await evaluateTrial(trial, { onStep: emit, trace });
+      const traceRef = await completeTrace();
+      if (traceRef) evaluation.meta.trace = traceRef;
+      await writeEvaluation(trial.trialId, evaluation);
+      return { ...evaluation, cached: false };
+    } catch (err) {
+      await completeTrace(err);
+      throw err;
+    }
   })().finally(() => {
     inFlight.delete(key);
   });

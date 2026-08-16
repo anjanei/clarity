@@ -143,6 +143,20 @@ Open <http://localhost:3000>. Pick a trial, press **Run FDA review**. Progress s
 while retrieval runs; a completed review is cached to `data/evaluations/<trialId>.json` and shown
 instantly on re-select (use **Re-run review** to force a fresh pass).
 
+### Full learning traces
+
+Enable **Capture full learning trace** beside the review button before running a fresh review, or
+send `trace=full` to either evaluation endpoint. A full trace is saved locally under
+`data/traces/<trialId>/<traceId>.json` and is linked from the report's provenance panel. It records
+the trial snapshot, progress timeline, every Paperclip command and complete public response, exact
+Claude system/user prompts and structured outputs, per-call timing, token usage, the evidence
+bundle, cited dossier, and final review. It contains no API keys, but it does retain the public
+evidence and generated assessment, so treat it as local review data rather than a source artifact
+to commit.
+
+Set `TRACE_MODE=metadata` to retain lightweight timing and token diagnostics for every run without
+storing prompts or source text. `TRACE_MODE=full` makes complete tracing the server default.
+
 ### Evidence dossier
 
 Before the existing rubric-scoring call, the app builds an evidence-only dossier from the CLARITY
@@ -189,8 +203,10 @@ own stated range.
 | `GET /api/trials/:trialId` | One trial |
 | `GET /api/rubric` | Dimension labels, weights, anchors |
 | `GET /api/evaluations/:trialId` | Cached review, 404 if none |
+| `GET /api/evaluations/:trialId/traces` | Available trace summaries |
+| `GET /api/evaluations/:trialId/traces/:traceId` | One persisted trace JSON |
 | `POST /api/evaluations/:trialId?force=1` | Run a review (blocking, minutes) |
-| `GET /api/evaluations/:trialId/stream` | Run with `progress` → `result` SSE events |
+| `GET /api/evaluations/:trialId/stream?trace=full` | Run with `progress` → `result` SSE events and capture a full trace |
 
 Concurrent requests for the same trial share one run, so a double-click does not pay twice.
 
@@ -201,9 +217,12 @@ Concurrent requests for the same trial share one run, so a double-click does not
 | `PAPERCLIP_API_KEY` | — | Required |
 | `PAPERCLIP_MCP_URL` | `https://paperclip.gxl.ai/mcp` | |
 | `ANTHROPIC_API_KEY` | — | Required |
-| `ANTHROPIC_MODEL` | `claude-opus-5` | |
+| `ANTHROPIC_MODEL` | `claude-haiku-4-5-20251001` | Fast local-test default; set `claude-opus-5` for production reviews |
 | `EVAL_EFFORT` | `high` | Review pass: `low`–`max` |
 | `EXTRACT_EFFORT` | `low` | Catalog extraction is mechanical |
+| `PAPERCLIP_CONCURRENCY` | `4` | Max simultaneous independent Paperclip commands |
+| `DOMAIN_CONCURRENCY` | `2` | Max simultaneous CLARITY synthesis calls |
+| `TRACE_MODE` | `off` | `off`, `metadata`, or `full` local trace retention |
 | `PORT` | `3000` | |
 
 ## Implementation notes
@@ -211,8 +230,14 @@ Concurrent requests for the same trial share one run, so a double-click does not
 - **Structured output, not parsing.** Both Claude calls use `output_config.format` with a JSON
   schema, so responses validate at the API layer — there is no parse-and-retry loop.
 - **Prompt caching.** The reviewer persona and rubric are byte-stable and sit behind an
-  `ephemeral` cache breakpoint; only the evidence bundle is billed at full rate per trial. Cache
-  read/write token counts are shown in each report's provenance panel.
+  `ephemeral` cache breakpoint; the CLARITY shared policy uses the same reusable prefix before each
+  domain-specific skill. Cache read/write token counts are shown in each report's provenance panel.
+- **Bounded parallelism.** Independent evidence searches and domain synthesis calls run in a stable
+  order with conservative concurrency ceilings. Retrieval remains source-scoped and every domain
+  still receives its own citation-focused pass.
+- **Evidence compaction.** When Paperclip map/reduce successfully provides a cited extraction for
+  a result set, the duplicate raw set is retained in the trace but omitted from that domain's Claude
+  prompt. This avoids paying twice for the same evidence without removing its audit trail.
 - **Streaming.** Reviews stream with a high `max_tokens`, which avoids the HTTP timeout a
   non-streaming request of this size would risk.
 - **Refusal handling.** Server-side fallbacks are enabled by default so a safety-classifier decline

@@ -13,6 +13,7 @@ export const paths = {
   data: dataDirectory,
   catalog: path.join(dataDirectory, 'trials.json'),
   evaluations: path.join(dataDirectory, 'evaluations'),
+  traces: path.join(dataDirectory, 'traces'),
   probe: path.join(dataDirectory, 'probe'),
 };
 
@@ -27,10 +28,20 @@ export const config = {
 
   anthropic: {
     apiKey: process.env.ANTHROPIC_API_KEY || '',
-    // Opus 5 is the default: this is a judgment-heavy regulatory review.
-    model: process.env.ANTHROPIC_MODEL || 'claude-opus-5',
+    // Haiku keeps interactive evidence-workflow tests fast and inexpensive.
+    model: process.env.ANTHROPIC_MODEL || 'claude-haiku-4-5-20251001',
     evalEffort: process.env.EVAL_EFFORT || 'high',
     extractEffort: process.env.EXTRACT_EFFORT || 'low',
+  },
+
+  evidence: {
+    // Keep remote work bounded so a Phase 3 sweep is faster without overrunning service limits.
+    paperclipConcurrency: Math.max(1, Number(process.env.PAPERCLIP_CONCURRENCY) || 4),
+    domainConcurrency: Math.max(1, Number(process.env.DOMAIN_CONCURRENCY) || 2),
+  },
+
+  trace: {
+    mode: process.env.TRACE_MODE || 'off',
   },
 };
 

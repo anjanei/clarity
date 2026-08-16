@@ -9,9 +9,12 @@ import {
 } from '../src/evidence/domains.js';
 import {
   canonicalSourceUrl,
+  domainSystemPrompt,
   normalizeDomainDossier,
   renderEvidenceDossier,
+  selectEvidenceForDomainPrompt,
 } from '../src/evidence/dossier.js';
+import { buildSystemBlocks, supportsAdaptiveThinking, supportsEffort } from '../src/anthropic.js';
 
 test('maps catalog phases to the CLARITY phase gates', () => {
   assert.equal(normalizeClarityPhase('Early Phase 1'), 'phase1');
@@ -122,4 +125,28 @@ test('renders cited domain content without adding a rubric score', () => {
   assert.match(rendered, /https:\/\/clinicaltrials\.gov\/study\/NCT01234567/);
   assert.match(rendered, /Do not generate/);
   assert.doesNotMatch(rendered, /rubric score/i);
+});
+
+test('uses a deep citation extraction in place of its duplicate raw result set', () => {
+  const selected = selectEvidenceForDomainPrompt([
+    { key: 'literature', scope: 'literature', text: 'Raw literature result' },
+    { key: 'literature_deep', scope: 'literature', text: 'Cited map/reduce extraction' },
+    { key: 'registry', scope: 'registry', text: 'Registry record' },
+  ]);
+
+  assert.deepEqual(selected.map(({ text }) => text), ['Cited map/reduce extraction', 'Registry record']);
+});
+
+test('places the shared CLARITY policy behind a reusable cache breakpoint', () => {
+  const blocks = buildSystemBlocks(domainSystemPrompt('orchestrator policy', 'domain policy'));
+  assert.equal(blocks.length, 3);
+  assert.equal(blocks[1].cache_control?.type, 'ephemeral');
+  assert.equal(blocks[2].cache_control, undefined);
+});
+
+test('disables adaptive thinking for the Haiku test model only', () => {
+  assert.equal(supportsAdaptiveThinking('claude-haiku-4-5-20251001'), false);
+  assert.equal(supportsAdaptiveThinking('claude-opus-5'), true);
+  assert.equal(supportsEffort('claude-haiku-4-5-20251001'), false);
+  assert.equal(supportsEffort('claude-opus-5'), true);
 });

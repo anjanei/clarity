@@ -10,6 +10,7 @@ const state = {
   evaluation: null,
   running: false,
   stream: null,
+  captureFullTrace: localStorage.getItem('fdaapproval.captureFullTrace') === 'true',
 };
 
 const el = {
@@ -223,7 +224,11 @@ function runReview({ force = false } = {}) {
   renderPanel();
   const log = document.getElementById('progress-log');
 
-  const url = `/api/evaluations/${encodeURIComponent(state.selected.trialId)}/stream${force ? '?force=1' : ''}`;
+  const params = new URLSearchParams();
+  if (force) params.set('force', '1');
+  if (state.captureFullTrace) params.set('trace', 'full');
+  const query = params.size ? `?${params}` : '';
+  const url = `/api/evaluations/${encodeURIComponent(state.selected.trialId)}/stream${query}`;
   const stream = new EventSource(url);
   state.stream = stream;
 
@@ -288,6 +293,10 @@ function trialHeader() {
           <button id="run-review" class="btn-primary" ${state.running ? 'disabled' : ''}>
             ${state.running ? 'Reviewing…' : state.evaluation ? 'Re-run review' : 'Run FDA review'}
           </button>
+          <label class="flex max-w-52 items-start gap-1.5 text-right text-xs text-slate-500">
+            <input id="capture-full-trace" type="checkbox" class="mt-0.5" ${state.captureFullTrace ? 'checked' : ''} ${state.running ? 'disabled' : ''} />
+            <span>Capture full learning trace</span>
+          </label>
           ${cached ? `<span class="text-xs text-slate-400">cached ${esc(fmtDate(state.evaluation.meta?.evaluatedAt))}</span>` : ''}
         </div>
       </div>
@@ -612,6 +621,11 @@ function evidenceDossierCard(evaluation) {
 function provenanceCard(evaluation) {
   const { evidence, meta, review } = evaluation;
   const usage = meta?.usage ?? {};
+  const dossierUsage = meta?.usageByStage?.dossier ?? {};
+  const trace = meta?.trace;
+  const traceUrl = trace?.traceId
+    ? `/api/evaluations/${encodeURIComponent(evaluation.trial?.trialId || '')}/traces/${encodeURIComponent(trace.traceId)}`
+    : '';
   return `
     <details class="card card-pad">
       <summary class="cursor-pointer text-sm font-semibold text-slate-900">
@@ -658,7 +672,16 @@ function provenanceCard(evaluation) {
         <div><dt class="text-slate-500">Cache read</dt><dd class="tabular-nums text-slate-800">${(usage.cache_read_input_tokens ?? 0).toLocaleString()}</dd></div>
         <div><dt class="text-slate-500">Cache write</dt><dd class="tabular-nums text-slate-800">${(usage.cache_creation_input_tokens ?? 0).toLocaleString()}</dd></div>
         <div><dt class="text-slate-500">Output tokens</dt><dd class="tabular-nums text-slate-800">${(usage.output_tokens ?? 0).toLocaleString()}</dd></div>
+        <div><dt class="text-slate-500">Dossier input</dt><dd class="tabular-nums text-slate-800">${(dossierUsage.input_tokens ?? 0).toLocaleString()}</dd></div>
+        <div><dt class="text-slate-500">Dossier output</dt><dd class="tabular-nums text-slate-800">${(dossierUsage.output_tokens ?? 0).toLocaleString()}</dd></div>
       </dl>
+      ${
+        traceUrl
+          ? `<p class="mt-4 text-xs text-slate-600">
+               Trace · <a class="text-accent-700 underline decoration-accent-200 underline-offset-2 hover:text-accent-900" href="${esc(traceUrl)}" target="_blank" rel="noreferrer">open ${esc(trace.mode)} trace</a>
+             </p>`
+          : ''
+      }
     </details>`;
 }
 
@@ -713,6 +736,10 @@ function renderPanel({ error } = {}) {
   document.getElementById('run-review')?.addEventListener('click', () =>
     runReview({ force: Boolean(state.evaluation) }),
   );
+  document.getElementById('capture-full-trace')?.addEventListener('change', (event) => {
+    state.captureFullTrace = event.target.checked;
+    localStorage.setItem('fdaapproval.captureFullTrace', String(state.captureFullTrace));
+  });
 }
 
 /* ------------------------------------------------------------------ wire */
