@@ -1,0 +1,793 @@
+{
+  "trial": {
+    "trialId": "NCT04601051",
+    "therapeuticName": "NTLA-2001",
+    "sponsor": "Intellia Therapeutics",
+    "phase": "Phase 1",
+    "startDate": "2020-11-05",
+    "registry": "ClinicalTrials.gov",
+    "condition": "Transthyretin-Related (ATTR) Familial Amyloid Polyneuropathy; Transthyretin-Related (ATTR) Familial Amyloid Cardiomyopathy; Wild-Type Transthyretin Cardiac Amyloidosis",
+    "modality": "Gene therapy",
+    "title": "Study to Evaluate Safety, Tolerability, Pharmacokinetics, and Pharmacodynamics of NTLA-2001 in Patients With Hereditary Transthyretin Amyloidosis With Polyneuropathy (ATTRv-PN) and Patients With Transthyretin Amyloidosis-Related Cardiomyopathy (ATTR-CM)",
+    "therapeuticArea": "Rare & Genetic Disease",
+    "therapeuticDescription": "",
+    "overallStatus": "COMPLETED",
+    "studyType": "INTERVENTIONAL",
+    "registryProducts": [
+      "NTLA-2001"
+    ],
+    "registryEnriched": true,
+    "addedManuallyAt": "2026-08-16T00:31:13.669Z"
+  },
+  "review": {
+    "therapeuticName": "NTLA-2001 (nexiguran ziclumeran, nex-z)",
+    "trialId": "NCT04601051",
+    "reviewerSummary": "NTLA-2001 is an LNP-delivered in vivo CRISPR/Cas9 therapeutic that permanently knocks out hepatic TTR, evaluated in this completed Phase 1 open-label single-ascending-dose and dose-expansion study in ATTRv-PN and ATTR-CM. On the merits, this is one of the stronger early-phase rare-disease programs in the file: the pharmacologic target is fully validated by three approved TTR knockdown/stabiliser products (patisiran, inotersen/eplontersen, tafamidis/acoramidis), serum TTR is an accepted pharmacodynamic anchor, and the retrieved literature reports deep, sustained TTR reduction after a single dose with transient infusion reactions as the principal adverse event. The program has advanced to two Phase 3 placebo-controlled studies (MAGNITUDE, ~1200 participants in ATTR-CM, primary composite of CV death and CV events; NCT06672237, ~50 participants in ATTRv-PN) at a fixed 55 mg IV dose, plus a dedicated long-term follow-up protocol (NCT05697861). The central residual questions are permanence-related: off-target editing and long-term genomic safety, durability of TTR suppression over years, and whether TTR knockdown translates into a hard cardiovascular outcome benefit on top of increasingly effective background therapy. The evidence bundle supplied program-specific efficacy/safety only at a summary level and provided essentially nothing on immunogenicity, CMC, or off-target editing.",
+    "probabilityOfTrialSuccess": {
+      "pointEstimate": 58,
+      "low": 40,
+      "high": 72,
+      "basis": "Anchor: historical Phase 1-to-approval transition for gene/gene-editing therapies in rare genetic disease is roughly 15-25%; for cardiovascular outcome programs, Phase 3 success is roughly 50-60%. Because this Phase 1 has already completed and the program is in two randomised Phase 3 trials at a selected dose, the relevant anchor shifts toward Phase 3-conditional success, ~50%. Adjustments: +10 for a fully clinically validated target (TTR lowering already supports three approved products) and an accepted PD biomarker; +8 for deep, sustained single-dose TTR knockdown reported in the first-in-human data with no serious drug-related toxicity described; +5 for regulatory precedent on both PN endpoints (mNIS+7, Norfolk QoL-DN, external-control acceptance for eplontersen) and CM endpoints (ACM/CV hospitalisation, KCCQ, 6MWT); -8 for the ATTR-CM outcome risk specifically flagged in the patisiran APOLLO-B advisory committee record, where benefit appeared attenuated on background tafamidis and clinical meaningfulness was contested — MAGNITUDE enrols on top of stabiliser therapy; -5 for irreversibility: unresolved off-target/genomic-integrity characterisation in the supplied evidence and mandatory long-term follow-up that FDA will scrutinise for a permanent liver edit in a population with approved alternatives; -2 for absent program-specific immunogenicity and CMC evidence (LNP-CRISPR potency/comparability is an immature regulatory area)."
+    },
+    "confidence": {
+      "level": "moderate",
+      "rationale": "Registry coverage of the Phase 1, the Phase 3 successors and the LTFU protocol is good, and the ATTR regulatory precedent set (patisiran, tafamidis, inotersen, eplontersen, acoramidis reviews) is unusually rich. However, the bundle contains no primary Phase 1 dataset with per-cohort TTR reductions, no adverse-event tables, no off-target editing or biodistribution data, no immunogenicity results, and no CMC information — several dimensions therefore rest on class expectation rather than program data."
+    },
+    "criteria": [
+      {
+        "id": "disease_context_mechanism",
+        "score": 5,
+        "evidenceStrength": "strong",
+        "assessment": "ATTR amyloidosis is a progressive, fatal systemic amyloidosis with median survival of roughly 4.7 years from diagnosis and 3.4 years with cardiac involvement per the tafamidis review. Hepatic TTR is the sole source of circulating amyloidogenic precursor, and lowering TTR is a clinically validated mechanism across siRNA, ASO and stabiliser classes. NTLA-2001 differentiates by achieving permanent knockout after a single infusion rather than chronic dosing, which is a genuine advance in treatment burden. Rationale and differentiation are both strong.",
+        "supportingFindings": [
+          {
+            "finding": "Median survival 4.7 years from diagnosis, 3.4 years with cardiomyopathy; wtATTR found in up to 25% of individuals >85 years",
+            "source": "FDA Vyndaqel/Vyndamax review (NDA 212161)"
+          },
+          {
+            "finding": "Liver-directed TTR knockdown validated by approved products patisiran (78% mean serum TTR reduction), inotersen, eplontersen",
+            "source": "FDA Onpattro and Tegsedi reviews"
+          },
+          {
+            "finding": "First-in-human in vivo CRISPR/Cas9 editing of TTR produced significant and sustained serum TTR reduction",
+            "source": "Kotit, Glob Cardiol Sci Pract 2023 (PMC10624232)"
+          },
+          {
+            "finding": "Single-dose permanent knockout removes chronic-dosing burden versus q3-week IV or weekly SC alternatives",
+            "source": "Ioannou/Fontana/Gillmore review (PMC9933836); Inferred"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "Unmet need is now partially addressed by five approved agents, raising the comparative-benefit bar for an irreversible therapy",
+            "severity": "minor",
+            "source": "FDA reviews for Onpattro, Tegsedi, Wainua, Vyndaqel, Attruby"
+          }
+        ],
+        "informationGaps": [
+          "Whether NTLA-2001 achieves greater TTR reduction than approved siRNA/ASO agents in head-to-head or cross-trial comparison",
+          "Whether deeper knockdown translates to greater clinical benefit (the TTR exposure-response for outcomes is not established)"
+        ],
+        "label": "Disease Context & Mechanism",
+        "weight": 0
+      },
+      {
+        "id": "efficacy_clinical_evidence",
+        "score": 3,
+        "evidenceStrength": "moderate",
+        "assessment": "The Phase 1 provides open-label, single-arm pharmacodynamic evidence of significant and sustained serum TTR reduction, which is an accepted supportive biomarker but not itself an approvable endpoint. No mNIS+7, Norfolk QoL-DN, 6MWT or KCCQ effect sizes for NTLA-2001 were supplied in this bundle. Definitive efficacy rests on MAGNITUDE (~1200 participants, composite of CV mortality and CV events, 55 mg single IV, placebo-controlled) and the ATTRv-PN Phase 3 (~50 participants, 1:1 randomised, 55 mg). A score of 3 reflects a credible PD signal on a plausible surrogate without any controlled clinical-outcome data yet.",
+        "supportingFindings": [
+          {
+            "finding": "Significant and sustained reductions in serum TTR after a single dose; class comparator ART001 achieved >80% TTR reduction sustained ≥72 weeks",
+            "source": "PMC10624232; Jiang et al. (PMC13124466)"
+          },
+          {
+            "finding": "MAGNITUDE primary endpoint is a composite of CV mortality and CV events with secondary serum TTR and KCCQ-OS change to Month 18",
+            "source": "NCT06128629 / jRCT2053250023"
+          },
+          {
+            "finding": "Regulatory precedent that TTR-lowering plus neuropathy scales supports approval (eplontersen approved on a single well-controlled study with PD support)",
+            "source": "FDA Wainua review (NDA 217388)"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No program-specific clinical endpoint effect size supplied for NTLA-2001 in either indication",
+            "severity": "major",
+            "source": "Evidence bundle"
+          },
+          {
+            "concern": "ATTR-CM outcome benefit on top of background tafamidis/acoramidis is a demonstrated regulatory risk; the patisiran APOLLO-B advisory committee questioned clinical meaningfulness of small 6MWT/KCCQ effects and noted efficacy appeared limited to patients not on background tafamidis",
+            "severity": "major",
+            "source": "FDA Onpattro sNDA advisory committee briefing (fda_bc36ae235877)"
+          },
+          {
+            "concern": "ATTRv-PN Phase 3 enrols only ~50 participants, so powering depends heavily on assumed treatment effect and endpoint choice",
+            "severity": "minor",
+            "source": "NCT06672237"
+          },
+          {
+            "concern": "Serum TTR is not a validated surrogate for cardiovascular outcomes; accelerated approval on TTR alone is unlikely",
+            "severity": "major",
+            "source": "Inferred"
+          }
+        ],
+        "informationGaps": [
+          "Per-cohort magnitude and durability of TTR reduction with confidence intervals",
+          "Any change in NT-proBNP, troponin, extracellular volume, mNIS+7 or Norfolk QoL-DN in Phase 1 participants",
+          "MAGNITUDE powering assumptions, event-rate projections and interim analysis plan",
+          "Exposure-response relating depth of TTR knockdown to clinical outcome"
+        ],
+        "label": "Efficacy & Clinical Evidence",
+        "weight": 0.22
+      },
+      {
+        "id": "safety",
+        "score": 3,
+        "evidenceStrength": "moderate",
+        "assessment": "Available summaries describe transient infusion-related reactions as the principal adverse event, with no serious drug-related toxicity or dose-limiting toxicity reported, and the class comparator ART001 reported no serious adverse events. However, no numeric SAE rates, discontinuation rates, hepatic transaminase data, deaths, or dose-limiting toxicity definitions were supplied for NTLA-2001. For a permanent liver-directed edit delivered by LNP, transaminase elevation, complement activation-related reactions and irreversible protein loss (including vitamin A transport) are the expected areas of scrutiny. Score capped at 3 pending numeric characterisation.",
+        "supportingFindings": [
+          {
+            "finding": "Transient infusion reactions were the main adverse event in first-in-human dosing",
+            "source": "PMC10624232"
+          },
+          {
+            "finding": "Analogous in vivo editing agent ART001 achieved >80% TTR reduction for ≥72 weeks without serious adverse events",
+            "source": "PMC13124466"
+          },
+          {
+            "finding": "Program advanced to Phase 3 at a fixed 55 mg dose, implying no dose-limiting toxicity that constrained escalation",
+            "source": "NCT06672237; NCT06128629; Inferred"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No quantitative safety dataset (SAE incidence, discontinuations, deaths, laboratory abnormality rates) supplied for NTLA-2001",
+            "severity": "major",
+            "source": "Evidence bundle"
+          },
+          {
+            "concern": "Irreversible near-complete TTR loss carries permanent vitamin A/retinol transport consequences requiring lifelong supplementation and ophthalmologic monitoring, with no ability to withdraw drug",
+            "severity": "major",
+            "source": "Inferred from FDA Onpattro and Tegsedi vitamin A labelling"
+          },
+          {
+            "concern": "LNP infusion reactions and potential transaminase elevation require premedication and hepatic monitoring strategies not documented here",
+            "severity": "minor",
+            "source": "Inferred"
+          },
+          {
+            "concern": "Class caution: revusiran, another TTR-lowering agent, was discontinued in Phase 3 for a mortality imbalance — a reminder that TTR-directed agents in cardiomyopathy populations have failed on safety",
+            "severity": "minor",
+            "source": "NCT02319005 registry record"
+          }
+        ],
+        "informationGaps": [
+          "Treatment-emergent and serious adverse event tables by dose cohort",
+          "ALT/AST/bilirubin shift tables and any Hy's-law cases",
+          "Cytokine/complement activation data associated with infusion reactions",
+          "Retinol levels and ocular findings after permanent TTR knockout",
+          "Deaths and causality adjudication across the Phase 1 and LTFU"
+        ],
+        "label": "Safety & Tolerability",
+        "weight": 0.2
+      },
+      {
+        "id": "long_term_genetic_risk",
+        "score": 3,
+        "evidenceStrength": "weak",
+        "assessment": "This is the defining modality-specific risk and the supplied evidence does not characterise it. NTLA-2001 makes a permanent double-strand-break-mediated edit in hepatocytes; the reviewer would require GUIDE-seq/CIRCLE-seq or equivalent off-target discovery, targeted deep sequencing of candidate off-target sites in treated patients where feasible, large-deletion and translocation assessment, and chromosomal-integrity analysis. None was retrieved. The sponsor's dedicated long-term follow-up study (NCT05697861) is the appropriate 15-year surveillance vehicle and is a meaningful positive, but it is an infrastructure, not a result. Score capped at 3 given absent program-specific genotoxicity data.",
+        "supportingFindings": [
+          {
+            "finding": "Dedicated observational long-term follow-up protocol for all NTLA-2001-dosed subjects is registered",
+            "source": "NCT05697861"
+          },
+          {
+            "finding": "Non-integrating LNP/mRNA delivery avoids vector integration risk inherent to AAV or lentiviral platforms",
+            "source": "Inferred"
+          },
+          {
+            "finding": "Reviews of gene-editing strategies in ATTR explicitly identify long-term safety and monitoring as the outstanding issue",
+            "source": "Ioannou et al. (PMC9933836)"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No off-target editing data (in silico prediction, unbiased genome-wide discovery, or patient-level confirmation) in the evidence bundle",
+            "severity": "critical",
+            "source": "Evidence bundle"
+          },
+          {
+            "concern": "No assessment of large deletions, chromosomal translocations or p53-pathway effects following Cas9 double-strand breaks in hepatocytes",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "Edit is irreversible; if a late genotoxic signal emerges there is no mitigation other than surveillance",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "Hepatocellular carcinoma surveillance plan and duration for edited livers not documented",
+            "severity": "major",
+            "source": "Inferred"
+          }
+        ],
+        "informationGaps": [
+          "Genome-wide off-target discovery results and orthogonal confirmation in primary human hepatocytes",
+          "Editing allele frequency in liver and any off-tissue editing (gonads, spleen, bone marrow)",
+          "Malignancy surveillance schedule and statistical plan within NCT05697861",
+          "Nonclinical carcinogenicity or tumour-prone-model data"
+        ],
+        "label": "Long-Term Genetic Risk",
+        "weight": 0.1
+      },
+      {
+        "id": "biodistribution_pharmacology",
+        "score": 4,
+        "evidenceStrength": "moderate",
+        "assessment": "Pharmacology is unusually well anchored for a gene-editing product because the pharmacodynamic readout — circulating serum TTR — is directly measurable, hepatocyte-derived, and validated as a target-engagement marker across the TTR class. Reported sustained TTR reduction after a single dose demonstrates hepatocyte delivery, editing and durable loss of protein output. What is missing is quantitative tissue biodistribution of the LNP, liver editing rates, and the extent of any extrahepatic mRNA/Cas9 exposure.",
+        "supportingFindings": [
+          {
+            "finding": "Sustained serum TTR reduction after single infusion establishes hepatocyte target engagement and durable pharmacology",
+            "source": "PMC10624232"
+          },
+          {
+            "finding": "Serum TTR change from baseline to Month 18 retained as a Phase 3 secondary endpoint, confirming its role as the pharmacology anchor",
+            "source": "jRCT2053250023 / NCT06128629"
+          },
+          {
+            "finding": "Class agent ART001 sustained >80% TTR lowering for ≥72 weeks, supporting durability of the editing mechanism",
+            "source": "PMC13124466"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No quantitative LNP biodistribution or liver editing-efficiency data supplied",
+            "severity": "major",
+            "source": "Evidence bundle"
+          },
+          {
+            "concern": "Durability beyond the reported follow-up window is asserted by mechanism rather than demonstrated over multi-year horizons for NTLA-2001 specifically",
+            "severity": "minor",
+            "source": "Inferred"
+          },
+          {
+            "concern": "No data on whether tissue-deposited amyloid regresses or merely stops accumulating",
+            "severity": "minor",
+            "source": "Inferred"
+          }
+        ],
+        "informationGaps": [
+          "Nonclinical biodistribution of LNP, Cas9 mRNA and sgRNA by tissue and time",
+          "Hepatic editing allele frequency versus dose",
+          "Multi-year TTR trajectories in the LTFU cohort",
+          "Imaging or ECV evidence of cardiac amyloid burden change"
+        ],
+        "label": "Biodistribution & Pharmacology",
+        "weight": 0.1
+      },
+      {
+        "id": "immunogenicity",
+        "score": 3,
+        "evidenceStrength": "absent",
+        "assessment": "The immunogenicity search returned no NTLA-2001 data whatsoever; the retrieved papers concern unrelated products. Program-specific anti-Cas9 humoral and cellular responses, anti-PEG/anti-LNP antibodies, and the clinical correlates of the reported infusion reactions are all uncharacterised in this bundle. Pre-existing anti-SpCas9 immunity is prevalent in humans and is a recognised theoretical risk for hepatocyte immune clearance and for any future re-dosing. Because the intervention is a single dose achieving permanent effect, the consequences are less severe than for a re-dosed biologic, but the absence of data caps this at 3.",
+        "supportingFindings": [
+          {
+            "finding": "Single-dose design means neutralising ADA cannot erode chronic exposure, structurally limiting the clinical impact of anti-drug immunity",
+            "source": "Inferred"
+          },
+          {
+            "finding": "Reported infusion reactions were transient and did not prevent dose escalation to the selected 55 mg Phase 3 dose",
+            "source": "PMC10624232; NCT06672237"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No anti-Cas9 antibody or T-cell response data, no anti-PEG data, and no validated tiered assay strategy described",
+            "severity": "major",
+            "source": "Immunogenicity search returned no program data"
+          },
+          {
+            "concern": "Pre-existing anti-SpCas9 cellular immunity could drive immune-mediated hepatocyte injury; not addressed",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "Mechanism of the observed infusion reactions (complement activation-related pseudoallergy versus cytokine release) not characterised",
+            "severity": "minor",
+            "source": "Inferred"
+          }
+        ],
+        "informationGaps": [
+          "Incidence and titre of anti-Cas9 binding and neutralising antibodies pre- and post-dose",
+          "Anti-PEG/anti-LNP antibody incidence",
+          "Cas9-specific T-cell responses by ELISpot and any correlation with transaminase elevation",
+          "Assay validation package (screening, confirmatory, titre, neutralising tiers)",
+          "Whether re-dosing is feasible if initial knockdown is inadequate"
+        ],
+        "label": "Immunogenicity",
+        "weight": 0.1
+      },
+      {
+        "id": "manufacturability",
+        "score": 3,
+        "evidenceStrength": "absent",
+        "assessment": "No CMC information for NTLA-2001 was retrieved. LNP-formulated mRNA/sgRNA products are more tractable than autologous cell or viral-vector products — the process is chemical/enzymatic, scalable, and not patient-specific — but potency assay design for LNP-mRNA editing products is an acknowledged open problem, and encapsulation efficiency, RNA integrity, lipid impurities and cold-chain stability are all quality attributes FDA will interrogate. Advancement to a ~1200-participant Phase 3 implies a process capable of substantial batch supply, which is modest indirect reassurance. Capped at 3 for absent program-specific data.",
+        "supportingFindings": [
+          {
+            "finding": "MAGNITUDE enrols approximately 1200 participants at a fixed 55 mg single IV dose, implying demonstrated multi-batch clinical supply capability",
+            "source": "NCT06128629; NCT06672237"
+          },
+          {
+            "finding": "LNP-mRNA is a non-patient-specific, chemically defined platform with established scalable manufacturing precedent",
+            "source": "Whitley et al. (PMC8641981); Inferred"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No potency assay, CQA, comparability or stability data supplied; measuring in vitro activity of LNP-mRNA therapeutics is documented as a standing challenge",
+            "severity": "major",
+            "source": "Guerrini et al. (PMC12427680); evidence bundle"
+          },
+          {
+            "concern": "Bridging comparability between Phase 1 material and commercial-scale Phase 3 material is undocumented and is a common source of complete response letters for novel modalities",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "Cold-chain and shelf-life constraints for LNP-encapsulated RNA not characterised",
+            "severity": "minor",
+            "source": "Inferred"
+          }
+        ],
+        "informationGaps": [
+          "Potency assay (editing-based) design and qualification",
+          "CQA list, specifications, and control strategy",
+          "Comparability data across Phase 1 and Phase 3 process scales and sites",
+          "Stability, shelf life and storage/transport conditions",
+          "Facility readiness and process validation plan"
+        ],
+        "label": "Manufacturability & CMC",
+        "weight": 0.1
+      },
+      {
+        "id": "pkpd_dosing",
+        "score": 4,
+        "evidenceStrength": "moderate",
+        "assessment": "The program conducted a formal 4-cohort single-ascending-dose Phase 1 with PK and PD as co-objectives, and converged on a single fixed 55 mg IV dose for both Phase 3 programs — indicating a dose-response in serum TTR reduction sufficient to identify a plateau or maximal effect. That is an appropriate and defensible approach for a knockout product where the PD ceiling is near-complete protein loss. What is not supplied are the actual dose levels, the TTR reduction by dose, or any exposure-response analysis for safety; nor is there justification for fixed rather than weight-based dosing despite a ≥45 kg entry criterion.",
+        "supportingFindings": [
+          {
+            "finding": "Part 1 was an open-label single-ascending-dose study with 4 dose-escalation cohorts and PK/PD as stated objectives",
+            "source": "NCT04601051 registry record"
+          },
+          {
+            "finding": "Fixed 55 mg single IV infusion selected for both Phase 3 programs",
+            "source": "NCT06672237; jRCT2053250023"
+          },
+          {
+            "finding": "Weight floor of ≥45 kg in Phase 1 provides a bound on the exposure range for fixed dosing",
+            "source": "NCT04601051"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "Actual dose levels tested and the TTR dose-response curve were not supplied, so the basis for 55 mg cannot be verified",
+            "severity": "major",
+            "source": "Evidence bundle"
+          },
+          {
+            "concern": "Fixed-dose regimen across a wide body-weight range requires exposure justification, particularly for a one-time irreversible intervention where under-dosing cannot be corrected without re-dosing",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "Special populations — hepatic impairment (relevant for a liver-targeted LNP) and renal impairment (eGFR ≥30 permitted in Phase 3) — not characterised",
+            "severity": "minor",
+            "source": "NCT06128629 exclusion criteria; Inferred"
+          }
+        ],
+        "informationGaps": [
+          "Dose levels and per-cohort TTR nadir and duration",
+          "Cas9 mRNA and lipid PK parameters",
+          "Exposure-response for TTR reduction and for infusion reactions",
+          "Body-weight and hepatic-impairment effects on exposure and editing efficiency"
+        ],
+        "label": "PK/PD & Dosing",
+        "weight": 0.08
+      },
+      {
+        "id": "trial_design_regulatory",
+        "score": 4,
+        "evidenceStrength": "strong",
+        "assessment": "The Phase 1 design — open-label single-ascending dose with dose expansion in both ATTRv-PN and ATTR-CM, plus a UK-specific cardiomyopathy cohort with a 6MWT ≥150 m entry criterion — is appropriate for first-in-human in vivo editing. The regulatory strategy that follows is sound and precedent-aligned: a large placebo-controlled ATTR-CM outcome trial with a CV death/CV event composite mirroring the tafamidis ATTR-ACT construct, and a randomised placebo-controlled ATTRv-PN trial. Multinational registration (ClinicalTrials.gov plus jRCT) supports global applicability. The main deductions are the small ATTRv-PN sample (~50) and the difficulty of showing incremental outcome benefit on top of background stabiliser therapy, exactly the issue that troubled the APOLLO-B advisory committee.",
+        "supportingFindings": [
+          {
+            "finding": "Phase 3 MAGNITUDE is a multinational, multicentre, randomised, double-blind, placebo-controlled study of approximately 1200 participants with a CV mortality/CV event composite primary",
+            "source": "NCT06128629; jRCT2053250023"
+          },
+          {
+            "finding": "Enrichment criteria mirror approved-precedent trials: NT-proBNP ≥600 and ≤10,000 pg/mL, eGFR ≥30 mL/min/1.73 m2, stable HF within 28 days",
+            "source": "NCT06128629 eligibility"
+          },
+          {
+            "finding": "Secondary endpoints (serum TTR, KCCQ-OS change to Month 18) match endpoints FDA has previously accepted in ATTR-CM reviews",
+            "source": "jRCT2053250023; FDA Vyndaqel review"
+          },
+          {
+            "finding": "ATTRv-PN Phase 3 is randomised 1:1 against placebo at 55 mg single IV",
+            "source": "NCT06672237"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "Demonstrating benefit on top of tafamidis/acoramidis background is a documented interpretive hazard — FDA noted patisiran's APOLLO-B effect appeared limited to patients not on background tafamidis",
+            "severity": "major",
+            "source": "FDA Onpattro advisory committee briefing"
+          },
+          {
+            "concern": "Placebo control in ATTRv-PN raises ethical and enrolment feasibility questions given three approved PN therapies; washout requirements (RNA silencer within 12 months) may constrain recruitment",
+            "severity": "major",
+            "source": "NCT06128629/NCT06672237 exclusion criteria; Inferred"
+          },
+          {
+            "concern": "~50-participant ATTRv-PN trial may be insufficient for a robust substantial-evidence finding without external supportive data",
+            "severity": "minor",
+            "source": "NCT06672237"
+          }
+        ],
+        "informationGaps": [
+          "Statistical analysis plan, event-driven sample-size assumptions, and interim/futility strategy for MAGNITUDE",
+          "US versus ex-US enrolment fractions and applicability of the population",
+          "Formal designation status (RMAT, Fast Track, Orphan, Breakthrough)",
+          "Agency alignment on whether TTR reduction plus one Phase 3 could support ATTRv-PN approval as it did for eplontersen"
+        ],
+        "label": "Trial Design & Regulatory Strategy",
+        "weight": 0.07
+      },
+      {
+        "id": "trial_integrity_governance",
+        "score": 3,
+        "evidenceStrength": "absent",
+        "assessment": "No inspection findings, audit reports, protocol-deviation logs or investigator disclosure information for this program were retrieved. The Phase 1 is registered as COMPLETED with results-bearing registry entries, a dedicated LTFU protocol exists, and the program has progressed into multinational Phase 3 registration across ClinicalTrials.gov and jRCT — all consistent with functioning governance. FDA precedent in this therapeutic area shows clinical inspections have generally confirmed data reliability for ATTR pivotal trials (Attruby AG10-301, tafamidis PCRU), but that says nothing about this sponsor. Capped at 3 for absent program-specific evidence.",
+        "supportingFindings": [
+          {
+            "finding": "Phase 1 status COMPLETED with enriched registry record and a registered long-term follow-up protocol",
+            "source": "NCT04601051; NCT05697861"
+          },
+          {
+            "finding": "Consistent multinational registration of Phase 3 programs including Japanese jRCT entry with matching endpoints and doses",
+            "source": "jRCT2053250023; NCT06128629"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No GCP inspection outcomes, audit results, or protocol-deviation data available for review",
+            "severity": "major",
+            "source": "Evidence bundle"
+          },
+          {
+            "concern": "Open-label Phase 1 with sponsor-assessed clinical measures of neuropathy and cardiac function creates bias potential for the exploratory clinical readouts",
+            "severity": "minor",
+            "source": "NCT04601051 detailed description"
+          },
+          {
+            "concern": "Sponsor-investigator financial relationships in a small ATTR investigator community (noted in disclosure tables) require documentation",
+            "severity": "minor",
+            "source": "Inferred from disclosure references in retrieved literature"
+          }
+        ],
+        "informationGaps": [
+          "Site monitoring plan, deviation rates and any critical findings",
+          "BIMO inspection history for principal investigators",
+          "Financial disclosure and conflict-management documentation",
+          "Data management and independent adjudication arrangements for Phase 3 CV events"
+        ],
+        "label": "Trial Integrity, Governance & Operational Infrastructure",
+        "weight": 0.03
+      }
+    ],
+    "keyDrivers": [
+      {
+        "driver": "Fully clinically validated target — TTR lowering already underpins multiple FDA approvals",
+        "direction": "increases",
+        "weight": "high"
+      },
+      {
+        "driver": "Deep, sustained single-dose TTR knockdown with an accepted, directly measurable PD biomarker",
+        "direction": "increases",
+        "weight": "high"
+      },
+      {
+        "driver": "Program already advanced to two randomised placebo-controlled Phase 3 trials at a selected 55 mg dose",
+        "direction": "increases",
+        "weight": "high"
+      },
+      {
+        "driver": "ATTR-CM outcome benefit must be shown on top of effective background stabiliser therapy — the precise issue that troubled the patisiran APOLLO-B advisory committee",
+        "direction": "decreases",
+        "weight": "high"
+      },
+      {
+        "driver": "Off-target editing and long-term genomic-integrity data absent for an irreversible hepatic edit",
+        "direction": "decreases",
+        "weight": "moderate"
+      },
+      {
+        "driver": "No program-specific immunogenicity (anti-Cas9, anti-PEG) or CMC/potency-assay evidence",
+        "direction": "decreases",
+        "weight": "moderate"
+      },
+      {
+        "driver": "Small (~50 participant) ATTRv-PN Phase 3 and placebo control amid three approved PN therapies",
+        "direction": "decreases",
+        "weight": "low"
+      }
+    ],
+    "redFlags": [
+      {
+        "flag": "Off-target and genomic-integrity characterisation for a permanent CRISPR/Cas9 hepatic edit is absent from the submitted evidence",
+        "why": "FDA will not license an irreversible germline-adjacent-risk product without unbiased genome-wide off-target discovery, patient-level confirmation where feasible, large-deletion/translocation assessment, and a defined 15-year malignancy surveillance plan; a deficient package here is a clinical-hold or complete-response-letter issue independent of efficacy."
+      },
+      {
+        "flag": "Incremental efficacy in ATTR-CM on background tafamidis/acoramidis is unproven and has previously defeated a TTR-lowering agent at advisory committee",
+        "why": "If MAGNITUDE's composite is driven only by the stabiliser-naive subset, FDA may find the effect not clinically meaningful in the enrolled population, as it questioned for patisiran in the APOLLO-B sNDA, jeopardising the CM indication even with intact TTR pharmacology."
+      },
+      {
+        "flag": "No potency assay or comparability data for the LNP/mRNA/sgRNA product",
+        "why": "Potency measurement for LNP-mRNA editing products is an unsettled area; inability to demonstrate Phase 1-to-commercial comparability is a documented CMC ground for a complete response letter."
+      }
+    ],
+    "deRiskingActions": [
+      {
+        "action": "Submit the complete off-target package: unbiased genome-wide discovery (e.g. GUIDE-seq/CIRCLE-seq/ONE-seq) in primary human hepatocytes, orthogonal confirmation by targeted deep sequencing, large-deletion and translocation analysis, and karyotypic/structural-variant assessment.",
+        "addresses": "long_term_genetic_risk",
+        "priority": "immediate"
+      },
+      {
+        "action": "Prespecify and power a stratified analysis of the MAGNITUDE composite by background TTR-stabiliser use, with agency agreement on how a stabiliser-treated subgroup result will be interpreted for labelling.",
+        "addresses": "efficacy_clinical_evidence",
+        "priority": "immediate"
+      },
+      {
+        "action": "Report validated tiered immunogenicity results — anti-Cas9 binding/neutralising antibodies, Cas9-specific T-cell ELISpot, and anti-PEG antibodies — with correlation to transaminase elevations and infusion reactions.",
+        "addresses": "immunogenicity",
+        "priority": "immediate"
+      },
+      {
+        "action": "Publish per-cohort Phase 1 dose, serum TTR nadir and duration, and a quantitative exposure-response analysis justifying the fixed 55 mg dose across the eligible body-weight range.",
+        "addresses": "pkpd_dosing",
+        "priority": "near-term"
+      },
+      {
+        "action": "Provide the full quantitative Phase 1 safety dataset: TEAE/SAE tables by cohort, discontinuations, deaths with causality, hepatic laboratory shift tables, and the infusion-reaction management algorithm.",
+        "addresses": "safety",
+        "priority": "near-term"
+      },
+      {
+        "action": "Establish an editing-based potency assay with defined CQAs and generate analytical comparability data bridging Phase 1 material to the commercial-scale process, plus stability and cold-chain data.",
+        "addresses": "manufacturability",
+        "priority": "near-term"
+      },
+      {
+        "action": "Formalise the NCT05697861 long-term follow-up as a 15-year protocol with a prespecified malignancy and hepatic-surveillance schedule and multi-year serum TTR durability endpoints.",
+        "addresses": "long_term_genetic_risk",
+        "priority": "near-term"
+      },
+      {
+        "action": "Define lifelong vitamin A supplementation and ophthalmologic monitoring requirements given permanent, non-withdrawable TTR loss, and propose corresponding labelling.",
+        "addresses": "safety",
+        "priority": "near-term"
+      },
+      {
+        "action": "Document GCP oversight, site monitoring, protocol deviations and independent CV event adjudication for the Phase 3 programs, and confirm inspection readiness.",
+        "addresses": "trial_integrity_governance",
+        "priority": "later"
+      },
+      {
+        "action": "Seek RMAT and Breakthrough Therapy designations to secure structured agency engagement on the gene-editing-specific CMC and genotoxicity expectations.",
+        "addresses": "trial_design_regulatory",
+        "priority": "immediate"
+      }
+    ],
+    "regulatoryPrecedents": [
+      {
+        "product": "Onpattro (patisiran) — hATTR polyneuropathy",
+        "outcome": "Approved 2018",
+        "relevance": "Establishes TTR lowering as an approvable mechanism; APOLLO showed mNIS+7 difference of -34.0 points (95% CI -39.9, -28.1) with 78% mean serum TTR reduction, setting the efficacy and PD benchmark NTLA-2001 must meet or exceed."
+      },
+      {
+        "product": "Onpattro (patisiran) — ATTR-CM supplemental indication",
+        "outcome": "Advisory committee 2023; indication not granted",
+        "relevance": "Most directly cautionary precedent: FDA questioned clinical meaningfulness of small 6MWT/KCCQ effects and noted benefit appeared limited to patients not on background tafamidis — the exact interpretive risk facing MAGNITUDE."
+      },
+      {
+        "product": "Vyndaqel/Vyndamax (tafamidis) — ATTR-CM",
+        "outcome": "Approved 2019",
+        "relevance": "Defines the accepted ATTR-CM endpoint construct (Finkelstein-Schoenfeld composite of all-cause mortality and CV hospitalisation, p=0.0006; ACM HR 0.70) that MAGNITUDE's CV death/CV event composite mirrors, and is the background therapy against which incremental benefit must be shown."
+      },
+      {
+        "product": "Wainua (eplontersen) — hATTR polyneuropathy",
+        "outcome": "Approved 2023",
+        "relevance": "Precedent that a single well-controlled study supported by pharmacodynamic TTR evidence and class knowledge can suffice for the PN indication — a plausible route for the ~50-participant ATTRv-PN Phase 3."
+      },
+      {
+        "product": "Tegsedi (inotersen)",
+        "outcome": "Approved 2018 with boxed warning and mandatory REMS",
+        "relevance": "Shows FDA will approve a TTR-lowering agent despite serious toxicity (thrombocytopenia <100x10^9/L in 25%, glomerulonephritis 3%) when need is high, but with heavy risk mitigation and a postmarketing registry — the mitigation template if NTLA-2001 shows organ toxicity."
+      },
+      {
+        "product": "Revusiran (ALN-TTRSC) — ENDEAVOUR in ATTR cardiomyopathy",
+        "outcome": "Development discontinued (mortality imbalance)",
+        "relevance": "Demonstrates that TTR knockdown alone does not guarantee a favourable outcome in cardiomyopathy populations and that Phase 3 failure on safety grounds is a live scenario in this class."
+      },
+      {
+        "product": "Casgevy (exagamglogene autotemcel)",
+        "outcome": "Approved 2023",
+        "relevance": "First CRISPR/Cas9 approval; establishes the agency's expectations for off-target editing packages, genomic-integrity assessment and 15-year long-term follow-up that NTLA-2001 must satisfy as the first in vivo editing product."
+      },
+      {
+        "product": "Attruby (acoramidis)",
+        "outcome": "Approved 2024",
+        "relevance": "Raises the standard-of-care bar in ATTR-CM further and expands background therapy that MAGNITUDE participants may receive, compressing the achievable incremental effect size."
+      }
+    ],
+    "expeditedPathways": [
+      {
+        "pathway": "Orphan Drug",
+        "eligibility": "likely",
+        "rationale": "ATTR amyloidosis affects an estimated 5,000-10,000 persons with hATTR-PN globally and no more than roughly 6,400 US hATTR-PN patients per the Tegsedi review, comfortably within orphan thresholds."
+      },
+      {
+        "pathway": "RMAT",
+        "eligibility": "likely",
+        "rationale": "NTLA-2001 is a gene-editing product for a serious, life-threatening disease with preliminary clinical evidence of sustained TTR knockdown; RMAT is the canonical designation for this modality and would structure the genotoxicity and CMC dialogue."
+      },
+      {
+        "pathway": "Fast Track",
+        "eligibility": "likely",
+        "rationale": "ATTR amyloidosis is serious and life-threatening with median survival of 3.4 years once cardiomyopathy is present, and a one-time curative-intent edit addresses an unmet need not met by chronic therapies."
+      },
+      {
+        "pathway": "Breakthrough Therapy",
+        "eligibility": "possible",
+        "rationale": "Substantial improvement over available therapy could be argued from depth and permanence of TTR knockdown after a single dose, but breakthrough designation would be more defensible with controlled clinical-endpoint data than with PD data alone."
+      },
+      {
+        "pathway": "Priority Review",
+        "eligibility": "possible",
+        "rationale": "Plausible at BLA/NDA stage if Phase 3 demonstrates a significant improvement in a serious condition, or automatically via a rare pediatric or priority review voucher if applicable."
+      },
+      {
+        "pathway": "Accelerated Approval",
+        "eligibility": "unlikely",
+        "rationale": "Serum TTR is a pharmacodynamic marker, not a validated surrogate reasonably likely to predict cardiovascular outcomes; FDA has required clinical outcome endpoints in ATTR-CM and has not accepted TTR reduction alone."
+      }
+    ],
+    "evidenceQuality": {
+      "overall": "moderate",
+      "notes": "Strong on regulatory context: the FDA review set for patisiran, tafamidis, inotersen, eplontersen and acoramidis defines endpoints, effect-size benchmarks and the specific ATTR-CM interpretive hazard with unusual clarity, and the registry set documents the Phase 1 design, both Phase 3 successors (including the 55 mg fixed dose and MAGNITUDE endpoints) and the long-term follow-up protocol. Weak to absent on program specifics: the Phase 1 efficacy and safety evidence is limited to narrative summary (sustained TTR reduction, transient infusion reactions) with no per-cohort numbers, no dose levels, no adverse-event or laboratory tables. Immunogenicity returned zero NTLA-2001 data — the retrieved papers concern unrelated products. CMC and off-target/genotoxicity returned nothing program-specific. Consequently the immunogenicity, manufacturability, long-term genetic risk and trial-integrity scores rest on modality-class expectation rather than program data and are capped at 3 accordingly; the safety score is likewise capped pending numeric characterisation."
+    },
+    "weightedRubricScore": 3.25
+  },
+  "evidence": {
+    "gatheredAt": "2026-08-16T00:32:37.863Z",
+    "stats": {
+      "sectionsRequested": 13,
+      "sectionsWithContent": 13,
+      "sectionsFailed": 0,
+      "totalChars": 100764
+    },
+    "sections": [
+      {
+        "key": "trial_registry",
+        "label": "Trial registry records",
+        "source": "/trials/us",
+        "error": null,
+        "chars": 5249
+      },
+      {
+        "key": "trial_registry",
+        "label": "Trial registry records",
+        "source": "/trials/intl",
+        "error": null,
+        "chars": 4010
+      },
+      {
+        "key": "regulatory",
+        "label": "FDA / EMA / PMDA review documents and precedents",
+        "source": "-s fda",
+        "error": null,
+        "chars": 10722
+      },
+      {
+        "key": "immunogenicity",
+        "label": "Immunogenicity",
+        "source": "-s pmc,biorxiv",
+        "error": null,
+        "chars": 4647
+      },
+      {
+        "key": "safety",
+        "label": "Safety and tolerability",
+        "source": "-s pmc,biorxiv",
+        "error": null,
+        "chars": 5851
+      },
+      {
+        "key": "manufacturability",
+        "label": "Manufacturability / CMC",
+        "source": "-s pmc,biorxiv",
+        "error": null,
+        "chars": 6265
+      },
+      {
+        "key": "efficacy",
+        "label": "Efficacy and clinical evidence",
+        "source": "-s pmc,biorxiv",
+        "error": null,
+        "chars": 4774
+      },
+      {
+        "key": "pkpd",
+        "label": "PK/PD and dosing",
+        "source": "-s pmc,biorxiv",
+        "error": null,
+        "chars": 6569
+      },
+      {
+        "key": "mechanism",
+        "label": "Target and mechanism of action",
+        "source": "-s pmc",
+        "error": null,
+        "chars": 5154
+      },
+      {
+        "key": "trial_registry_deep",
+        "label": "Trial registry records — LLM reader extraction",
+        "source": "/trials/us (map/reduce)",
+        "error": null,
+        "chars": 7095
+      },
+      {
+        "key": "trial_registry_deep",
+        "label": "Trial registry records — LLM reader extraction",
+        "source": "/trials/intl (map/reduce)",
+        "error": null,
+        "chars": 8375
+      },
+      {
+        "key": "regulatory_deep",
+        "label": "FDA / EMA / PMDA review documents and precedents — LLM reader extraction",
+        "source": "-s fda (map/reduce)",
+        "error": null,
+        "chars": 23818
+      },
+      {
+        "key": "immunogenicity_deep",
+        "label": "Immunogenicity — LLM reader extraction",
+        "source": "-s pmc,biorxiv (map/reduce)",
+        "error": null,
+        "chars": 8235
+      }
+    ]
+  },
+  "meta": {
+    "rubricVersion": "2.0.0",
+    "model": "claude-opus-5",
+    "effort": "low",
+    "usage": {
+      "input_tokens": 46722,
+      "cache_creation_input_tokens": 7006,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 7006,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 13962,
+      "service_tier": "standard",
+      "inference_geo": "global"
+    },
+    "evaluatedAt": "2026-08-16T00:35:32.398Z"
+  }
+}

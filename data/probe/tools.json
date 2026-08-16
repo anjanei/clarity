@@ -1,0 +1,33 @@
+{
+  "handshake": {
+    "protocolVersion": "2025-03-26",
+    "serverInfo": {
+      "name": "paperclip",
+      "version": "1.0.0"
+    },
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "# Paperclip\n\nPaperclip is a virtual filesystem of full-text biomedical papers, regulatory documents, and clinical trials.\n\n**Before doing any Paperclip work, run `paperclip skill` to load the full documentation and the current account-enabled routine trigger registry.** If a trigger matches the user's request, run `paperclip routines route \"<short intent>\"` before continuing. Routed orchestrators and their phases are loaded remotely into context; do not search for or install local SKILL.md files. Run `paperclip <command> --help` for detailed help on any individual command."
+  },
+  "tools": [
+    {
+      "name": "paperclip",
+      "description": "# Paperclip\n\nPaperclip is a virtual filesystem of full-text biomedical papers, regulatory documents, and clinical trials.\n\n**Before doing any Paperclip work, run `paperclip skill` to load the full documentation and the current account-enabled routine trigger registry.** If a trigger matches the user's request, run `paperclip routines route \"<short intent>\"` before continuing. Routed orchestrators and their phases are loaded remotely into context; do not search for or install local SKILL.md files. Run `paperclip <command> --help` for detailed help on any individual command.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "string",
+            "description": "The Paperclip command to run, e.g. 'search \"CRISPR\" -n 5' or 'cat /papers/bio_xxx/meta.json' or 'search -s fda \"pembrolizumab\"' or 'search -s trials \"phase 3 NSCLC\"'"
+          }
+        },
+        "required": [
+          "command"
+        ]
+      }
+    }
+  ]
+}

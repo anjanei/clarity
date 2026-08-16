@@ -1,0 +1,2894 @@
+{
+  "generatedAt": "2026-08-16T01:39:01.324Z",
+  "generator": {
+    "note": "created by catalog:add"
+  },
+  "sources": [],
+  "retrievalFailures": [],
+  "enrichment": null,
+  "trials": [
+    {
+      "trialId": "NCT06321289",
+      "therapeuticName": "Allogeneic CD19-STAR T cell",
+      "sponsor": "Chinese PLA General Hospital",
+      "phase": "Phase 1/2",
+      "startDate": "2024-03-20",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Non-hodgkin Lymphoma,B Cell",
+      "modality": "Cell therapy",
+      "title": "Allogeneic TRAC Locus-inserted CD19-targeting STAR T Cell Therapy in r/r B-NHL",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Allogeneic CD19-STAR T cell",
+        "Fludarabine",
+        "Cyclophosphamide"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:33.550Z"
+    },
+    {
+      "trialId": "NCT05554939",
+      "therapeuticName": "Allogenic CD19 CAR-γδT cell",
+      "sponsor": "Chinese PLA General Hospital",
+      "phase": "Phase 1/2",
+      "startDate": "2022-12-11",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Non Hodgkin's Lymphoma",
+      "modality": "Cell therapy",
+      "title": "Allogenic CD19-targeting CAR-γδT Cell Therapy in R/R NHL",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Allogenic CD19 CAR-γδT cell",
+        "Fludarabine",
+        "Cyclophosphamide"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:43.838Z"
+    },
+    {
+      "trialId": "NCT03545815",
+      "therapeuticName": "anti-mesothelin CAR-T cells",
+      "sponsor": "Chinese PLA General Hospital",
+      "phase": "Phase 1",
+      "startDate": "2018-03-19",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Solid Tumor, Adult",
+      "modality": "Cell therapy",
+      "title": "Study of CRISPR-Cas9 Mediated PD-1 and TCR Gene-knocked Out Mesothelin-directed CAR-T Cells in Patients With Mesothelin Positive Multiple Solid Tumors.",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "anti-mesothelin CAR-T cells"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:16.096Z"
+    },
+    {
+      "trialId": "NCT05066165",
+      "therapeuticName": "Arm 1: NTLA-5001",
+      "sponsor": "Intellia Therapeutics",
+      "phase": "Phase 1/2",
+      "startDate": "2021-12-17",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Acute Myeloid Leukemia",
+      "modality": "Cell therapy",
+      "title": "Study Investigating NTLA-5001 in Subjects With Acute Myeloid Leukemia",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "TERMINATED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Arm 1: NTLA-5001",
+        "Arm 2: NTLA-5001"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:18.081Z"
+    },
+    {
+      "trialId": "NCT06647979",
+      "therapeuticName": "autologous bone marrow derived CD34+ HSPCs electroporated with BCL11A enhancer targeting Cas9 ribonucleoprotein",
+      "sponsor": "Daniel Bauer",
+      "phase": "Phase 1",
+      "startDate": "2025-12-01",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Sickle Cell Disease; Sickle Cell Anemia (HbSS, or HbSβ-thalassemia0); Beta-Thalassemia; Transfusion Dependent Beta-Thalassaemia",
+      "modality": "Cell therapy",
+      "title": "Hematopoietic Stem Cell BCL11A Enhancer Gene Editing for Severe β-Hemoglobinopathies",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "autologous bone marrow derived CD34+ HSPCs electroporated with BCL11A enhancer targeting Cas9 ribonucleoprotein"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:18.411Z"
+    },
+    {
+      "trialId": "NCT07708350",
+      "therapeuticName": "autologous bone marrow derived CD34+ HSPCs electroporated with BCL11A enhancer targeting Cas9 ribonucleoprotein",
+      "sponsor": "Daniel Bauer",
+      "phase": "Phase 1",
+      "startDate": "2026-08",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Sickle Cell Disease; Sickle Cell Anemia (HbSS, or HbSβ-thalassemia0)",
+      "modality": "Cell therapy",
+      "title": "Hematopoietic Stem Cell BCL11A Enhancer Gene Editing for Sickle Cell Disease",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "NOT_YET_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "autologous bone marrow derived CD34+ HSPCs electroporated with BCL11A enhancer targeting Cas9 ribonucleoprotein"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:43:13.174Z"
+    },
+    {
+      "trialId": "NCT05631912",
+      "therapeuticName": "Autologous CD19-STAR-T cell",
+      "sponsor": "Chinese PLA General Hospital",
+      "phase": "Phase 1/2",
+      "startDate": "2023-06-30",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Non-hodgkin Lymphoma,B Cell",
+      "modality": "Cell therapy",
+      "title": "TRAC Locus-inserted CD19-targeting STAR-T Cell Therapy in r/r B-NHL",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Autologous CD19-STAR-T cell",
+        "Fludarabine",
+        "Cyclophosphamide"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:51.791Z"
+    },
+    {
+      "trialId": "NCT04560790",
+      "therapeuticName": "BD111 Adult single group Dose",
+      "sponsor": "Shanghai BDgene Co., Ltd.",
+      "phase": "Not Applicable",
+      "startDate": "2020-11-04",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Viral Keratitis; Blindness Eye; Herpes Simplex Virus Infection; Cornea",
+      "modality": "Gene therapy",
+      "title": "Safety and Efficacy of CRISPR/Cas9 mRNA Instantaneous Gene Editing Therapy to Treat Refractory Viral Keratitis",
+      "therapeuticArea": "Ophthalmology",
+      "therapeuticDescription": "",
+      "overallStatus": "COMPLETED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "BD111 Adult single group Dose"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:51.989Z"
+    },
+    {
+      "trialId": "NCT06474442",
+      "therapeuticName": "BD111 Injection (investigational new drug)",
+      "sponsor": "Shanghai BDgene Co., Ltd.",
+      "phase": "Phase 2",
+      "startDate": "2025-04-28",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Herpes Simplex Virus Type I Stromal Keratitis",
+      "modality": "Gene therapy",
+      "title": "A Phase Ⅱa Study of the Safety, Tolerability and Efficacy of BD111 in Herpes Simplex Virus Type I Stromal Keratitis",
+      "therapeuticArea": "Ophthalmology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "BD111 Injection (investigational new drug)",
+        "Triple-drugs therapy of HSV-1 stromal keratitis"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:53.528Z"
+    },
+    {
+      "trialId": "NCT06474416",
+      "therapeuticName": "BD111 Injection (Investigative New Drug)",
+      "sponsor": "Shanghai BDgene Co., Ltd.",
+      "phase": "Phase 1",
+      "startDate": "2023-09-04",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Herpes Simplex Virus Type I Stromal Keratitis",
+      "modality": "Gene therapy",
+      "title": "A Study of the Safety, Tolerability and Prelinminary Efficacy of BD111 in Herpes Simplex Virus Type I Stromal Keratitis",
+      "therapeuticArea": "Ophthalmology",
+      "therapeuticDescription": "",
+      "overallStatus": "ACTIVE_NOT_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "BD111 Injection (Investigative New Drug)",
+        "Triple-drugs therapy of HSV-1 stromal keratitis"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:51.471Z"
+    },
+    {
+      "trialId": "NCT06465537",
+      "therapeuticName": "BD113vVLP",
+      "sponsor": "Shanghai BDgene Co., Ltd.",
+      "phase": "Not Applicable",
+      "startDate": "2024-06-10",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Primary Open Angle Glaucoma",
+      "modality": "Gene therapy",
+      "title": "CRISPR/Cas9 Instantaneous Gene Editing Therapy to Intraocular Hypertensive POAG With MYOC Mutation",
+      "therapeuticArea": "Ophthalmology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "BD113vVLP"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:49.158Z"
+    },
+    {
+      "trialId": "NCT07170254",
+      "therapeuticName": "BD114VLP, or BD114",
+      "sponsor": "Shanghai BDgene Co., Ltd.",
+      "phase": "Not Applicable",
+      "startDate": "2025-09",
+      "registry": "ClinicalTrials.gov",
+      "condition": "High-grade Squamous Intraepithelial Lesions (HSIL)",
+      "modality": "Gene therapy",
+      "title": "A Clinical Study on the Evaluation of BD114 for the Treatment HPV-16-Related Cervical HSIL",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "BD114VLP, or BD114",
+        "BD114VLP or BD114 plus Gel"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:50.020Z"
+    },
+    {
+      "trialId": "NCT06611436",
+      "therapeuticName": "BE-101",
+      "sponsor": "Be Biopharma",
+      "phase": "Phase 1/2",
+      "startDate": "2024-12-04",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Hemophilia B; Hemophilia B, Moderately Severe or Severe",
+      "modality": "Cell therapy",
+      "title": "BeCoMe-9: A Clinical Study of BE-101 for the Treatment of Adults With Moderately Severe or Severe Hemophilia B",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "TERMINATED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "BE-101",
+        "BE-101",
+        "BE-101",
+        "BE-101"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:07.988Z"
+    },
+    {
+      "trialId": "NCT05456880",
+      "therapeuticName": "BEAM-101",
+      "sponsor": "Beam Therapeutics Inc.",
+      "phase": "Phase 1/2",
+      "startDate": "2022-08-30",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Sickle Cell Disease",
+      "modality": "Cell therapy",
+      "title": "BEACON: A Study Evaluating the Safety and Efficacy of BEAM-101 in Patients With Severe Sickle Cell Disease",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "ACTIVE_NOT_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "BEAM-101"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:40.074Z"
+    },
+    {
+      "trialId": "NCT07304791",
+      "therapeuticName": "BEAM-103",
+      "sponsor": "Beam Therapeutics Inc.",
+      "phase": "Phase 1",
+      "startDate": "2025-10-27",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Healthy Subjects; Healthy Participant Study",
+      "modality": "Gene therapy",
+      "title": "This is a Phase 1, Randomized, Single-blind, Placebo-controlled Study to Assess the Safety, Pharmacokinetics (PK), and Pharmacodynamics (PD) of BEAM-103 in Healthy Subjects",
+      "therapeuticArea": "Cardiometabolic",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "BEAM-103",
+        "Placebo Comparator"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:43:01.458Z"
+    },
+    {
+      "trialId": "NCT06735755",
+      "therapeuticName": "BEAM-301: Single dose of BEAM-301 administered by IV",
+      "sponsor": "Beam Therapeutics Inc.",
+      "phase": "Phase 1/2",
+      "startDate": "2024-12-06",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Glycogen Storage Disease Type Ia",
+      "modality": "Gene therapy",
+      "title": "A Phase 1/2, Dose-Exploration Study to Evaluate the Safety and Efficacy of BEAM-301 in Patients With Glycogen Storage Disease Type Ia (GSDIa)",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "BEAM-301: Single dose of BEAM-301 administered by IV"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:25.436Z"
+    },
+    {
+      "trialId": "NCT06389877",
+      "therapeuticName": "BEAM-302",
+      "sponsor": "Beam Therapeutics Inc.",
+      "phase": "Phase 1/2",
+      "startDate": "2024-06-19",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Alpha 1-Antitrypsin Deficiency",
+      "modality": "Gene therapy",
+      "title": "A Study to Evaluate the Safety and Efficacy of BEAM-302 in Adult Patients With Alpha-1 Antitrypsin Deficiency (AATD)",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "BEAM-302"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:39.687Z"
+    },
+    {
+      "trialId": "NCT05120830",
+      "therapeuticName": "Biological NTLA-2002",
+      "sponsor": "Intellia Therapeutics",
+      "phase": "Phase 1/2",
+      "startDate": "2021-12-10",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Hereditary Angioedema",
+      "modality": "Gene therapy",
+      "title": "NTLA-2002 in Adults With Hereditary Angioedema (HAE)",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "ACTIVE_NOT_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Biological NTLA-2002"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:20.449Z"
+    },
+    {
+      "trialId": "NCT06622668",
+      "therapeuticName": "Biological NTLA-3001",
+      "sponsor": "Intellia Therapeutics",
+      "phase": "Phase 1/2",
+      "startDate": "2024-11-20",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Lung Disease; Pulmonary Disease; AATD; Alpha-1 Antitrypsin Deficiency; Alpha-1 Antitrypsin Deficiency-associated Lung Disease",
+      "modality": "Gene therapy",
+      "title": "NTLA-3001 in Adults with Alpha-1 Antitrypsin Deficiency-Associated Lung Disease",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "WITHDRAWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Biological NTLA-3001"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:12.414Z"
+    },
+    {
+      "trialId": "NCT05577312",
+      "therapeuticName": "BRL-101",
+      "sponsor": "Bioray Laboratories",
+      "phase": "Phase 1/2",
+      "startDate": "2022-11-02",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Beta-Thalassemia",
+      "modality": "Cell therapy",
+      "title": "Safety and Efficacy Evaluation of BRL-101 in Subjects With Transfusion-Dependent β-Thalassemia",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "ACTIVE_NOT_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "BRL-101"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:50.061Z"
+    },
+    {
+      "trialId": "NCT06287099",
+      "therapeuticName": "BRL-101",
+      "sponsor": "Bioray Laboratories",
+      "phase": "Not Applicable",
+      "startDate": "2024-04-20",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Sickle Cell Disease",
+      "modality": "Cell therapy",
+      "title": "Clinical Study of BRL-101 in the Treatment of Sickle Cell Disease",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "BRL-101"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:27.501Z"
+    },
+    {
+      "trialId": "NCT06300723",
+      "therapeuticName": "BRL-101",
+      "sponsor": "Bioray Laboratories",
+      "phase": "Not Applicable",
+      "startDate": "2024-07-29",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Sickle Cell Disease",
+      "modality": "Cell therapy",
+      "title": "Clinical Study of BRL-101 in Severe SCD",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "BRL-101"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:31.618Z"
+    },
+    {
+      "trialId": "NCT06287086",
+      "therapeuticName": "BRL-101 autologous hematopoietic stem and progenitor cells injection",
+      "sponsor": "Bioray Laboratories",
+      "phase": "Not Applicable",
+      "startDate": "2024-06-14",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Sickle Cell Disease",
+      "modality": "Cell therapy",
+      "title": "Clinical Study on the Safety and Efficacy of BRL-101 in the Treatment of Sickle Cell Disease",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "BRL-101 autologous hematopoietic stem and progenitor cells injection"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:25.613Z"
+    },
+    {
+      "trialId": "NCT04637763",
+      "therapeuticName": "CB-010",
+      "sponsor": "Caribou Biosciences, Inc.",
+      "phase": "Phase 1",
+      "startDate": "2021-05-26",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Lymphoma, Non-Hodgkin; Relapsed Non Hodgkin Lymphoma; Refractory B-Cell Non-Hodgkin Lymphoma; Non Hodgkin Lymphoma; Lymphoma; B Cell Lymphoma; B Cell Non-Hodgkin's Lymphoma",
+      "modality": "Cell therapy",
+      "title": "CRISPR-Edited Allogeneic Anti-CD19 CAR-T Cell Therapy for Relapsed/Refractory B Cell Non-Hodgkin Lymphoma (ANTLER)",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CB-010",
+        "Cyclophosphamide",
+        "Fludarabine"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:56.017Z"
+    },
+    {
+      "trialId": "NCT06752876",
+      "therapeuticName": "CB-010",
+      "sponsor": "Caribou Biosciences, Inc.",
+      "phase": "Phase 1",
+      "startDate": "2027-12",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Systemic Lupus Erythematosus; Lupus; Lupus Erythematosus; Lupus Nephritis",
+      "modality": "Cell therapy",
+      "title": "CRISPR-Edited Allogeneic Anti-CD19 CAR-T Cell Therapy, in Patients With Refractory Systemic Lupus Erythematosus (GALLOP)",
+      "therapeuticArea": "Immunology & Inflammation",
+      "therapeuticDescription": "",
+      "overallStatus": "WITHDRAWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CB-010"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:27.622Z"
+    },
+    {
+      "trialId": "NCT05722418",
+      "therapeuticName": "CB-011",
+      "sponsor": "Caribou Biosciences, Inc.",
+      "phase": "Phase 1",
+      "startDate": "2023-02-06",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Relapsed/Refractory Multiple Myeloma",
+      "modality": "Cell therapy",
+      "title": "CRISPR-Edited Allogeneic Anti-BCMA CAR-T Cell Therapy in Patients With Relapsed/Refractory Multiple Myeloma",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CB-011"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:57.369Z"
+    },
+    {
+      "trialId": "NCT06128044",
+      "therapeuticName": "CB-012",
+      "sponsor": "Caribou Biosciences, Inc.",
+      "phase": "Phase 1",
+      "startDate": "2024-02-08",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Acute Myeloid Leukemia, in Relapse; Acute Myeloid Leukemia Refractory",
+      "modality": "Cell therapy",
+      "title": "CRISPR-Edited Allogeneic Anti-CLL-1 CAR-T Cell Therapy in Patients With Relapsed/Refractory Acute Myeloid Leukemia",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "TERMINATED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CB-012"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:18.018Z"
+    },
+    {
+      "trialId": "NCT03164135",
+      "therapeuticName": "CCR5 gene modification",
+      "sponsor": "Affiliated Hospital to Academy of Military Medical Sciences",
+      "phase": "Not Applicable",
+      "startDate": "2017-05-30",
+      "registry": "ClinicalTrials.gov",
+      "condition": "HIV-1-infection",
+      "modality": "Cell therapy",
+      "title": "Safety of Transplantation of CRISPR CCR5 Modified CD34+ Cells in HIV-infected Subjects With Hematological Malignances",
+      "therapeuticArea": "Infectious Disease & Vaccines",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CCR5 gene modification"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:06.183Z"
+    },
+    {
+      "trialId": "NCT05370547",
+      "therapeuticName": "Chidamide",
+      "sponsor": "Chinese PLA General Hospital",
+      "phase": "Phase 1/2",
+      "startDate": "2022-05-25",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Non Hodgkin's Lymphoma",
+      "modality": "Cell therapy",
+      "title": "Chidamide Bridging for CAR-T Therapy",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Chidamide",
+        "Fludarabine and cyclophosphamide",
+        "Anti-CD19 CAR-T cells"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:32.741Z"
+    },
+    {
+      "trialId": "NCT06815029",
+      "therapeuticName": "Chimeric Antigen Receptor T-Cell Therapy",
+      "sponsor": "City of Hope Medical Center",
+      "phase": "Phase 1",
+      "startDate": "2025-06-17",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Recurrent Astrocytoma, IDH-Mutant, Grade 3; Recurrent Astrocytoma, IDH-Mutant, Grade 4; Recurrent Glioblastoma",
+      "modality": "Cell therapy",
+      "title": "Intracranial Genetically Modified Immune Cells (TGFβR2KO/IL13Rα2 CAR T-Cells) for the Treatment of Recurrent or Progressive Glioblastoma or Grade 3 or 4 IDH-Mutant Astrocytoma",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Chimeric Antigen Receptor T-Cell Therapy"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:31.269Z"
+    },
+    {
+      "trialId": "NCT04774536",
+      "therapeuticName": "CRISPR_SCD001",
+      "sponsor": "Mark Walters, MD",
+      "phase": "Phase 1/2",
+      "startDate": "2025-08-22",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Sickle Cell Disease",
+      "modality": "Cell therapy",
+      "title": "Transplantation of Clustered Regularly Interspaced Short Palindromic Repeats Modified Hematopoietic Progenitor Stem Cells (CRISPR_SCD001) in Patients With Severe Sickle Cell Disease",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CRISPR_SCD001"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:59.897Z"
+    },
+    {
+      "trialId": "NCT05397184",
+      "therapeuticName": "Cryopreserved BE CAR7 T cells (BE752TBCCLCAR7PBL)",
+      "sponsor": "Great Ormond Street Hospital for Children NHS Foundation Trust",
+      "phase": "Phase 1",
+      "startDate": "2022-04-19",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Relapsed/Refractory T-cell Acute Lymphoid Leukaemia",
+      "modality": "Cell therapy",
+      "title": "Base Edited CAR7 T Cells to Treat T Cell Malignancies (TvT CAR7)",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Cryopreserved BE CAR7 T cells (BE752TBCCLCAR7PBL)"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:34.677Z"
+    },
+    {
+      "trialId": "NCT06024876",
+      "therapeuticName": "CS-101",
+      "sponsor": "CorrectSequence Therapeutics Co., Ltd",
+      "phase": "Early Phase 1",
+      "startDate": "2023-08-26",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Beta-Thalassemia",
+      "modality": "Cell therapy",
+      "title": "A Clinical Study Evaluating the Safety and Efficacy of CS-101 in Treating Subjects With β-thalassemia",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "COMPLETED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CS-101"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:06.080Z"
+    },
+    {
+      "trialId": "NCT06328764",
+      "therapeuticName": "CS-101",
+      "sponsor": "CorrectSequence Therapeutics Co., Ltd",
+      "phase": "Early Phase 1",
+      "startDate": "2024-03-19",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Beta-Thalassemia",
+      "modality": "Cell therapy",
+      "title": "CS-101 in Patients With β-thalassemia",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "ENROLLING_BY_INVITATION",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CS-101"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:35.744Z"
+    },
+    {
+      "trialId": "NCT06479616",
+      "therapeuticName": "CS-101",
+      "sponsor": "Children's Hospital of Fudan University",
+      "phase": "Not Applicable",
+      "startDate": "2024-06-18",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Beta-Thalassemia",
+      "modality": "Cell therapy",
+      "title": "A Long-term Follow-up Study in Participants Who Received CS-101",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CS-101"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:55.621Z"
+    },
+    {
+      "trialId": "NCT06065189",
+      "therapeuticName": "CS-101 injection",
+      "sponsor": "Children's Hospital of Fudan University",
+      "phase": "Early Phase 1",
+      "startDate": "2023-11-07",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Beta-Thalassemia",
+      "modality": "Cell therapy",
+      "title": "Base-edited Autologous Hematopoietic Stem Cell Transplantation in Treating Patients With β-thalassemia Major",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "COMPLETED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CS-101 injection"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:13.752Z"
+    },
+    {
+      "trialId": "NCT06291961",
+      "therapeuticName": "CS-101 injection",
+      "sponsor": "CorrectSequence Therapeutics Co., Ltd",
+      "phase": "Phase 1",
+      "startDate": "2024-04-18",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Beta-Thalassemia Major",
+      "modality": "Cell therapy",
+      "title": "A Safety and Efficacy Study Evaluating CS-101 in Subjects With β-Thalassemia Major",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "COMPLETED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CS-101 injection"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:29.464Z"
+    },
+    {
+      "trialId": "NCT07489196",
+      "therapeuticName": "CS-101 injection",
+      "sponsor": "CorrectSequence Therapeutics Co., Ltd",
+      "phase": "Phase 2",
+      "startDate": "2026-04-05",
+      "registry": "ClinicalTrials.gov",
+      "condition": "β-thalassemia Major",
+      "modality": "Cell therapy",
+      "title": "A Phase 2 Safety and Efficacy Study Evaluating CS-101 in Participants With β-Thalassemia Major",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "NOT_YET_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CS-101 injection"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:43:05.993Z"
+    },
+    {
+      "trialId": "NCT04767308",
+      "therapeuticName": "CT125A cells",
+      "sponsor": "Huazhong University of Science and Technology",
+      "phase": "Early Phase 1",
+      "startDate": "2021-03",
+      "registry": "ClinicalTrials.gov",
+      "condition": "CD5+ Relapsed/Refractory Hematopoietic Malignancies; Chronic Lymphocytic Leukemia (CLL); Mantle Cell Lymphoma (MCL); Diffuse Large B-cell Lymphoma (DLBCL); Follicular Lymphoma (FL); Peripheral T-cell Lymphomas (PTCL)",
+      "modality": "Cell therapy",
+      "title": "Safety and Efficacy of CT125A Cells for Treatment of Relapsed/Refractory CD5+ Hematopoietic Malignancies",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CT125A cells",
+        "Cyclophosphamide, fludarabine"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:57.972Z"
+    },
+    {
+      "trialId": "NCT03655678",
+      "therapeuticName": "CTX001",
+      "sponsor": "Vertex Pharmaceuticals Incorporated",
+      "phase": "Phase 2/3",
+      "startDate": "2018-09-14",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Beta-Thalassemia; Thalassemia; Genetic Diseases, Inborn; Hematologic Diseases; Hemoglobinopathies",
+      "modality": "Cell therapy",
+      "title": "A Safety and Efficacy Study Evaluating CTX001 in Participants With Transfusion-Dependent β-Thalassemia",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "COMPLETED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX001"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:18.266Z"
+    },
+    {
+      "trialId": "NCT03745287",
+      "therapeuticName": "CTX001",
+      "sponsor": "Vertex Pharmaceuticals Incorporated",
+      "phase": "Phase 2/3",
+      "startDate": "2018-11-27",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Sickle Cell Disease; Hematological Diseases; Hemoglobinopathies",
+      "modality": "Cell therapy",
+      "title": "A Safety and Efficacy Study Evaluating CTX001 in Subjects With Severe Sickle Cell Disease",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "COMPLETED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX001"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:22.052Z"
+    },
+    {
+      "trialId": "NCT04208529",
+      "therapeuticName": "CTX001",
+      "sponsor": "Vertex Pharmaceuticals Incorporated",
+      "phase": "Phase 3",
+      "startDate": "2021-01-20",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Beta-Thalassemia; Thalassemia; Sickle Cell Disease; Hematologic Diseases; Hemoglobinopathies; Genetic Diseases, Inborn; Sickle Cell Anemia",
+      "modality": "Cell therapy",
+      "title": "A Long-term Follow-up Study in Participants Who Received CTX001",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "ENROLLING_BY_INVITATION",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX001"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:34.673Z"
+    },
+    {
+      "trialId": "NCT05329649",
+      "therapeuticName": "CTX001",
+      "sponsor": "Vertex Pharmaceuticals Incorporated",
+      "phase": "Phase 3",
+      "startDate": "2022-05-02",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Sickle Cell Disease; Hydroxyurea Failure; Hydroxyurea Intolerance; Hemoglobinopathies; Hematological Diseases",
+      "modality": "Cell therapy",
+      "title": "Evaluation of Safety and Efficacy of CTX001 in Pediatric Participants With Severe Sickle Cell Disease (SCD)",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "ACTIVE_NOT_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX001"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:28.806Z"
+    },
+    {
+      "trialId": "NCT05356195",
+      "therapeuticName": "CTX001",
+      "sponsor": "Vertex Pharmaceuticals Incorporated",
+      "phase": "Phase 3",
+      "startDate": "2022-05-03",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Beta-Thalassemia; Thalassemia; Genetic Diseases, Inborn; Hematologic Diseases; Hemoglobinopathies",
+      "modality": "Cell therapy",
+      "title": "Evaluation of Safety and Efficacy of CTX001 in Pediatric Participants With Transfusion-Dependent β-Thalassemia (TDT)",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "ACTIVE_NOT_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX001"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:30.773Z"
+    },
+    {
+      "trialId": "NCT05477563",
+      "therapeuticName": "CTX001",
+      "sponsor": "Vertex Pharmaceuticals Incorporated",
+      "phase": "Phase 3",
+      "startDate": "2022-08-02",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Beta-Thalassemia; Thalassemia; Hematologic Diseases; Genetic Diseases, Inborn; Hemoglobinopathies; Sickle Cell Disease; Sickle Cell Anemia",
+      "modality": "Cell therapy",
+      "title": "Evaluation of Efficacy and Safety of a Single Dose of CTX001 in Participants With Transfusion-Dependent β-Thalassemia and Severe Sickle Cell Disease",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX001"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:41.872Z"
+    },
+    {
+      "trialId": "NCT04035434",
+      "therapeuticName": "CTX110",
+      "sponsor": "CRISPR Therapeutics AG",
+      "phase": "Phase 1/2",
+      "startDate": "2019-07-22",
+      "registry": "ClinicalTrials.gov",
+      "condition": "B-cell Malignancy; Non-Hodgkin Lymphoma; B-cell Lymphoma; Adult B Cell ALL",
+      "modality": "Cell therapy",
+      "title": "A Safety and Efficacy Study Evaluating CTX110 in Subjects With Relapsed or Refractory B-Cell Malignancies (CARBON)",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "TERMINATED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX110"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:29.194Z"
+    },
+    {
+      "trialId": "NCT05643742",
+      "therapeuticName": "CTX112",
+      "sponsor": "CRISPR Therapeutics AG",
+      "phase": "Phase 1/2",
+      "startDate": "2023-03-10",
+      "registry": "ClinicalTrials.gov",
+      "condition": "B-cell Lymphoma; Non-Hodgkin Lymphoma; B-cell Malignancy; Chronic Lymphocytic Leukemia (CLL)/Small Lymphocytic Lymphoma (SLL); Follicular Lymphoma; Mantle Cell Lymphoma; Marginal Zone Lymphoma; Large B-cell Lymphoma",
+      "modality": "Cell therapy",
+      "title": "A Safety and Efficacy Study Evaluating CTX112 in Subjects With Relapsed or Refractory B-Cell Malignancies",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX112"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:53.523Z"
+    },
+    {
+      "trialId": "NCT06925542",
+      "therapeuticName": "CTX112",
+      "sponsor": "CRISPR Therapeutics",
+      "phase": "Phase 1",
+      "startDate": "2025-03-10",
+      "registry": "ClinicalTrials.gov",
+      "condition": "SLE (Systemic Lupus); Lupus Erythematosus, Systemic; Lupus Nephritis; Systemic Sclerosis; Inflammatory Myopathy, Idiopathic; Myositis; Diffuse Cutaneous Systemic Sclerosis",
+      "modality": "Cell therapy",
+      "title": "A Safety and Efficacy Study Evaluating CTX112 in Adult Subjects With Refractory Autoimmune Disease",
+      "therapeuticArea": "Immunology & Inflammation",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX112"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:37.572Z"
+    },
+    {
+      "trialId": "NCT07549698",
+      "therapeuticName": "CTX112",
+      "sponsor": "CRISPR Therapeutics AG",
+      "phase": "Phase 1/2",
+      "startDate": "2026-06",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Warm Autoimmune Hemolytic Anemia (WAIHA); ITP - Immune Thrombocytopenia; Warm Autoimmune Hemolytic Anemia; Immune Thrombocytopenic Purpura",
+      "modality": "Cell therapy",
+      "title": "Safety and Preliminary Efficacy of CTX112 in Adult Participants With Relapsed/Refractory Hematologic Autoimmune Disease",
+      "therapeuticArea": "Immunology & Inflammation",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX112"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:43:11.064Z"
+    },
+    {
+      "trialId": "NCT04244656",
+      "therapeuticName": "CTX120",
+      "sponsor": "CRISPR Therapeutics AG",
+      "phase": "Phase 1",
+      "startDate": "2020-01-22",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Multiple Myeloma",
+      "modality": "Cell therapy",
+      "title": "A Safety and Efficacy Study Evaluating CTX120 in Subjects With Relapsed or Refractory Multiple Myeloma",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "TERMINATED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX120"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:38.701Z"
+    },
+    {
+      "trialId": "NCT04438083",
+      "therapeuticName": "CTX130",
+      "sponsor": "CRISPR Therapeutics AG",
+      "phase": "Phase 1",
+      "startDate": "2020-06-16",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Renal Cell Carcinoma",
+      "modality": "Cell therapy",
+      "title": "A Safety and Efficacy Study Evaluating CTX130 in Subjects With Relapsed or Refractory Renal Cell Carcinoma (COBALT-RCC)",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "TERMINATED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX130"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:44.152Z"
+    },
+    {
+      "trialId": "NCT04502446",
+      "therapeuticName": "CTX130",
+      "sponsor": "CRISPR Therapeutics AG",
+      "phase": "Phase 1",
+      "startDate": "2020-07-31",
+      "registry": "ClinicalTrials.gov",
+      "condition": "T Cell Lymphoma",
+      "modality": "Cell therapy",
+      "title": "A Safety and Efficacy Study Evaluating CTX130 in Subjects With Relapsed or Refractory T or B Cell Malignancies (COBALT-LYM)",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "TERMINATED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX130"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:47.893Z"
+    },
+    {
+      "trialId": "NCT05795595",
+      "therapeuticName": "CTX131",
+      "sponsor": "CRISPR Therapeutics AG",
+      "phase": "Phase 1/2",
+      "startDate": "2023-03-13",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Clear Cell Renal Cell Carcinoma; Cervical Carcinoma; Esophageal Carcinoma; Pancreatic Adenocarcinoma; Malignant Pleural Mesothelioma",
+      "modality": "Cell therapy",
+      "title": "A Safety and Efficacy Study Evaluating CTX131 in Adult Subjects With Relapsed or Refractory Solid Tumors",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "COMPLETED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX131"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:59.244Z"
+    },
+    {
+      "trialId": "NCT06492304",
+      "therapeuticName": "CTX131",
+      "sponsor": "CRISPR Therapeutics",
+      "phase": "Phase 1/2",
+      "startDate": "2024-08-13",
+      "registry": "ClinicalTrials.gov",
+      "condition": "T Cell Lymphoma; B Cell Lymphoma; Acute Myeloid Leukemia",
+      "modality": "Cell therapy",
+      "title": "A Safety and Efficacy Study Evaluating CTX131 in Adult Subjects With Relapsed/Refractory Hematologic Malignancies",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "COMPLETED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX131"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:57.328Z"
+    },
+    {
+      "trialId": "NCT07491172",
+      "therapeuticName": "CTX310",
+      "sponsor": "CRISPR Therapeutics AG",
+      "phase": "Phase 1",
+      "startDate": "2024-06-21",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Cardiovascular; Metabolic Disease; Dyslipidemias; Lipid Disorder; Hypertriglyceridemia; Heterozygous Familial Hypercholesterolemia (HeFH); Homozygous Familial Hypercholesterolemia (HoFH); Severe Hypertriglyceridemia (sHTG); Mixed Hyperlipemia; Hypercholesterolaemia",
+      "modality": "Gene therapy",
+      "title": "A Safety and Tolerability Trial Evaluating CTX310 in Participants With Refractory Dyslipidemias",
+      "therapeuticArea": "Cardiometabolic",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "CTX310"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:43:08.163Z"
+    },
+    {
+      "trialId": "NCT04426669",
+      "therapeuticName": "Cyclophosphamide",
+      "sponsor": "Intima Bioscience, Inc.",
+      "phase": "Phase 1/2",
+      "startDate": "2020-05-15",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Gastrointestinal Epithelial Cancer; Gastrointestinal Neoplasms; Cancer of Gastrointestinal Tract; Cancer, Gastrointestinal; Gastrointestinal Cancer; Colo-rectal Cancer; Pancreatic Cancer; Gall Bladder Cancer; Colon Cancer; Esophageal Cancer; Stomach Cancer",
+      "modality": "Cell therapy",
+      "title": "A Study of Metastatic Gastrointestinal Cancers Treated With Tumor Infiltrating Lymphocytes in Which the Gene Encoding the Intracellular Immune Checkpoint CISH Is Inhibited Using CRISPR Genetic Engineering",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "COMPLETED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Cyclophosphamide",
+        "Fludarabine",
+        "Tumor-Infiltrating Lymphocytes (TIL)",
+        "Aldesleukin"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:42.392Z"
+    },
+    {
+      "trialId": "NCT07340853",
+      "therapeuticName": "Cyclophosphamide",
+      "sponsor": "Thomas Martin, MD",
+      "phase": "Phase 1",
+      "startDate": "2026-02-28",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Multiple Myeloma; Recurrent Multiple Myeloma; Refractory Multiple Myeloma",
+      "modality": "Cell therapy",
+      "title": "CRISPR Delivered Anti-BCMA Car-T Therapy for Relapsed or Refractory Multiple Myeloma",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "SUSPENDED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Cyclophosphamide",
+        "Chimeric Antigen Receptor T cells (CAR-T) Targeting BCMA",
+        "Biospecimen Collection",
+        "Fludarabine"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:43:03.368Z"
+    },
+    {
+      "trialId": "NCT05662904",
+      "therapeuticName": "Donor-derived CD34+ HSC with CRISPR/Cas9-mediated CD33 deletion",
+      "sponsor": "German Cancer Research Center",
+      "phase": "Phase 1",
+      "startDate": "2028-01",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Relapsed/Refractory Acute Myeloid Leukemia (AML)",
+      "modality": "Cell therapy",
+      "title": "Genetic Ablation of CD33 in HSC to Broaden the Therapeutic Index of CD33-directed Immunotherapy in Patients with AML",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "NOT_YET_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Donor-derived CD34+ HSC with CRISPR/Cas9-mediated CD33 deletion",
+        "Gemtuzumab Ozogamicin"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:55.314Z"
+    },
+    {
+      "trialId": "NCT05143307",
+      "therapeuticName": "EBT-101",
+      "sponsor": "Excision BioTherapeutics",
+      "phase": "Phase 1",
+      "startDate": "2023-07-11",
+      "registry": "ClinicalTrials.gov",
+      "condition": "HIV-1-infection",
+      "modality": "Gene therapy",
+      "title": "Long-Term Follow-Up Study of HIV-1 Infected Adults Who Received EBT-101",
+      "therapeuticArea": "Infectious Disease & Vaccines",
+      "therapeuticDescription": "",
+      "overallStatus": "ENROLLING_BY_INVITATION",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "EBT-101"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:22.750Z"
+    },
+    {
+      "trialId": "NCT05144386",
+      "therapeuticName": "EBT-101",
+      "sponsor": "Excision BioTherapeutics",
+      "phase": "Phase 1",
+      "startDate": "2022-01-24",
+      "registry": "ClinicalTrials.gov",
+      "condition": "HIV-1-infection",
+      "modality": "Gene therapy",
+      "title": "Study of EBT-101 in Aviremic HIV-1 Infected Adults on Stable ART",
+      "therapeuticArea": "Infectious Disease & Vaccines",
+      "therapeuticDescription": "",
+      "overallStatus": "COMPLETED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "EBT-101"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:25.337Z"
+    },
+    {
+      "trialId": "NCT03872479",
+      "therapeuticName": "EDIT-101",
+      "sponsor": "Editas Medicine, Inc.",
+      "phase": "Phase 1/2",
+      "startDate": "2019-09-26",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Leber Congenital Amaurosis 10; Inherited Retinal Dystrophies; Eye Diseases, Hereditary; Retinal Disease; Retinal Degeneration; Vision Disorders; Eye Disorders Congenital",
+      "modality": "Gene therapy",
+      "title": "Single Ascending Dose Study in Participants With LCA10",
+      "therapeuticArea": "Ophthalmology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "EDIT-101"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:26.910Z"
+    },
+    {
+      "trialId": "NCT04853576",
+      "therapeuticName": "EDIT-301",
+      "sponsor": "Editas Medicine, Inc.",
+      "phase": "Phase 1/2",
+      "startDate": "2021-05-04",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Sickle Cell Disease; Hemoglobinopathies",
+      "modality": "Cell therapy",
+      "title": "A Study Evaluating the Safety and Efficacy of EDIT-301 in Participants With Severe Sickle Cell Disease (RUBY)",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "ACTIVE_NOT_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "EDIT-301"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:07.986Z"
+    },
+    {
+      "trialId": "NCT05444894",
+      "therapeuticName": "EDIT-301",
+      "sponsor": "Editas Medicine, Inc.",
+      "phase": "Phase 1/2",
+      "startDate": "2022-04-29",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Transfusion Dependent Beta Thalassemia; Hemoglobinopathies; Thalassemia Major; Thalassemia Intermedia",
+      "modality": "Cell therapy",
+      "title": "EDIT-301 for Autologous Hematopoietic Stem Cell Transplant (HSCT) in Participants With Transfusion-Dependent Beta Thalassemia (TDT)",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "ACTIVE_NOT_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "EDIT-301"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:38.193Z"
+    },
+    {
+      "trialId": "NCT06907875",
+      "therapeuticName": "EPI-321",
+      "sponsor": "Epicrispr Biotechnologies, Inc.",
+      "phase": "Phase 1/2",
+      "startDate": "2025-05-08",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Facioscapulohumeral Muscular Dystrophy",
+      "modality": "Gene therapy",
+      "title": "A First-in-human Study of EPI-321 in Facioscapulohumeral Muscular Dystrophy",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "ACTIVE_NOT_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "EPI-321"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:35.705Z"
+    },
+    {
+      "trialId": "NCT04925206",
+      "therapeuticName": "ET-01",
+      "sponsor": "EdiGene (GuangZhou) Inc.",
+      "phase": "Phase 1",
+      "startDate": "2021-08-17",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Transfusion Dependent Beta-Thalassaemia",
+      "modality": "Cell therapy",
+      "title": "A Safety and Efficacy Study Evaluating ET-01 in Subjects with Transfusion Dependent Β-Thalassaemia",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "TERMINATED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "ET-01"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:09.813Z"
+    },
+    {
+      "trialId": "NCT07053462",
+      "therapeuticName": "Ex Vivo CRISPR-Cas9 Gene Editing of Donor Kidney",
+      "sponsor": "AMERICAN ORGAN TRANSPLANT AND CANCER RESEARCH INSTITUTE LLC",
+      "phase": "Phase 1/2",
+      "startDate": "2025-06-01",
+      "registry": "ClinicalTrials.gov",
+      "condition": "End-Stage Renal Disease; End Stage Renal Disease on Dialysis; End Stage Renal Disease With Renal Transplant; Kidney Transplant Rejection; Kidney Tumor; Kidney Failure; Kidney Ischemia",
+      "modality": "Gene therapy",
+      "title": "CRISPR-Edited HLA Donor Kidney Transplant to Reduce Rejection Risk",
+      "therapeuticArea": "Nephrology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Ex Vivo CRISPR-Cas9 Gene Editing of Donor Kidney"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:44.393Z"
+    },
+    {
+      "trialId": "NCT07053488",
+      "therapeuticName": "Ex Vivo CRISPR-Cas9 Gene Editing of Donor Liver",
+      "sponsor": "AMERICAN ORGAN TRANSPLANT AND CANCER RESEARCH INSTITUTE LLC",
+      "phase": "Phase 1/2",
+      "startDate": "2025-06-01",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Liver Diseases; Liver Cancer; Liver Cirrhosis; Liver Failure; Liver Metastases; Liver Transplant Rejection; Liver Steatoses",
+      "modality": "Other",
+      "title": "CRISPR-Edited HLA Donor Liver Transplant to Reduce Rejection",
+      "therapeuticArea": "Immunology & Inflammation",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Ex Vivo CRISPR-Cas9 Gene Editing of Donor Liver"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:47.039Z"
+    },
+    {
+      "trialId": "NCT05951205",
+      "therapeuticName": "Exa-cel",
+      "sponsor": "Vertex Pharmaceuticals Incorporated",
+      "phase": "Phase 3",
+      "startDate": "2027-07-31",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Sickle Cell Disease",
+      "modality": "Cell therapy",
+      "title": "Evaluation of Efficacy and Safety of a Single Dose of Exa-cel in Participants With Severe Sickle Cell Disease, βS/ βC Genotype",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "WITHDRAWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Exa-cel"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:01.340Z"
+    },
+    {
+      "trialId": "NCT05566223",
+      "therapeuticName": "Fludarabine",
+      "sponsor": "Intima Bioscience, Inc.",
+      "phase": "Phase 1/2",
+      "startDate": "2023-02",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Carcinoma, Non-Small-Cell Lung; Metastatic Non Small Cell Lung Cancer; Stage IV Non-small Cell Lung Cancer; Squamous Cell Lung Cancer; Adenocarcinoma of Lung; Large Cell Lung Cancer",
+      "modality": "Cell therapy",
+      "title": "CISH Inactivated TILs in the Treatment of NSCLC",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "WITHDRAWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Fludarabine",
+        "Cyclophosphamide",
+        "CISH Inactivated TIL",
+        "Aldesleukin",
+        "Pembrolizumab"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:47.394Z"
+    },
+    {
+      "trialId": "NCT04796688",
+      "therapeuticName": "Fludarabine + Cyclophosphamide + CAR-NK-CD19 Cells",
+      "sponsor": "Union Hospital, Tongji Medical College, Huazhong University of Science and Technology",
+      "phase": "Phase 1",
+      "startDate": "2021-03-10",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Acute Lymphoblastic Leukemia; Chronic Lymphoblastic Leukemia; B-cell Lymphoma",
+      "modality": "Cell therapy",
+      "title": "Universal Chimeric Antigen Receptor-modified AT19 Cells for CD19+ Relapsed/Refractory Hematological Malignancies",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Fludarabine + Cyclophosphamide + CAR-NK-CD19 Cells"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:01.719Z"
+    },
+    {
+      "trialId": "NCT06031727",
+      "therapeuticName": "HG202",
+      "sponsor": "HuidaGene Therapeutics Co., Ltd.",
+      "phase": "Early Phase 1",
+      "startDate": "2023-09-04",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Neovascular Age-related Macular Degeneration(nAMD)",
+      "modality": "Gene therapy",
+      "title": "CRISPR/cas13-medIated RNA TarGeting THerapy for the Treatment of Neovascular Age-related Macular Degeneration Investigator-initiated Trial (SIGHT-I)",
+      "therapeuticArea": "Ophthalmology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "HG202"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:10.140Z"
+    },
+    {
+      "trialId": "NCT06623279",
+      "therapeuticName": "HG202",
+      "sponsor": "HuidaGene Therapeutics Co., Ltd.",
+      "phase": "Phase 1",
+      "startDate": "2025-04-01",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Neovascular Age-Related Macular Degeneration (nAMD)",
+      "modality": "Gene therapy",
+      "title": "Open-laBel Dose-escalation Study for CRISPR/cas13- Rna TargetInG THerapy for the Treatment of Neovascular Age-related Macular Degeneration in Phase I Trial",
+      "therapeuticArea": "Ophthalmology",
+      "therapeuticDescription": "",
+      "overallStatus": "NOT_YET_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "HG202"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:14.290Z"
+    },
+    {
+      "trialId": "NCT06615206",
+      "therapeuticName": "HG204",
+      "sponsor": "HuidaGene Therapeutics Co., Ltd.",
+      "phase": "Not Applicable",
+      "startDate": "2024-10-30",
+      "registry": "ClinicalTrials.gov",
+      "condition": "MECP2 Duplication Syndrome",
+      "modality": "Gene therapy",
+      "title": "A First-in-Human Clinical Trial to Evaluate the Safety, Tolerability, and Efficacy of a Novel CRISPR RNA-editing Therapy in Patients with Mecp2 Duplication Syndrome, a Rare Orphan Disease (HERO)",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "HG204"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:10.100Z"
+    },
+    {
+      "trialId": "NCT06025032",
+      "therapeuticName": "HG205",
+      "sponsor": "HuidaGene Therapeutics Co., Ltd.",
+      "phase": "Early Phase 1",
+      "startDate": "2023-03-30",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Congenital Hearing Loss",
+      "modality": "Gene therapy",
+      "title": "a Study in Subjects With Otoferlin Mutation-related Hearing Loss Using RNA Base-eDiting Therapy(SOUND)",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "WITHDRAWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "HG205"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:08.331Z"
+    },
+    {
+      "trialId": "NCT06594094",
+      "therapeuticName": "HG302",
+      "sponsor": "HuidaGene Therapeutics Co., Ltd.",
+      "phase": "Early Phase 1",
+      "startDate": "2024-11-06",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Duchenne Muscular Dystrophin (DMD)",
+      "modality": "Gene therapy",
+      "title": "An Open-label, Multidose Dose-escalation Study to Understand the Safety of CRISPR Gene-editing Therapy and Its Long-Lasting Effects in DMD Patients (MUSCLE)",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "ACTIVE_NOT_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "HG302"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:06.079Z"
+    },
+    {
+      "trialId": "NCT03728322",
+      "therapeuticName": "iHSCs treatment group",
+      "sponsor": "Allife Medical Science and Technology Co., Ltd.",
+      "phase": "Early Phase 1",
+      "startDate": "2019-01",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Thalassemia",
+      "modality": "Cell therapy",
+      "title": "iHSCs With the Gene Correction of HBB Intervent Subjests With β-thalassemia Mutations",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "iHSCs treatment group"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:20.136Z"
+    },
+    {
+      "trialId": "NCT03747965",
+      "therapeuticName": "Mesothelin-directed CAR-T cells",
+      "sponsor": "Chinese PLA General Hospital",
+      "phase": "Phase 1",
+      "startDate": "2018-11",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Solid Tumor, Adult",
+      "modality": "Cell therapy",
+      "title": "Study of PD-1 Gene-knocked Out Mesothelin-directed CAR-T Cells With the Conditioning of PC in Mesothelin Positive Multiple Solid Tumors",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Mesothelin-directed CAR-T cells"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:24.774Z"
+    },
+    {
+      "trialId": "NCT06672237",
+      "therapeuticName": "nexiguran ziclumeran",
+      "sponsor": "Intellia Therapeutics",
+      "phase": "Phase 3",
+      "startDate": "2024-11-22",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Neuromuscular Disease; Neuromuscular Diseases (NMD); Neurodegenerative Disease; Neurodegenerative Disease, Hereditary; Neurodegenerative Diseases; Neuromuscular Diseases; Nerve Disorders; Nervous System Disease; Nervous System Diseases; Genetic Disease, Inborn; Amyloidosis, Familial; Amyloidosis, Hereditary; Amyloidosis; Polyneuropathies; Amyloid Neuropathies; Amyloid Neuropathies, Familial; Peripheral Nervous System Disease; Peripheral Nervous System Diseases; Metabolism, Inborn Errors; Metabolic Diseases",
+      "modality": "Gene therapy",
+      "title": "A Phase 3 Study of NTLA-2001 in ATTRv-PN",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "nexiguran ziclumeran",
+        "Normal Saline as Placebo"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:20.528Z"
+    },
+    {
+      "trialId": "NCT04601051",
+      "therapeuticName": "NTLA-2001",
+      "sponsor": "Intellia Therapeutics",
+      "phase": "Phase 1",
+      "startDate": "2020-11-05",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Transthyretin-Related (ATTR) Familial Amyloid Polyneuropathy; Transthyretin-Related (ATTR) Familial Amyloid Cardiomyopathy; Wild-Type Transthyretin Cardiac Amyloidosis",
+      "modality": "Gene therapy",
+      "title": "Study to Evaluate Safety, Tolerability, Pharmacokinetics, and Pharmacodynamics of NTLA-2001 in Patients With Hereditary Transthyretin Amyloidosis With Polyneuropathy (ATTRv-PN) and Patients With Transthyretin Amyloidosis-Related Cardiomyopathy (ATTR-CM)",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "COMPLETED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "NTLA-2001"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:54.190Z"
+    },
+    {
+      "trialId": "NCT06128629",
+      "therapeuticName": "NTLA-2001",
+      "sponsor": "Intellia Therapeutics",
+      "phase": "Phase 3",
+      "startDate": "2023-12-13",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Transthyretin Amyloidosis (ATTR) With Cardiomyopathy",
+      "modality": "Gene therapy",
+      "title": "MAGNITUDE: A Phase 3 Study of NTLA-2001 in Participants With Transthyretin Amyloidosis With Cardiomyopathy (ATTR-CM)",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "NTLA-2001",
+        "Placebo"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:20.914Z"
+    },
+    {
+      "trialId": "NCT06634420",
+      "therapeuticName": "NTLA-2002",
+      "sponsor": "Intellia Therapeutics",
+      "phase": "Phase 3",
+      "startDate": "2025-01-15",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Hereditary Angioedema",
+      "modality": "Gene therapy",
+      "title": "HAELO: A Phase 3 Study to Evaluate NTLA-2002 in Participants With Hereditary Angioedema (HAE)",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "ACTIVE_NOT_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "NTLA-2002",
+        "Normal Saline IV Administration"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:16.357Z"
+    },
+    {
+      "trialId": "NCT03399448",
+      "therapeuticName": "NY-ESO-1 redirected autologous T cells with CRISPR edited endogenous TCR and PD-1",
+      "sponsor": "University of Pennsylvania",
+      "phase": "Phase 1",
+      "startDate": "2018-09-05",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Multiple Myeloma; Melanoma; Synovial Sarcoma; Myxoid/Round Cell Liposarcoma",
+      "modality": "Cell therapy",
+      "title": "NY-ESO-1-redirected CRISPR (TCRendo and PD1) Edited T Cells (NYCE T Cells)",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "TERMINATED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "NY-ESO-1 redirected autologous T cells with CRISPR edited endogenous TCR and PD-1",
+        "Cyclophosphamide",
+        "Fludarabine"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:11.709Z"
+    },
+    {
+      "trialId": "NCT04443907",
+      "therapeuticName": "OTQ923",
+      "sponsor": "Novartis Pharmaceuticals",
+      "phase": "Phase 1",
+      "startDate": "2020-08-25",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Sickle Cell Disease",
+      "modality": "Cell therapy",
+      "title": "Study of Safety and Efficacy of Genome-edited Hematopoietic Stem and Progenitor Cells in Sickle Cell Disease (SCD)",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "TERMINATED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "OTQ923",
+        "OTQ923"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:46.048Z"
+    },
+    {
+      "trialId": "NCT05037669",
+      "therapeuticName": "PACE CART19",
+      "sponsor": "University of Pennsylvania",
+      "phase": "Phase 1",
+      "startDate": "2022-07",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Acute Lymphoblastic Leukemia; Chronic Lymphocytic Leukemia; Non Hodgkin Lymphoma",
+      "modality": "Cell therapy",
+      "title": "Programmed Allogeneic CRISPR-edited T Cells Engineered to Express Anti-CD19 Chimeric Antigen Receptor (PACE CART19) in Patients With Relapsed Or Refractory CD19+ Leukemia and Lymphoma",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "WITHDRAWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "PACE CART19"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:16.081Z"
+    },
+    {
+      "trialId": "NCT04557436",
+      "therapeuticName": "PBLTT52CAR19",
+      "sponsor": "Great Ormond Street Hospital for Children NHS Foundation Trust",
+      "phase": "Phase 1",
+      "startDate": "2020-08-12",
+      "registry": "ClinicalTrials.gov",
+      "condition": "B Acute Lymphoblastic Leukemia",
+      "modality": "Cell therapy",
+      "title": "TT52CAR19 Therapy for B-cell Acute Lymphoblastic Leukaemia (B-ALL)",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "COMPLETED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "PBLTT52CAR19"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:49.662Z"
+    },
+    {
+      "trialId": "NCT04990557",
+      "therapeuticName": "PD-1 and ACE2 Knockout T Cells",
+      "sponsor": "Mahmoud Ramadan mohamed Elkazzaz",
+      "phase": "Phase 1/2",
+      "startDate": "2021-08",
+      "registry": "ClinicalTrials.gov",
+      "condition": "COVID-19 Respiratory Infection",
+      "modality": "Cell therapy",
+      "title": "CRISPR/Cas9-modified Human T Cell ( PD-1and ACE2 Knockout Engineered T Cells ) for Inducing Long-term Immunity in COVID-19 Patients",
+      "therapeuticArea": "Infectious Disease & Vaccines",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "PD-1 and ACE2 Knockout T Cells",
+        "PD-1 and ACE2 Knockout T Cells",
+        "PD-1 and ACE2 Knockout T Cells"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:13.930Z"
+    },
+    {
+      "trialId": "NCT04417764",
+      "therapeuticName": "PD-1 knockout engineered T cells",
+      "sponsor": "Central South University",
+      "phase": "Phase 1",
+      "startDate": "2019-06-20",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Advanced Hepatocellular Carcinoma",
+      "modality": "Cell therapy",
+      "title": "TACE Combined With PD-1 Knockout Engineered T Cell in Advanced Hepatocellular Carcinoma.",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "PD-1 knockout engineered T cells"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:40.589Z"
+    },
+    {
+      "trialId": "NCT06506461",
+      "therapeuticName": "Plerixafor",
+      "sponsor": "St. Jude Children's Research Hospital",
+      "phase": "Phase 1",
+      "startDate": "2025-03-21",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Sickle Cell Disease",
+      "modality": "Cell therapy",
+      "title": "Gene Editing For Sickle Cell Disease",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Plerixafor",
+        "Busulfan",
+        "Gene-modified CD34+ cells",
+        "Motixafortide"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:59.121Z"
+    },
+    {
+      "trialId": "NCT06379789",
+      "therapeuticName": "REGV131",
+      "sponsor": "Regeneron Pharmaceuticals",
+      "phase": "Phase 1/2",
+      "startDate": "2024-09-11",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Hemophilia B",
+      "modality": "Gene therapy",
+      "title": "A Study to Investigate the Safety and Effectiveness of a Coagulation Factor IX Gene Insertion Therapy (REGV131-LNP1265) in Pediatric, Adolescent and Adult Participants With Hemophilia B",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "REGV131",
+        "LNP1265"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:37.555Z"
+    },
+    {
+      "trialId": "NCT03057912",
+      "therapeuticName": "TALEN",
+      "sponsor": "First Affiliated Hospital, Sun Yat-Sen University",
+      "phase": "Phase 1",
+      "startDate": "2018-01-15",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Human Papillomavirus-Related Malignant Neoplasm",
+      "modality": "Gene therapy",
+      "title": "A Safety and Efficacy Study of TALEN and CRISPR/Cas9 in the Treatment of HPV-related Cervical Intraepithelial NeoplasiaⅠ",
+      "therapeuticArea": "Infectious Disease & Vaccines",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "TALEN",
+        "CRISPR/Cas9"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:04.223Z"
+    },
+    {
+      "trialId": "NCT04976218",
+      "therapeuticName": "TGFβR-KO CAR-EGFR T Cells",
+      "sponsor": "Chinese PLA General Hospital",
+      "phase": "Phase 1",
+      "startDate": "2022-03-15",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Solid Tumor, Adult; EGFR Overexpression",
+      "modality": "Cell therapy",
+      "title": "TGFβR-KO CAR-EGFR T Cells in Previously Treated Advanced EGFR-positive Solid Tumors",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "TGFβR-KO CAR-EGFR T Cells"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:11.677Z"
+    },
+    {
+      "trialId": "NCT03525652",
+      "therapeuticName": "Therapeutic vaccine",
+      "sponsor": "The First Affiliated Hospital of Guangdong Pharmaceutical University",
+      "phase": "Phase 1/2",
+      "startDate": "2018-02-22",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Prostate Cancer",
+      "modality": "Cell therapy",
+      "title": "Therapeutic Vaccine Plus PD-1 Knockout in Prostate Cancer Treatment",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Therapeutic vaccine",
+        "PD-1 Knockout T Cells"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:13.885Z"
+    },
+    {
+      "trialId": "NCT06783270",
+      "therapeuticName": "TIL therapy",
+      "sponsor": "Inge Marie Svane",
+      "phase": "Phase 1",
+      "startDate": "2024-12-16",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Melanoma Metastatic",
+      "modality": "Cell therapy",
+      "title": "T-cell Therapy with CRISPR PD1-edited Tumor Infiltrating Lymphocytes for Patients with Metastatic Melanoma",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "TIL therapy"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:29.387Z"
+    },
+    {
+      "trialId": "NCT04842812",
+      "therapeuticName": "TILs and CAR-TILs targeting HER2, Mesothelin, PSCA, MUC1, Lewis-Y, GPC3, AXL, EGFR, Claudin18.2/6, ROR1, GD1, or B7-H3",
+      "sponsor": "Second Affiliated Hospital of Guangzhou Medical University",
+      "phase": "Phase 1",
+      "startDate": "2021-01-01",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Liver Cancer; Lung Cancer; Breast Cancer; Colo-rectal Cancer; Brain Tumor; Solid Tumor, Adult; PD1; CTLA4",
+      "modality": "Cell therapy",
+      "title": "Engineered TILs/CAR-TILs to Treat Advanced Solid Tumors",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "TILs and CAR-TILs targeting HER2, Mesothelin, PSCA, MUC1, Lewis-Y, GPC3, AXL, EGFR, Claudin18.2/6, ROR1, GD1, or B7-H3"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:03.662Z"
+    },
+    {
+      "trialId": "NCT06014073",
+      "therapeuticName": "TRAC and Power3 (SPPL3) Genes Knock-out Allogeneic CD19-targeting CAR-T cell (ATHENA CAR-T)",
+      "sponsor": "Chinese PLA General Hospital",
+      "phase": "Phase 1/2",
+      "startDate": "2023-09-06",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Non Hodgkin's Lymphoma",
+      "modality": "Cell therapy",
+      "title": "TRAC and Power3 (SPPL3) Genes Knock-out Allogeneic CD19-targeting CAR-T Cell Therapy in r/r B-NHL",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "TRAC and Power3 (SPPL3) Genes Knock-out Allogeneic CD19-targeting CAR-T cell (ATHENA CAR-T)",
+        "Fludarabine",
+        "Cyclophosphamide"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:03.291Z"
+    },
+    {
+      "trialId": "NCT03166878",
+      "therapeuticName": "UCART019",
+      "sponsor": "Chinese PLA General Hospital",
+      "phase": "Phase 1/2",
+      "startDate": "2017-06",
+      "registry": "ClinicalTrials.gov",
+      "condition": "B Cell Leukemia; B Cell Lymphoma",
+      "modality": "Cell therapy",
+      "title": "A Study Evaluating UCART019 in Patients With Relapsed or Refractory CD19+ Leukemia and Lymphoma",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "UCART019"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:08.033Z"
+    },
+    {
+      "trialId": "NCT07026942",
+      "therapeuticName": "Universal donor derived CD33 CAR-NK",
+      "sponsor": "Nationwide Children's Hospital",
+      "phase": "Phase 1/2",
+      "startDate": "2026-04-01",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Relapsed/Refractory AML",
+      "modality": "Cell therapy",
+      "title": "Phase I/II Clinical Trial of Universal Donor CD33 CAR Natural Killer Cells for AML",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "NOT_YET_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Universal donor derived CD33 CAR-NK"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:41.388Z"
+    },
+    {
+      "trialId": "NCT03398967",
+      "therapeuticName": "Universal Dual Specificity CD19 and CD20 or CD22 CAR-T Cells",
+      "sponsor": "Chinese PLA General Hospital",
+      "phase": "Phase 1/2",
+      "startDate": "2018-01-02",
+      "registry": "ClinicalTrials.gov",
+      "condition": "B Cell Leukemia; B Cell Lymphoma",
+      "modality": "Cell therapy",
+      "title": "A Feasibility and Safety Study of Universal Dual Specificity CD19 and CD20 or CD22 CAR-T Cell Immunotherapy for Relapsed or Refractory Leukemia and Lymphoma",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "Universal Dual Specificity CD19 and CD20 or CD22 CAR-T Cells"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:09.823Z"
+    },
+    {
+      "trialId": "NCT05210530",
+      "therapeuticName": "VCTX210A unit",
+      "sponsor": "CRISPR Therapeutics AG",
+      "phase": "Phase 1",
+      "startDate": "2022-01-24",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Diabetes Mellitus; Diabetes Mellitus, Type 1; Glucose Metabolism Disorders; Metabolic Disease; Endocrine System Diseases; Autoimmune Diseases; Immune System Diseases",
+      "modality": "Cell therapy",
+      "title": "An Open-Label, FIH Study Evaluating the Safety and Tolerability of VCTX210A Combination Product in Subjects With T1D",
+      "therapeuticArea": "Cardiometabolic",
+      "therapeuticDescription": "",
+      "overallStatus": "COMPLETED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "VCTX210A unit"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:27.112Z"
+    },
+    {
+      "trialId": "NCT05565248",
+      "therapeuticName": "VCTX211",
+      "sponsor": "CRISPR Therapeutics AG",
+      "phase": "Phase 1",
+      "startDate": "2023-01-20",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Diabetes Mellitus; Diabetes Mellitus, Type 1; Glucose Metabolism Disorders; Metabolic Disease; Endocrine System Diseases; Autoimmune Diseases; Immune System Diseases",
+      "modality": "Cell therapy",
+      "title": "An Open-Label, FIH Study Evaluating the Safety, Tolerability, and Efficacy of VCTX211 Combination Product in Subjects With T1D",
+      "therapeuticArea": "Cardiometabolic",
+      "therapeuticDescription": "",
+      "overallStatus": "TERMINATED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "VCTX211"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:45.603Z"
+    },
+    {
+      "trialId": "NCT05398029",
+      "therapeuticName": "VERVE-101",
+      "sponsor": "Verve Therapeutics, Inc.",
+      "phase": "Phase 1",
+      "startDate": "2022-07-05",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Heterozygous Familial Hypercholesterolemia; Atherosclerotic Cardiovascular Disease; Hypercholesterolemia",
+      "modality": "Gene therapy",
+      "title": "A Study of VERVE-101 in Patients With Familial Hypercholesterolemia and Cardiovascular Disease",
+      "therapeuticArea": "Cardiometabolic",
+      "therapeuticDescription": "",
+      "overallStatus": "COMPLETED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "VERVE-101"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:36.454Z"
+    },
+    {
+      "trialId": "NCT06164730",
+      "therapeuticName": "VERVE-102",
+      "sponsor": "Verve Therapeutics, Inc.",
+      "phase": "Phase 1",
+      "startDate": "2024-04-30",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Heterozygous Familial Hypercholesterolemia; Premature Coronary Heart Disease",
+      "modality": "Gene therapy",
+      "title": "A Study of VERVE-102 in Patients With Familial Hypercholesterolemia or Premature Coronary Artery Disease",
+      "therapeuticArea": "Cardiometabolic",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "VERVE-102"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:23.239Z"
+    },
+    {
+      "trialId": "NCT06451770",
+      "therapeuticName": "VERVE-201",
+      "sponsor": "Verve Therapeutics, Inc.",
+      "phase": "Phase 1",
+      "startDate": "2024-10-30",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Hypercholesterolemia; Hypertriglyceridemia; Refractory Hyperlipidemia",
+      "modality": "Gene therapy",
+      "title": "Phase 1b Study of VERVE-201 in Patients With Refractory Hyperlipidemia",
+      "therapeuticArea": "Cardiometabolic",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "VERVE-201"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:42.210Z"
+    },
+    {
+      "trialId": "NCT06041620",
+      "therapeuticName": "VGB-Ex01",
+      "sponsor": "Institute of Hematology & Blood Diseases Hospital, China",
+      "phase": "Not Applicable",
+      "startDate": "2023-08-31",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Thalassemia, Beta; Thalassemia Major",
+      "modality": "Cell therapy",
+      "title": "Safety and Efficacy Evaluation of Autologous CRISPR-Cas12b Edited Hematopoietic Stem Cells",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "VGB-Ex01"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:11.950Z"
+    },
+    {
+      "trialId": "NCT04849910",
+      "therapeuticName": "VOR33",
+      "sponsor": "Vor Biopharma",
+      "phase": "Phase 1/2",
+      "startDate": "2021-12-16",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Leukemia, Myeloid, Acute; Myelodysplastic Syndromes",
+      "modality": "Cell therapy",
+      "title": "Allogeneic Engineered Hematopoietic Stem Cell Transplant (HCT) Lacking the CD33 Protein, and Post-HCT Treatment With Mylotarg, for Patients With CD33+ AML or MDS",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "TERMINATED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "VOR33",
+        "Mylotarg"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:40:05.876Z"
+    },
+    {
+      "trialId": "NCT04037566",
+      "therapeuticName": "XYF19 CAR-T cell",
+      "sponsor": "Xijing Hospital",
+      "phase": "Phase 1",
+      "startDate": "2019-08",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Leukemia Lymphocytic Acute (ALL) in Relapse; Leukemia Lymphocytic Acute (All) Refractory; Lymphoma, B-Cell; CD19 Positive",
+      "modality": "Cell therapy",
+      "title": "CRISPR (HPK1) Edited CD19-specific CAR-T Cells (XYF19 CAR-T Cells) for CD19+ Leukemia or Lymphoma.",
+      "therapeuticArea": "Oncology",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "XYF19 CAR-T cell",
+        "Cyclophosphamide",
+        "Fludarabine"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:31.034Z"
+    },
+    {
+      "trialId": "NCT06458010",
+      "therapeuticName": "YOLT-101",
+      "sponsor": "RenJi Hospital",
+      "phase": "Early Phase 1",
+      "startDate": "2024-05-24",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Familial Hypercholesterolemia",
+      "modality": "Gene therapy",
+      "title": "Clinical Exploration Trial of YOLT-101 in the Treatment of Familial Hypercholesterolemia (FH)",
+      "therapeuticArea": "Cardiometabolic",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "YOLT-101"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:44.457Z"
+    },
+    {
+      "trialId": "NCT06461702",
+      "therapeuticName": "YOLT-101",
+      "sponsor": "The First Affiliated Hospital of Bengbu Medical University",
+      "phase": "Early Phase 1",
+      "startDate": "2024-04-01",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Familial Hypercholesterolemia",
+      "modality": "Gene therapy",
+      "title": "Clinical Exploration Trial of YOLT-101 in the Treatment of Familial Hypercholesterolemia (FH)",
+      "therapeuticArea": "Cardiometabolic",
+      "therapeuticDescription": "",
+      "overallStatus": "UNKNOWN",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "YOLT-101"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:46.840Z"
+    },
+    {
+      "trialId": "NCT06082050",
+      "therapeuticName": "YOLT-201",
+      "sponsor": "Zhejiang University",
+      "phase": "Early Phase 1",
+      "startDate": "2023-11-02",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Transthyroxin Amyloidosis Cardiomyopathy",
+      "modality": "Gene therapy",
+      "title": "Efficacy and Safety of Intravenous YOLT-201 for Transthyretin Amyloidosis Cardiomyopathy",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "YOLT-201"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:41:16.008Z"
+    },
+    {
+      "trialId": "NCT06539208",
+      "therapeuticName": "YOLT-201",
+      "sponsor": "YolTech Therapeutics Co., Ltd",
+      "phase": "Phase 1/2",
+      "startDate": "2024-05-23",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Transthyretin Amyloidosis Polyneuropathy; Transthyrexin Amyloidosis Cardiomyopathy",
+      "modality": "Gene therapy",
+      "title": "A Phase I/IIa，Open-label, Single Ascending Dose and Dose-expansion Clinical Study to Evaluate the Safety, Tolerability, Pharmacokinetics and Pharmacodynamics of YOLT-201 in Patients With Transthyretin Amyloidosis Polyneuropathy (ATTR-PN) or Transthyretin Amyloidosis Cardiomyopathy (ATTR-CM)",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "YOLT-201"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:04.024Z"
+    },
+    {
+      "trialId": "NCT07193615",
+      "therapeuticName": "YOLT-202",
+      "sponsor": "RenJi Hospital",
+      "phase": "Early Phase 1",
+      "startDate": "2025-06-18",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Alpha-1 Antitrypsin Deficiency (AATD)",
+      "modality": "Gene therapy",
+      "title": "Study of YOLT-202 in the Treatment of Alpha-1 Antitrypsin Deficiency (AATD)",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "ACTIVE_NOT_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "YOLT-202"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:57.784Z"
+    },
+    {
+      "trialId": "NCT06511349",
+      "therapeuticName": "YOLT-203",
+      "sponsor": "RenJi Hospital",
+      "phase": "Early Phase 1",
+      "startDate": "2024-07-15",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Type 1 Primary Hyperoxaluria",
+      "modality": "Gene therapy",
+      "title": "Clinical Exploration Study of YOLT-203 in the Treatment of Type 1 Primary Hyperoxaluria (PH1)",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "YOLT-203"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:02.145Z"
+    },
+    {
+      "trialId": "NCT06892301",
+      "therapeuticName": "YOLT-203",
+      "sponsor": "Guangzhou Women and Children's Medical Center",
+      "phase": "Early Phase 1",
+      "startDate": "2025-02-27",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Type 1 Primary Hyperoxaluria",
+      "modality": "Gene therapy",
+      "title": "Clinical Exploration Study of YOLT-203 in the Treatment of Type 1 Primary Hyperoxaluria (PH1)",
+      "therapeuticArea": "Rare & Genetic Disease",
+      "therapeuticDescription": "",
+      "overallStatus": "ACTIVE_NOT_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "YOLT-203"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:33.510Z"
+    },
+    {
+      "trialId": "NCT06678165",
+      "therapeuticName": "YOLT-204",
+      "sponsor": "First Affiliated Hospital of Guangxi Medical University",
+      "phase": "Early Phase 1",
+      "startDate": "2024-12-31",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Transfusion Dependent Beta Thalassemia",
+      "modality": "Gene therapy",
+      "title": "A Pilot Study on the Safety and Efficacy of YOLT-204 for Transfusion-Dependent Beta-Thalassemia",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "NOT_YET_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "YOLT-204"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:23.187Z"
+    },
+    {
+      "trialId": "NCT07190001",
+      "therapeuticName": "YOLT-204",
+      "sponsor": "Guangzhou Women and Children's Medical Center",
+      "phase": "Early Phase 1",
+      "startDate": "2025-09-30",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Hemoglobinopathies (Transfusion-dependent β-thalassemia and Sickle Cell Disease)",
+      "modality": "Gene therapy",
+      "title": "YOLT-204 in Patients With Hemoglobinopathies",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "NOT_YET_RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "YOLT-204"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:55.065Z"
+    },
+    {
+      "trialId": "NCT06952842",
+      "therapeuticName": "ZVS203e",
+      "sponsor": "Chigenovo Co., Ltd",
+      "phase": "Phase 1/2",
+      "startDate": "2025-08-04",
+      "registry": "ClinicalTrials.gov",
+      "condition": "Retinitis Pigmentosa",
+      "modality": "Gene therapy",
+      "title": "Safety and Efficacy of ZVS203e in the Treatment of Retinitis Pigmentosa Caused by RHO Gene Mutation",
+      "therapeuticArea": "Ophthalmology",
+      "therapeuticDescription": "",
+      "overallStatus": "RECRUITING",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "ZVS203e"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:42:39.644Z"
+    },
+    {
+      "trialId": "NCT04205435",
+      "therapeuticName": "β-globin restored autologous HSC",
+      "sponsor": "Bioray Laboratories",
+      "phase": "Phase 1/2",
+      "startDate": "2021-11-01",
+      "registry": "ClinicalTrials.gov",
+      "condition": "β-thalassemia Major",
+      "modality": "Cell therapy",
+      "title": "β-globin Restored Autologous HSC in β-thalassemia Major Patients",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "TERMINATED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "β-globin restored autologous HSC"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:32.895Z"
+    },
+    {
+      "trialId": "NCT04211480",
+      "therapeuticName": "γ-globin reactivated autologous hematopoietic stem cells",
+      "sponsor": "Bioray Laboratories",
+      "phase": "Not Applicable",
+      "startDate": "2020-10-01",
+      "registry": "ClinicalTrials.gov",
+      "condition": "β Thalassemia Major",
+      "modality": "Cell therapy",
+      "title": "Safety and Efficacy Evaluation of γ-globin Reactivated Autologous Hematopoietic Stem Cells",
+      "therapeuticArea": "Hematology",
+      "therapeuticDescription": "",
+      "overallStatus": "COMPLETED",
+      "studyType": "INTERVENTIONAL",
+      "registryProducts": [
+        "γ-globin reactivated autologous hematopoietic stem cells"
+      ],
+      "registryEnriched": true,
+      "addedManuallyAt": "2026-08-16T01:39:36.464Z"
+    }
+  ],
+  "manualAdditions": [
+    {
+      "trialId": "NCT03057912",
+      "addedAt": "2026-08-16T01:39:04.223Z"
+    },
+    {
+      "trialId": "NCT03164135",
+      "addedAt": "2026-08-16T01:39:06.183Z"
+    },
+    {
+      "trialId": "NCT03166878",
+      "addedAt": "2026-08-16T01:39:08.033Z"
+    },
+    {
+      "trialId": "NCT03398967",
+      "addedAt": "2026-08-16T01:39:09.823Z"
+    },
+    {
+      "trialId": "NCT03399448",
+      "addedAt": "2026-08-16T01:39:11.709Z"
+    },
+    {
+      "trialId": "NCT03525652",
+      "addedAt": "2026-08-16T01:39:13.885Z"
+    },
+    {
+      "trialId": "NCT03545815",
+      "addedAt": "2026-08-16T01:39:16.096Z"
+    },
+    {
+      "trialId": "NCT03655678",
+      "addedAt": "2026-08-16T01:39:18.266Z"
+    },
+    {
+      "trialId": "NCT03728322",
+      "addedAt": "2026-08-16T01:39:20.136Z"
+    },
+    {
+      "trialId": "NCT03745287",
+      "addedAt": "2026-08-16T01:39:22.052Z"
+    },
+    {
+      "trialId": "NCT03747965",
+      "addedAt": "2026-08-16T01:39:24.774Z"
+    },
+    {
+      "trialId": "NCT03872479",
+      "addedAt": "2026-08-16T01:39:26.910Z"
+    },
+    {
+      "trialId": "NCT04035434",
+      "addedAt": "2026-08-16T01:39:29.194Z"
+    },
+    {
+      "trialId": "NCT04037566",
+      "addedAt": "2026-08-16T01:39:31.034Z"
+    },
+    {
+      "trialId": "NCT04205435",
+      "addedAt": "2026-08-16T01:39:32.895Z"
+    },
+    {
+      "trialId": "NCT04208529",
+      "addedAt": "2026-08-16T01:39:34.673Z"
+    },
+    {
+      "trialId": "NCT04211480",
+      "addedAt": "2026-08-16T01:39:36.464Z"
+    },
+    {
+      "trialId": "NCT04244656",
+      "addedAt": "2026-08-16T01:39:38.701Z"
+    },
+    {
+      "trialId": "NCT04417764",
+      "addedAt": "2026-08-16T01:39:40.589Z"
+    },
+    {
+      "trialId": "NCT04426669",
+      "addedAt": "2026-08-16T01:39:42.392Z"
+    },
+    {
+      "trialId": "NCT04438083",
+      "addedAt": "2026-08-16T01:39:44.152Z"
+    },
+    {
+      "trialId": "NCT04443907",
+      "addedAt": "2026-08-16T01:39:46.048Z"
+    },
+    {
+      "trialId": "NCT04502446",
+      "addedAt": "2026-08-16T01:39:47.893Z"
+    },
+    {
+      "trialId": "NCT04557436",
+      "addedAt": "2026-08-16T01:39:49.662Z"
+    },
+    {
+      "trialId": "NCT04560790",
+      "addedAt": "2026-08-16T01:39:51.989Z"
+    },
+    {
+      "trialId": "NCT04601051",
+      "addedAt": "2026-08-16T01:39:54.190Z"
+    },
+    {
+      "trialId": "NCT04637763",
+      "addedAt": "2026-08-16T01:39:56.017Z"
+    },
+    {
+      "trialId": "NCT04767308",
+      "addedAt": "2026-08-16T01:39:57.972Z"
+    },
+    {
+      "trialId": "NCT04774536",
+      "addedAt": "2026-08-16T01:39:59.897Z"
+    },
+    {
+      "trialId": "NCT04796688",
+      "addedAt": "2026-08-16T01:40:01.719Z"
+    },
+    {
+      "trialId": "NCT04842812",
+      "addedAt": "2026-08-16T01:40:03.662Z"
+    },
+    {
+      "trialId": "NCT04849910",
+      "addedAt": "2026-08-16T01:40:05.876Z"
+    },
+    {
+      "trialId": "NCT04853576",
+      "addedAt": "2026-08-16T01:40:07.986Z"
+    },
+    {
+      "trialId": "NCT04925206",
+      "addedAt": "2026-08-16T01:40:09.813Z"
+    },
+    {
+      "trialId": "NCT04976218",
+      "addedAt": "2026-08-16T01:40:11.677Z"
+    },
+    {
+      "trialId": "NCT04990557",
+      "addedAt": "2026-08-16T01:40:13.930Z"
+    },
+    {
+      "trialId": "NCT05037669",
+      "addedAt": "2026-08-16T01:40:16.081Z"
+    },
+    {
+      "trialId": "NCT05066165",
+      "addedAt": "2026-08-16T01:40:18.081Z"
+    },
+    {
+      "trialId": "NCT05120830",
+      "addedAt": "2026-08-16T01:40:20.449Z"
+    },
+    {
+      "trialId": "NCT05143307",
+      "addedAt": "2026-08-16T01:40:22.750Z"
+    },
+    {
+      "trialId": "NCT05144386",
+      "addedAt": "2026-08-16T01:40:25.337Z"
+    },
+    {
+      "trialId": "NCT05210530",
+      "addedAt": "2026-08-16T01:40:27.112Z"
+    },
+    {
+      "trialId": "NCT05329649",
+      "addedAt": "2026-08-16T01:40:28.806Z"
+    },
+    {
+      "trialId": "NCT05356195",
+      "addedAt": "2026-08-16T01:40:30.773Z"
+    },
+    {
+      "trialId": "NCT05370547",
+      "addedAt": "2026-08-16T01:40:32.741Z"
+    },
+    {
+      "trialId": "NCT05397184",
+      "addedAt": "2026-08-16T01:40:34.677Z"
+    },
+    {
+      "trialId": "NCT05398029",
+      "addedAt": "2026-08-16T01:40:36.454Z"
+    },
+    {
+      "trialId": "NCT05444894",
+      "addedAt": "2026-08-16T01:40:38.193Z"
+    },
+    {
+      "trialId": "NCT05456880",
+      "addedAt": "2026-08-16T01:40:40.074Z"
+    },
+    {
+      "trialId": "NCT05477563",
+      "addedAt": "2026-08-16T01:40:41.872Z"
+    },
+    {
+      "trialId": "NCT05554939",
+      "addedAt": "2026-08-16T01:40:43.838Z"
+    },
+    {
+      "trialId": "NCT05565248",
+      "addedAt": "2026-08-16T01:40:45.603Z"
+    },
+    {
+      "trialId": "NCT05566223",
+      "addedAt": "2026-08-16T01:40:47.394Z"
+    },
+    {
+      "trialId": "NCT05577312",
+      "addedAt": "2026-08-16T01:40:50.061Z"
+    },
+    {
+      "trialId": "NCT05631912",
+      "addedAt": "2026-08-16T01:40:51.791Z"
+    },
+    {
+      "trialId": "NCT05643742",
+      "addedAt": "2026-08-16T01:40:53.523Z"
+    },
+    {
+      "trialId": "NCT05662904",
+      "addedAt": "2026-08-16T01:40:55.314Z"
+    },
+    {
+      "trialId": "NCT05722418",
+      "addedAt": "2026-08-16T01:40:57.369Z"
+    },
+    {
+      "trialId": "NCT05795595",
+      "addedAt": "2026-08-16T01:40:59.244Z"
+    },
+    {
+      "trialId": "NCT05951205",
+      "addedAt": "2026-08-16T01:41:01.340Z"
+    },
+    {
+      "trialId": "NCT06014073",
+      "addedAt": "2026-08-16T01:41:03.291Z"
+    },
+    {
+      "trialId": "NCT06024876",
+      "addedAt": "2026-08-16T01:41:06.080Z"
+    },
+    {
+      "trialId": "NCT06025032",
+      "addedAt": "2026-08-16T01:41:08.331Z"
+    },
+    {
+      "trialId": "NCT06031727",
+      "addedAt": "2026-08-16T01:41:10.140Z"
+    },
+    {
+      "trialId": "NCT06041620",
+      "addedAt": "2026-08-16T01:41:11.950Z"
+    },
+    {
+      "trialId": "NCT06065189",
+      "addedAt": "2026-08-16T01:41:13.752Z"
+    },
+    {
+      "trialId": "NCT06082050",
+      "addedAt": "2026-08-16T01:41:16.008Z"
+    },
+    {
+      "trialId": "NCT06128044",
+      "addedAt": "2026-08-16T01:41:18.018Z"
+    },
+    {
+      "trialId": "NCT06128629",
+      "addedAt": "2026-08-16T01:41:20.914Z"
+    },
+    {
+      "trialId": "NCT06164730",
+      "addedAt": "2026-08-16T01:41:23.239Z"
+    },
+    {
+      "trialId": "NCT06287086",
+      "addedAt": "2026-08-16T01:41:25.613Z"
+    },
+    {
+      "trialId": "NCT06287099",
+      "addedAt": "2026-08-16T01:41:27.501Z"
+    },
+    {
+      "trialId": "NCT06291961",
+      "addedAt": "2026-08-16T01:41:29.464Z"
+    },
+    {
+      "trialId": "NCT06300723",
+      "addedAt": "2026-08-16T01:41:31.618Z"
+    },
+    {
+      "trialId": "NCT06321289",
+      "addedAt": "2026-08-16T01:41:33.550Z"
+    },
+    {
+      "trialId": "NCT06328764",
+      "addedAt": "2026-08-16T01:41:35.744Z"
+    },
+    {
+      "trialId": "NCT06379789",
+      "addedAt": "2026-08-16T01:41:37.555Z"
+    },
+    {
+      "trialId": "NCT06389877",
+      "addedAt": "2026-08-16T01:41:39.687Z"
+    },
+    {
+      "trialId": "NCT06451770",
+      "addedAt": "2026-08-16T01:41:42.210Z"
+    },
+    {
+      "trialId": "NCT06458010",
+      "addedAt": "2026-08-16T01:41:44.457Z"
+    },
+    {
+      "trialId": "NCT06461702",
+      "addedAt": "2026-08-16T01:41:46.840Z"
+    },
+    {
+      "trialId": "NCT06465537",
+      "addedAt": "2026-08-16T01:41:49.158Z"
+    },
+    {
+      "trialId": "NCT06474416",
+      "addedAt": "2026-08-16T01:41:51.471Z"
+    },
+    {
+      "trialId": "NCT06474442",
+      "addedAt": "2026-08-16T01:41:53.528Z"
+    },
+    {
+      "trialId": "NCT06479616",
+      "addedAt": "2026-08-16T01:41:55.621Z"
+    },
+    {
+      "trialId": "NCT06492304",
+      "addedAt": "2026-08-16T01:41:57.328Z"
+    },
+    {
+      "trialId": "NCT06506461",
+      "addedAt": "2026-08-16T01:41:59.121Z"
+    },
+    {
+      "trialId": "NCT06511349",
+      "addedAt": "2026-08-16T01:42:02.145Z"
+    },
+    {
+      "trialId": "NCT06539208",
+      "addedAt": "2026-08-16T01:42:04.024Z"
+    },
+    {
+      "trialId": "NCT06594094",
+      "addedAt": "2026-08-16T01:42:06.079Z"
+    },
+    {
+      "trialId": "NCT06611436",
+      "addedAt": "2026-08-16T01:42:07.988Z"
+    },
+    {
+      "trialId": "NCT06615206",
+      "addedAt": "2026-08-16T01:42:10.100Z"
+    },
+    {
+      "trialId": "NCT06622668",
+      "addedAt": "2026-08-16T01:42:12.414Z"
+    },
+    {
+      "trialId": "NCT06623279",
+      "addedAt": "2026-08-16T01:42:14.290Z"
+    },
+    {
+      "trialId": "NCT06634420",
+      "addedAt": "2026-08-16T01:42:16.357Z"
+    },
+    {
+      "trialId": "NCT06647979",
+      "addedAt": "2026-08-16T01:42:18.411Z"
+    },
+    {
+      "trialId": "NCT06672237",
+      "addedAt": "2026-08-16T01:42:20.528Z"
+    },
+    {
+      "trialId": "NCT06678165",
+      "addedAt": "2026-08-16T01:42:23.187Z"
+    },
+    {
+      "trialId": "NCT06735755",
+      "addedAt": "2026-08-16T01:42:25.436Z"
+    },
+    {
+      "trialId": "NCT06752876",
+      "addedAt": "2026-08-16T01:42:27.622Z"
+    },
+    {
+      "trialId": "NCT06783270",
+      "addedAt": "2026-08-16T01:42:29.387Z"
+    },
+    {
+      "trialId": "NCT06815029",
+      "addedAt": "2026-08-16T01:42:31.269Z"
+    },
+    {
+      "trialId": "NCT06892301",
+      "addedAt": "2026-08-16T01:42:33.510Z"
+    },
+    {
+      "trialId": "NCT06907875",
+      "addedAt": "2026-08-16T01:42:35.705Z"
+    },
+    {
+      "trialId": "NCT06925542",
+      "addedAt": "2026-08-16T01:42:37.572Z"
+    },
+    {
+      "trialId": "NCT06952842",
+      "addedAt": "2026-08-16T01:42:39.644Z"
+    },
+    {
+      "trialId": "NCT07026942",
+      "addedAt": "2026-08-16T01:42:41.388Z"
+    },
+    {
+      "trialId": "NCT07053462",
+      "addedAt": "2026-08-16T01:42:44.393Z"
+    },
+    {
+      "trialId": "NCT07053488",
+      "addedAt": "2026-08-16T01:42:47.039Z"
+    },
+    {
+      "trialId": "NCT07170254",
+      "addedAt": "2026-08-16T01:42:50.020Z"
+    },
+    {
+      "trialId": "NCT07190001",
+      "addedAt": "2026-08-16T01:42:55.065Z"
+    },
+    {
+      "trialId": "NCT07193615",
+      "addedAt": "2026-08-16T01:42:57.784Z"
+    },
+    {
+      "trialId": "NCT07304791",
+      "addedAt": "2026-08-16T01:43:01.458Z"
+    },
+    {
+      "trialId": "NCT07340853",
+      "addedAt": "2026-08-16T01:43:03.368Z"
+    },
+    {
+      "trialId": "NCT07489196",
+      "addedAt": "2026-08-16T01:43:05.993Z"
+    },
+    {
+      "trialId": "NCT07491172",
+      "addedAt": "2026-08-16T01:43:08.163Z"
+    },
+    {
+      "trialId": "NCT07549698",
+      "addedAt": "2026-08-16T01:43:11.064Z"
+    },
+    {
+      "trialId": "NCT07708350",
+      "addedAt": "2026-08-16T01:43:13.174Z"
+    }
+  ]
+}

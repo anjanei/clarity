@@ -1,0 +1,587 @@
+{
+  "trial": {
+    "trialId": "NCT07471230",
+    "therapeuticName": "Neuroinduced mesenchymal stem cells and MSC-derived exosomes",
+    "sponsor": "Biocells Medical",
+    "phase": "Phase 2",
+    "startDate": "2026-11-23",
+    "registry": "ClinicalTrials.gov",
+    "condition": "Parkinsonism or Parkinson's Disease Nos; Parkinsonism in Diseases Classified Elsewhere",
+    "modality": "Cell therapy",
+    "title": "Evaluation of Neuroinduced Mesenchymal Stem Cells and Mesenchymal Stem Cell-Derived Exosomes in Patients With Parkinsonism",
+    "therapeuticArea": "Neurology",
+    "therapeuticDescription": "",
+    "overallStatus": "NOT_YET_RECRUITING",
+    "studyType": "INTERVENTIONAL",
+    "registryProducts": [
+      "Intrathecal (IT)",
+      "Intravenous"
+    ],
+    "registryEnriched": true
+  },
+  "review": {
+    "therapeuticName": "Neuroinduced mesenchymal stem cells and MSC-derived exosomes",
+    "trialId": "NCT07471230",
+    "reviewerSummary": "This is a not-yet-recruiting Phase 2 study of two distinct, poorly defined biologic products — 'neuroinduced' mesenchymal stem cells and MSC-derived exosomes — administered intrathecally and intravenously in a heterogeneous 'parkinsonism' population, sponsored by a small private clinic-type entity. On the evidence supplied, essentially nothing program-specific is available: no product characterisation, no dose, no primary endpoint, no prior Phase 1 data, no CMC or potency-assay information, no PK/biodistribution, and no immunogenicity assessment. The retrieved literature is dominated by narrative reviews and preclinical models; the most informative clinical precedent (allogeneic BM-MSC in idiopathic PD, Schiess et al.) showed acceptable IV safety but an inconsistent, dose-dependent and partly placebo-inferior motor effect. Combining an undifferentiated parkinsonism population, an unblinded-appearing multi-product design, an intrathecal route with no reported neurotoxicity dataset, and an exosome product for which FDA has repeatedly warned about unapproved marketing, this program is very unlikely to generate an approvable submission in its current form.",
+    "probabilityOfTrialSuccess": {
+      "pointEstimate": 4,
+      "low": 1,
+      "high": 10,
+      "basis": "Anchor: Phase 2 → approval transition for cell therapies in neurology is roughly 5–10% historically (neurodegeneration success rates are at the low end of all areas). Adjustments: −3 to −4 points for combining two structurally different, uncharacterised products (neuroinduced MSC + exosomes) in one study, which FDA generally will not accept as a single development program; −2 for a heterogeneous 'parkinsonism including atypical' population that dilutes any effect and complicates labelling; −2 for absent Phase 1 dose/safety data supporting an intrathecal route; −1 for CMC/potency-assay immaturity typical of exosome products and no sponsor-specific evidence of a controlled process; −1 for sponsor inexperience and no evidence of an active US IND or FDA interaction; +1 for a large unmet need and demonstrated tolerability of IV MSC in PD in the Schiess program, which keeps the estimate above zero."
+    },
+    "confidence": {
+      "level": "moderate",
+      "rationale": "Evidence coverage is uniformly thin on program-specific data — retrieval returned the registry stub with no endpoints, doses, or arms, and no FDA/EMA documents on this product — but that absence is itself well established across all searched sources, so the direction of the estimate is not in doubt even though its precise value is uncertain."
+    },
+    "criteria": [
+      {
+        "id": "efficacy_clinical_evidence",
+        "score": 1,
+        "evidenceStrength": "absent",
+        "assessment": "No program-specific efficacy data exist; the registry record does not disclose a primary endpoint, sample size, or comparator. The closest clinical precedent, a randomized allogeneic BM-MSC trial in idiopathic PD, reported that three infusions improved motor function while two infusions performed worse than placebo — an internally inconsistent result that does not establish a class effect. Enrolling both PD and atypical parkinsonism in a single Phase 2 further undermines the ability to detect or interpret a treatment effect, since atypical syndromes progress differently on UPDRS/MDS-UPDRS. As submitted, this design could not support a substantial-evidence finding.",
+        "supportingFindings": [
+          {
+            "finding": "Preclinical MSC-EV systematic review reports significant motor improvement and reduced inflammation persisting at least 8 weeks in PD models",
+            "source": "PMC12038458 (preclinical systematic review)"
+          },
+          {
+            "finding": "Randomized allogeneic BM-MSC PD trial reports motor improvement with three infusions",
+            "source": "PMC12710125 (Schiess et al., 2025)"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No primary endpoint, effect size, powering, or control arm disclosed in the registry record",
+            "severity": "critical",
+            "source": "NCT07471230 registry stub"
+          },
+          {
+            "concern": "Mixed PD plus atypical parkinsonism population will dilute effect and prevent a coherent indication statement",
+            "severity": "critical",
+            "source": "Trial record condition field"
+          },
+          {
+            "concern": "Two different investigational products evaluated together, precluding attribution of any effect",
+            "severity": "major",
+            "source": "Trial title/registryProducts"
+          },
+          {
+            "concern": "Nearest randomized precedent showed a dose group performing worse than placebo",
+            "severity": "major",
+            "source": "PMC12710125"
+          }
+        ],
+        "informationGaps": [
+          "Primary and secondary endpoints and analysis plan",
+          "Sample size and power assumptions",
+          "Whether a placebo/sham intrathecal control is included",
+          "Any prior Phase 1 signal in this sponsor's hands",
+          "Biomarker or imaging (DAT-SPECT) supportive measures"
+        ],
+        "label": "Efficacy & clinical evidence",
+        "weight": 0.26
+      },
+      {
+        "id": "safety",
+        "score": 2,
+        "evidenceStrength": "weak",
+        "assessment": "Class evidence supports acceptable tolerability of intravenous MSC in PD, with the Schiess Phase 1 reporting the product safe and well tolerated. However, this program adds an intrathecal route and a 'neuroinduced' MSC product whose differentiation step could alter proliferative and tumorigenic risk, and no program-specific safety data are provided. Intrathecal cell administration carries documented risks of arachnoiditis, meningeal inflammation, raised intracranial pressure, and mass formation that require dedicated dose-escalation and neuroimaging follow-up. Absent any Phase 1 dataset, entering Phase 2 with two products and two routes is not adequately de-risked.",
+        "supportingFindings": [
+          {
+            "finding": "Phase 1 IV allogeneic BM-MSC in idiopathic PD reported safe and well tolerated across doses up to 10 x 10^6 MSC/kg",
+            "source": "PMC8451899; NCT02611167 dose levels"
+          },
+          {
+            "finding": "Murine immunological safety study of hUC-MSC exosomes reported no significant general toxicity or immune-marker effects after IV administration",
+            "source": "PMC12049250"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No program-specific SAE, DLT, or discontinuation data; no Phase 1 for the intrathecal route",
+            "severity": "critical",
+            "source": "Inferred from absence in all retrieved sources"
+          },
+          {
+            "concern": "'Neuroinduced' differentiation of MSC is an undefined manipulation with unquantified tumorigenicity/ectopic tissue risk",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "Intrathecal administration risks (arachnoiditis, ICP elevation, mass lesion) not addressed by any supplied monitoring plan",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "Long-term follow-up duration for a cell product (FDA expects up to 15 years for certain cell/gene products) not described",
+            "severity": "major",
+            "source": "Inferred"
+          }
+        ],
+        "informationGaps": [
+          "Program-specific AE/SAE tables and DLT definitions",
+          "Tumorigenicity and karyotype/soft-agar data for the neuroinduced cells",
+          "Neuroimaging and CSF safety monitoring schedule",
+          "Planned long-term follow-up duration"
+        ],
+        "label": "Safety & tolerability",
+        "weight": 0.22
+      },
+      {
+        "id": "immunogenicity",
+        "score": 3,
+        "evidenceStrength": "absent",
+        "assessment": "No immunogenicity data for either product are provided. For an allogeneic (or differentiated autologous) cell product plus an exosome preparation, relevant risks are anti-HLA alloantibody formation limiting repeat dosing, sensitisation via the intrathecal route, and infusion/hypersensitivity reactions to residual media components. Class literature asserts low immunogenicity of MSC-EVs, but these are review-level statements, not validated assay data. FDA would expect a defined immune-monitoring strategy (anti-HLA panel-reactive antibody, cytokine panels, CSF cell counts) before repeat-dose Phase 2. Score capped at 3 for uncharacterised risk.",
+        "supportingFindings": [
+          {
+            "finding": "Reviews of MSC-derived exosomes describe low immunogenicity and fewer adverse effects than parental cells",
+            "source": "PMC10079493; PMC8854766"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No anti-HLA/alloantibody or hypersensitivity monitoring plan described for repeat administration",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "Donor source (autologous vs allogeneic) not stated, which determines the entire immunogenicity risk framing",
+            "severity": "major",
+            "source": "NCT07471230 registry stub"
+          },
+          {
+            "concern": "Intrathecal route may provoke CNS inflammatory responses not captured by peripheral assays",
+            "severity": "major",
+            "source": "Inferred"
+          }
+        ],
+        "informationGaps": [
+          "Autologous vs allogeneic sourcing and HLA matching strategy",
+          "Planned immune-monitoring assays and validation status",
+          "Any observed infusion reactions in prior use of these products",
+          "Residual bovine/media protein content of the exosome preparation"
+        ],
+        "label": "Immunogenicity",
+        "weight": 0.14
+      },
+      {
+        "id": "manufacturability",
+        "score": 2,
+        "evidenceStrength": "weak",
+        "assessment": "Exosome and differentiated-MSC products are among the least mature modalities from a CMC standpoint, and no sponsor-specific process, CQA, potency-assay, or stability information was supplied. The literature explicitly identifies potency-assay definition for therapeutic EVs and MSC process standardisation as unresolved translational barriers, and notes that different MSC-EV manufacturing methods produce functionally distinct products. A 'neuroinduced' differentiation step adds an identity/consistency attribute that must be quantitatively controlled. Without a defined potency assay tied to the proposed mechanism, comparability across lots and scales cannot be demonstrated.",
+        "supportingFindings": [
+          {
+            "finding": "Dedicated literature on potency assays for therapeutic EVs frames assay definition as an unsolved 'art of congruence' problem",
+            "source": "PMC13291194"
+          },
+          {
+            "finding": "Different MSC-EV manufacturing methods induce distinct pericyte/neuroinflammatory responses, evidencing process-dependent product variability",
+            "source": "bio_517114256f02"
+          },
+          {
+            "finding": "Reviews call for standardised MSC manufacturing to achieve homogeneous ATMP production",
+            "source": "PMC9261977; PMC7641157"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No potency assay, CQA list, or release specification disclosed for either product",
+            "severity": "critical",
+            "source": "Inferred from absence"
+          },
+          {
+            "concern": "Two products manufactured by different processes in one trial doubles CMC burden",
+            "severity": "major",
+            "source": "Trial title"
+          },
+          {
+            "concern": "No comparability, stability, or shelf-life data; cold-chain and intrathecal-formulation (excipient, endotoxin, particulate) requirements unaddressed",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "Exosome products have been the subject of FDA public safety communications regarding unapproved use, raising scrutiny of any IND",
+            "severity": "major",
+            "source": "Inferred"
+          }
+        ],
+        "informationGaps": [
+          "Process description, scale, and site(s)",
+          "Potency and identity assays and their qualification status",
+          "Lot-to-lot comparability and stability data",
+          "Endotoxin/sterility/particulate control for intrathecal dosing"
+        ],
+        "label": "Manufacturability & CMC",
+        "weight": 0.14
+      },
+      {
+        "id": "pkpd_dosing",
+        "score": 1,
+        "evidenceStrength": "absent",
+        "assessment": "No dose, dosing frequency, biodistribution, or target-engagement data are provided for either product or route. For cell and EV therapies, conventional PK is not applicable, but FDA still expects biodistribution/persistence data and a pharmacologically reasoned dose. The MSC PK literature notes rapid pulmonary entrapment and short persistence after IV delivery, which directly undermines a systemic route for a CNS indication and makes the rationale for combining IV and intrathecal administration unclear. Dose selection therefore appears empirical rather than exposure–response based.",
+        "supportingFindings": [
+          {
+            "finding": "MSC PK/PD reviews conclude that secreted factors rather than cell persistence drive PK/PD and that efficacy biomarkers are needed",
+            "source": "PMC6581775; PMC11399464"
+          },
+          {
+            "finding": "Comparator PD trials used defined IV MSC dose levels (1, 3, 6, 10 x 10^6 MSC/kg), demonstrating that dose-ranging is feasible and expected",
+            "source": "NCT02611167"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No dose, cell number, or exosome particle/protein dose stated anywhere in the record",
+            "severity": "critical",
+            "source": "NCT07471230 registry stub"
+          },
+          {
+            "concern": "No biodistribution or CNS-exposure evidence supporting either the IV or intrathecal route",
+            "severity": "critical",
+            "source": "Inferred"
+          },
+          {
+            "concern": "No pharmacodynamic/target-engagement biomarker proposed (e.g., CSF cytokines, neurofilament light, DAT imaging)",
+            "severity": "major",
+            "source": "Inferred"
+          }
+        ],
+        "informationGaps": [
+          "Dose units and levels for both products",
+          "Dosing interval and number of administrations",
+          "Preclinical biodistribution/persistence data",
+          "Any PD biomarker strategy"
+        ],
+        "label": "PK/PD & dosing",
+        "weight": 0.13
+      },
+      {
+        "id": "trial_design_regulatory",
+        "score": 2,
+        "evidenceStrength": "weak",
+        "assessment": "The design as registered is not interpretable for regulatory purposes: two investigational products, two routes, a mixed PD/atypical-parkinsonism population, no disclosed randomisation, blinding, or comparator, and no stated primary endpoint. Parkinson's trials with subjective motor endpoints are highly susceptible to placebo and expectation effects, particularly with an invasive procedure, so a sham-controlled or at minimum double-blind randomised structure is effectively mandatory — precedent from the Schiess randomized trial and from the FDA's handling of NurOwn (post-hoc rescue of a failed primary endpoint rejected) makes this clear. The program has no evidence of FDA interaction, RMAT designation, or an agreed development plan.",
+        "supportingFindings": [
+          {
+            "finding": "Contemporary comparator programs do use randomized, double-blind, placebo-controlled designs for MSC in PD",
+            "source": "NCT07232147; PMC12710125"
+          },
+          {
+            "finding": "Precedent exists for regulatory acceptance of single-arm cell/gene therapy data with external controls in fatal rare disease (LENMELDY)",
+            "source": "fda_353080475f28"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No stated control arm, randomisation, or blinding for a subjective motor endpoint",
+            "severity": "critical",
+            "source": "NCT07471230 registry stub"
+          },
+          {
+            "concern": "Two products in one Phase 2 prevents attribution and would not support a single BLA",
+            "severity": "critical",
+            "source": "Trial title"
+          },
+          {
+            "concern": "Population spanning idiopathic PD and parkinsonism 'in diseases classified elsewhere' is not a licensable indication",
+            "severity": "major",
+            "source": "Trial condition field"
+          },
+          {
+            "concern": "No evidence of IND, pre-IND meeting, or expedited-pathway designation; sponsor has no visible regulatory track record",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "Study not yet recruiting with a 2026 start; accrual feasibility for an intrathecal cell product unproven",
+            "severity": "minor",
+            "source": "Registry status"
+          }
+        ],
+        "informationGaps": [
+          "Randomisation and blinding scheme",
+          "Statistical analysis plan and interim strategy",
+          "Number and geography of sites and US applicability",
+          "Regulatory status (IND, designations, agency feedback)"
+        ],
+        "label": "Trial design & regulatory strategy",
+        "weight": 0.11
+      }
+    ],
+    "keyDrivers": [
+      {
+        "driver": "Complete absence of program-specific clinical, CMC, PK, or immunogenicity data",
+        "direction": "decreases",
+        "weight": "high"
+      },
+      {
+        "driver": "Two distinct uncharacterised products and two routes combined in a single Phase 2",
+        "direction": "decreases",
+        "weight": "high"
+      },
+      {
+        "driver": "Heterogeneous PD/atypical parkinsonism population that is not a licensable indication",
+        "direction": "decreases",
+        "weight": "high"
+      },
+      {
+        "driver": "No disclosed control arm or blinding for a placebo-prone subjective endpoint",
+        "direction": "decreases",
+        "weight": "high"
+      },
+      {
+        "driver": "Immature potency-assay and comparability landscape for MSC-EV products",
+        "direction": "decreases",
+        "weight": "moderate"
+      },
+      {
+        "driver": "Class-level tolerability of IV MSC in PD demonstrated in prior Phase 1/2 work",
+        "direction": "increases",
+        "weight": "moderate"
+      },
+      {
+        "driver": "High unmet need in Parkinson's disease and regulatory flexibility precedent for cell therapies",
+        "direction": "increases",
+        "weight": "low"
+      }
+    ],
+    "redFlags": [
+      {
+        "flag": "Exosome product with no disclosed manufacturing, potency, or release control",
+        "why": "FDA has issued public safety communications about unapproved exosome products; a Phase 2 IND lacking a qualified potency assay and defined CQAs would likely receive a clinical hold rather than proceed."
+      },
+      {
+        "flag": "Intrathecal administration of a cell product without any reported dose-escalation safety data",
+        "why": "CNS delivery risks (arachnoiditis, ICP elevation, ectopic tissue) require a completed Phase 1 with imaging follow-up; proceeding to Phase 2 without it is a clinical-hold-level deficiency."
+      },
+      {
+        "flag": "Two investigational products evaluated in one study",
+        "why": "Effects cannot be attributed to either product, so the trial cannot contribute to substantial evidence of effectiveness for any single BLA."
+      },
+      {
+        "flag": "Indication defined as parkinsonism including 'parkinsonism in diseases classified elsewhere'",
+        "why": "The population is not a coherent licensable indication and mixes diseases with divergent natural histories, precluding a defensible labelling claim."
+      }
+    ],
+    "deRiskingActions": [
+      {
+        "action": "Split the program: select one product (cells or exosomes) and one route, and support it with a dedicated dose-escalation Phase 1 including CNS imaging and CSF safety monitoring.",
+        "addresses": "trial_design_regulatory",
+        "priority": "immediate"
+      },
+      {
+        "action": "Request a pre-IND/Type B meeting with OTP to agree on product definition, potency assay, and an acceptable Phase 2 design before enrolment.",
+        "addresses": "trial_design_regulatory",
+        "priority": "immediate"
+      },
+      {
+        "action": "Define and qualify a mechanism-relevant potency assay plus full CQA/release panel (identity, purity, particle count, endotoxin, sterility, particulates for intrathecal use) and demonstrate lot-to-lot comparability.",
+        "addresses": "manufacturability",
+        "priority": "immediate"
+      },
+      {
+        "action": "Restrict eligibility to Hoehn–Yahr-defined idiopathic Parkinson's disease with a specified disease duration, and adopt a randomised, double-blind, sham/placebo-controlled design with MDS-UPDRS Part III as primary.",
+        "addresses": "efficacy_clinical_evidence",
+        "priority": "immediate"
+      },
+      {
+        "action": "Generate GLP preclinical biodistribution, persistence, and tumorigenicity data for the neuroinduced cell product by both intended routes and use these to justify dose.",
+        "addresses": "pkpd_dosing",
+        "priority": "near-term"
+      },
+      {
+        "action": "Establish a tiered immune-monitoring plan (anti-HLA antibodies, cytokine panel, CSF cell counts) with defined assays and stopping rules for repeat dosing.",
+        "addresses": "immunogenicity",
+        "priority": "near-term"
+      },
+      {
+        "action": "Add objective/biomarker endpoints (DAT imaging, CSF or plasma neurofilament light, inflammatory markers) as supportive evidence of disease modification.",
+        "addresses": "efficacy_clinical_evidence",
+        "priority": "later"
+      },
+      {
+        "action": "Commit to long-term follow-up consistent with FDA cell-therapy guidance, with a prespecified registry protocol.",
+        "addresses": "safety",
+        "priority": "later"
+      }
+    ],
+    "regulatoryPrecedents": [
+      {
+        "product": "NurOwn (debamestrocel, autologous MSC-NTF, ALS)",
+        "outcome": "Advisory committee negative; not approved",
+        "relevance": "Closest modality/indication precedent: neurally-conditioned MSC in neurodegeneration failed its primary endpoint and post-hoc/biomarker arguments were insufficient for FDA — directly relevant to a neuroinduced MSC in parkinsonism."
+      },
+      {
+        "product": "Allogeneic BM-MSC in idiopathic Parkinson's disease (Schiess et al.)",
+        "outcome": "Phase 1/2 completed; inconsistent efficacy",
+        "relevance": "Establishes IV MSC tolerability in PD but also shows a dose group inferior to placebo, tempering expectations of a robust class effect."
+      },
+      {
+        "product": "LENMELDY (atidarsagene autotemcel)",
+        "outcome": "Approved March 2024",
+        "relevance": "Demonstrates FDA will accept single-arm cell-based data with external natural-history controls, but only with a defined product, validated potency assays, and a large unambiguous effect in a fatal rare disease — conditions absent here."
+      },
+      {
+        "product": "CARVYKTI (ciltacabtagene autoleucel)",
+        "outcome": "Approved 2022 with REMS and PMRs",
+        "relevance": "Illustrates the level of product characterisation, safety monitoring, and long-term follow-up FDA expects from a cell therapy BLA."
+      },
+      {
+        "product": "Crexont (carbidopa/levodopa ER)",
+        "outcome": "CRL then approval on resubmission",
+        "relevance": "Shows the division's willingness to issue complete response letters in Parkinson's disease for inadequate safety exposure and pharmacologic bridging — deficiencies analogous to this program's gaps."
+      }
+    ],
+    "expeditedPathways": [
+      {
+        "pathway": "RMAT",
+        "eligibility": "unlikely",
+        "rationale": "RMAT requires preliminary clinical evidence that the regenerative product may address unmet need; no clinical data for this product exist."
+      },
+      {
+        "pathway": "Fast Track",
+        "eligibility": "unlikely",
+        "rationale": "placeholder"
+      },
+      {
+        "pathway": "Fast Track",
+        "eligibility": "unlikely",
+        "rationale": "placeholder"
+      },
+      {
+        "pathway": "Fast Track",
+        "eligibility": "unlikely",
+        "rationale": "placeholder"
+      },
+      {
+        "pathway": "Orphan Drug",
+        "eligibility": "unlikely",
+        "rationale": "placeholder"
+      }
+    ],
+    "evidenceQuality": {
+      "overall": "weak",
+      "notes": "Retrieval covered the MSC/MSC-EV class literature well (mechanistic reviews, preclinical PD models, one randomized allogeneic BM-MSC PD trial, EV potency-assay and manufacturing commentary) and provided useful FDA precedent for neurodegeneration cell therapy (NurOwn) and cell-product approvals (LENMELDY, CARVYKTI). It provided essentially no program-specific information: the NCT07471230 record yielded no endpoints, doses, arms, sample size, or sponsor product description, and map extractions on the US registry and FDA corpora failed outright. Consequently the safety, immunogenicity, CMC, and PK/PD scores rest on modality-class expectation rather than sponsor data, and are recorded as weak or absent accordingly."
+    },
+    "weightedRubricScore": 1.75
+  },
+  "evidence": {
+    "gatheredAt": "2026-08-15T23:06:30.879Z",
+    "stats": {
+      "sectionsRequested": 13,
+      "sectionsWithContent": 13,
+      "sectionsFailed": 0,
+      "totalChars": 64123
+    },
+    "sections": [
+      {
+        "key": "trial_registry",
+        "label": "Trial registry records",
+        "source": "/trials/us",
+        "error": null,
+        "chars": 4630
+      },
+      {
+        "key": "trial_registry",
+        "label": "Trial registry records",
+        "source": "/trials/intl",
+        "error": null,
+        "chars": 3925
+      },
+      {
+        "key": "regulatory",
+        "label": "FDA / EMA / PMDA review documents and precedents",
+        "source": "-s fda",
+        "error": null,
+        "chars": 10478
+      },
+      {
+        "key": "immunogenicity",
+        "label": "Immunogenicity",
+        "source": "-s pmc,biorxiv",
+        "error": null,
+        "chars": 5395
+      },
+      {
+        "key": "safety",
+        "label": "Safety and tolerability",
+        "source": "-s pmc,biorxiv",
+        "error": null,
+        "chars": 6652
+      },
+      {
+        "key": "manufacturability",
+        "label": "Manufacturability / CMC",
+        "source": "-s pmc,biorxiv",
+        "error": null,
+        "chars": 6047
+      },
+      {
+        "key": "efficacy",
+        "label": "Efficacy and clinical evidence",
+        "source": "-s pmc,biorxiv",
+        "error": null,
+        "chars": 6499
+      },
+      {
+        "key": "pkpd",
+        "label": "PK/PD and dosing",
+        "source": "-s pmc,biorxiv",
+        "error": null,
+        "chars": 6210
+      },
+      {
+        "key": "mechanism",
+        "label": "Target and mechanism of action",
+        "source": "-s pmc",
+        "error": null,
+        "chars": 5700
+      },
+      {
+        "key": "trial_registry_deep",
+        "label": "Trial registry records — LLM reader extraction",
+        "source": "/trials/us (map/reduce)",
+        "error": null,
+        "chars": 678
+      },
+      {
+        "key": "trial_registry_deep",
+        "label": "Trial registry records — LLM reader extraction",
+        "source": "/trials/intl (map/reduce)",
+        "error": null,
+        "chars": 6695
+      },
+      {
+        "key": "regulatory_deep",
+        "label": "FDA / EMA / PMDA review documents and precedents — LLM reader extraction",
+        "source": "-s fda (map/reduce)",
+        "error": null,
+        "chars": 618
+      },
+      {
+        "key": "immunogenicity_deep",
+        "label": "Immunogenicity — LLM reader extraction",
+        "source": "-s pmc,biorxiv (map/reduce)",
+        "error": null,
+        "chars": 596
+      }
+    ]
+  },
+  "meta": {
+    "rubricVersion": "1.0.0",
+    "model": "claude-opus-5",
+    "effort": "low",
+    "usage": {
+      "input_tokens": 30498,
+      "cache_creation_input_tokens": 5959,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 5959,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 7904,
+      "service_tier": "standard",
+      "inference_geo": "global"
+    },
+    "evaluatedAt": "2026-08-15T23:08:19.533Z"
+  }
+}

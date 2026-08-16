@@ -1,0 +1,619 @@
+{
+  "trial": {
+    "trialId": "NCT04429451",
+    "therapeuticName": "PSMA-specific CAR-T cells",
+    "sponsor": "Shenzhen Geno-Immune Medical Institute",
+    "phase": "Phase 1/2",
+    "startDate": "2026-06-01",
+    "registry": "ClinicalTrials.gov",
+    "condition": "PSMA Positive Tumors or Tumor Tissues",
+    "modality": "Cell therapy",
+    "title": "PSMA-specific CAR-T Cell Therapy",
+    "therapeuticArea": "Oncology",
+    "therapeuticDescription": "",
+    "overallStatus": "RECRUITING",
+    "studyType": "INTERVENTIONAL",
+    "registryProducts": [
+      "4SCAR-PSMA T cells"
+    ],
+    "registryEnriched": true
+  },
+  "review": {
+    "therapeuticName": "PSMA-specific CAR-T cells (4SCAR-PSMA T cells)",
+    "trialId": "NCT04429451",
+    "reviewerSummary": "This is a single-center, open-label Phase 1/2 study of autologous 4SCAR-PSMA T cells in PSMA-positive tumors, sponsored by Shenzhen Geno-Immune Medical Institute, with a listed start date of June 2026 and no reported clinical data in the bundle. Nothing in the evidence provided establishes a clinical efficacy signal, a characterized safety profile, cell kinetics, immunogenicity assessment, or a GMP/CMC control strategy for this specific product. The supporting literature is preclinical (PSMA-CAR T constructs in xenograft models) plus a six-patient investigator report of combined PSMA/GD2 CAR-T in glioma; the only PSMA-directed FDA precedents are radioligand and imaging agents (Pluvicto, Locametz, Posluma), not cell therapy. The central question is whether autologous CAR-T can produce durable, on-target activity in a PSMA-expressing solid tumor without dose-limiting on-target/off-tumor toxicity — a hurdle no PSMA CAR-T program has yet cleared. Design features (single-arm, single-site, broad histology-agnostic \"PSMA-positive tumor\" population, non-US site) further limit US regulatory utility. Probability of reaching an approvable submission is low.",
+    "probabilityOfTrialSuccess": {
+      "pointEstimate": 6,
+      "low": 2,
+      "high": 12,
+      "basis": "Anchor: Phase 1 oncology cell-therapy programs reach approval roughly 8-12% of the time historically, and solid-tumor CAR-T specifically has a far worse record (no autologous CAR-T approval in any solid tumor except the TCR-T/TIL adjacent products; PSMA CAR-T programs to date have not advanced past early phase). Downward adjustments: histology-agnostic, poorly defined 'PSMA-positive tumors' population without a validated selection assay (-3 to -4 points); single-arm single-site design at a non-US institute with limited FDA-referenceable GMP/CMC documentation (-2); no program-specific clinical, PK/cell-kinetic, immunogenicity or manufacturing data in the bundle, i.e., wholly uncharacterised (-2); trial not yet generating data (start 2026), so timeline and accrual risk are unmitigated (-1). Slight upward adjustment for validated target biology (PSMA confirmed as a tractable, highly expressed target by three approved PSMA-directed agents) and CAR-T class familiarity to FDA (+1 to +2). Net ~6%."
+    },
+    "confidence": {
+      "level": "moderate",
+      "rationale": "Evidence coverage is thin but consistently so: the registry record is skeletal and no program-specific clinical, CMC, PK or immunogenicity data exist in the bundle. Confidence in a low estimate is supported by the reliable absence of any PSMA CAR-T clinical success precedent, though the absence of data also means an unexpected strong signal cannot be excluded."
+    },
+    "criteria": [
+      {
+        "id": "efficacy_clinical_evidence",
+        "score": 2,
+        "evidenceStrength": "weak",
+        "assessment": "No clinical efficacy data for 4SCAR-PSMA are presented. The strongest human evidence in the bundle is a six-patient report of PSMA CAR-T combined with GD2 CAR-T in refractory glioma with a 50% overall response rate — a different construct, different combination, and a sample size that cannot support inference. Preclinical xenograft data show tumor regression but that is unremarkable for the class. The proposed population, 'PSMA positive tumors or tumor tissues' without histology restriction or a specified PSMA cut-off, would not support a substantial-evidence finding as framed.",
+        "supportingFindings": [
+          {
+            "finding": "PSMA-CAR T cells eradicated disseminated prostate cancer in preclinical models; construct optimization (CD28 costimulation) reported",
+            "source": "PMC4184866; PMC8511814"
+          },
+          {
+            "finding": "50% overall response rate in 6 patients with refractory/relapsed glioma treated with PSMA CAR-T plus GD2 CAR-T, reported as well tolerated with no severe AEs",
+            "source": "PMC12107844"
+          },
+          {
+            "finding": "PSMA validated as a targetable antigen by three FDA-approved PSMA-directed agents",
+            "source": "FDA reviews: Pluvicto NDA215833, Locametz NDA215841, Posluma NDA216023"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No clinical efficacy data whatsoever for this product; trial start date listed as June 2026",
+            "severity": "critical",
+            "source": "Registry record NCT04429451"
+          },
+          {
+            "concern": "Histology-agnostic 'PSMA-positive' population with no stated PSMA expression threshold or validated companion selection assay",
+            "severity": "major",
+            "source": "Registry record"
+          },
+          {
+            "concern": "Single-arm Phase 1/2 design cannot isolate treatment effect for the heterogeneous tumor types enrolled",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "No autologous CAR-T has demonstrated approvable efficacy in a PSMA-expressing solid tumor",
+            "severity": "major",
+            "source": "PMC10285603"
+          }
+        ],
+        "informationGaps": [
+          "Primary endpoint definition and response criteria",
+          "PSMA expression assay, cut-off, and scoring method",
+          "Planned sample size per tumor histology",
+          "Any interim response, PSA kinetics, or duration-of-response data"
+        ],
+        "label": "Efficacy & clinical evidence",
+        "weight": 0.26
+      },
+      {
+        "id": "safety",
+        "score": 3,
+        "evidenceStrength": "absent",
+        "assessment": "No program-specific safety data are available. Class expectations for CAR-T include cytokine release syndrome, ICANS, and prolonged cytopenias, all of which carried REMS requirements for Abecma and Carvykti; solid-tumor CAR-T adds on-target/off-tumor risk from antigen expression in normal tissue, which for PSMA includes renal proximal tubule, salivary gland, duodenal mucosa and neovasculature. Absent DLT, SAE and dose-escalation data, this dimension is uncharacterised and capped at 3.",
+        "supportingFindings": [
+          {
+            "finding": "No severe adverse events reported in the 6-patient PSMA/GD2 CAR-T glioma series",
+            "source": "PMC12107844"
+          },
+          {
+            "finding": "CAR-T class toxicities (CRS, ICANS, carHLH, cytopenias) are well described with established management algorithms, which supports feasibility of monitoring",
+            "source": "PMC10590030; PMC7521123"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "On-target/off-tumor toxicity risk from physiologic PSMA expression in kidney, salivary gland and small bowel is not addressed in the supplied evidence",
+            "severity": "critical",
+            "source": "Inferred; PMC11891211"
+          },
+          {
+            "concern": "No DLT definition, dose-escalation scheme, lymphodepletion regimen, or stopping rules in the evidence",
+            "severity": "major",
+            "source": "Registry record"
+          },
+          {
+            "concern": "Anticipated need for a REMS-equivalent risk management program and long-term (15-year) follow-up for a gene-modified cell product",
+            "severity": "major",
+            "source": "CARVYKTI/ABECMA FDA reviews"
+          },
+          {
+            "concern": "Single-center setting raises questions about CRS/ICANS intensive-care capability and reporting completeness",
+            "severity": "minor",
+            "source": "Inferred"
+          }
+        ],
+        "informationGaps": [
+          "Grade >=3 CRS and ICANS incidence",
+          "Deaths and treatment-related mortality",
+          "Renal and salivary-gland toxicity monitoring plan",
+          "Replication-competent lentivirus testing and insertional oncogenesis surveillance"
+        ],
+        "label": "Safety & tolerability",
+        "weight": 0.22
+      },
+      {
+        "id": "immunogenicity",
+        "score": 3,
+        "evidenceStrength": "absent",
+        "assessment": "No ADA or anti-CAR immune response data exist for this product. The relevant risk for a lentivirally transduced autologous CAR-T is host humoral and cellular response to a non-human (likely murine) scFv, which is documented in the literature to shorten persistence and can precipitate hypersensitivity on redosing. The bundle contains no information on the scFv origin (humanized versus murine) for 4SCAR-PSMA and no tiered ADA/anti-CAR assay strategy, so this remains uncharacterised.",
+        "supportingFindings": [
+          {
+            "finding": "Humanization of a PSMA-directed CAR reduced predicted immunogenicity while preserving antigen-specific potency, establishing feasibility of mitigation",
+            "source": "PMC12428541"
+          },
+          {
+            "finding": "Anti-CAR antibody responses documented to reduce CAR-T persistence and efficacy; mitigation strategies reviewed",
+            "source": "PMC9169153"
+          },
+          {
+            "finding": "Anti-CAR antibodies developed against CAR extracellular domains in a nonhuman primate CAR-T study, with loss of long-term persistence",
+            "source": "PMC9793449"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "scFv species origin of 4SCAR-PSMA not disclosed; murine-derived binders carry meaningful anti-CAR immunogenicity risk",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "No validated tiered screening/confirmatory/neutralizing assay strategy or cell-persistence correlation described",
+            "severity": "major",
+            "source": "Registry record"
+          },
+          {
+            "concern": "Repeat dosing, if planned, would be at elevated risk of accelerated clearance and hypersensitivity",
+            "severity": "minor",
+            "source": "PMC9169153"
+          }
+        ],
+        "informationGaps": [
+          "Anti-CAR antibody and anti-transgene T-cell response incidence",
+          "Relationship between immune response and CAR-T persistence",
+          "Assay validation package",
+          "Whether the construct is humanized"
+        ],
+        "label": "Immunogenicity",
+        "weight": 0.14
+      },
+      {
+        "id": "manufacturability",
+        "score": 3,
+        "evidenceStrength": "absent",
+        "assessment": "No CMC information is supplied for 4SCAR-PSMA: no vector description, transduction efficiency, release specifications, potency assay, or manufacturing success rate. Autologous CAR-T CMC risk is inherently high — lentiviral vector supply, batch failure, apheresis variability, potency-assay qualification and cold chain — and FDA has repeatedly made potency and comparability the gating issue for cell-therapy BLAs. A single-institute academic process would need substantial work to reach commercial validation, and the absence of any process data caps this score at 3.",
+        "supportingFindings": [
+          {
+            "finding": "Established literature demonstrates GMP-compliant CAR-T processes and validated flow-cytometry/killing potency assays are achievable at academic scale",
+            "source": "PMC11890757; PMC11219661; PMC11944512"
+          },
+          {
+            "finding": "Precedent for optimizing and scaling an autologous CAR-T process during pivotal trials (tisagenlecleucel)",
+            "source": "PMC6970133"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No product-specific potency assay, CQA definition, or release specifications in the evidence",
+            "severity": "critical",
+            "source": "Registry record"
+          },
+          {
+            "concern": "No demonstrated comparability across scales or sites; single academic manufacturing site with no evidence of US-referenceable GMP status",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "Lentiviral vector supply, batch failure rate, and manufacturing turnaround time unreported",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "No stability or shelf-life data for the cryopreserved drug product",
+            "severity": "major",
+            "source": "Inferred"
+          }
+        ],
+        "informationGaps": [
+          "Vector construct and transduction efficiency",
+          "Manufacturing success rate and vein-to-vein time",
+          "Potency assay and CQAs",
+          "Stability, shelf life, and cold-chain controls",
+          "GMP inspection history"
+        ],
+        "label": "Manufacturability & CMC",
+        "weight": 0.14
+      },
+      {
+        "id": "pkpd_dosing",
+        "score": 2,
+        "evidenceStrength": "absent",
+        "assessment": "No cell kinetics, expansion, persistence, or dose-selection rationale is provided. For CAR-T, cellular kinetics (Cmax of transgene copies, AUC0-28, persistence) plus tumor-burden covariates are the accepted exposure metrics, and FDA expects a dose-exposure-response narrative for the recommended Phase 2 dose. The general literature indicates a steep dose-exposure-response with an efficacy plateau above which escalation only adds toxicity, making dose justification a substantive review issue here. Because no dose levels or exposure data appear in the evidence, this dimension scores below the uncharacterised cap.",
+        "supportingFindings": [
+          {
+            "finding": "Multiscale CAR-T PK/PD modeling frameworks exist and demonstrate steep dose-exposure-response with baseline tumor burden as a key covariate",
+            "source": "PMC8099446; PMC10681459"
+          },
+          {
+            "finding": "Systematic review of clinical CAR-T dose-response shows efficacy plateaus at higher doses with increased toxicity, informing dose-selection strategy",
+            "source": "PMC9791395"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "No dose levels, cell dose per kg, or dose-escalation design reported",
+            "severity": "critical",
+            "source": "Registry record"
+          },
+          {
+            "concern": "No planned cellular kinetics sampling (qPCR/flow transgene quantitation) described",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "No target-engagement or tumor-infiltration biomarker strategy for a solid tumor where trafficking is the principal barrier",
+            "severity": "major",
+            "source": "bio_86735d696e4c"
+          },
+          {
+            "concern": "Lymphodepletion regimen, a major determinant of CAR-T exposure, not specified",
+            "severity": "major",
+            "source": "Inferred"
+          }
+        ],
+        "informationGaps": [
+          "Cell dose levels and DLT-based escalation rules",
+          "Cmax/AUC of CAR transgene and persistence duration",
+          "Exposure-response for both response and CRS",
+          "Effect of tumor burden and prior therapy on expansion"
+        ],
+        "label": "PK/PD & dosing",
+        "weight": 0.13
+      },
+      {
+        "id": "trial_design_regulatory",
+        "score": 2,
+        "evidenceStrength": "weak",
+        "assessment": "The design as registered is a single-arm, open-label, single-center Phase 1/2 in a histology-agnostic PSMA-positive population — acceptable for first-in-human safety but not structured to support a regulatory conclusion. A tumor-agnostic indication would require demonstration of a biomarker-defined effect across multiple histologies with a validated selection assay, which is not in evidence. The non-US single site raises applicability and data-integrity questions for a US submission, and the listed 2026 start with recruiting status implies no data for several years. PSMA-directed FDA precedent exists only for radiopharmaceuticals and imaging agents, so there is no cell-therapy roadmap for this target.",
+        "supportingFindings": [
+          {
+            "finding": "FDA has repeatedly approved single-arm autologous CAR-T products on response-rate endpoints with REMS, establishing a workable regulatory template for the modality",
+            "source": "ABECMA and CARVYKTI FDA reviews"
+          },
+          {
+            "finding": "FDA has accepted PSMA as a patient-selection biomarker with a companion imaging agent (Locametz used to select patients for Pluvicto)",
+            "source": "Locametz NDA215841 review"
+          }
+        ],
+        "concerns": [
+          {
+            "concern": "Undifferentiated 'PSMA-positive tumors' enrollment without histology-specific cohorts or expansion plan undermines interpretability",
+            "severity": "critical",
+            "source": "Registry record"
+          },
+          {
+            "concern": "Single-center, non-US site; limited applicability to the US population and no evidence of an active US IND or FDA interaction",
+            "severity": "major",
+            "source": "Registry record"
+          },
+          {
+            "concern": "No statistical analysis plan, interim strategy, or multiplicity control described",
+            "severity": "major",
+            "source": "Registry record"
+          },
+          {
+            "concern": "Enrollment feasibility across rare PSMA-positive non-prostate histologies at one site is questionable",
+            "severity": "major",
+            "source": "Inferred"
+          },
+          {
+            "concern": "Competitive field — multiple PSMA CAR-T and bispecific programs — with none yet clearing efficacy/toxicity hurdles",
+            "severity": "minor",
+            "source": "PMC10285603; NCT05656573, NCT06046040, NCT06228404"
+          }
+        ],
+        "informationGaps": [
+          "Sample size, endpoints, and analysis plan",
+          "Regulatory status (IND, orphan designation, RMAT)",
+          "Whether prostate cancer will be the lead indication",
+          "Follow-up duration and long-term gene-therapy surveillance plan"
+        ],
+        "label": "Trial design & regulatory strategy",
+        "weight": 0.11
+      }
+    ],
+    "keyDrivers": [
+      {
+        "driver": "Complete absence of program-specific clinical, PK, immunogenicity and CMC data; trial has not yet started generating results",
+        "direction": "decreases",
+        "weight": "high"
+      },
+      {
+        "driver": "No autologous CAR-T has achieved approvable efficacy in a PSMA-expressing solid tumor; class-wide solid-tumor CAR-T failure rate",
+        "direction": "decreases",
+        "weight": "high"
+      },
+      {
+        "driver": "Histology-agnostic, threshold-free 'PSMA-positive tumor' population with no validated selection assay",
+        "direction": "decreases",
+        "weight": "high"
+      },
+      {
+        "driver": "Single-center, non-US, single-arm design with no evident FDA interaction or commercial-scale manufacturing path",
+        "direction": "decreases",
+        "weight": "moderate"
+      },
+      {
+        "driver": "On-target/off-tumor risk from physiologic PSMA expression in kidney, salivary gland and duodenum",
+        "direction": "decreases",
+        "weight": "moderate"
+      },
+      {
+        "driver": "PSMA is a clinically validated target with three approved PSMA-directed agents, and FDA has an established CAR-T review template",
+        "direction": "increases",
+        "weight": "moderate"
+      },
+      {
+        "driver": "High unmet need in mCRPC post-Pluvicto supports accelerated pathways if a signal emerges",
+        "direction": "increases",
+        "weight": "low"
+      }
+    ],
+    "redFlags": [
+      {
+        "flag": "Indication defined only as 'PSMA positive tumors or tumor tissues' with no expression threshold or companion diagnostic",
+        "why": "FDA will not grant a biomarker-defined tumor-agnostic indication without a validated, analytically qualified selection assay and demonstrated effect across histologies; as written the study cannot define an approvable population."
+      },
+      {
+        "flag": "No CMC, potency assay, or comparability information for an autologous gene-modified cell product manufactured at a single academic institute",
+        "why": "Potency and comparability deficiencies are the most common cause of cell-therapy CRLs; without a defined control strategy the product is not licensable regardless of clinical outcome."
+      },
+      {
+        "flag": "Unaddressed on-target/off-tumor risk against PSMA-expressing normal kidney, salivary gland and intestinal tissue",
+        "why": "A dose-limiting normal-tissue toxicity signal could impose a therapeutic window too narrow to support any efficacious dose, terminating the program at Phase 1."
+      },
+      {
+        "flag": "Study start date of June 2026 with recruiting status and no reported data",
+        "why": "There is no evidence base for FDA to evaluate; any regulatory conclusion is years away and the program is effectively pre-clinical from a review standpoint."
+      }
+    ],
+    "deRiskingActions": [
+      {
+        "action": "Narrow the lead indication to mCRPC with a defined PSMA expression threshold (e.g., PSMA-PET or IHC criteria mirroring the VISION/Locametz selection paradigm) and prespecify histology-specific expansion cohorts",
+        "addresses": "efficacy_clinical_evidence",
+        "priority": "immediate"
+      },
+      {
+        "action": "Prespecify a dose-escalation scheme with explicit DLT definitions, lymphodepletion regimen, and CRS/ICANS grading and stopping rules per current consensus criteria",
+        "addresses": "safety",
+        "priority": "immediate"
+      },
+      {
+        "action": "Implement intensive renal and salivary-gland toxicity monitoring and prospective on-target/off-tumor surveillance given physiologic PSMA expression",
+        "addresses": "safety",
+        "priority": "immediate"
+      },
+      {
+        "action": "Add serial cellular kinetics (qPCR transgene copies and flow CAR+ cell counts) through at least day 28 with persistence follow-up, and build a dose-exposure-response analysis to justify the recommended Phase 2 dose",
+        "addresses": "pkpd_dosing",
+        "priority": "immediate"
+      },
+      {
+        "action": "Qualify a quantitative potency assay (antigen-specific cytotoxicity or activation-based flow) and define CQAs, release specifications, and cryopreserved stability before any registrational cohort",
+        "addresses": "manufacturability",
+        "priority": "near-term"
+      },
+      {
+        "action": "Disclose scFv species origin and, if murine, implement a humanized binder; establish a tiered anti-CAR antibody and anti-transgene T-cell response assay linked to persistence",
+        "addresses": "immunogenicity",
+        "priority": "near-term"
+      },
+      {
+        "action": "Request a pre-IND / INTERACT meeting with OTP to align on the selection biomarker, single-arm registrational strategy, and long-term follow-up plan, and pursue Orphan/Fast Track designation for a defined lead indication",
+        "addresses": "trial_design_regulatory",
+        "priority": "near-term"
+      },
+      {
+        "action": "Establish multi-site, US-inclusive enrollment and demonstrate manufacturing comparability across sites before any pivotal cohort",
+        "addresses": "manufacturability",
+        "priority": "later"
+      }
+    ],
+    "regulatoryPrecedents": [
+      {
+        "product": "ABECMA (idecabtagene vicleucel)",
+        "outcome": "Approved 2021 with REMS",
+        "relevance": "Demonstrates FDA will approve an autologous CAR-T on a single-arm ORR endpoint (72% ORR), but also that FDA narrowed the indication to the population actually studied — a warning for a loosely defined enrollment population."
+      },
+      {
+        "product": "CARVYKTI (ciltacabtagene autoleucel)",
+        "outcome": "Approved 2022 (regular) with REMS and long-term follow-up",
+        "relevance": "Sets the efficacy bar and the safety/risk-management expectations (CRS, neurotoxicity, prolonged cytopenias, 15-year follow-up) that any CAR-T BLA must meet."
+      },
+      {
+        "product": "Pluvicto (177Lu-PSMA-617)",
+        "outcome": "Approved 2022 (regular); Breakthrough Therapy granted",
+        "relevance": "Establishes PSMA as a clinically actionable target in mCRPC and defines the current standard of care and comparator context a PSMA CAR-T must improve upon."
+      },
+      {
+        "product": "Locametz (gallium Ga 68 gozetotide)",
+        "outcome": "Approved 2022",
+        "relevance": "Precedent for an FDA-accepted PSMA-based patient-selection tool; the model this program should follow instead of an undefined 'PSMA-positive' criterion."
+      },
+      {
+        "product": "Posluma (flotufolastat F 18)",
+        "outcome": "Approved 2023 despite missing some co-primary endpoints",
+        "relevance": "Illustrates FDA flexibility on PSMA-directed agents where clinical utility is shown, but only for diagnostics — no therapeutic latitude implied."
+      },
+      {
+        "product": "Carvykti/Abecma ODAC, March 2024",
+        "outcome": "Advisory committee on early-death risk in expanded indications",
+        "relevance": "Shows FDA's continued scrutiny of early mortality and benefit-risk for CAR-T even in approved products; heightens the bar for a solid-tumor entrant."
+      }
+    ],
+    "expeditedPathways": [
+      {
+        "pathway": "RMAT",
+        "eligibility": "possible",
+        "rationale": "A gene-modified autologous cell therapy for a serious condition is categorically eligible, but RMAT requires preliminary clinical evidence of potential to address unmet need, which this program has not yet generated."
+      },
+      {
+        "pathway": "Fast Track",
+        "eligibility": "unlikely",
+        "rationale": "Placeholder"
+      },
+      {
+        "pathway": "Fast Track",
+        "eligibility": "unlikely",
+        "rationale": "Placeholder"
+      },
+      {
+        "pathway": "Orphan Drug",
+        "eligibility": "possible",
+        "rationale": "Placeholder"
+      },
+      {
+        "pathway": "Fast Track",
+        "eligibility": "possible",
+        "rationale": "Placeholder"
+      },
+      {
+        "pathway": "Fast Track",
+        "eligibility": "possible",
+        "rationale": "Placeholder"
+      },
+      {
+        "pathway": "Fast Track",
+        "eligibility": "possible",
+        "rationale": "Placeholder"
+      },
+      {
+        "pathway": "Fast Track",
+        "eligibility": "possible",
+        "rationale": "Placeholder"
+      }
+    ],
+    "evidenceQuality": {
+      "overall": "weak",
+      "notes": "The bundle established target validation and modality context well: PSMA is a confirmed druggable target with three FDA-approved PSMA-directed agents, and the CAR-T class has a mature FDA review template (Abecma, Carvykti) plus extensive literature on CRS/ICANS management, manufacturing, potency assays, anti-CAR immunogenicity, and cellular kinetics modeling. It covered nothing program-specific: the registry record yielded only exclusion-criterion fragments, and all LLM extraction passes over the registry, FDA and immunogenicity corpora failed, so no doses, endpoints, sample size, or results for 4SCAR-PSMA were retrievable. Consequently the safety, immunogenicity, manufacturability and PK/PD scores rest entirely on modality-class expectation rather than program data and are marked evidenceStrength 'absent'; efficacy and trial design rest on a 6-patient third-party CAR-T series and preclinical xenograft work. No FDA/EMA document specific to any PSMA CAR-T product was found."
+    },
+    "weightedRubricScore": 2.5
+  },
+  "evidence": {
+    "gatheredAt": "2026-08-15T23:19:01.758Z",
+    "stats": {
+      "sectionsRequested": 13,
+      "sectionsWithContent": 13,
+      "sectionsFailed": 0,
+      "totalChars": 56318
+    },
+    "sections": [
+      {
+        "key": "trial_registry",
+        "label": "Trial registry records",
+        "source": "/trials/us",
+        "error": null,
+        "chars": 4354
+      },
+      {
+        "key": "trial_registry",
+        "label": "Trial registry records",
+        "source": "/trials/intl",
+        "error": null,
+        "chars": 3343
+      },
+      {
+        "key": "regulatory",
+        "label": "FDA / EMA / PMDA review documents and precedents",
+        "source": "-s fda",
+        "error": null,
+        "chars": 10096
+      },
+      {
+        "key": "immunogenicity",
+        "label": "Immunogenicity",
+        "source": "-s pmc,biorxiv",
+        "error": null,
+        "chars": 4629
+      },
+      {
+        "key": "safety",
+        "label": "Safety and tolerability",
+        "source": "-s pmc,biorxiv",
+        "error": null,
+        "chars": 6222
+      },
+      {
+        "key": "manufacturability",
+        "label": "Manufacturability / CMC",
+        "source": "-s pmc,biorxiv",
+        "error": null,
+        "chars": 5719
+      },
+      {
+        "key": "efficacy",
+        "label": "Efficacy and clinical evidence",
+        "source": "-s pmc,biorxiv",
+        "error": null,
+        "chars": 6423
+      },
+      {
+        "key": "pkpd",
+        "label": "PK/PD and dosing",
+        "source": "-s pmc,biorxiv",
+        "error": null,
+        "chars": 6817
+      },
+      {
+        "key": "mechanism",
+        "label": "Target and mechanism of action",
+        "source": "-s pmc",
+        "error": null,
+        "chars": 6174
+      },
+      {
+        "key": "trial_registry_deep",
+        "label": "Trial registry records — LLM reader extraction",
+        "source": "/trials/us (map/reduce)",
+        "error": null,
+        "chars": 678
+      },
+      {
+        "key": "trial_registry_deep",
+        "label": "Trial registry records — LLM reader extraction",
+        "source": "/trials/intl (map/reduce)",
+        "error": null,
+        "chars": 678
+      },
+      {
+        "key": "regulatory_deep",
+        "label": "FDA / EMA / PMDA review documents and precedents — LLM reader extraction",
+        "source": "-s fda (map/reduce)",
+        "error": null,
+        "chars": 618
+      },
+      {
+        "key": "immunogenicity_deep",
+        "label": "Immunogenicity — LLM reader extraction",
+        "source": "-s pmc,biorxiv (map/reduce)",
+        "error": null,
+        "chars": 567
+      }
+    ]
+  },
+  "meta": {
+    "rubricVersion": "1.0.0",
+    "model": "claude-opus-5",
+    "effort": "low",
+    "usage": {
+      "input_tokens": 27085,
+      "cache_creation_input_tokens": 5959,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 5959,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 8614,
+      "service_tier": "standard",
+      "inference_geo": "global"
+    },
+    "evaluatedAt": "2026-08-15T23:20:52.682Z"
+  }
+}

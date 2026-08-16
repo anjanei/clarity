@@ -3,12 +3,12 @@ node_modules/
 .env.local
 
 # Generated Tailwind bundle
-public/dist/
+# public/dist/
 
 # Generated catalog + cached evaluations
-data/trials.json
-data/evaluations/
-data/probe/
+# data/trials.json
+# data/evaluations/
+# data/probe/
 
 *.log
 .DS_Store
