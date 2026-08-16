@@ -28,6 +28,23 @@ cp .env.example .env      # then fill in both keys
 npm run build:css
 ```
 
+### Local test environment
+
+The test suite has no paid-service dependency and does not require API keys. It creates an
+isolated temporary catalog through `DATA_DIR`, then checks the frontend entry point and core API
+responses on an ephemeral local port.
+
+```bash
+npm ci
+npm run build:css
+npm test
+```
+
+For day-to-day development, leave API keys blank to test the catalog browsing UI and API routes;
+only catalog generation and FDA-review runs require both keys. To run those flows, copy
+`.env.example` to `.env`, replace the placeholder values, optionally run `npm run catalog`, then
+start the app with `npm run dev` and visit <http://localhost:3000>.
+
 ### 1. Confirm Paperclip connectivity
 
 Paperclip's programmatic surface is an MCP server (`https://paperclip.gxl.ai/mcp`, `X-API-Key`

@@ -3,14 +3,17 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
+const dataDirectory = process.env.DATA_DIR
+  ? path.resolve(process.env.DATA_DIR)
+  : path.resolve(here, '..', 'data');
 
 export const paths = {
   root: path.resolve(here, '..'),
   public: path.resolve(here, '..', 'public'),
-  data: path.resolve(here, '..', 'data'),
-  catalog: path.resolve(here, '..', 'data', 'trials.json'),
-  evaluations: path.resolve(here, '..', 'data', 'evaluations'),
-  probe: path.resolve(here, '..', 'data', 'probe'),
+  data: dataDirectory,
+  catalog: path.join(dataDirectory, 'trials.json'),
+  evaluations: path.join(dataDirectory, 'evaluations'),
+  probe: path.join(dataDirectory, 'probe'),
 };
 
 export const config = {

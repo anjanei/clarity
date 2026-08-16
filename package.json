@@ -13,6 +13,8 @@
     "dev:css": "tailwindcss -i ./public/app.css -o ./public/dist/app.css --watch",
     "dev:server": "node --watch src/server.js",
     "build:css": "tailwindcss -i ./public/app.css -o ./public/dist/app.css --minify",
+    "test": "npm run build:css && node --test",
+    "test:watch": "node --test --watch",
     "catalog": "node src/catalog/build.js",
     "catalog:add": "node src/catalog/add.js",
     "probe": "node src/scripts/probe.js"
