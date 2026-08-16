@@ -217,7 +217,7 @@ Concurrent requests for the same trial share one run, so a double-click does not
 | `PAPERCLIP_API_KEY` | — | Required |
 | `PAPERCLIP_MCP_URL` | `https://paperclip.gxl.ai/mcp` | |
 | `ANTHROPIC_API_KEY` | — | Required |
-| `ANTHROPIC_MODEL` | `claude-haiku-4-5-20251001` | Fast local-test default; set `claude-opus-5` for production reviews |
+| `ANTHROPIC_MODEL` | `claude-opus-5` | Production default; set `claude-haiku-4-5-20251001` for faster local tests |
 | `EVAL_EFFORT` | `high` | Review pass: `low`–`max` |
 | `EXTRACT_EFFORT` | `low` | Catalog extraction is mechanical |
 | `PAPERCLIP_CONCURRENCY` | `4` | Max simultaneous independent Paperclip commands |

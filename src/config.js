@@ -28,8 +28,8 @@ export const config = {
 
   anthropic: {
     apiKey: process.env.ANTHROPIC_API_KEY || '',
-    // Haiku keeps interactive evidence-workflow tests fast and inexpensive.
-    model: process.env.ANTHROPIC_MODEL || 'claude-haiku-4-5-20251001',
+    // Opus is the default for the judgment-heavy regulatory review.
+    model: process.env.ANTHROPIC_MODEL || 'claude-opus-5',
     evalEffort: process.env.EVAL_EFFORT || 'high',
     extractEffort: process.env.EXTRACT_EFFORT || 'low',
   },
