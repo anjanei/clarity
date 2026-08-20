@@ -1,0 +1,231 @@
+{
+  "project": "CLARITY",
+  "collection": "Final Skillset (FDA Review + Commercial)",
+  "version": "4.0.0",
+  "description": "Unified CLARITY skillset: 9 FDA-review domain skills + orchestrator + commercial-viability skill. Loaded orchestrator+one at a time. Cumulative phase flow Pre-clinical\u2192P1\u2192P2\u2192P3\u2192P4. Two-signal confidence + evalbench dataset CI. Commercial skill runs after regulatory soundness and renders a labeled 4-table one-pager where landscape drives the financials.",
+  "required_inputs": [
+    "asset",
+    "phase",
+    "domain"
+  ],
+  "phase_model": "cumulative_flow",
+  "phase_values": [
+    "Pre-clinical",
+    "Phase 1",
+    "Phase 2",
+    "Phase 3",
+    "Phase 4"
+  ],
+  "data_routing": {
+    "Pre-clinical": [
+      "PubMed",
+      "arXiv"
+    ],
+    "Clinical (Phase 1-4)": [
+      "clinicaltrials.gov",
+      "international trial registries",
+      "FDA",
+      "PubMed",
+      "arXiv"
+    ],
+    "Commercial": [
+      "Paperclip",
+      "Google Patents/USPTO/EPO",
+      "Orange/Purple Book",
+      "SEC EDGAR",
+      "CGT consulting reports (EvaluatePharma, GlobalData, Grand View, ASGCT)",
+      "XBI + gene-therapy peers"
+    ]
+  },
+  "mcp": "Paperclip",
+  "output_contract": [
+    "Finding",
+    "Source(s) [clickable, mandatory]",
+    "Evidence Directness (10-100%)",
+    "Inference Strength (10-100%)",
+    "Rationale"
+  ],
+  "references": "inline numbered block at bottom of same output table",
+  "confidence_model": {
+    "type": "two_signal",
+    "rule": "Never merge the two signals; modeled values = high Inference/low Directness."
+  },
+  "evalbench": {
+    "tool": "evalbench",
+    "per_element": "c = Directness x Inference",
+    "aggregate": "95% CI = c\u0304 \u00b1 1.96\u00b7s/\u221an (clamp 0-100%)",
+    "excludes": "Not found / Do not generate",
+    "commercial_extra": "rNPV sensitivity at \u00b11 SD on penetration, price, PoS, discount; cross-check vs deal-comp band"
+  },
+  "commercial_skill": {
+    "id": "10_commercial_viability",
+    "runs_after": "FDA review skills confirm soundness",
+    "sections": [
+      "Commercial Viability",
+      "Market Size",
+      "Comparative Landscape (IP/Exclusivity, Deal/Licensing)",
+      "Pricing & Access",
+      "Where is the $ (5-yr penetration + rNPV)"
+    ],
+    "mandated_output": "one landscape page; 4 labeled tables + references; landscape (Table 2) drives penetration/price/PoS in Table 3"
+  },
+  "global_guardrails": [
+    "No hallucination",
+    "Cumulative phase flow (P4 as applicable)",
+    "Two signals never collapsed",
+    "Paperclip MCP (+commercial sources for skill 10)",
+    "Public-only",
+    "Clickable sources mandatory",
+    "One asset at a time",
+    "No cross-domain bleed",
+    "Commercial runs after regulatory soundness",
+    "Run evalbench CI last"
+  ],
+  "skills": [
+    {
+      "id": "00_orchestrator",
+      "name": "fda-review-orchestrator",
+      "title": "Orchestrator (router + shared rules)",
+      "role": "router",
+      "path": "00_orchestrator/SKILL.md",
+      "active_phases": [
+        "Pre-clinical",
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Phase 4"
+      ]
+    },
+    {
+      "id": "01_disease_context_mechanism",
+      "name": "fda-review-disease-context-mechanism",
+      "title": "Disease Context & Mechanism",
+      "role": "domain",
+      "path": "01_disease_context_mechanism/SKILL.md",
+      "active_phases": [
+        "Pre-clinical",
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Phase 4"
+      ]
+    },
+    {
+      "id": "02_trial_design",
+      "name": "fda-review-trial-design",
+      "title": "Trial Design",
+      "role": "domain",
+      "path": "02_trial_design/SKILL.md",
+      "active_phases": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Phase 4"
+      ]
+    },
+    {
+      "id": "03_acute_safety_tolerability",
+      "name": "fda-review-acute-safety-tolerability",
+      "title": "Acute Safety & Tolerability",
+      "role": "domain",
+      "path": "03_acute_safety_tolerability/SKILL.md",
+      "active_phases": [
+        "Pre-clinical",
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Phase 4"
+      ]
+    },
+    {
+      "id": "04_long_term_genetic_risk",
+      "name": "fda-review-long-term-genetic-risk",
+      "title": "Long-Term Genetic Risk",
+      "role": "domain",
+      "path": "04_long_term_genetic_risk/SKILL.md",
+      "active_phases": [
+        "Phase 2",
+        "Phase 3",
+        "Phase 4"
+      ]
+    },
+    {
+      "id": "05_biodistribution_pharmacology",
+      "name": "fda-review-biodistribution-pharmacology",
+      "title": "Biodistribution & Pharmacology",
+      "role": "domain",
+      "path": "05_biodistribution_pharmacology/SKILL.md",
+      "active_phases": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Phase 4"
+      ]
+    },
+    {
+      "id": "06_immunogenicity_special_populations",
+      "name": "fda-review-immunogenicity-special-populations",
+      "title": "Immunogenicity & Special Populations",
+      "role": "domain",
+      "path": "06_immunogenicity_special_populations/SKILL.md",
+      "active_phases": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Phase 4"
+      ]
+    },
+    {
+      "id": "07_product_quality_cmc",
+      "name": "fda-review-product-quality-cmc",
+      "title": "Product Quality & CMC",
+      "role": "domain",
+      "path": "07_product_quality_cmc/SKILL.md",
+      "active_phases": [
+        "Pre-clinical",
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Phase 4"
+      ]
+    },
+    {
+      "id": "08_trial_integrity_governance",
+      "name": "fda-review-trial-integrity-governance",
+      "title": "Trial Integrity, Governance & Operational Infrastructure",
+      "role": "domain",
+      "path": "08_trial_integrity_governance/SKILL.md",
+      "active_phases": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Phase 4"
+      ]
+    },
+    {
+      "id": "09_benefit_risk_postmarketing",
+      "name": "fda-review-benefit-risk-postmarketing",
+      "title": "Benefit\u2013Risk & Postmarketing Controls",
+      "role": "domain",
+      "path": "09_benefit_risk_postmarketing/SKILL.md",
+      "active_phases": [
+        "Phase 3",
+        "Phase 4"
+      ]
+    },
+    {
+      "id": "10_commercial_viability",
+      "name": "clarity-commercial-viability",
+      "title": "Commercial Viability",
+      "role": "commercial",
+      "path": "10_commercial_viability/SKILL.md",
+      "active_phases": [
+        "Pre-clinical",
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Phase 4"
+      ]
+    }
+  ]
+}

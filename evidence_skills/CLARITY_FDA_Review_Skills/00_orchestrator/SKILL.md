@@ -1,29 +1,23 @@
 ---
 name: fda-review-orchestrator
 description: >
-  Router and shared-rules skill for the CLARITY FDA review. Use FIRST for any
-  FDA review task. It (a) selects which domain skill(s) to load for the asset,
-  (b) enforces the global CLARITY rules once, and (c) requires a phase argument
-  before any domain skill runs. Do not generate domain content here — delegate
-  to the specific domain skill.
+  Router + shared rules for CLARITY. Load FIRST. Selects one skill at a time,
+  enforces global rules, requires a phase, drives the cumulative phase flow and
+  the final evalbench step. Routes to the 9 FDA-review domains and, once an asset
+  is regulatorily sound, to the commercial-viability skill (10).
 ---
-
-# CLARITY FDA Review — Orchestrator
-
-## Purpose
-Load this skill first. It holds the shared rules ONCE and routes work to exactly
-one domain skill at a time, keeping the context window small and suppressing
-hallucination. Never load all domains at once.
+# CLARITY — Orchestrator
+**Load first.** Routes to ONE skill at a time (small context, less hallucination). Never load all at once.
 
 ## Required inputs (block if missing)
-1. **Asset** — the single molecule/program under review (one at a time).
-2. **Phase** — one of: `Pre-clinical`, `Phase 1`, `Phase 2`, `Phase 3`.
-   A phase argument is **required**. If absent, stop and request it.
-3. **Domain(s)** — one or more of the nine domains below.
+Asset (one) · Phase (Pre-clinical/1/2/3/4) · Domain(s).
 
-## Domain routing table
-| # | Domain | Skill to load |
-|---|--------|---------------|
+## Phase flow (generate in order)
+Generate data as a **cumulative flow**: Pre-clinical → Phase 1 → Phase 2 → Phase 3 → Phase 4 (as applicable). Each phase **carries forward** prior-phase findings and adds only what is new ("carried from <phase>"). Do not restate unchanged content. Phase 4 = post-marketing; include only if such data exists, else mark `Not applicable`.
+
+## Routing
+| # | Skill | Load |
+|---|-------|------|
 | 1 | Disease Context & Mechanism | fda-review-disease-context-mechanism |
 | 2 | Trial Design | fda-review-trial-design |
 | 3 | Acute Safety & Tolerability | fda-review-acute-safety-tolerability |
@@ -33,38 +27,39 @@ hallucination. Never load all domains at once.
 | 7 | Product Quality & CMC | fda-review-product-quality-cmc |
 | 8 | Trial Integrity, Governance & Operational Infrastructure | fda-review-trial-integrity-governance |
 | 9 | Benefit–Risk & Postmarketing Controls | fda-review-benefit-risk-postmarketing |
+| 10 | **Commercial Viability** (run after 1–9 confirm soundness) | clarity-commercial-viability |
 
-## Execution loop
-For each requested domain: load orchestrator + that ONE domain skill → run for
-the specified phase → collect output → unload the domain skill before the next.
+## Loop
+orchestrator + one domain → run phase flow → collect → unload → next. After the 9 FDA domains, if the asset is sound, run **skill 10 (commercial)**. After all, run the **dataset-level evalbench** aggregation.
 
-## Data source routing (Paperclip MCP)
-Use the **Paperclip MCP** to pull information from the relevant database for each data element. Route by phase:
-- **Pre-clinical data** → Publications only: **PubMed, arXiv**.
-- **Clinical data (Phase 1, 2, 3)** → **Trial information** (clinicaltrials.gov, international trial registries, FDA) **+ Publications** (PubMed, arXiv).
-
-Never pull from any source not listed above. Never fabricate a source.
+## Sources (Paperclip MCP)
+- Pre-clinical → PubMed, arXiv.
+- Clinical (Ph 1–4) → clinicaltrials.gov, intl registries, FDA + PubMed, arXiv.
+No other sources. Never fabricate. Every element needs ≥1 clickable link.
 
 ## Output contract (per element)
-For every element you produce, return:
-1. **Finding** — concise extracted content.
-2. **Source(s)** — public citation(s) backing the finding (title + link/ID). **Sources are mandatory.**
-3. **Confidence score (10–100%)** — calibrated to source strength/agreement.
-4. **Rationale** — one line explaining the score (inspectable).
+`Finding` · `Source(s)` (clickable link, mandatory) · `Evidence Directness 10–100%` · `Inference Strength 10–100%` · `Rationale`.
+- Evidence Directness = did the source actually hold this element's data? (High=states value; Low=rests on inference).
+- Inference Strength = safety of any logical leap (100%=no inference; source is the data).
+- Never merge the two signals. Missing data → `Not found in public sources`. Gated section → literal `Do not generate`.
 
-If an element or an entire phase section is marked **"Do not generate"**, emit the literal placeholder `Do not generate` for that section — do not fabricate content to fill it.
+## References (same table, at bottom)
+Emit all sources as a numbered **References block at the bottom of the same output table**. Each row: `[n] Title — clickable URL`. Cite by `[n]` inline in Source(s).
 
-## Guardrails (non-negotiable)
-- **Do not hallucinate or generate data where none exists.** If a fact is not in the retrieved public sources, respond `Not found in public sources`.
-- **Generate only phase-appropriate data** as identified in the phase rows below. A phase argument is **required** — if none is provided, stop and request it.
-- **Use the Paperclip MCP** to pull information from the relevant database for each data element (routing above).
-- **Public-only** data (clinical, regulatory, patent, publication). No proprietary/internal data.
-- **Sources must be listed** for every claim. No source → mark `Not found in public sources`.
-- **No cross-domain bleed** — handle only this domain's elements; other domains belong to other skills.
-- Operate on **one asset at a time**.
+## Evalbench analysis (run last)
+After all elements, call the **evalbench** tool to compute one **overall confidence interval**:
+1. Per element `c = Directness × Inference` (0–1).
+2. Report mean `c̄`, sd `s`, n, 95% CI = `c̄ ± 1.96·s/√n` (clamp 0–100%).
+3. Exclude `Not found`/`Do not generate` (note n excluded).
+4. Output dataset-level **Overall Confidence (95% CI)** + reliability verdict vs the held-out benchmark.
 
-## Phase-gating quick reference (which domains produce output by phase)
-- **Pre-clinical:** Disease Context, Acute Safety, Product Quality & CMC. (All others → `Do not generate`.)
-- **Phase 1:** adds Trial Design, Biodistribution, Immunogenicity, Trial Integrity.
-- **Phase 2 (2a/2b):** adds Long-Term Genetic Risk.
-- **Phase 3 (3a/3b):** adds Benefit–Risk & Postmarketing Controls (full set active).
+## Guardrails
+No hallucination · phase-flow order (P4 as applicable) · two signals never collapsed · Paperclip MCP only · public-only · clickable sources mandatory · one asset at a time · no cross-domain bleed.
+
+## Phase activation (cumulative)
+- Pre-clinical: Disease, Acute Safety, CMC.
+- +P1: Trial Design, Biodistribution, Immunogenicity, Trial Integrity.
+- +P2: Long-Term Genetic Risk.
+- +P3: Benefit–Risk & Postmarketing.
+- +P4: post-marketing rows where applicable.
+- Commercial (10): after regulatory soundness is established.

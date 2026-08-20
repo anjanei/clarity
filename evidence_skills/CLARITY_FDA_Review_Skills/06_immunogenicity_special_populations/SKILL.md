@@ -1,38 +1,24 @@
 ---
 name: fda-review-immunogenicity-special-populations
 description: >
-  Use this skill to extract and generate the "Immunogenicity & Special Populations" FDA review domain for a
-  single asset. Answers the regulatory question: Can host immune responses limit efficacy or cause severe toxicity? Trigger when
-  reviewing an asset's immunogenicity & special populations for a specified development phase
-  (Pre-clinical, Phase 1, Phase 2, Phase 3). A phase argument is REQUIRED.
-  Do NOT use for other review domains.
+  Extract the "Immunogenicity & Special Populations" FDA review domain for one asset across the cumulative
+  phase flow (Pre-clinical→P1→P2→P3→P4 as applicable). Q: Can host immune responses limit efficacy or cause severe toxicity? Phase argument
+  required. Not for other domains.
 ---
-
 # FDA Review Domain — Immunogenicity & Special Populations
+**Core question:** Can host immune responses limit efficacy or cause severe toxicity?
+**Scope:** One domain, one asset. Public-only via Paperclip MCP. Absent fact → `Not found in public sources`; never infer silently.
+**Nested prompt:** Immunogenicity & special-population elements per phase.
 
-## Core Regulatory Question
-Can host immune responses limit efficacy or cause severe toxicity?
+## Phase flow (generate in order)
+Generate data as a **cumulative flow**: Pre-clinical → Phase 1 → Phase 2 → Phase 3 → Phase 4 (as applicable). Each phase **carries forward** prior-phase findings and adds only what is new ("carried from <phase>"). Do not restate unchanged content. Phase 4 = post-marketing; include only if such data exists, else mark `Not applicable`.
 
-## Scope (READ FIRST)
-You handle ONLY this domain, for ONE asset, for ONE specified phase. Use
-public-only data ingested via the Paperclip MCP. If a fact is not present in
-the retrieved public sources, respond `Not found in public sources` — never
-infer, extrapolate, or invent.
+## Sources (Paperclip MCP)
+- Pre-clinical → PubMed, arXiv.
+- Clinical (Ph 1–4) → clinicaltrials.gov, intl registries, FDA + PubMed, arXiv.
+No other sources. Never fabricate. Every element needs ≥1 clickable link.
 
-## What to look for in each asset (nested prompt)
-List sources for corresponding outputs. Extract immunogenicity and special-population elements as scoped by phase.
-
-## Data source routing (Paperclip MCP)
-Use the **Paperclip MCP** to pull information from the relevant database for each data element. Route by phase:
-- **Pre-clinical data** → Publications only: **PubMed, arXiv**.
-- **Clinical data (Phase 1, 2, 3)** → **Trial information** (clinicaltrials.gov, international trial registries, FDA) **+ Publications** (PubMed, arXiv).
-
-Never pull from any source not listed above. Never fabricate a source.
-
-## Phase-gated outputs
-Generate ONLY the elements listed for the **requested phase**. A phase argument
-is required. Sections marked "Do not generate" must emit the literal placeholder.
-
+## Phase-gated elements
 ### Pre-clinical
 Do not generate
 
@@ -40,30 +26,34 @@ Do not generate
 - Baseline demographics & comorbidities
 - Neutralizing antibodies & T-cell responses
 
-### Phase 2 (2a / 2b)
+### Phase 2 (2a/2b)
 - Baseline demographics & comorbidities
-- Special populations (e.g., pediatric, renal/hepatic impairment)
-- Neutralizing antibodies & T-cell responses
+- Special populations (pediatric, renal/hepatic)
+- NAb & T-cell responses
 
-### Phase 3 (3a / 3b)
+### Phase 3 (3a/3b)
 - Baseline demographics & comorbidities
-- Special populations (e.g., pediatric, renal/hepatic impairment)
-- Neutralizing antibodies & T-cell responses
+- Special populations (pediatric, renal/hepatic)
+- NAb & T-cell responses
+
+### Phase 4 (post-marketing)
+- Real-world special-population outcomes
 
 ## Output contract (per element)
-For every element you produce, return:
-1. **Finding** — concise extracted content.
-2. **Source(s)** — public citation(s) backing the finding (title + link/ID). **Sources are mandatory.**
-3. **Confidence score (10–100%)** — calibrated to source strength/agreement.
-4. **Rationale** — one line explaining the score (inspectable).
+`Finding` · `Source(s)` (clickable link, mandatory) · `Evidence Directness 10–100%` · `Inference Strength 10–100%` · `Rationale`.
+- Evidence Directness = did the source actually hold this element's data? (High=states value; Low=rests on inference).
+- Inference Strength = safety of any logical leap (100%=no inference; source is the data).
+- Never merge the two signals. Missing data → `Not found in public sources`. Gated section → literal `Do not generate`.
 
-If an element or an entire phase section is marked **"Do not generate"**, emit the literal placeholder `Do not generate` for that section — do not fabricate content to fill it.
+## References (same table, at bottom)
+Emit all sources as a numbered **References block at the bottom of the same output table**. Each row: `[n] Title — clickable URL`. Cite by `[n]` inline in Source(s).
 
-## Guardrails (non-negotiable)
-- **Do not hallucinate or generate data where none exists.** If a fact is not in the retrieved public sources, respond `Not found in public sources`.
-- **Generate only phase-appropriate data** as identified in the phase rows below. A phase argument is **required** — if none is provided, stop and request it.
-- **Use the Paperclip MCP** to pull information from the relevant database for each data element (routing above).
-- **Public-only** data (clinical, regulatory, patent, publication). No proprietary/internal data.
-- **Sources must be listed** for every claim. No source → mark `Not found in public sources`.
-- **No cross-domain bleed** — handle only this domain's elements; other domains belong to other skills.
-- Operate on **one asset at a time**.
+## Evalbench analysis (run last)
+After all elements, call the **evalbench** tool to compute one **overall confidence interval**:
+1. Per element `c = Directness × Inference` (0–1).
+2. Report mean `c̄`, sd `s`, n, 95% CI = `c̄ ± 1.96·s/√n` (clamp 0–100%).
+3. Exclude `Not found`/`Do not generate` (note n excluded).
+4. Output dataset-level **Overall Confidence (95% CI)** + reliability verdict vs the held-out benchmark.
+
+## Guardrails
+No hallucination · phase-flow order (P4 as applicable) · two signals never collapsed · Paperclip MCP only · public-only · clickable sources mandatory · one asset at a time · no cross-domain bleed.
