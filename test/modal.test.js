@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
+process.env.MODAL_CONFIG_PATH = '/dev/null';
 process.env.MODAL_ENDPOINT_URL = '';
 process.env.MODAL_GROUND_URL = '';
 process.env.MODAL_FOLD_URL = '';
@@ -267,3 +268,28 @@ test('a non-JSON reply fails loudly instead of producing an empty citation', asy
     /not JSON/,
   );
 });
+
+test('reads credentials from .modal.toml when environment variables are not set', async () => {
+  const fs = await import('node:fs');
+  const os = await import('node:os');
+  const path = await import('node:path');
+  const tempConfig = path.join(os.tmpdir(), `test-modal-${Date.now()}.toml`);
+  fs.writeFileSync(
+    tempConfig,
+    '[default]\ntoken_id = "wk-toml-id"\ntoken_secret = "ws-toml-secret"\nactive = true\n',
+  );
+  process.env.MODAL_CONFIG_PATH = tempConfig;
+  process.env.MODAL_TOKEN_ID = '';
+  process.env.MODAL_TOKEN_SECRET = '';
+
+  // Dynamically re-import config to test fresh loading
+  const { config: freshConfig } = await import(`../src/config.js?t=${Date.now()}`);
+  try {
+    assert.equal(freshConfig.modal.tokenId, 'wk-toml-id');
+    assert.equal(freshConfig.modal.tokenSecret, 'ws-toml-secret');
+  } finally {
+    fs.unlinkSync(tempConfig);
+    process.env.MODAL_CONFIG_PATH = '/dev/null';
+  }
+});
+

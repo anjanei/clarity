@@ -1,4 +1,6 @@
 import 'dotenv/config';
+import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -19,6 +21,55 @@ const modelProvider = String(process.env.MODEL_PROVIDER || 'anthropic').toLowerC
   ? 'openai'
   : 'anthropic';
 const defaultModel = modelProvider === 'openai' ? 'gpt-5' : 'claude-opus-5';
+
+/**
+ * Load credentials from ~/.modal.toml when MODAL_TOKEN_ID / MODAL_TOKEN_SECRET
+ * are not provided in environment variables, honoring MODAL_CONFIG_PATH and
+ * MODAL_PROFILE.
+ */
+function loadModalTomlTokens() {
+  const configPath = process.env.MODAL_CONFIG_PATH || path.join(os.homedir(), '.modal.toml');
+  try {
+    if (!fs.existsSync(configPath)) return {};
+    const content = fs.readFileSync(configPath, 'utf8');
+    const profiles = {};
+    let currentProfile = 'default';
+    for (const rawLine of content.split('\n')) {
+      const line = rawLine.trim();
+      const sectionMatch = line.match(/^\[(.*)\]$/);
+      if (sectionMatch) {
+        currentProfile = sectionMatch[1].trim();
+        profiles[currentProfile] = profiles[currentProfile] || {};
+        continue;
+      }
+      const kvMatch = line.match(/^([a-zA-Z0-9_-]+)\s*=\s*["']?([^"']+)["']?$/);
+      if (kvMatch && currentProfile) {
+        profiles[currentProfile] = profiles[currentProfile] || {};
+        profiles[currentProfile][kvMatch[1].trim()] = kvMatch[2].trim();
+      }
+    }
+    const requested = process.env.MODAL_PROFILE;
+    if (requested && profiles[requested]) {
+      return { tokenId: profiles[requested].token_id || '', tokenSecret: profiles[requested].token_secret || '' };
+    }
+    const activeEntry = Object.values(profiles).find((p) => p.active === 'true' || p.active === true);
+    if (activeEntry?.token_id && activeEntry?.token_secret) {
+      return { tokenId: activeEntry.token_id, tokenSecret: activeEntry.token_secret };
+    }
+    if (profiles.default?.token_id && profiles.default?.token_secret) {
+      return { tokenId: profiles.default.token_id, tokenSecret: profiles.default.token_secret };
+    }
+    const firstWithTokens = Object.values(profiles).find((p) => p.token_id && p.token_secret);
+    if (firstWithTokens) {
+      return { tokenId: firstWithTokens.token_id, tokenSecret: firstWithTokens.token_secret };
+    }
+    return {};
+  } catch {
+    return {};
+  }
+}
+
+const modalToml = loadModalTomlTokens();
 
 /**
  * One Modal task's wiring. `MODAL_<TASK>_URL` wins over the shared
@@ -123,8 +174,8 @@ export const config = {
   // MODAL_ENDPOINT_URL when a deployment really does serve both.
   modal: {
     apiToken: process.env.MODAL_API_TOKEN || '',
-    tokenId: process.env.MODAL_TOKEN_ID || '',
-    tokenSecret: process.env.MODAL_TOKEN_SECRET || '',
+    tokenId: process.env.MODAL_TOKEN_ID || modalToml.tokenId || '',
+    tokenSecret: process.env.MODAL_TOKEN_SECRET || modalToml.tokenSecret || '',
     timeoutMs: Math.max(1000, Number(process.env.MODAL_TIMEOUT_MS) || 120_000),
     tasks: {
       ground: modalTask('GROUND', 'openai'),
