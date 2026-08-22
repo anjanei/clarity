@@ -3,7 +3,7 @@ import { paths } from '../config.js';
 
 export const EVIDENCE_DOSSIER_VERSION = '1.0.0';
 
-const skillRoot = path.join(paths.root, 'evidence_skills', 'CLARITY_FDA_Review_Skills');
+const skillRoot = path.join(paths.root, 'program_skills');
 
 export const ORCHESTRATOR_SKILL_FILE = path.join(skillRoot, '00_orchestrator', 'SKILL.md');
 
