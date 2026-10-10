@@ -4,7 +4,7 @@
   "functions": {
     "api/index.js": {
       "maxDuration": 300,
-      "includeFiles": "{public,data,program}/**"
+      "includeFiles": "{public,data,program_skills}/**"
     }
   },
   "headers": [
